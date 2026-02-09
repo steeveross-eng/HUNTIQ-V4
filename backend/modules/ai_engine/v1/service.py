@@ -396,3 +396,235 @@ Fournis une analyse JSON avec:
             alternatives=data.get("alternatives", []),
             scientific_basis=data.get("scientific_basis", "")
         )
+
+
+    # ==========================================
+    # NEW GPT-5.2 METHODS (P1)
+    # ==========================================
+    
+    async def query_assistant(
+        self,
+        question: str,
+        context: Optional[str] = None,
+        species: Optional[str] = None,
+        session_id: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Q&A with the AI hunting assistant using GPT-5.2.
+        
+        Provides expert answers on hunting techniques, products, and wildlife.
+        """
+        # Build context-aware prompt
+        context_info = ""
+        if context:
+            context_info += f"\nContexte fourni: {context}"
+        if species:
+            context_info += f"\nEspèce ciblée: {species}"
+        
+        query_prompt = f"""Tu es un expert en chasse au Québec et en Amérique du Nord.
+Réponds de manière précise et utile à cette question de chasseur.
+{context_info}
+
+Question: {question}
+
+Fournis une réponse JSON avec:
+{{
+    "answer": "ta réponse détaillée et experte",
+    "sources": ["source 1 si applicable", "source 2"],
+    "related_products": ["produit recommandé 1", "produit recommandé 2"],
+    "tips": ["conseil pratique 1", "conseil pratique 2"]
+}}
+
+Sois concis mais complet. Privilégie les informations pratiques et actionnables."""
+
+        try:
+            if self.chat:
+                response = await self.chat.send_message(UserMessage(text=query_prompt))
+                
+                # Parse JSON
+                json_str = response
+                if "```json" in json_str:
+                    json_str = json_str.split("```json")[1].split("```")[0]
+                elif "```" in json_str:
+                    json_str = json_str.split("```")[1].split("```")[0]
+                
+                data = json.loads(json_str)
+                data["session_id"] = session_id or f"session_{uuid.uuid4().hex[:8]}"
+                return data
+            else:
+                raise ValueError("No API key configured")
+                
+        except json.JSONDecodeError:
+            # If JSON parsing fails, return the raw response
+            return {
+                "answer": response if 'response' in dir() else "Désolé, je n'ai pas pu traiter cette question.",
+                "sources": [],
+                "related_products": [],
+                "session_id": session_id or f"session_{uuid.uuid4().hex[:8]}"
+            }
+        except Exception as e:
+            # Fallback response
+            return {
+                "answer": f"Je suis un assistant IA spécialisé en chasse. Pour votre question sur '{question}', je vous recommande de consulter les ressources de chasse locales ou de reformuler votre question. Erreur technique: {str(e)}",
+                "sources": ["MFFP Québec", "FédéCP"],
+                "related_products": [],
+                "session_id": session_id or f"session_{uuid.uuid4().hex[:8]}"
+            }
+    
+    async def compare_products_ai(
+        self,
+        products: List[str],
+        criteria: Optional[List[str]] = None,
+        species: Optional[str] = "deer"
+    ) -> Dict[str, Any]:
+        """
+        Compare multiple products using AI analysis.
+        
+        Returns detailed comparison with winner and recommendations.
+        """
+        default_criteria = [
+            "Efficacité d'attraction",
+            "Durée d'action",
+            "Résistance aux intempéries",
+            "Rapport qualité/prix",
+            "Facilité d'utilisation"
+        ]
+        
+        criteria_list = criteria or default_criteria
+        products_str = ", ".join(products)
+        criteria_str = ", ".join(criteria_list)
+        
+        compare_prompt = f"""Compare ces produits attractants de chasse pour le {species}:
+Produits: {products_str}
+
+Critères d'évaluation: {criteria_str}
+
+Fournis une analyse JSON avec:
+{{
+    "comparison": [
+        {{
+            "product": "nom du produit",
+            "scores": {{"critère1": 8, "critère2": 7}},
+            "strengths": ["force 1", "force 2"],
+            "weaknesses": ["faiblesse 1"]
+        }}
+    ],
+    "winner": "nom du meilleur produit",
+    "winner_score": score total sur 10,
+    "recommendation": "recommandation détaillée",
+    "best_value": "meilleur rapport qualité/prix",
+    "detailed_analysis": "analyse comparative détaillée"
+}}
+
+Sois objectif et scientifique dans ton évaluation."""
+
+        try:
+            if self.chat:
+                response = await self.chat.send_message(UserMessage(text=compare_prompt))
+                
+                json_str = response
+                if "```json" in json_str:
+                    json_str = json_str.split("```json")[1].split("```")[0]
+                elif "```" in json_str:
+                    json_str = json_str.split("```")[1].split("```")[0]
+                
+                return json.loads(json_str)
+            else:
+                raise ValueError("No API key configured")
+                
+        except Exception as e:
+            # Fallback comparison
+            fallback_comparison = []
+            for i, product in enumerate(products):
+                fallback_comparison.append({
+                    "product": product,
+                    "scores": {c: 7 - i for c in criteria_list[:3]},
+                    "strengths": ["Produit reconnu sur le marché"],
+                    "weaknesses": ["Données insuffisantes pour analyse complète"]
+                })
+            
+            return {
+                "comparison": fallback_comparison,
+                "winner": products[0],
+                "recommendation": f"Basé sur les données disponibles, {products[0]} semble être un bon choix. Consultez les avis détaillés pour plus d'informations. Note: {str(e)}",
+                "best_value": products[0],
+                "detailed_analysis": fallback_comparison
+            }
+    
+    async def get_suggestions(
+        self,
+        species: str = "deer",
+        season: str = "fall",
+        budget: Optional[float] = None
+    ) -> Dict[str, Any]:
+        """
+        Get AI-powered product suggestions based on hunting context.
+        """
+        budget_info = f"Budget maximum: ${budget}" if budget else "Pas de limite de budget"
+        
+        suggestion_prompt = f"""Recommande les meilleurs attractants de chasse pour:
+- Espèce: {species}
+- Saison: {season}
+- {budget_info}
+
+Fournis des suggestions JSON:
+{{
+    "suggestions": [
+        {{
+            "name": "nom du produit",
+            "type": "type d'attractant",
+            "estimated_price": prix estimé,
+            "score": score sur 10,
+            "reason": "pourquoi ce produit"
+        }}
+    ],
+    "top_pick": {{
+        "name": "meilleur choix",
+        "reason": "pourquoi c'est le meilleur"
+    }},
+    "reasoning": "explication de la stratégie recommandée"
+}}
+
+Inclus des produits BIONIC si pertinents."""
+
+        try:
+            if self.chat:
+                response = await self.chat.send_message(UserMessage(text=suggestion_prompt))
+                
+                json_str = response
+                if "```json" in json_str:
+                    json_str = json_str.split("```json")[1].split("```")[0]
+                elif "```" in json_str:
+                    json_str = json_str.split("```")[1].split("```")[0]
+                
+                return json.loads(json_str)
+            else:
+                raise ValueError("No API key configured")
+                
+        except Exception as e:
+            # Fallback suggestions based on context
+            bionic_product = get_bionic_product("urine")
+            
+            return {
+                "suggestions": [
+                    {
+                        "name": bionic_product["name"],
+                        "type": "urine",
+                        "estimated_price": bionic_product["price"],
+                        "score": bionic_product["score"],
+                        "reason": "Produit BIONIC certifié, haute efficacité"
+                    },
+                    {
+                        "name": "Attractant minéral",
+                        "type": "mineral",
+                        "estimated_price": 20.00,
+                        "score": 7.5,
+                        "reason": f"Efficace pour {species} en {season}"
+                    }
+                ],
+                "top_pick": {
+                    "name": bionic_product["name"],
+                    "reason": "Meilleur rapport efficacité/prix avec certification"
+                },
+                "reasoning": f"Pour la chasse au {species} en {season}, les attractants olfactifs sont recommandés. Note: {str(e)}"
+            }
