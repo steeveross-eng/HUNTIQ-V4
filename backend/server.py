@@ -8,8 +8,7 @@ All business logic has been extracted to /modules/*
 Architecture:
 - 38 modules total
 - Central router registration via modules/routers.py
-- Legacy monolith endpoints preserved for backward compatibility
-- All new development goes to modules
+- Legacy monolith endpoints preserved via server_monolith_backup.py
 
 Version: 2.0.0 (Post-Decoupling)
 """
@@ -33,13 +32,6 @@ from modules.routers import (
     MODULE_STATUS
 )
 
-# Legacy monolith imports for backward compatibility
-from server_monolith_backup import (
-    api_router as legacy_router,
-    startup_territory_module,
-    shutdown_territory_module
-)
-
 # ==============================================
 # APPLICATION LIFECYCLE
 # ==============================================
@@ -52,11 +44,15 @@ async def lifespan(app: FastAPI):
     logger.info(f"Architecture: Modular v2.0 (Pure Orchestrator)")
     logger.info(f"Total Modules: {MODULE_STATUS['total_modules']}")
     
-    # Start territory module (legacy)
+    # Initialize territory sync if available
     try:
-        await startup_territory_module()
+        from territory_sync import startup_sync
+        await startup_sync()
+        logger.info("Territory sync initialized")
+    except ImportError:
+        logger.info("Territory sync not available")
     except Exception as e:
-        logger.warning(f"Territory module startup failed: {e}")
+        logger.warning(f"Territory sync startup failed: {e}")
     
     logger.info("=" * 60)
     logger.info("All modules loaded successfully")
@@ -67,7 +63,8 @@ async def lifespan(app: FastAPI):
     # Shutdown
     logger.info("Server shutting down...")
     try:
-        await shutdown_territory_module()
+        from territory_sync import shutdown_sync
+        await shutdown_sync()
     except:
         pass
 
@@ -174,8 +171,12 @@ for router, meta in CORE_ROUTERS:
     logger.info(f"✓ Loaded: {meta['name']} v{meta['version']} [{router.prefix}]")
 
 # 3. Register legacy monolith router (for backward compatibility)
-app.include_router(legacy_router)
-logger.info("✓ Loaded: Legacy monolith router [/api/*]")
+try:
+    from server_monolith_backup import api_router as legacy_router
+    app.include_router(legacy_router)
+    logger.info("✓ Loaded: Legacy monolith router [/api/*]")
+except ImportError as e:
+    logger.warning(f"Legacy router not available: {e}")
 
 # ==============================================
 # CUSTOM OPENAPI SCHEMA
