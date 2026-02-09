@@ -134,18 +134,20 @@ export const PlanMaitreDashboard = ({
         {/* Prediction Tab */}
         <TabsContent value="prediction" className="mt-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <PredictiveWidget 
-              species={selectedSpecies}
-              coordinates={coordinates}
-            />
+            <div className="space-y-4">
+              <PredictiveWidget 
+                species={selectedSpecies}
+                coordinates={coordinates}
+              />
+            </div>
 
             <div className="space-y-4">
-              <ActivityChart 
-                species={selectedSpecies}
+              <LegalTimeWidget 
+                coordinates={coordinates}
+                showSlots={true}
               />
               
-              <HabitatAnalysis 
-                coordinates={coordinates}
+              <ActivityChart 
                 species={selectedSpecies}
               />
             </div>
