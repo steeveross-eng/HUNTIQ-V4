@@ -48,6 +48,14 @@ async def lifespan(app: FastAPI):
     logger.info(f"Architecture: Modular v2.0 (Pure Orchestrator)")
     logger.info(f"Total Modules: {MODULE_STATUS['total_modules']}")
     
+    # Initialize database
+    try:
+        from database import init_database
+        await init_database()
+        logger.info("Database initialized with indexes and seed data")
+    except Exception as e:
+        logger.warning(f"Database initialization warning: {e}")
+    
     # Initialize territory sync if available
     try:
         from territory_sync import startup_sync
