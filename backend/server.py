@@ -232,9 +232,10 @@ except ImportError as e:
 
 # 4. Register user waypoints router
 try:
-    from user_waypoints import router as waypoints_router
+    from user_waypoints import router as waypoints_router, user_router as user_simple_router
     app.include_router(waypoints_router)
-    logger.info("✓ Loaded: User Waypoints router [/api/user-data/*]")
+    app.include_router(user_simple_router)
+    logger.info("✓ Loaded: User Waypoints router [/api/user-data/*, /api/user/*]")
 except ImportError as e:
     logger.warning(f"User Waypoints router not available: {e}")
 
