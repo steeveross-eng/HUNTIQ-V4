@@ -277,6 +277,40 @@ CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
         "phase": 6,
         "description": "Immersive live heading view for hunting navigation"
     }),
+    
+    # ==========================================
+    # Phase 7 - Decoupled from server.py (5 modules)
+    # ==========================================
+    (products_router, {
+        "name": "products_engine",
+        "version": "1.0.0",
+        "phase": 7,
+        "description": "Product management (extracted from monolith)"
+    }),
+    (orders_router, {
+        "name": "orders_engine",
+        "version": "1.0.0",
+        "phase": 7,
+        "description": "Order management with hybrid dropshipping/affiliation"
+    }),
+    (suppliers_router, {
+        "name": "suppliers_engine",
+        "version": "1.0.0",
+        "phase": 7,
+        "description": "Supplier/partner management"
+    }),
+    (customers_router, {
+        "name": "customers_engine",
+        "version": "1.0.0",
+        "phase": 7,
+        "description": "Customer management and tracking"
+    }),
+    (cart_router, {
+        "name": "cart_engine",
+        "version": "1.0.0",
+        "phase": 7,
+        "description": "Shopping cart management"
+    }),
 ]
 
 
