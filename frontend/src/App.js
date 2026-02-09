@@ -745,6 +745,7 @@ function App() {
             <CookieConsent />
           </BrowserRouter>
         </div>
+        </NotificationProvider>
       </AuthProvider>
     </LanguageProvider>
   );
