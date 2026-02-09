@@ -144,14 +144,16 @@ Le fichier `server.py` a été transformé en orchestrateur pur:
 
 #### Phase 5: Couches de Données (5 modules) ✅ COMPLÉTÉE
 #### Phase 6: Module Live Heading View ✅ COMPLÉTÉE
-#### Phase 7: Découplage server.py ⏳ EN COURS
+#### Phase 7: Découplage server.py ✅ COMPLÉTÉE
 - [x] products_engine extrait
 - [x] orders_engine extrait (avec commissions)
 - [x] suppliers_engine extrait
 - [x] customers_engine extrait
 - [x] cart_engine extrait
-- [ ] Restant dans server.py: affiliate_engine, alerts, site_settings
-- [ ] Transformation finale de server.py en orchestrateur pur
+- [x] affiliate_engine extrait
+- [x] alerts_engine extrait (avec site settings)
+- [x] server.py transformé en orchestrateur pur (~150 lignes)
+- [x] Legacy router préservé pour rétrocompatibilité
 
 ### P1 - Important (Phases 8-11)
 - [ ] Phase 8: Modularisation Frontend Core
@@ -168,8 +170,10 @@ Le fichier `server.py` a été transformé en orchestrateur pur:
 - `/app/test_reports/iteration_2.json` - Phase 3
 
 ### Statut
-- [x] 36/36 modules opérationnels
-- [x] Monolithe intact (rétrocompatibilité)
+- [x] 38/38 modules opérationnels
+- [x] Monolithe legacy intact (rétrocompatibilité)
+- [x] server.py = orchestrateur pur
+- [x] Swagger documentation: /api/docs
 - [x] Non-régression validée (monolithe + modules existants)
 - [x] Frontend fonctionnel
 - [x] Documentation Swagger accessible
