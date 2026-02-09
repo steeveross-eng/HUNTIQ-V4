@@ -78,6 +78,9 @@ export const PlanMaitreDashboard = ({
           <TabsTrigger value="overview" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
             📊 Vue d'ensemble
           </TabsTrigger>
+          <TabsTrigger value="legal-times" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
+            ⏰ Heures Légales
+          </TabsTrigger>
           <TabsTrigger value="prediction" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
             🔮 Prédiction
           </TabsTrigger>
