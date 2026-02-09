@@ -1,12 +1,19 @@
 /**
- * Ecoforestry Module - ADVANCED
+ * Ecoforestry Module - Plan Maître (Phase 10)
  * 
- * Provides ecoforestry visualization.
- * Features: stand classifier, species panel, cover analysis, density map, habitat overlay.
+ * Ecoforestry data layers and habitat analysis.
+ * Integrates with /api/v1/ecoforestry backend.
+ * 
  * @module ecoforestry
  * @version 1.0.0
  */
 
 export const MODULE_NAME = 'ecoforestry';
 export const MODULE_VERSION = '1.0.0';
-export const MODULE_TYPE = 'advanced';
+export const MODULE_TYPE = 'plan_maitre';
+
+// Service
+export { EcoforestryService } from './EcoforestryService';
+
+// Components
+export { HabitatAnalysis } from './components/HabitatAnalysis';
