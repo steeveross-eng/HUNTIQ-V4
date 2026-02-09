@@ -71,6 +71,12 @@ from modules.cart_engine import router as cart_router
 from modules.affiliate_engine import router as affiliate_router
 from modules.alerts_engine import router as alerts_router
 
+# ==============================================
+# PHASE 8 - LEGAL TIME & PREDICTIVE ENGINES
+# ==============================================
+from modules.legal_time_engine import router as legal_time_router
+from modules.predictive_engine import router as predictive_router
+
 
 # List of all available routers with their metadata
 CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
