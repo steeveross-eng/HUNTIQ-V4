@@ -171,6 +171,17 @@ Tous les modules opérationnels avec APIs documentées.
 
 ## 8. Changelog
 
+### Phase 11 - Tests & Documentation (9 Février 2026)
+- ✅ Tests unitaires Legal Time Engine: 37 tests passés
+- ✅ Tests unitaires Predictive Engine: 39 tests passés
+- ✅ Tests intégration Frontend-Backend: 21 tests passés
+- ✅ Documentation legal_time_engine: README.md complet
+- ✅ Documentation predictive_engine: README.md complet
+- ✅ Documentation modules Core: weather, scoring, ai, strategy
+- ✅ Documentation modules Business: products, orders
+- ✅ Mise à jour README global modules (40 modules)
+- ✅ **Total: 97 tests unitaires passés**
+
 ### Phase 8+ - Legal Time Engine (9 Février 2026)
 - ✅ Nouveau module backend: legal_time_engine (7 endpoints)
 - ✅ Nouveau module backend: predictive_engine (5 endpoints)
