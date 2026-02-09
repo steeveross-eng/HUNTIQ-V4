@@ -266,7 +266,7 @@ Les endpoints admin utilisent l'authentification existante.
         },
         "servers": [
             {
-                "url": "https://huntmodules.preview.emergentagent.com",
+                "url": "https://hunt-dashboard-1.preview.emergentagent.com",
                 "description": "Preview Server"
             }
         ],
