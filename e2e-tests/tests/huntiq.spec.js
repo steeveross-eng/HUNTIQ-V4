@@ -152,8 +152,8 @@ test.describe('Core Dashboard', () => {
     await page.goto('/dashboard');
     await page.waitForLoadState('networkidle');
     
-    // Should show dashboard content
-    await expect(page.locator('text=Dashboard')).toBeVisible();
+    // Should show dashboard content - use heading
+    await expect(page.locator('h1:has-text("Core Dashboard"), h1:has-text("Dashboard")')).toBeVisible();
   });
 });
 
@@ -162,7 +162,7 @@ test.describe('Business Dashboard', () => {
     await page.goto('/business');
     await page.waitForLoadState('networkidle');
     
-    // Should show business content
-    await expect(page.locator('text=Business')).toBeVisible();
+    // Should show business content - use heading or specific data-testid
+    await expect(page.locator('h1:has-text("Business"), [data-testid="business-dashboard"]')).toBeVisible();
   });
 });
