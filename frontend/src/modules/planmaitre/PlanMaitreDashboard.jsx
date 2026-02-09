@@ -48,6 +48,7 @@ export const PlanMaitreDashboard = ({
         
         {/* Module Status */}
         <div className="flex items-center gap-2">
+          <Badge className="bg-orange-900/50 text-orange-400">legal-time</Badge>
           <Badge className="bg-amber-900/50 text-amber-400">recommendation</Badge>
           <Badge className="bg-green-900/50 text-green-400">wildlife</Badge>
           <Badge className="bg-blue-900/50 text-blue-400">predictive</Badge>
