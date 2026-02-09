@@ -703,6 +703,11 @@ function App() {
   return (
     <LanguageProvider>
       <AuthProvider>
+        <NotificationProvider 
+          coordinates={{ lat: 46.8139, lng: -71.2080 }}
+          enabled={true}
+          warningMinutes={15}
+        >
         <div className="App min-h-screen bg-background">
           <BrowserRouter>
             <SEOHead />
