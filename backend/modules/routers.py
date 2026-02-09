@@ -377,5 +377,5 @@ MODULE_STATUS = {
     "phase_7_modules": len([r for r, m in CORE_ROUTERS if m.get("phase") == 7]),
     "modules": [meta["name"] for _, meta in CORE_ROUTERS],
     "status": "operational",
-    "architecture_version": "modular_v1.6"
+    "architecture_version": "modular_v2.0"
 }
