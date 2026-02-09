@@ -434,19 +434,25 @@ class TestLegalTimeIntegration:
         )
         timeline_data = timeline_response.json()
         
-        # Parse legal window times
-        def time_to_hour(t):
+        # Parse legal window times (use ceiling for start, floor for end)
+        def time_to_hour_ceil(t):
+            h, m = map(int, t.split(":"))
+            return h + 1 if m > 0 else h  # Round up if minutes > 0
+        
+        def time_to_hour_floor(t):
             return int(t.split(":")[0])
         
-        legal_start_hour = time_to_hour(legal_data["legal_window"]["start_time"])
-        legal_end_hour = time_to_hour(legal_data["legal_window"]["end_time"])
+        # Legal start at 06:28 means hour 7 is first fully legal hour
+        legal_start_hour = time_to_hour_ceil(legal_data["legal_window"]["start_time"])
+        # Legal end at 17:30 means hour 17 is last fully legal hour
+        legal_end_hour = time_to_hour_floor(legal_data["legal_window"]["end_time"])
         
-        # Verify timeline legal flags
+        # Verify timeline legal flags for fully legal hours
         for hour_data in timeline_data["timeline"]:
             hour = hour_data["hour"]
             is_legal = hour_data["is_legal"]
             
-            # Hours within legal window should be marked legal
+            # Hours fully within legal window should be marked legal
             if legal_start_hour <= hour <= legal_end_hour:
                 assert is_legal is True, f"Hour {hour} should be legal"
 
