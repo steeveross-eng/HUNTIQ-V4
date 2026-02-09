@@ -180,13 +180,18 @@ Tous les modules opérationnels avec APIs documentées.
 
 ## 8. Changelog
 
-### P2 - Stabilisation Complète (9 Février 2026)
+### P2 - Stabilisation Complète (9-10 Février 2026)
 - ✅ **Tests E2E Playwright**: 14 tests passés (Homepage, Dashboards, API)
 - ✅ **MongoDB**: Database service avec indexes et seed data
 - ✅ **Performance**: LRU Cache (200 items, 60s TTL), Rate Limiting
 - ✅ **Documentation Swagger**: Tags, descriptions améliorées
 - ✅ **README.md**: Documentation projet complète
 - ✅ **Version API**: 3.8.0
+- ✅ **BUG FIX - Waypoint Manager (10 Février 2026)**:
+  - Intégration du composant `WaypointManager` dans l'onglet Territoire
+  - CRUD complet: création, affichage, suppression de waypoints
+  - Persistance MongoDB fonctionnelle
+  - Toast de confirmation "Waypoint enregistré !"
 
 ### P1 - Intégration GPT-5.2 & Notifications (9 Février 2026)
 - ✅ **GPT-5.2 via Emergent LLM Key** intégré dans ai_engine
