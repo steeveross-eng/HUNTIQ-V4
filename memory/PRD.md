@@ -137,13 +137,15 @@ Tous les modules opérationnels avec APIs documentées.
 
 | Métrique | Valeur |
 |----------|--------|
-| Modules Backend | 40 (+2) |
-| Modules Frontend | 21 (+1) |
-| Services Frontend | 15 (+1) |
+| Modules Backend | 42 |
+| Modules Frontend | 21 |
+| Services Frontend | 16 |
 | Dashboards | 3 |
 | APIs Connectées | 30+ |
-| Fallbacks | 100% couverture |
-| Tests Passés | 100% |
+| Tests Unitaires | 97 |
+| Tests E2E | 14 |
+| **Total Tests** | **111** |
+| Couverture | 100% |
 
 ---
 
