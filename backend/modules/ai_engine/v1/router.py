@@ -272,3 +272,112 @@ async def list_terrain_types():
             {"id": "mountain", "name": "Montagne", "icon": "⛰️"}
         ]
     }
+
+
+
+# ==========================================
+# NEW GPT-5.2 ENDPOINTS (P1)
+# ==========================================
+
+@router.post("/query")
+async def query_ai(request: QueryRequest):
+    """
+    Ask a question to the AI hunting assistant.
+    
+    Uses GPT-5.2 to answer questions about:
+    - Hunting techniques and strategies
+    - Product recommendations
+    - Wildlife behavior
+    - Regulations and best practices
+    """
+    if not request.question or len(request.question.strip()) < 3:
+        raise HTTPException(status_code=400, detail="Question must be at least 3 characters")
+    
+    try:
+        result = await _service.query_assistant(
+            question=request.question,
+            context=request.context,
+            species=request.species,
+            session_id=request.session_id
+        )
+        
+        return {
+            "success": True,
+            "question": request.question,
+            "answer": result["answer"],
+            "sources": result.get("sources", []),
+            "related_products": result.get("related_products", []),
+            "session_id": result.get("session_id")
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Query failed: {str(e)}")
+
+
+@router.post("/compare")
+async def compare_products_ai(request: CompareRequest):
+    """
+    Compare multiple products using AI analysis.
+    
+    Returns:
+    - Side-by-side comparison
+    - Winner for each criterion
+    - Overall recommendation
+    - Best value analysis
+    """
+    if not request.products or len(request.products) < 2:
+        raise HTTPException(status_code=400, detail="At least 2 products required for comparison")
+    
+    if len(request.products) > 5:
+        raise HTTPException(status_code=400, detail="Maximum 5 products for comparison")
+    
+    try:
+        result = await _service.compare_products_ai(
+            products=request.products,
+            criteria=request.criteria,
+            species=request.species
+        )
+        
+        return {
+            "success": True,
+            "products_compared": request.products,
+            "comparison": result["comparison"],
+            "winner": result["winner"],
+            "recommendation": result["recommendation"],
+            "best_value": result.get("best_value"),
+            "detailed_analysis": result.get("detailed_analysis", [])
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Comparison failed: {str(e)}")
+
+
+@router.get("/suggestions")
+async def get_suggestions(
+    species: str = Query("deer", description="Target species"),
+    season: str = Query("fall", description="Hunting season"),
+    budget: Optional[float] = Query(None, description="Maximum budget")
+):
+    """
+    Get AI-powered product suggestions based on context.
+    
+    Returns personalized recommendations for the given hunting context.
+    """
+    try:
+        result = await _service.get_suggestions(
+            species=species,
+            season=season,
+            budget=budget
+        )
+        
+        return {
+            "success": True,
+            "context": {
+                "species": species,
+                "season": season,
+                "budget": budget
+            },
+            "suggestions": result["suggestions"],
+            "top_pick": result.get("top_pick"),
+            "reasoning": result.get("reasoning")
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Suggestions failed: {str(e)}")
