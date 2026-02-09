@@ -242,3 +242,131 @@ def _get_channel_name(c: NotificationChannel) -> str:
         NotificationChannel.SMS: "SMS"
     }
     return names.get(c, c.value)
+
+
+
+# ==========================================
+# LEGAL TIME ALERTS (P1 - Phase 11)
+# ==========================================
+
+@router.get("/legal-time/status")
+async def get_legal_time_status(
+    lat: float = Query(46.8139, description="Latitude"),
+    lng: float = Query(-71.2080, description="Longitude")
+):
+    """
+    Get current legal time status for notifications.
+    
+    Returns whether a warning should be displayed.
+    """
+    from modules.legal_time_engine.v1.service import LegalTimeService
+    from modules.legal_time_engine.v1.models import LocationInput
+    from datetime import datetime, timedelta
+    from zoneinfo import ZoneInfo
+    
+    service = LegalTimeService()
+    location = LocationInput(latitude=lat, longitude=lng, timezone="America/Toronto")
+    tz = ZoneInfo("America/Toronto")
+    now = datetime.now(tz)
+    
+    # Get legal window
+    legal_window = service.get_legal_hunting_window(now.date(), location)
+    
+    # Calculate time remaining if in legal period
+    is_legal = legal_window.is_currently_legal
+    warning_active = False
+    minutes_remaining = 0
+    
+    if is_legal:
+        legal_end_dt = datetime.combine(now.date(), legal_window.end_time, tzinfo=tz)
+        minutes_remaining = int((legal_end_dt - now).total_seconds() / 60)
+        warning_active = minutes_remaining <= 15
+    
+    return {
+        "success": True,
+        "current_time": now.strftime("%H:%M:%S"),
+        "is_legal_period": is_legal,
+        "legal_window": {
+            "start": legal_window.start_time.strftime("%H:%M"),
+            "end": legal_window.end_time.strftime("%H:%M")
+        },
+        "warning_active": warning_active,
+        "minutes_remaining": minutes_remaining if is_legal else None,
+        "alert": {
+            "type": "legal_time_warning",
+            "title": f"⏰ Fin de période dans {minutes_remaining} min",
+            "body": f"La chasse se termine à {legal_window.end_time.strftime('%H:%M')}",
+            "priority": "urgent" if minutes_remaining <= 5 else "high" if minutes_remaining <= 10 else "medium"
+        } if warning_active else None
+    }
+
+
+@router.get("/legal-time/upcoming")
+async def get_upcoming_legal_alerts(
+    lat: float = Query(46.8139, description="Latitude"),
+    lng: float = Query(-71.2080, description="Longitude"),
+    hours: int = Query(24, ge=1, le=48, description="Hours to look ahead")
+):
+    """
+    Get upcoming legal time notifications.
+    
+    Returns scheduled alerts for the next N hours.
+    """
+    from modules.legal_time_engine.v1.service import LegalTimeService
+    from modules.legal_time_engine.v1.models import LocationInput
+    from datetime import datetime, timedelta
+    from zoneinfo import ZoneInfo
+    
+    service = LegalTimeService()
+    location = LocationInput(latitude=lat, longitude=lng, timezone="America/Toronto")
+    tz = ZoneInfo("America/Toronto")
+    now = datetime.now(tz)
+    
+    notifications = []
+    
+    # Check today and tomorrow
+    for day_offset in range(2):
+        target_date = now.date() + timedelta(days=day_offset)
+        legal_window = service.get_legal_hunting_window(target_date, location)
+        
+        # Legal start
+        start_dt = datetime.combine(target_date, legal_window.start_time, tzinfo=tz)
+        if now < start_dt < now + timedelta(hours=hours):
+            notifications.append({
+                "type": "legal_time_start",
+                "scheduled_time": start_dt.isoformat(),
+                "title": "🌅 Début période légale",
+                "body": f"La chasse est autorisée à {legal_window.start_time.strftime('%H:%M')}",
+                "priority": "medium"
+            })
+        
+        # Warning (15 min before end)
+        end_dt = datetime.combine(target_date, legal_window.end_time, tzinfo=tz)
+        warning_dt = end_dt - timedelta(minutes=15)
+        if now < warning_dt < now + timedelta(hours=hours):
+            notifications.append({
+                "type": "legal_time_warning",
+                "scheduled_time": warning_dt.isoformat(),
+                "title": "⏰ 15 min avant fin",
+                "body": f"Préparez-vous, fin de chasse à {legal_window.end_time.strftime('%H:%M')}",
+                "priority": "high"
+            })
+        
+        # Legal end
+        if now < end_dt < now + timedelta(hours=hours):
+            notifications.append({
+                "type": "legal_time_end",
+                "scheduled_time": end_dt.isoformat(),
+                "title": "🌙 Fin période légale",
+                "body": f"La chasse n'est plus autorisée",
+                "priority": "urgent"
+            })
+    
+    notifications.sort(key=lambda x: x["scheduled_time"])
+    
+    return {
+        "success": True,
+        "count": len(notifications),
+        "hours_ahead": hours,
+        "notifications": notifications
+    }
