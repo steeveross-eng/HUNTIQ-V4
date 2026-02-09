@@ -12,7 +12,7 @@ import { Badge } from '../../components/ui/badge';
 // Plan Maître Module Imports
 import { RecommendationPanel } from '../recommendation';
 import { WildlifeTracker, SpeciesSelector } from '../wildlife';
-import { TerritoryList } from '../territory';
+import { TerritoryList, WaypointManager } from '../territory';
 import { PredictiveWidget } from '../predictive';
 import { SightingsFeed } from '../collaborative';
 import { HabitatAnalysis } from '../ecoforestry';
