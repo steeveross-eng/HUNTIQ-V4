@@ -163,10 +163,16 @@ Tous les modules opérationnels avec APIs documentées.
 - ✅ **COMPLÉTÉ** - Notification Push + In-app fin période légale
 
 ### Futur (P2)
-- [ ] Tests E2E avec Playwright
-- [ ] Optimisation performance
-- [ ] Vraie logique métier backend (MongoDB)
-- [ ] Documentation API Swagger complète
+- ✅ **COMPLÉTÉ** - Tests E2E avec Playwright (14 tests passés)
+- ✅ **COMPLÉTÉ** - Optimisation performance (LRU Cache, Rate Limiting)
+- ✅ **COMPLÉTÉ** - MongoDB avec indexes et seed data
+- ✅ **COMPLÉTÉ** - Documentation API Swagger améliorée
+
+### Backlog (P3)
+- [ ] Dashboard analytics avancé
+- [ ] Export de données (PDF, CSV)
+- [ ] Mode hors ligne
+- [ ] Application mobile native
 
 ---
 
