@@ -147,9 +147,6 @@ const HeroSection = () => {
   const { t, brand } = useLanguage();
   return (
     <section className="hero-bg min-h-screen flex flex-col items-center justify-center text-center px-4 pt-24" data-testid="hero-section">
-      <div className="golden-border rounded-2xl p-6 mb-8 bg-black/60">
-        <Logo size="large" />
-      </div>
       <h1 className="text-4xl md:text-5xl golden-text font-bold mb-8 max-w-4xl leading-tight">
         {brand.tagline}
       </h1>
