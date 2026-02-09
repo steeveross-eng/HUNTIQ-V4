@@ -98,6 +98,7 @@ const Navigation = ({ cartCount, onCartOpen }) => {
         </Link>
         <nav className="hidden md:flex items-center gap-4">
           <Link to="/" className="text-gray-400 hover:text-white transition-colors">{t('nav_home')}</Link>
+          <Link to="/dashboard" className="text-[#f5a623] hover:text-[#d4890e] transition-colors font-medium" data-testid="nav-dashboard">Dashboard</Link>
           <Link to="/analyze" className="text-gray-400 hover:text-white transition-colors">{t('nav_analyze')}</Link>
           <Link to="/compare" className="text-gray-400 hover:text-white transition-colors">{t('nav_compare')}</Link>
           <Link to="/shop" className="text-gray-400 hover:text-white transition-colors">{t('nav_shop')}</Link>
