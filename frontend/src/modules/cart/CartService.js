@@ -1,56 +1,92 @@
 /**
  * Cart Service - API client for cart module
- * Phase 9 - Business Modules
+ * Phase 10+ - Connected to real backend
  */
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 export class CartService {
   static async getHealth() {
-    const response = await fetch(`${API_URL}/api/v1/cart/health`);
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/cart/`);
+      if (!response.ok) return { status: 'unavailable' };
+      return response.json();
+    } catch {
+      return { status: 'unavailable' };
+    }
   }
 
   static async getStats() {
-    const response = await fetch(`${API_URL}/api/v1/cart/stats`);
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/cart/stats`);
+      if (!response.ok) return { total_carts: 0, active_carts: 0 };
+      return response.json();
+    } catch {
+      return { total_carts: 0, active_carts: 0 };
+    }
   }
 
   static async getCart(sessionId) {
-    const response = await fetch(`${API_URL}/api/v1/cart/session/${sessionId}`);
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/cart/session/${sessionId}`);
+      if (!response.ok) return { items: [], total: 0 };
+      const data = await response.json();
+      return {
+        items: data.items || [],
+        total: data.total || 0,
+        session_id: sessionId
+      };
+    } catch {
+      return { items: [], total: 0 };
+    }
   }
 
   static async addItem(sessionId, productId, quantity = 1) {
-    const response = await fetch(`${API_URL}/api/v1/cart/`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ session_id: sessionId, product_id: productId, quantity })
-    });
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/cart/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session_id: sessionId, product_id: productId, quantity })
+      });
+      return response.json();
+    } catch {
+      return { success: false };
+    }
   }
 
   static async updateItem(itemId, quantity) {
-    const response = await fetch(`${API_URL}/api/v1/cart/${itemId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ quantity })
-    });
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/cart/${itemId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ quantity })
+      });
+      return response.json();
+    } catch {
+      return { success: false };
+    }
   }
 
   static async removeItem(itemId) {
-    const response = await fetch(`${API_URL}/api/v1/cart/${itemId}`, {
-      method: 'DELETE'
-    });
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/cart/${itemId}`, {
+        method: 'DELETE'
+      });
+      return response.json();
+    } catch {
+      return { success: false };
+    }
   }
 
   static async clearCart(sessionId) {
-    const response = await fetch(`${API_URL}/api/v1/cart/session/${sessionId}/clear`, {
-      method: 'DELETE'
-    });
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/cart/session/${sessionId}/clear`, {
+        method: 'DELETE'
+      });
+      return response.json();
+    } catch {
+      return { success: false };
+    }
   }
 
   // Helper methods
@@ -65,7 +101,7 @@ export class CartService {
 
   static calculateTotal(items) {
     return items.reduce((total, item) => {
-      const price = item.product?.price || 0;
+      const price = item.product?.price || item.price || 0;
       return total + (price * item.quantity);
     }, 0);
   }

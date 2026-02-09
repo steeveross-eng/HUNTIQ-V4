@@ -1,54 +1,86 @@
 /**
  * Customers Service - API client for customers module
- * Phase 9 - Business Modules
+ * Phase 10+ - Connected to real backend
  */
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 export class CustomersService {
   static async getHealth() {
-    const response = await fetch(`${API_URL}/api/v1/customers/health`);
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/customers/`);
+      if (!response.ok) return { status: 'unavailable' };
+      return response.json();
+    } catch {
+      return { status: 'unavailable' };
+    }
   }
 
   static async getStats() {
-    const response = await fetch(`${API_URL}/api/v1/customers/stats`);
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/customers/stats`);
+      if (!response.ok) return { total: 0, active: 0, new: 0 };
+      return response.json();
+    } catch {
+      return { total: 0, active: 0, new: 0 };
+    }
   }
 
   static async getCustomers() {
-    const response = await fetch(`${API_URL}/api/v1/customers/`);
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/customers/`);
+      if (!response.ok) return [];
+      const data = await response.json();
+      return Array.isArray(data) ? data : (data.customers || []);
+    } catch {
+      return [];
+    }
   }
 
   static async getCustomer(customerId) {
-    const response = await fetch(`${API_URL}/api/v1/customers/${customerId}`);
-    if (!response.ok) return null;
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/customers/${customerId}`);
+      if (!response.ok) return null;
+      return response.json();
+    } catch {
+      return null;
+    }
   }
 
   static async getCustomerBySession(sessionId) {
-    const response = await fetch(`${API_URL}/api/v1/customers/session/${sessionId}`);
-    if (!response.ok) return null;
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/customers/session/${sessionId}`);
+      if (!response.ok) return null;
+      return response.json();
+    } catch {
+      return null;
+    }
   }
 
   static async createCustomer(customerData) {
-    const response = await fetch(`${API_URL}/api/v1/customers/`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(customerData)
-    });
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/customers/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(customerData)
+      });
+      return response.json();
+    } catch {
+      return { success: false };
+    }
   }
 
   static async updateCustomer(customerId, updateData) {
-    const response = await fetch(`${API_URL}/api/v1/customers/${customerId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updateData)
-    });
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/customers/${customerId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updateData)
+      });
+      return response.json();
+    } catch {
+      return { success: false };
+    }
   }
 
   // Helper methods

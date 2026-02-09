@@ -1,43 +1,68 @@
 /**
  * Affiliate Service - API client for affiliate module
- * Phase 9 - Business Modules
+ * Phase 10+ - Connected to real backend
  */
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 export class AffiliateService {
   static async getHealth() {
-    const response = await fetch(`${API_URL}/api/v1/affiliate/health`);
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/affiliate/`);
+      if (!response.ok) return { status: 'unavailable' };
+      return response.json();
+    } catch {
+      return { status: 'unavailable' };
+    }
   }
 
   static async getStats() {
-    const response = await fetch(`${API_URL}/api/v1/affiliate/stats`);
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/affiliate/stats`);
+      if (!response.ok) {
+        return { total_clicks: 0, total_sales: 0, total_commission: 0, conversion_rate: 0 };
+      }
+      return response.json();
+    } catch {
+      return { total_clicks: 0, total_sales: 0, total_commission: 0, conversion_rate: 0 };
+    }
   }
 
   static async recordClick(productId, sessionId) {
-    const params = new URLSearchParams({ product_id: productId, session_id: sessionId });
-    const response = await fetch(`${API_URL}/api/v1/affiliate/click?${params}`, {
-      method: 'POST'
-    });
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.detail || 'Failed to record click');
+    try {
+      const params = new URLSearchParams({ product_id: productId, session_id: sessionId });
+      const response = await fetch(`${API_URL}/api/v1/affiliate/click?${params}`, {
+        method: 'POST'
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || 'Failed to record click');
+      }
+      return response.json();
+    } catch (error) {
+      throw error;
     }
-    return response.json();
   }
 
   static async getClicks(limit = 500) {
-    const response = await fetch(`${API_URL}/api/v1/affiliate/clicks?limit=${limit}`);
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/affiliate/clicks?limit=${limit}`);
+      if (!response.ok) return [];
+      return response.json();
+    } catch {
+      return [];
+    }
   }
 
   static async confirmSale(clickId, commissionAmount) {
-    const response = await fetch(`${API_URL}/api/v1/affiliate/confirm/${clickId}?commission_amount=${commissionAmount}`, {
-      method: 'POST'
-    });
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/affiliate/confirm/${clickId}?commission_amount=${commissionAmount}`, {
+        method: 'POST'
+      });
+      return response.json();
+    } catch {
+      return { success: false };
+    }
   }
 
   // Helper methods

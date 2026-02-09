@@ -1,59 +1,91 @@
 /**
  * Suppliers Service - API client for suppliers module
- * Phase 9 - Business Modules
+ * Phase 10+ - Connected to real backend
  */
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 export class SuppliersService {
   static async getHealth() {
-    const response = await fetch(`${API_URL}/api/v1/suppliers/health`);
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/suppliers/`);
+      if (!response.ok) return { status: 'unavailable' };
+      return response.json();
+    } catch {
+      return { status: 'unavailable' };
+    }
   }
 
   static async getStats() {
-    const response = await fetch(`${API_URL}/api/v1/suppliers/stats`);
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/suppliers/stats`);
+      if (!response.ok) return { total: 0, active: 0 };
+      return response.json();
+    } catch {
+      return { total: 0, active: 0 };
+    }
   }
 
   static async getSuppliers(isActive = null) {
-    let url = `${API_URL}/api/v1/suppliers/`;
-    if (isActive !== null) {
-      url += `?is_active=${isActive}`;
+    try {
+      let url = `${API_URL}/api/v1/suppliers/`;
+      if (isActive !== null) {
+        url += `?is_active=${isActive}`;
+      }
+      const response = await fetch(url);
+      if (!response.ok) return [];
+      const data = await response.json();
+      return Array.isArray(data) ? data : (data.suppliers || []);
+    } catch {
+      return [];
     }
-    const response = await fetch(url);
-    return response.json();
   }
 
   static async getSupplier(supplierId) {
-    const response = await fetch(`${API_URL}/api/v1/suppliers/${supplierId}`);
-    if (!response.ok) return null;
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/suppliers/${supplierId}`);
+      if (!response.ok) return null;
+      return response.json();
+    } catch {
+      return null;
+    }
   }
 
   static async createSupplier(supplierData) {
-    const response = await fetch(`${API_URL}/api/v1/suppliers/`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(supplierData)
-    });
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/suppliers/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(supplierData)
+      });
+      return response.json();
+    } catch {
+      return { success: false };
+    }
   }
 
   static async updateSupplier(supplierId, updateData) {
-    const response = await fetch(`${API_URL}/api/v1/suppliers/${supplierId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updateData)
-    });
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/suppliers/${supplierId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updateData)
+      });
+      return response.json();
+    } catch {
+      return { success: false };
+    }
   }
 
   static async deleteSupplier(supplierId) {
-    const response = await fetch(`${API_URL}/api/v1/suppliers/${supplierId}`, {
-      method: 'DELETE'
-    });
-    return response.json();
+    try {
+      const response = await fetch(`${API_URL}/api/v1/suppliers/${supplierId}`, {
+        method: 'DELETE'
+      });
+      return response.json();
+    } catch {
+      return { success: false };
+    }
   }
 
   // Helper methods
