@@ -40,6 +40,7 @@ import ReferralModule from "@/components/ReferralModule";
 import ReferralAdminPanel from "@/components/ReferralAdminPanel";
 import DynamicReferralWidget from "@/components/DynamicReferralWidget";
 import { ShopPage, ComparePage } from "@/pages";
+import DashboardPage from "@/pages/DashboardPage";
 import { 
   ShoppingCart, FlaskConical, GitCompare, Star, DollarSign, ThumbsUp, Heart, Eye,
   Shield, MousePointer, TrendingUp, CheckCircle, ChevronRight, Menu, X, ArrowLeft,
