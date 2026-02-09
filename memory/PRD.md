@@ -159,13 +159,14 @@ Tous les modules opérationnels avec APIs documentées.
 - **Phase 11 (NEW): Tests unitaires + Documentation**
 
 ### À venir (P1)
-- [ ] Intégration GPT-5.2 pour ai_engine
-- [ ] **Notification Push fin période légale**: Alerter les chasseurs 15 min avant la fin de la fenêtre légale
+- ✅ **COMPLÉTÉ** - Intégration GPT-5.2 pour ai_engine
+- ✅ **COMPLÉTÉ** - Notification Push + In-app fin période légale
 
 ### Futur (P2)
 - [ ] Tests E2E avec Playwright
 - [ ] Optimisation performance
 - [ ] Vraie logique métier backend (MongoDB)
+- [ ] Documentation API Swagger complète
 
 ---
 
