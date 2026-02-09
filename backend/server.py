@@ -169,8 +169,10 @@ async def root():
     return {
         "message": "Chasse Bionic™ - HUNTIQ V3",
         "status": "operational",
-        "version": "3.7.0",
-        "architecture": "modular_v2.0"
+        "version": "3.8.0",
+        "architecture": "modular_v2.0",
+        "modules": 42,
+        "docs": "/api/docs"
     }
 
 @orchestrator_router.get("/modules/status")
