@@ -2,7 +2,7 @@
 
 ## Date de création: 2026-02-03
 ## Dernière mise à jour: Décembre 2025
-## Version: 3.6 (Architecture Modulaire - Phase 6 Complétée)
+## Version: 3.7 (Architecture Modulaire - Phase 7 En Cours)
 
 ---
 
@@ -20,71 +20,25 @@ Refactorisation majeure vers une architecture modulaire stricte ("PLAN MAÎTRE B
 - **Backend**: FastAPI (Python)
 - **Base de données**: MongoDB
 - **IA**: GPT-5.2 via Emergent LLM Key
-- **Architecture**: Modulaire v1.5 (Phases 2+3+4+5+6 complétées)
+- **Architecture**: Modulaire v1.6 (36 modules opérationnels)
 
-### Structure Modulaire - 31 Modules Opérationnels
+### Structure Modulaire - 36 Modules Opérationnels
 
 ```
 /app/backend/modules/
 ├── [PHASE 2 - CORE] 7 modules ✅
-│   ├── nutrition_engine/v1/       ✅
-│   ├── scoring_engine/v1/         ✅
-│   ├── ai_engine/v1/              ✅
-│   ├── weather_engine/v1/         ✅
-│   ├── geospatial_engine/v1/      ✅
-│   ├── wms_engine/v1/             ✅
-│   └── strategy_engine/v1/        ✅
-│
 ├── [PHASE 3 - MÉTIER] 8 modules ✅
-│   ├── user_engine/v1/            ✅
-│   ├── admin_engine/v1/           ✅
-│   ├── notification_engine/v1/    ✅
-│   ├── referral_engine/v1/        ✅
-│   ├── territory_engine/v1/       ✅
-│   ├── tracking_engine/v1/        ✅
-│   ├── marketplace_engine/v1/     ✅
-│   └── plugins_engine/v1/         ✅
-│
 ├── [PHASE 4 - PLAN MAÎTRE] 10 modules ✅
-│   ├── recommendation_engine/v1/   ✅
-│   ├── collaborative_engine/v1/    ✅
-│   ├── ecoforestry_engine/v1/      ✅
-│   ├── engine_3d/v1/               ✅
-│   ├── wildlife_behavior_engine/v1/ ✅
-│   ├── weather_fauna_simulation_engine/v1/ ✅
-│   ├── adaptive_strategy_engine/v1/ ✅
-│   ├── advanced_geospatial_engine/v1/ ✅
-│   ├── progression_engine/v1/      ✅
-│   └── networking_engine/v1/       ✅
-│
 ├── [PHASE 5 - DATA LAYERS] 5 modules ✅
-│   ├── data_layers/
-│   │   ├── ecoforestry_layers/v1/     ✅
-│   │   ├── behavioral_layers/v1/      ✅
-│   │   ├── simulation_layers/v1/      ✅
-│   │   ├── layers_3d/v1/              ✅
-│   │   └── advanced_geospatial_layers/v1/ ✅
+├── [PHASE 6 - LIVE HEADING] 1 module ✅
+├── [PHASE 7 - DÉCOUPÉS DE SERVER.PY] 5 modules ✅ (NOUVEAU)
+│   ├── products_engine/v1/        ✅ Gestion produits
+│   ├── orders_engine/v1/          ✅ Gestion commandes + commissions
+│   ├── suppliers_engine/v1/       ✅ Gestion fournisseurs
+│   ├── customers_engine/v1/       ✅ Gestion clients
+│   └── cart_engine/v1/            ✅ Gestion panier
 │
-├── [PHASE 6 - LIVE HEADING VIEW] 1 module ✅ (NOUVEAU)
-│   └── live_heading_engine/v1/    ✅ Navigation immersive
-│
-└── routers.py                     ✅ Point d'entrée central (v1.5)
-```
-
-### Frontend Modulaire
-```
-/app/frontend/src/modules/
-└── live_heading_view/             ✅ (NOUVEAU - Phase 6)
-    ├── index.js
-    └── components/
-        ├── LiveHeadingView.jsx    ✅ Vue principale immersive
-        ├── CompassWidget.jsx      ✅ Boussole animée
-        ├── WindIndicator.jsx      ✅ Indicateur de vent
-        ├── POIMarker.jsx          ✅ Marqueurs POI
-        ├── AlertToast.jsx         ✅ Alertes toast
-        ├── SessionControls.jsx    ✅ Contrôles session
-        ├── SessionStats.jsx       ✅ Statistiques en direct
-        └── ForwardCone.jsx        ✅ Cône de vision
+└── routers.py                     ✅ Point d'entrée central (v1.6)
 ```
 
 ---
