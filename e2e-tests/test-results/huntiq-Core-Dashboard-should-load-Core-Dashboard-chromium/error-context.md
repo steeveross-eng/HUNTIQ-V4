@@ -1,0 +1,208 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "Bionic Hunt™ Bionic™" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]:
+            - img "Bionic Hunt™" [ref=e8]
+            - generic [ref=e9]: Bionic™
+        - navigation [ref=e10]:
+          - link "Home" [ref=e11] [cursor=pointer]:
+            - /url: /
+          - link "Dashboard" [ref=e12] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Business" [ref=e13] [cursor=pointer]:
+            - /url: /business
+          - link "Plan Maître" [ref=e14] [cursor=pointer]:
+            - /url: /plan-maitre
+          - link "Analyze" [ref=e15] [cursor=pointer]:
+            - /url: /analyze
+          - link "Shop" [ref=e16] [cursor=pointer]:
+            - /url: /shop
+          - link "Territory" [ref=e17] [cursor=pointer]:
+            - /url: /territoire
+        - generic [ref=e18]:
+          - generic [ref=e19]:
+            - generic [ref=e20] [cursor=pointer]: FR
+            - button "Toggle language" [ref=e21] [cursor=pointer]:
+              - generic [ref=e24]: 🇬🇧
+            - generic [ref=e25] [cursor=pointer]: EN
+          - link [ref=e26] [cursor=pointer]:
+            - /url: /admin
+            - button [ref=e27]:
+              - img
+          - button "Connexion" [ref=e28] [cursor=pointer]:
+            - img
+            - text: Connexion
+          - button [ref=e29] [cursor=pointer]:
+            - img
+    - main [ref=e30]:
+      - generic [ref=e31]:
+        - button "Retour à l'accueil" [ref=e32] [cursor=pointer]:
+          - img
+          - text: Retour à l'accueil
+        - generic [ref=e33]:
+          - generic [ref=e34]:
+            - generic [ref=e35]:
+              - heading "🎯 Dashboard BIONIC™" [level=1] [ref=e36]:
+                - generic [ref=e37]: 🎯
+                - text: Dashboard BIONIC™
+              - paragraph [ref=e38]: Modules Core • Phase 8
+            - generic [ref=e40]:
+              - generic [ref=e41]: ○ nutrition
+              - generic [ref=e42]: ○ scoring
+              - generic [ref=e43]: ○ weather
+              - generic [ref=e44]: ○ ai
+              - generic [ref=e45]: ○ strategy
+          - generic [ref=e46]:
+            - tablist [ref=e47]:
+              - tab "📊 Vue d'ensemble" [selected] [ref=e48] [cursor=pointer]
+              - tab "🌤️ Météo" [ref=e49] [cursor=pointer]
+              - tab "🧪 Analyse" [ref=e50] [cursor=pointer]
+              - tab "🎯 Stratégie" [ref=e51] [cursor=pointer]
+              - tab "🤖 Assistant IA" [ref=e52] [cursor=pointer]
+            - tabpanel "📊 Vue d'ensemble" [ref=e53]:
+              - generic [ref=e54]:
+                - generic [ref=e55]:
+                  - generic [ref=e58]:
+                    - generic [ref=e59]:
+                      - generic [ref=e60]: 🌤️
+                      - generic [ref=e61]:
+                        - generic [ref=e62]: 5 °C
+                        - generic [ref=e63]: Partiellement nuageux
+                    - generic [ref=e64]:
+                      - generic [ref=e66]:
+                        - text: "Humidité:"
+                        - generic [ref=e67]: 60 %
+                      - generic [ref=e69]:
+                        - text: "Vent:"
+                        - generic [ref=e70]: 8 km/h
+                      - generic [ref=e72]:
+                        - text: "Pression:"
+                        - generic [ref=e73]: 1015 hPa
+                  - generic [ref=e74]:
+                    - generic [ref=e75]:
+                      - heading "🦌 Conditions de Chasse" [level=3] [ref=e76]:
+                        - generic [ref=e77]: 🦌
+                        - text: Conditions de Chasse
+                      - generic [ref=e78]: deer
+                    - generic [ref=e79]:
+                      - generic [ref=e81]:
+                        - generic [ref=e82]: 🎯
+                        - generic [ref=e83]: 92 %
+                      - paragraph [ref=e84]: Excellent
+                    - generic [ref=e86]:
+                      - generic [ref=e87]:
+                        - generic [ref=e88]: 🌡️
+                        - generic [ref=e89]: Température
+                        - generic [ref=e90]: good
+                      - generic [ref=e91]:
+                        - generic [ref=e92]: 💨
+                        - generic [ref=e93]: Vent
+                        - generic [ref=e94]: moderate
+                      - generic [ref=e95]:
+                        - generic [ref=e96]: 📊
+                        - generic [ref=e97]: Pression
+                        - generic [ref=e98]: excellent
+                    - paragraph [ref=e101]: 💡 Conditions favorables pour la chasse à l'affût
+                - generic [ref=e102]:
+                  - generic [ref=e103]:
+                    - generic [ref=e105]:
+                      - generic [ref=e106]: 📈
+                      - text: Scores Rapides
+                    - generic [ref=e108]:
+                      - generic [ref=e109]:
+                        - generic [ref=e110]:
+                          - generic [ref=e112]: "92"
+                          - generic [ref=e113]: Grade S
+                        - generic [ref=e115]: Conditions
+                      - generic [ref=e116]:
+                        - img [ref=e117]:
+                          - generic [ref=e124]: "0"
+                        - generic [ref=e125]:
+                          - generic [ref=e126]: "72"
+                          - generic [ref=e128]: Index Chasse
+                  - generic [ref=e129]:
+                    - generic [ref=e130]:
+                      - generic [ref=e132]: 🥩
+                      - generic [ref=e133]:
+                        - generic [ref=e134]:
+                          - text: "24.5"
+                          - generic [ref=e136]: g
+                        - generic [ref=e137]: Protéines
+                    - generic [ref=e138]:
+                      - generic [ref=e140]: 💎
+                      - generic [ref=e141]:
+                        - generic [ref=e142]:
+                          - text: "8.2"
+                          - generic [ref=e144]: g
+                        - generic [ref=e145]: Minéraux
+                    - generic [ref=e146]:
+                      - generic [ref=e148]: 🦌
+                      - generic [ref=e149]:
+                        - generic [ref=e150]:
+                          - text: "92"
+                          - generic [ref=e152]: "%"
+                        - generic [ref=e153]: Attractivité
+                    - generic [ref=e154]:
+                      - generic [ref=e156]: ⏱️
+                      - generic [ref=e157]:
+                        - generic [ref=e158]:
+                          - text: "48"
+                          - generic [ref=e160]: h
+                        - generic [ref=e161]: Durée effet
+                - generic [ref=e162]:
+                  - generic [ref=e163]:
+                    - heading "🤖 Insights IA" [level=3] [ref=e164]:
+                      - generic [ref=e165]: 🤖
+                      - text: Insights IA
+                    - generic [ref=e166]:
+                      - generic [ref=e168]:
+                        - generic [ref=e169]: 💡
+                        - generic [ref=e170]:
+                          - heading "Période optimale" [level=4] [ref=e172]
+                          - paragraph [ref=e173]: Le rut est à son pic. Privilégiez les zones de frottage.
+                      - generic [ref=e175]:
+                        - generic [ref=e176]: 📈
+                        - generic [ref=e177]:
+                          - heading "Activité accrue" [level=4] [ref=e179]
+                          - paragraph [ref=e180]: Mouvement prévu entre 6h-9h et 16h-19h.
+                      - generic [ref=e182]:
+                        - generic [ref=e183]: ⚠️
+                        - generic [ref=e184]:
+                          - heading "Vent défavorable" [level=4] [ref=e186]
+                          - paragraph [ref=e187]: Vent du sud - ajustez votre position.
+                  - generic [ref=e190]:
+                    - generic [ref=e191]:
+                      - paragraph [ref=e192]: Prochaine action
+                      - paragraph [ref=e193]: Repositionnement recommandé
+                    - button "Voir détails" [ref=e194] [cursor=pointer]
+    - contentinfo [ref=e195]:
+      - paragraph [ref=e197]: © 2024 HUNTIQ - Chasse BIONIC™
+    - button "Défiler vers la section suivante" [ref=e198] [cursor=pointer]:
+      - img [ref=e199]
+    - region "Notifications alt+T"
+    - generic [ref=e203]:
+      - generic [ref=e204]:
+        - img [ref=e206]
+        - generic [ref=e208]:
+          - generic [ref=e209]:
+            - img [ref=e210]
+            - heading "Respect de votre vie privée" [level=3] [ref=e212]
+          - paragraph [ref=e213]:
+            - text: Nous utilisons des cookies pour améliorer votre expérience sur BIONIC™. Vos données restent au Québec et ne sont jamais vendues à des tiers.
+            - button "En savoir plus" [ref=e214] [cursor=pointer]
+      - generic [ref=e215]:
+        - button "Tout accepter" [ref=e216] [cursor=pointer]
+        - button "Personnaliser" [ref=e218] [cursor=pointer]
+        - button "Refuser tout" [ref=e219] [cursor=pointer]
+  - link "Made with Emergent" [ref=e220] [cursor=pointer]:
+    - /url: https://app.emergent.sh/?utm_source=emergent-badge
+    - generic [ref=e221]:
+      - img [ref=e222]
+      - paragraph [ref=e223]: Made with Emergent
+```
