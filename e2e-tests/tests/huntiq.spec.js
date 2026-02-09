@@ -31,8 +31,8 @@ test.describe('Plan Maître Dashboard', () => {
     await page.goto('/plan-maitre');
     await page.waitForLoadState('networkidle');
     
-    // Check dashboard loaded
-    await expect(page.locator('text=Plan Maître')).toBeVisible();
+    // Check dashboard loaded - use more specific selector
+    await expect(page.locator('h1:has-text("Plan Maître")')).toBeVisible();
   });
 
   test('should display legal time bar', async ({ page }) => {
@@ -51,7 +51,7 @@ test.describe('Plan Maître Dashboard', () => {
     await page.waitForLoadState('networkidle');
     
     // Click on Legal Times tab
-    const legalTimesTab = page.locator('text=Heures Légales');
+    const legalTimesTab = page.locator('button:has-text("Heures Légales")');
     if (await legalTimesTab.count() > 0) {
       await legalTimesTab.click();
       await page.waitForTimeout(1000);
