@@ -230,6 +230,14 @@ try:
 except ImportError as e:
     logger.warning(f"Legacy router not available: {e}")
 
+# 4. Register user waypoints router
+try:
+    from user_waypoints import router as waypoints_router
+    app.include_router(waypoints_router)
+    logger.info("✓ Loaded: User Waypoints router [/api/user-data/*]")
+except ImportError as e:
+    logger.warning(f"User Waypoints router not available: {e}")
+
 # ==============================================
 # CUSTOM OPENAPI SCHEMA
 # ==============================================
