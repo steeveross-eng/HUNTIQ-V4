@@ -4,16 +4,19 @@
 import React from 'react';
 
 export const HuntingConditions = ({ 
-  conditions = {},
+  conditions = null,
   species = 'deer'
 }) => {
+  // Handle null/undefined conditions
+  const safeConditions = conditions || {};
+  
   const {
     overall_score = 0,
     temperature_rating = 'N/A',
     wind_rating = 'N/A',
     pressure_rating = 'N/A',
     recommendation = ''
-  } = conditions;
+  } = safeConditions;
 
   const getScoreColor = (score) => {
     if (score >= 80) return { color: '#10b981', label: 'Excellent', emoji: '🎯' };
