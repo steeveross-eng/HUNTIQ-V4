@@ -160,6 +160,7 @@ Tous les modules opérationnels avec APIs documentées.
 ### À venir (P1)
 - [ ] **Phase 11**: Tests & Documentation complète
 - [ ] Intégration GPT-5.2 pour ai_engine
+- [ ] **Notification Push fin période légale**: Alerter les chasseurs 15 min avant la fin de la fenêtre légale
 
 ### Futur (P2)
 - [ ] Tests E2E avec Playwright
