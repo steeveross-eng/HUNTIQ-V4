@@ -100,6 +100,10 @@ export const PlanMaitreDashboard = ({
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Left Column */}
             <div className="space-y-4">
+              <LegalTimeWidget 
+                coordinates={coordinates}
+                compact={true}
+              />
               <RecommendationPanel 
                 species={selectedSpecies}
                 season={selectedSeason}
@@ -130,6 +134,82 @@ export const PlanMaitreDashboard = ({
                 coordinates={coordinates}
                 radiusKm={15}
               />
+            </div>
+          </div>
+        </TabsContent>
+
+        {/* Legal Times Tab - NEW */}
+        <TabsContent value="legal-times" className="mt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <LegalTimeWidget 
+              coordinates={coordinates}
+              showSlots={true}
+            />
+            
+            <div className="space-y-4">
+              <Card className="bg-gradient-to-br from-blue-900/20 to-slate-900 border-blue-700/50">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg text-white flex items-center gap-2">
+                    <span>📍</span>
+                    Position de calcul
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-slate-800/50 rounded-lg p-3">
+                        <p className="text-slate-400 text-xs">Latitude</p>
+                        <p className="text-white font-medium">{coordinates.lat.toFixed(4)}</p>
+                      </div>
+                      <div className="bg-slate-800/50 rounded-lg p-3">
+                        <p className="text-slate-400 text-xs">Longitude</p>
+                        <p className="text-white font-medium">{coordinates.lng.toFixed(4)}</p>
+                      </div>
+                    </div>
+                    <div className="bg-slate-800/50 rounded-lg p-3">
+                      <p className="text-slate-400 text-xs mb-1">Région</p>
+                      <p className="text-white font-medium">Québec, QC, Canada</p>
+                    </div>
+                    <div className="bg-amber-900/20 border border-amber-700/50 rounded-lg p-3">
+                      <p className="text-amber-400 text-sm flex items-center gap-2">
+                        <span>⚠️</span>
+                        Les heures légales varient selon votre position exacte
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-gradient-to-br from-purple-900/20 to-slate-900 border-purple-700/50">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg text-white flex items-center gap-2">
+                    <span>📜</span>
+                    Règlementation
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3 text-sm">
+                    <div className="bg-slate-800/50 rounded-lg p-3">
+                      <p className="text-purple-400 font-medium mb-1">Période de chasse légale</p>
+                      <p className="text-slate-300">
+                        30 minutes avant le lever du soleil jusqu'à 30 minutes après le coucher du soleil
+                      </p>
+                    </div>
+                    <div className="bg-slate-800/50 rounded-lg p-3">
+                      <p className="text-purple-400 font-medium mb-1">Source</p>
+                      <p className="text-slate-300">
+                        Règlement sur la chasse du Québec - MFFP
+                      </p>
+                    </div>
+                    <div className="bg-red-900/20 border border-red-700/50 rounded-lg p-3">
+                      <p className="text-red-400 text-xs flex items-center gap-2">
+                        <span>⚠️</span>
+                        La chasse en dehors des heures légales est une infraction grave
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </TabsContent>
