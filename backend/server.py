@@ -110,7 +110,41 @@ Certains endpoints nécessitent une authentification via JWT Bearer token.
     lifespan=lifespan,
     docs_url="/api/docs",
     redoc_url="/api/redoc",
-    openapi_url="/api/openapi.json"
+    openapi_url="/api/openapi.json",
+    openapi_tags=[
+        {
+            "name": "Legal Time Engine",
+            "description": "Calcul des heures légales de chasse basé sur lever/coucher du soleil"
+        },
+        {
+            "name": "Predictive Engine",
+            "description": "Prédiction de succès de chasse multi-facteurs"
+        },
+        {
+            "name": "AI Engine",
+            "description": "Intelligence artificielle GPT-5.2 pour analyse et recommandations"
+        },
+        {
+            "name": "Notification Engine",
+            "description": "Gestion des notifications push et in-app"
+        },
+        {
+            "name": "Weather Engine",
+            "description": "Analyse météorologique et impact sur la chasse"
+        },
+        {
+            "name": "Scoring Engine",
+            "description": "Évaluation des produits selon 13 critères scientifiques"
+        },
+        {
+            "name": "Products",
+            "description": "Gestion du catalogue de produits"
+        },
+        {
+            "name": "Orders",
+            "description": "Gestion des commandes"
+        }
+    ]
 )
 
 # ==============================================
