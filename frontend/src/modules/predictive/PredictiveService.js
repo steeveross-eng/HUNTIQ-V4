@@ -1,6 +1,6 @@
 /**
  * Predictive Service - API client for predictive analytics
- * Phase 10+ - Connected to real backend
+ * Phase 10+ - Connected to real backend with legal time integration
  */
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
@@ -41,7 +41,8 @@ export class PredictiveService {
 
   static async getOptimalTimes(species, date, location) {
     try {
-      const params = new URLSearchParams({ species, date });
+      const params = new URLSearchParams({ species });
+      if (date) params.append('date', date);
       if (location) {
         params.append('lat', location.lat);
         params.append('lng', location.lng);
@@ -55,13 +56,61 @@ export class PredictiveService {
     }
   }
 
-  static async getActivityForecast(species, days = 7) {
+  static async getActivityForecast(species, days = 7, location = null) {
     try {
-      const response = await fetch(`${API_URL}/api/v1/predictive/forecast/${species}?days=${days}`);
+      const params = new URLSearchParams({ days });
+      if (location) {
+        params.append('lat', location.lat);
+        params.append('lng', location.lng);
+      }
+      const response = await fetch(`${API_URL}/api/v1/predictive/forecast/${species}?${params}`);
       if (!response.ok) return { success: false, forecast: [] };
       return response.json();
     } catch {
       return { success: false, forecast: [] };
+    }
+  }
+
+  static async getActivity(species, location = null) {
+    try {
+      const params = new URLSearchParams({ species });
+      if (location) {
+        params.append('lat', location.lat);
+        params.append('lng', location.lng);
+      }
+      const response = await fetch(`${API_URL}/api/v1/predictive/activity?${params}`);
+      if (!response.ok) return { success: false };
+      return response.json();
+    } catch {
+      return { success: false };
+    }
+  }
+
+  static async getFactors(species, date = null) {
+    try {
+      const params = new URLSearchParams({ species });
+      if (date) params.append('date', date);
+      const response = await fetch(`${API_URL}/api/v1/predictive/factors?${params}`);
+      if (!response.ok) return { success: false, factors: [] };
+      return response.json();
+    } catch {
+      return { success: false, factors: [] };
+    }
+  }
+
+  static async getTimeline(species, date = null, location = null) {
+    try {
+      const params = new URLSearchParams({ species });
+      if (date) params.append('date', date);
+      if (location) {
+        params.append('lat', location.lat);
+        params.append('lng', location.lng);
+      }
+      const response = await fetch(`${API_URL}/api/v1/predictive/timeline?${params}`);
+      if (!response.ok) return { success: false, timeline: [] };
+      return response.json();
+    } catch {
+      return { success: false, timeline: [] };
     }
   }
 
@@ -78,9 +127,9 @@ export class PredictiveService {
         { name: 'Activité récente', impact: 'positive', score: 70 }
       ],
       optimal_times: [
-        { period: 'Aube', time: '06:00-08:00', score: 92 },
-        { period: 'Crépuscule', time: '16:30-18:30', score: 88 },
-        { period: 'Mi-journée', time: '11:00-13:00', score: 45 }
+        { period: 'Aube', time: '06:00-08:00', score: 92, is_legal: true },
+        { period: 'Crépuscule', time: '16:30-18:30', score: 88, is_legal: true },
+        { period: 'Mi-journée', time: '11:00-13:00', score: 45, is_legal: true }
       ],
       recommendation: 'Conditions favorables pour la chasse à l\'affût en matinée'
     };
