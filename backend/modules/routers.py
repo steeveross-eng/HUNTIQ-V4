@@ -313,6 +313,18 @@ CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
         "phase": 7,
         "description": "Shopping cart management"
     }),
+    (affiliate_router, {
+        "name": "affiliate_engine",
+        "version": "1.0.0",
+        "phase": 7,
+        "description": "Affiliate click tracking and commissions"
+    }),
+    (alerts_router, {
+        "name": "alerts_engine",
+        "version": "1.0.0",
+        "phase": 7,
+        "description": "System alerts and site settings"
+    }),
 ]
 
 
