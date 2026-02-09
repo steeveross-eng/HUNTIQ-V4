@@ -68,6 +68,8 @@ from modules.orders_engine import router as orders_router
 from modules.suppliers_engine import router as suppliers_router
 from modules.customers_engine import router as customers_router
 from modules.cart_engine import router as cart_router
+from modules.affiliate_engine import router as affiliate_router
+from modules.alerts_engine import router as alerts_router
 
 
 # List of all available routers with their metadata
