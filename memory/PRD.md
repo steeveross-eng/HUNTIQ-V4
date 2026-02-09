@@ -133,19 +133,15 @@ Refactorisation majeure vers une architecture modulaire stricte ("PLAN MAÎTRE B
 ### P0 - Critique
 
 #### Phase 5: Couches de Données (5 modules) ✅ COMPLÉTÉE
-- [x] ecoforestry_layers
-- [x] behavioral_layers
-- [x] simulation_layers
-- [x] layers_3d
-- [x] advanced_geospatial_layers
-
 #### Phase 6: Module Live Heading View ✅ COMPLÉTÉE
-- [x] Backend complet (live_heading_engine)
-- [x] Frontend immersif (8 composants React)
-
-#### Phase 7: Découplage server.py ← PROCHAINE PHASE
-- [ ] Migration des routes vers modules
-- [ ] server.py devient orchestrateur pur
+#### Phase 7: Découplage server.py ⏳ EN COURS
+- [x] products_engine extrait
+- [x] orders_engine extrait (avec commissions)
+- [x] suppliers_engine extrait
+- [x] customers_engine extrait
+- [x] cart_engine extrait
+- [ ] Restant dans server.py: affiliate_engine, alerts, site_settings
+- [ ] Transformation finale de server.py en orchestrateur pur
 
 ### P1 - Important (Phases 8-11)
 - [ ] Phase 8: Modularisation Frontend Core
@@ -162,7 +158,8 @@ Refactorisation majeure vers une architecture modulaire stricte ("PLAN MAÎTRE B
 - `/app/test_reports/iteration_2.json` - Phase 3
 
 ### Statut
-- [x] 31/31 modules opérationnels
+- [x] 36/36 modules opérationnels
+- [x] Monolithe intact (rétrocompatibilité)
 - [x] Non-régression validée (monolithe + modules existants)
 - [x] Frontend fonctionnel
 - [x] Documentation Swagger accessible
