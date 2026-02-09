@@ -1,6 +1,7 @@
 /**
  * PlanMaitreDashboard - Central dashboard for Plan Maître modules
  * Phase 10 - Plan Maître Integration
+ * Updated: Phase 8 - Added Legal Time Engine integration
  */
 import React, { useState, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card';
@@ -16,6 +17,7 @@ import { PredictiveWidget } from '../predictive';
 import { SightingsFeed } from '../collaborative';
 import { HabitatAnalysis } from '../ecoforestry';
 import { ActivityChart } from '../behavioral';
+import { LegalTimeWidget, LegalTimeBar } from '../legaltime';
 
 const DEFAULT_COORDS = { lat: 46.8139, lng: -71.2082 }; // Quebec City
 
