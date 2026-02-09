@@ -3,7 +3,7 @@
 Central router integration for all HUNTIQ modules.
 This file is the single point of import for server.py
 
-Version: 1.4.0 - Phase 5 Complete (Data Layers)
+Version: 1.6.0 - Phase 7 (Decoupling server.py)
 """
 
 from fastapi import APIRouter
@@ -59,6 +59,15 @@ from modules.data_layers.advanced_geospatial_layers import router as advanced_ge
 # SPECIAL MODULES (Phase 6)
 # ==============================================
 from modules.live_heading_engine import router as live_heading_router
+
+# ==============================================
+# DECOUPLED MODULES (Phase 7 - Extracted from server.py)
+# ==============================================
+from modules.products_engine import router as products_router
+from modules.orders_engine import router as orders_router
+from modules.suppliers_engine import router as suppliers_router
+from modules.customers_engine import router as customers_router
+from modules.cart_engine import router as cart_router
 
 
 # List of all available routers with their metadata
