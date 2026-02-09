@@ -331,6 +331,22 @@ CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
         "phase": 7,
         "description": "System alerts and site settings"
     }),
+    
+    # ==========================================
+    # Phase 8 - Legal Time & Predictive Engines (2 modules)
+    # ==========================================
+    (legal_time_router, {
+        "name": "legal_time_engine",
+        "version": "1.0.0",
+        "phase": 8,
+        "description": "Legal hunting hours based on sunrise/sunset (Quebec regulations)"
+    }),
+    (predictive_router, {
+        "name": "predictive_engine",
+        "version": "1.0.0",
+        "phase": 8,
+        "description": "Hunting success predictions and activity forecasts"
+    }),
 ]
 
 
