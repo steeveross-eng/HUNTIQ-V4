@@ -69,6 +69,9 @@ export const PlanMaitreDashboard = ({
         </CardContent>
       </Card>
 
+      {/* Legal Time Status Bar */}
+      <LegalTimeBar coordinates={coordinates} />
+
       {/* Tab Navigation */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="bg-slate-800 border border-slate-700 w-full justify-start flex-wrap">
