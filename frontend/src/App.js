@@ -43,6 +43,7 @@ import { ShopPage, ComparePage } from "@/pages";
 import DashboardPage from "@/pages/DashboardPage";
 import BusinessPage from "@/pages/BusinessPage";
 import PlanMaitrePage from "@/pages/PlanMaitrePage";
+import { NotificationProvider } from "@/modules/notifications";
 import { 
   ShoppingCart, FlaskConical, GitCompare, Star, DollarSign, ThumbsUp, Heart, Eye,
   Shield, MousePointer, TrendingUp, CheckCircle, ChevronRight, Menu, X, ArrowLeft,
