@@ -171,6 +171,16 @@ Tous les modules opérationnels avec APIs documentées.
 
 ## 8. Changelog
 
+### P1 - Intégration GPT-5.2 & Notifications (9 Février 2026)
+- ✅ **GPT-5.2 via Emergent LLM Key** intégré dans ai_engine
+- ✅ Nouveaux endpoints AI: `/query`, `/compare`, `/suggestions`
+- ✅ Réponses IA expertes sur la chasse fonctionnelles
+- ✅ **Notifications Push + In-app** pour fin de période légale
+- ✅ Endpoint `/notification/legal-time/status` pour statut temps réel
+- ✅ Endpoint `/notification/legal-time/upcoming` pour alertes planifiées
+- ✅ Composants frontend: `NotificationProvider`, `LegalTimeAlert`
+- ✅ Intégration dans App.js avec warning 15 min avant fin
+
 ### Phase 11 - Tests & Documentation (9 Février 2026)
 - ✅ Tests unitaires Legal Time Engine: 37 tests passés
 - ✅ Tests unitaires Predictive Engine: 39 tests passés
