@@ -3,12 +3,13 @@
 FastAPI router for AI-powered analysis endpoints.
 Uses GPT-5.2 via Emergent LLM Key.
 
-Version: 1.0.0
+Version: 1.1.0
 API Prefix: /api/v1/ai
 """
 
 from fastapi import APIRouter, HTTPException, Query
-from typing import Optional
+from pydantic import BaseModel
+from typing import Optional, List
 from .service import AIAnalysisService
 from .models import AnalysisRequest, AdvancedAnalysisRequest
 from .data.products import BIONIC_PRODUCTS, CATEGORY_KEYWORDS
@@ -20,14 +21,31 @@ router = APIRouter(prefix="/api/v1/ai", tags=["AI Engine"])
 _service = AIAnalysisService()
 
 
+# New request models for Q&A and comparison
+class QueryRequest(BaseModel):
+    """Request for AI Q&A"""
+    question: str
+    context: Optional[str] = None
+    species: Optional[str] = None
+    session_id: Optional[str] = None
+
+
+class CompareRequest(BaseModel):
+    """Request for AI product comparison"""
+    products: List[str]
+    criteria: Optional[List[str]] = None
+    species: Optional[str] = "deer"
+
+
 @router.get("/")
 async def ai_engine_info():
     """Get AI engine information"""
     return {
         "module": "ai_engine",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "description": "AI-powered product analysis using GPT-5.2",
         "model": "openai/gpt-5.2",
+        "integration": "Emergent LLM Key",
         "supported_types": list(CATEGORY_KEYWORDS.keys()),
         "bionic_products": len(BIONIC_PRODUCTS),
         "features": [
@@ -35,7 +53,9 @@ async def ai_engine_info():
             "Ingredient estimation",
             "Scientific scoring",
             "Competitor comparison",
-            "Advanced contextual analysis"
+            "Advanced contextual analysis",
+            "Q&A hunting assistant",
+            "AI product comparison"
         ]
     }
 
