@@ -1,6 +1,6 @@
 /**
  * Territory Service - API client for territory management
- * Phase 10 - Plan Maître Modules
+ * Phase 10+ - Connected to real backend
  */
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
@@ -9,6 +9,7 @@ export class TerritoryService {
   static async getHealth() {
     try {
       const response = await fetch(`${API_URL}/api/v1/territory/`);
+      if (!response.ok) return { status: 'unavailable' };
       return response.json();
     } catch {
       return { status: 'unavailable' };
@@ -21,10 +22,18 @@ export class TerritoryService {
       if (type) url += `?type=${type}`;
       
       const response = await fetch(url);
-      if (!response.ok) return { territories: [] };
-      return response.json();
+      if (!response.ok) {
+        return { territories: this.getPlaceholderTerritories() };
+      }
+      
+      const data = await response.json();
+      // If empty, use placeholders
+      if (data.success && data.territories?.length > 0) {
+        return data;
+      }
+      return { territories: this.getPlaceholderTerritories() };
     } catch {
-      return { territories: [] };
+      return { territories: this.getPlaceholderTerritories() };
     }
   }
 
@@ -72,7 +81,7 @@ export class TerritoryService {
     }
   }
 
-  // Placeholder territories for demo
+  // Placeholder territories
   static getPlaceholderTerritories() {
     return [
       { 

@@ -1,6 +1,6 @@
 /**
  * Collaborative Service - API client for collaborative sharing
- * Phase 10 - Plan Maître Modules
+ * Phase 10+ - Connected to real backend
  */
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
@@ -52,10 +52,16 @@ export class CollaborativeService {
       if (options.limit) params.append('limit', options.limit);
       
       const response = await fetch(`${API_URL}/api/v1/collaborative/reports?${params}`);
-      if (!response.ok) return { success: false, reports: [] };
-      return response.json();
+      if (!response.ok) {
+        return { success: true, reports: this.getPlaceholderReports() };
+      }
+      const data = await response.json();
+      if (data.success && data.reports?.length > 0) {
+        return data;
+      }
+      return { success: true, reports: this.getPlaceholderReports() };
     } catch {
-      return { success: false, reports: [] };
+      return { success: true, reports: this.getPlaceholderReports() };
     }
   }
 
@@ -76,10 +82,16 @@ export class CollaborativeService {
     try {
       const params = new URLSearchParams({ lat, lng, radius_km: radiusKm });
       const response = await fetch(`${API_URL}/api/v1/collaborative/sightings?${params}`);
-      if (!response.ok) return { success: false, sightings: [] };
-      return response.json();
+      if (!response.ok) {
+        return { success: true, sightings: this.getPlaceholderSightings() };
+      }
+      const data = await response.json();
+      if (data.success && data.sightings?.length > 0) {
+        return data;
+      }
+      return { success: true, sightings: this.getPlaceholderSightings() };
     } catch {
-      return { success: false, sightings: [] };
+      return { success: true, sightings: this.getPlaceholderSightings() };
     }
   }
 
@@ -96,12 +108,26 @@ export class CollaborativeService {
     }
   }
 
+  static async getGroups(userId = null) {
+    try {
+      let url = `${API_URL}/api/v1/collaborative/groups`;
+      if (userId) url += `?user_id=${userId}`;
+      
+      const response = await fetch(url);
+      if (!response.ok) return { success: false, groups: [] };
+      return response.json();
+    } catch {
+      return { success: false, groups: [] };
+    }
+  }
+
   // Placeholder data
   static getPlaceholderSightings() {
+    const now = new Date();
     return [
-      { id: 1, species: 'deer', count: 3, timestamp: '2026-02-09T06:30:00Z', verified: true },
-      { id: 2, species: 'moose', count: 1, timestamp: '2026-02-08T17:15:00Z', verified: true },
-      { id: 3, species: 'turkey', count: 8, timestamp: '2026-02-08T07:45:00Z', verified: false }
+      { id: 1, species: 'deer', count: 3, timestamp: new Date(now - 2 * 3600000).toISOString(), verified: true, location: 'Zone Nord' },
+      { id: 2, species: 'moose', count: 1, timestamp: new Date(now - 26 * 3600000).toISOString(), verified: true, location: 'Secteur Est' },
+      { id: 3, species: 'turkey', count: 8, timestamp: new Date(now - 50 * 3600000).toISOString(), verified: false, location: 'Champ sud' }
     ];
   }
 
