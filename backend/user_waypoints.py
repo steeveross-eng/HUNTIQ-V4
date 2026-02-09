@@ -538,3 +538,97 @@ async def get_user_data_stats(user_id: str):
     except Exception as e:
         logger.error(f"Error fetching stats: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+
+# ============================================
+# SIMPLIFIED ENDPOINTS (No user_id in path)
+# ============================================
+# These endpoints use a default user_id for easier frontend integration
+
+DEFAULT_USER_ID = "default_user"
+
+@router.get("/waypoints", response_model=List[Waypoint])
+async def get_waypoints_simple(
+    active_only: bool = Query(False, description="Retourner uniquement les waypoints actifs")
+):
+    """Récupère tous les waypoints (utilise un user_id par défaut)"""
+    return await get_user_waypoints(DEFAULT_USER_ID, active_only)
+
+
+@router.post("/waypoints", response_model=Waypoint)
+async def create_waypoint_simple(waypoint: WaypointCreate):
+    """Crée un nouveau waypoint (utilise un user_id par défaut)"""
+    return await create_waypoint(DEFAULT_USER_ID, waypoint)
+
+
+@router.delete("/waypoints/{waypoint_id}")
+async def delete_waypoint_simple(waypoint_id: str):
+    """Supprime un waypoint (utilise un user_id par défaut)"""
+    return await delete_waypoint(DEFAULT_USER_ID, waypoint_id)
+
+
+# Also add a legacy route at /api/user/waypoints
+from fastapi import APIRouter as FastAPIRouter
+
+user_router = FastAPIRouter(prefix="/api/user", tags=["User Waypoints Simple"])
+
+@user_router.get("/waypoints")
+async def get_user_waypoints_legacy():
+    """Récupère tous les waypoints de l'utilisateur par défaut"""
+    try:
+        query = {"user_id": DEFAULT_USER_ID}
+        cursor = waypoints_collection.find(query).sort("created_at", -1)
+        waypoints = await cursor.to_list(length=500)
+        return {"success": True, "waypoints": [serialize_waypoint(wp) for wp in waypoints]}
+    except Exception as e:
+        logger.error(f"Error fetching waypoints: {e}")
+        return {"success": False, "waypoints": [], "error": str(e)}
+
+
+@user_router.post("/waypoints")
+async def create_user_waypoint_legacy(waypoint: WaypointCreate):
+    """Crée un nouveau waypoint pour l'utilisateur par défaut"""
+    try:
+        now = datetime.now(timezone.utc).isoformat()
+        
+        doc = {
+            "user_id": DEFAULT_USER_ID,
+            "name": waypoint.name,
+            "lat": waypoint.lat,
+            "lng": waypoint.lng,
+            "type": waypoint.type,
+            "active": waypoint.active,
+            "notes": waypoint.notes,
+            "icon": waypoint.icon,
+            "color": waypoint.color,
+            "created_at": now,
+            "updated_at": None
+        }
+        
+        result = await waypoints_collection.insert_one(doc)
+        doc["_id"] = result.inserted_id
+        
+        logger.info(f"Created waypoint {result.inserted_id}")
+        return {"success": True, "waypoint": serialize_waypoint(doc)}
+    except Exception as e:
+        logger.error(f"Error creating waypoint: {e}")
+        return {"success": False, "error": str(e)}
+
+
+@user_router.delete("/waypoints/{waypoint_id}")
+async def delete_user_waypoint_legacy(waypoint_id: str):
+    """Supprime un waypoint"""
+    try:
+        result = await waypoints_collection.delete_one({
+            "_id": ObjectId(waypoint_id),
+            "user_id": DEFAULT_USER_ID
+        })
+        
+        if result.deleted_count == 0:
+            return {"success": False, "error": "Waypoint non trouvé"}
+        
+        return {"success": True, "message": "Waypoint supprimé"}
+    except Exception as e:
+        logger.error(f"Error deleting waypoint: {e}")
+        return {"success": False, "error": str(e)}
