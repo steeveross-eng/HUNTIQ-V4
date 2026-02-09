@@ -91,18 +91,22 @@ app = FastAPI(
 HUNTIQ V3 est une plateforme de chasse intelligente utilisant l'IA pour optimiser 
 les stratégies de chasse, analyser les attractants et fournir des recommandations personnalisées.
 
-### Architecture Modulaire (38 modules)
-- **Phase 2**: Core Engines (7 modules)
-- **Phase 3**: Business Engines (8 modules)  
-- **Phase 4**: Master Plan Engines (10 modules)
-- **Phase 5**: Data Layers (5 modules)
-- **Phase 6**: Live Heading View (1 module)
-- **Phase 7**: Decoupled from Monolith (7 modules)
+### Architecture Modulaire (40+ modules)
+- **Phase 2**: Core Engines (weather, scoring, ai, nutrition, strategy)
+- **Phase 3-6**: Business & Plan Maître Engines
+- **Phase 7**: Decoupled from Monolith (products, orders, etc.)
+- **Phase 8**: Legal Time & Predictive Engines (heures légales, prédictions)
+
+### Fonctionnalités Clés
+- 🕐 **Legal Time Engine**: Calcul heures légales de chasse (30 min avant/après soleil)
+- 🔮 **Predictive Engine**: Prédiction succès de chasse multi-facteurs
+- 🤖 **AI Engine**: GPT-5.2 pour analyse et recommandations
+- 🔔 **Notifications**: Alertes 15 min avant fin période légale
 
 ### Authentification
 Certains endpoints nécessitent une authentification via JWT Bearer token.
     """,
-    version="3.7.0",
+    version="3.8.0",
     lifespan=lifespan,
     docs_url="/api/docs",
     redoc_url="/api/redoc",
