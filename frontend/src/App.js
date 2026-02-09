@@ -725,6 +725,7 @@ function App() {
               <Route path="/marketplace" element={<MarketplacePage />} />
               <Route path="/formations" element={<FormationsPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/business" element={<BusinessPage />} />
               <Route path="/referral" element={<ReferralModule />} />
               <Route path="/admin" element={<AdminPage onProductsUpdate={fetchProducts} />} />
               <Route path="/networking" element={<NetworkingHub />} />
