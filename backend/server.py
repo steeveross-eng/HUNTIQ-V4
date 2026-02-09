@@ -30,8 +30,7 @@ logger = logging.getLogger(__name__)
 # ==============================================
 from modules.routers import (
     CORE_ROUTERS,
-    MODULE_STATUS,
-    get_aggregated_routes
+    MODULE_STATUS
 )
 
 # Legacy monolith imports for backward compatibility
