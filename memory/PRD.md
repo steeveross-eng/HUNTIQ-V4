@@ -164,21 +164,16 @@ Refactorisation majeure vers une architecture modulaire stricte ("PLAN MAÎTRE B
 
 ### P0 - Critique
 
-#### Phase 5: Couches de Données (5 modules) ✅ COMPLÉTÉE
-#### Phase 6: Module Live Heading View ✅ COMPLÉTÉE
-#### Phase 7: Découplage server.py ✅ COMPLÉTÉE
-- [x] products_engine extrait
-- [x] orders_engine extrait (avec commissions)
-- [x] suppliers_engine extrait
-- [x] customers_engine extrait
-- [x] cart_engine extrait
-- [x] affiliate_engine extrait
-- [x] alerts_engine extrait (avec site settings)
-- [x] server.py transformé en orchestrateur pur (~150 lignes)
-- [x] Legacy router préservé pour rétrocompatibilité
+#### Phase 5-7: Backend ✅ COMPLÉTÉES (38 modules)
+#### Phase 8: Modularisation Frontend Core ✅ COMPLÉTÉE
+- [x] Module nutrition (3 composants)
+- [x] Module scoring (4 composants)
+- [x] Module weather (4 composants)
+- [x] Module ai (3 composants)
+- [x] Module strategy (3 composants)
+- [x] Services API intégrés
 
-### P1 - Important (Phases 8-11)
-- [ ] Phase 8: Modularisation Frontend Core
+### P1 - Important (Phases 9-11)
 - [ ] Phase 9: Modularisation Frontend Métier
 - [ ] Phase 10: Modules Frontend Plan Maître
 - [ ] Phase 11: Tests & Documentation complète
@@ -187,15 +182,11 @@ Refactorisation majeure vers une architecture modulaire stricte ("PLAN MAÎTRE B
 
 ## 6. Tests et Validation
 
-### Rapports de Test
-- `/app/test_reports/iteration_1.json` - Phase 2
-- `/app/test_reports/iteration_2.json` - Phase 3
-
 ### Statut
-- [x] 38/38 modules opérationnels
-- [x] Monolithe legacy intact (rétrocompatibilité)
-- [x] server.py = orchestrateur pur
-- [x] Swagger documentation: /api/docs
+- [x] 38/38 modules backend opérationnels
+- [x] 5 modules frontend Core (17 composants)
+- [x] Frontend compile sans erreur
+- [x] Lint OK pour tous les modules
 - [x] Non-régression validée (monolithe + modules existants)
 - [x] Frontend fonctionnel
 - [x] Documentation Swagger accessible
