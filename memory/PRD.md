@@ -2,7 +2,7 @@
 
 ## Date de création: 2026-02-03
 ## Dernière mise à jour: Décembre 2025
-## Version: 3.7 (Architecture Modulaire v2.0 - Phase 7 COMPLÈTE)
+## Version: 3.8 (Architecture Modulaire v2.0 - Phase 8 COMPLÈTE)
 
 ---
 
@@ -16,39 +16,61 @@ Refactorisation majeure vers une architecture modulaire stricte ("PLAN MAÎTRE B
 ## 2. Architecture
 
 ### Stack Technique
-- **Frontend**: React 18 + Tailwind CSS + ShadCN UI
-- **Backend**: FastAPI (Python)
+- **Frontend**: React 18 + Tailwind CSS + ShadCN UI + Modules Core
+- **Backend**: FastAPI (Python) - 38 modules
 - **Base de données**: MongoDB
 - **IA**: GPT-5.2 via Emergent LLM Key
-- **Architecture**: Modulaire v2.0 (38 modules - ORCHESTRATEUR PUR)
+- **Architecture**: Modulaire v2.0 (Backend + Frontend)
 
-### server.py → ORCHESTRATEUR PUR ✅
-Le fichier `server.py` a été transformé en orchestrateur pur:
-- ~150 lignes (vs 4688 lignes avant)
-- Import uniquement des modules
-- Pas de logique métier
-- Backup monolithe: `server_monolith_backup.py`
-
-### Structure Modulaire - 38 Modules Opérationnels
+### Frontend Modulaire - Phase 8 COMPLÈTE
 
 ```
-/app/backend/modules/
-├── [PHASE 2 - CORE] 7 modules ✅
-├── [PHASE 3 - MÉTIER] 8 modules ✅
-├── [PHASE 4 - PLAN MAÎTRE] 10 modules ✅
-├── [PHASE 5 - DATA LAYERS] 5 modules ✅
-├── [PHASE 6 - LIVE HEADING] 1 module ✅
-├── [PHASE 7 - DÉCOUPÉS DE SERVER.PY] 7 modules ✅
-│   ├── products_engine/v1/        ✅ Gestion produits
-│   ├── orders_engine/v1/          ✅ Commandes + commissions
-│   ├── suppliers_engine/v1/       ✅ Fournisseurs
-│   ├── customers_engine/v1/       ✅ Clients
-│   ├── cart_engine/v1/            ✅ Panier
-│   ├── affiliate_engine/v1/       ✅ Clics affiliés
-│   └── alerts_engine/v1/          ✅ Alertes + site settings
+/app/frontend/src/modules/
+├── [CORE MODULES - Phase 8] ✅
+│   ├── nutrition/
+│   │   ├── index.js
+│   │   ├── NutritionService.js
+│   │   └── components/
+│   │       ├── NutritionAnalyzer.jsx
+│   │       ├── NutritionCard.jsx
+│   │       └── NutritionScore.jsx
+│   │
+│   ├── scoring/
+│   │   ├── index.js
+│   │   ├── ScoringService.js
+│   │   └── components/
+│   │       ├── ScoreDisplay.jsx
+│   │       ├── ScoreGauge.jsx
+│   │       ├── ScoreBreakdown.jsx
+│   │       └── ScoreCompare.jsx
+│   │
+│   ├── weather/
+│   │   ├── index.js
+│   │   ├── WeatherService.js
+│   │   └── components/
+│   │       ├── WeatherWidget.jsx
+│   │       ├── WeatherForecast.jsx
+│   │       ├── WindRose.jsx
+│   │       └── HuntingConditions.jsx
+│   │
+│   ├── ai/
+│   │   ├── index.js
+│   │   ├── AIService.js
+│   │   └── components/
+│   │       ├── AIAnalyzer.jsx
+│   │       ├── AIChat.jsx
+│   │       └── AIInsights.jsx
+│   │
+│   └── strategy/
+│       ├── index.js
+│       ├── StrategyService.js
+│       └── components/
+│           ├── StrategyPanel.jsx
+│           ├── StrategyCard.jsx
+│           └── StrategyTimeline.jsx
 │
-├── routers.py                     ✅ Registre central v2.0
-└── server.py                      ✅ ORCHESTRATEUR PUR (~150 lignes)
+├── [PHASE 6] live_heading_view/ ✅
+└── [Existing modules] wms/, geospatial/, etc.
 ```
 
 ---
