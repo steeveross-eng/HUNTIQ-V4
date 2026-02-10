@@ -243,7 +243,7 @@ class AnalyticsService:
     async def get_optimal_times(self, user_id: str) -> List[TimeSlotAnalysis]:
         """Analyze optimal hunting times"""
         pipeline = [
-            {"$match": {"user_id": user_id}},
+            {"$match": {"user_id": user_id, "date": {"$ne": None}}},
             {"$project": {
                 "hour": {"$hour": "$date"},
                 "success": 1,
@@ -262,6 +262,8 @@ class AnalyticsService:
         
         # Create labels for time slots
         def get_label(hour: int) -> str:
+            if hour is None:
+                return "Inconnu"
             if 5 <= hour < 8:
                 return "Aube"
             elif 8 <= hour < 12:
@@ -275,15 +277,17 @@ class AnalyticsService:
             else:
                 return "Nuit"
         
+        # Filter out results with None _id (no date)
         return [
             TimeSlotAnalysis(
-                hour=r["_id"],
+                hour=r["_id"] if r["_id"] is not None else 0,
                 label=get_label(r["_id"]),
                 trips=r["trips"],
                 success_rate=round((r["successes"] / r["trips"] * 100) if r["trips"] > 0 else 0, 1),
                 activity_score=round(r["total_observations"] / max(r["trips"], 1) * 10, 1)
             )
             for r in results
+            if r["_id"] is not None
         ]
     
     async def get_monthly_trends(self, user_id: str, months: int = 12) -> List[MonthlyTrend]:
