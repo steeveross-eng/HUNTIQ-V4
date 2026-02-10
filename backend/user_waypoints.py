@@ -1,6 +1,13 @@
 """
 User Waypoints and Saved Places API
 Persistance backend pour les waypoints et lieux enregistrés de l'utilisateur
+
+⚠️ DEPRECATED - Phase P6 (Février 2026)
+Ce module est déprécié. Utilisez l'API unifiée /api/territory/waypoints à la place.
+Les waypoints sont maintenant gérés par territory.py avec la collection territory_waypoints.
+
+Migration effectuée: user_waypoints → territory_waypoints
+Documentation: /app/memory/DIAGNOSTIC_MAP_TERRITORY_SYNC.md
 """
 
 from fastapi import APIRouter, HTTPException, Query
@@ -11,10 +18,19 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from bson import ObjectId
 import os
 import logging
+import warnings
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/api/user-data", tags=["User Waypoints & Places"])
+# Emit deprecation warning on module load
+warnings.warn(
+    "user_waypoints.py is deprecated. Use /api/territory/waypoints instead.",
+    DeprecationWarning,
+    stacklevel=2
+)
+logger.warning("⚠️ DEPRECATED: user_waypoints.py - Use /api/territory/waypoints instead")
+
+router = APIRouter(prefix="/api/user-data", tags=["User Waypoints & Places [DEPRECATED]"])
 
 # MongoDB connection
 MONGO_URL = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
@@ -23,7 +39,7 @@ DB_NAME = os.environ.get('DB_NAME', 'hunttrack')
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
 
-# Collections
+# Collections - DEPRECATED, use territory_waypoints instead
 waypoints_collection = db['user_waypoints']
 places_collection = db['user_places']
 
