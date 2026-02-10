@@ -17,6 +17,9 @@ from .models import (
     TripStatistics, WaypointStatistics, WeatherCondition
 )
 
+# Import email service for trip completion notifications
+from modules.auth_engine.v1.email_service import EmailService
+
 logger = logging.getLogger(__name__)
 
 
