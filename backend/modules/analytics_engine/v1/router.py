@@ -99,7 +99,9 @@ async def get_dashboard(
 
 @router.get("/overview", response_model=OverviewStats, summary="Statistiques globales")
 async def get_overview(
+    request: Request,
     time_range: TimeRange = Query(TimeRange.ALL, description="Période de temps"),
+    user_id: str = Depends(get_user_id_with_fallback),
     service: AnalyticsService = Depends(get_service)
 ):
     """
@@ -112,7 +114,7 @@ async def get_overview(
     - Observations totales
     """
     try:
-        return await service.get_overview_stats(DEFAULT_USER_ID, time_range)
+        return await service.get_overview_stats(user_id, time_range)
     except Exception as e:
         logger.error(f"Error getting overview: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -120,7 +122,9 @@ async def get_overview(
 
 @router.get("/species", response_model=List[SpeciesStats], summary="Répartition par espèce")
 async def get_species_breakdown(
+    request: Request,
     time_range: TimeRange = Query(TimeRange.ALL, description="Période de temps"),
+    user_id: str = Depends(get_user_id_with_fallback),
     service: AnalyticsService = Depends(get_service)
 ):
     """
@@ -133,7 +137,7 @@ async def get_species_breakdown(
     - Durée moyenne
     """
     try:
-        return await service.get_species_breakdown(DEFAULT_USER_ID, time_range)
+        return await service.get_species_breakdown(user_id, time_range)
     except Exception as e:
         logger.error(f"Error getting species breakdown: {e}")
         raise HTTPException(status_code=500, detail=str(e))
