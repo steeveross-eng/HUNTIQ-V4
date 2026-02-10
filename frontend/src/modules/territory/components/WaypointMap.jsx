@@ -177,6 +177,33 @@ export const WaypointMap = ({ defaultCenter = { lat: 46.8139, lng: -71.2080 } })
     }
   };
 
+  // Export handlers
+  const handleExportCSV = () => {
+    if (waypoints.length === 0) {
+      toast.error('Aucun waypoint à exporter');
+      return;
+    }
+    try {
+      ExportService.exportWaypointsCSV(waypoints);
+      toast.success('Waypoints exportés en CSV !');
+    } catch (error) {
+      toast.error('Erreur lors de l\'export');
+    }
+  };
+
+  const handleExportPDF = () => {
+    if (waypoints.length === 0) {
+      toast.error('Aucun waypoint à exporter');
+      return;
+    }
+    try {
+      ExportService.exportWaypointsPDF(waypoints);
+      toast.success('Waypoints exportés en PDF !');
+    } catch (error) {
+      toast.error('Erreur lors de l\'export');
+    }
+  };
+
   // Center on waypoint
   const centerOnWaypoint = (waypoint) => {
     setMapCenter([waypoint.lat, waypoint.lng]);
