@@ -11,7 +11,8 @@ from enum import Enum
 class UserRole(str, Enum):
     """User role types - hierarchical permissions"""
     HUNTER = "hunter"      # Standard user - basic access
-    GUIDE = "guide"        # Professional guide - extended access
+    GUIDE = "guide"        # Professional guide - extended access (terrain)
+    BUSINESS = "business"  # Business user - marketplace/commercial access
     ADMIN = "admin"        # Administrator - full access
 
 
@@ -43,7 +44,7 @@ ROLE_PERMISSIONS: Dict[str, List[str]] = {
         "manage_profile",
         "receive_notifications",
         "view_public_territories",
-        # Guide-specific permissions
+        # Guide-specific permissions (terrain focus)
         "view_client_trips",
         "manage_group_trips",
         "share_waypoints",
@@ -51,6 +52,65 @@ ROLE_PERMISSIONS: Dict[str, List[str]] = {
         "export_reports",
         "manage_territory_access",
         "send_group_notifications",
+    ],
+    UserRole.BUSINESS.value: [
+        # Basic user features (shared with hunter)
+        "view_dashboard",
+        "manage_profile",
+        "receive_notifications",
+        # ─────────────────────────────────────────
+        # PRODUCTS MODULE - Catalogue management
+        # ─────────────────────────────────────────
+        "view_own_products",           # View own product listings
+        "create_products",             # Create new products
+        "update_own_products",         # Edit own products
+        "delete_own_products",         # Remove own products
+        "manage_product_inventory",    # Stock management
+        "manage_product_pricing",      # Price adjustments
+        "manage_product_media",        # Images, videos
+        # ─────────────────────────────────────────
+        # ORDERS MODULE - Order processing
+        # ─────────────────────────────────────────
+        "view_own_orders",             # View orders for own products
+        "update_order_status",         # Process orders (ship, cancel)
+        "manage_order_fulfillment",    # Fulfillment workflow
+        "view_order_history",          # Historical orders
+        "export_order_reports",        # Export order data
+        # ─────────────────────────────────────────
+        # CUSTOMERS MODULE - Customer relations
+        # ─────────────────────────────────────────
+        "view_own_customers",          # View customers who purchased
+        "manage_customer_communications", # Send messages to customers
+        "view_customer_analytics",     # Customer behavior insights
+        # ─────────────────────────────────────────
+        # CART MODULE - Cart visibility
+        # ─────────────────────────────────────────
+        "view_cart_analytics",         # Abandoned cart insights
+        # ─────────────────────────────────────────
+        # SUPPLIERS MODULE - Supplier relations
+        # ─────────────────────────────────────────
+        "manage_supplier_profile",     # Own supplier profile
+        "view_supplier_orders",        # Orders as supplier
+        # ─────────────────────────────────────────
+        # MARKETPLACE MODULE - Marketplace access
+        # ─────────────────────────────────────────
+        "access_marketplace_seller",   # Seller dashboard access
+        "manage_marketplace_listings", # Listing management
+        "view_marketplace_analytics",  # Sales performance
+        "participate_promotions",      # Join marketplace promotions
+        # ─────────────────────────────────────────
+        # AFFILIATE MODULE - Affiliate program
+        # ─────────────────────────────────────────
+        "access_affiliate_program",    # Join affiliate program
+        "view_affiliate_earnings",     # Commission tracking
+        "manage_affiliate_links",      # Referral links
+        "export_affiliate_reports",    # Earnings reports
+        # ─────────────────────────────────────────
+        # ANALYTICS - Business insights
+        # ─────────────────────────────────────────
+        "view_sales_analytics",        # Revenue, sales trends
+        "view_revenue_reports",        # Financial reports
+        "export_business_reports",     # Export business data
     ],
     UserRole.ADMIN.value: [
         # All permissions
