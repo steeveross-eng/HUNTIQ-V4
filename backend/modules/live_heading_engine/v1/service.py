@@ -399,10 +399,10 @@ class LiveHeadingService:
         """Calculate cone polygon vertices"""
         vertices = [{"lat": lat, "lng": lng}]  # Apex
         
-        # Calculate left and right edges
+        # Calculate left edge bearing (right_bearing calculated for symmetry reference)
         half_aperture = aperture / 2
         left_bearing = (heading - half_aperture) % 360
-        right_bearing = (heading + half_aperture) % 360
+        # right_bearing would be: (heading + half_aperture) % 360
         
         # Number of points along arc
         num_arc_points = 8
