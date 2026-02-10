@@ -71,12 +71,21 @@ async def ensure_indexes():
 # GEO ENTITY CRUD
 # ===========================================
 
+# Types d'entités PRIVÉES (visibles uniquement par l'utilisateur propriétaire ou admin)
+PRIVATE_ENTITY_TYPES = {"hotspot", "corridor"}
+
+
 @router.post("/entities", response_model=GeoEntityResponse)
 async def create_entity(entity: GeoEntityCreate, user_id: str = Query(...)):
     """Create a new geo entity"""
     db = await get_db()
     
     doc = entity.to_document(user_id)
+    
+    # 🔒 Les hotspots sont toujours créés comme privés (pas de group_id)
+    if entity.entity_type.value in PRIVATE_ENTITY_TYPES:
+        doc["group_id"] = None  # Force privé
+        doc["metadata"]["is_private"] = True
     
     await db[GEO_COLLECTION].insert_one(doc)
     
@@ -93,14 +102,28 @@ async def list_entities(
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=500)
 ):
-    """List geo entities for a user with optional filters"""
+    """
+    List geo entities for a user with optional filters.
+    
+    ⚠️ CONFIDENTIALITÉ: Les hotspots et corridors sont EXCLUS des requêtes de groupe.
+    Ces entités ne sont visibles que par leur propriétaire.
+    """
     db = await get_db()
     
-    query = {"$or": [{"user_id": user_id}]}
+    # Base query: entités de l'utilisateur
+    query = {"user_id": user_id}
     
-    # Include group entities if group_id provided
+    # 🔒 Si on demande des entités de groupe, EXCLURE les types privés
     if group_id:
-        query["$or"].append({"group_id": group_id})
+        query = {
+            "$or": [
+                {"user_id": user_id},
+                {
+                    "group_id": group_id,
+                    "entity_type": {"$nin": list(PRIVATE_ENTITY_TYPES)}  # Exclure hotspots/corridors
+                }
+            ]
+        }
     
     if entity_type:
         query["entity_type"] = entity_type
@@ -115,16 +138,26 @@ async def list_entities(
 
 @router.get("/entities/{entity_id}", response_model=GeoEntityResponse)
 async def get_entity(entity_id: str, user_id: str = Query(...)):
-    """Get a specific geo entity"""
+    """
+    Get a specific geo entity.
+    
+    ⚠️ CONFIDENTIALITÉ: Les hotspots ne sont accessibles que par leur propriétaire.
+    """
     db = await get_db()
     
-    entity = await db[GEO_COLLECTION].find_one({
-        "_id": entity_id,
-        "$or": [{"user_id": user_id}, {"group_id": {"$exists": True}}]
-    })
+    entity = await db[GEO_COLLECTION].find_one({"_id": entity_id})
     
     if not entity:
         raise HTTPException(status_code=404, detail="Entity not found")
+    
+    # 🔒 Vérification de propriété pour les entités privées
+    if entity.get("entity_type") in PRIVATE_ENTITY_TYPES:
+        if entity.get("user_id") != user_id:
+            raise HTTPException(status_code=403, detail="Accès refusé: cette entité est privée")
+    else:
+        # Pour les entités non-privées, vérifier propriété ou groupe
+        if entity.get("user_id") != user_id and not entity.get("group_id"):
+            raise HTTPException(status_code=403, detail="Accès refusé")
     
     return GeoEntityResponse.from_document(entity)
 
