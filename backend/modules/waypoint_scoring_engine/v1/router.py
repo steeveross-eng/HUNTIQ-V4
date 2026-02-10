@@ -89,7 +89,7 @@ async def get_waypoint_wqs(
     - Accessibilité/fréquence (15%)
     """
     try:
-        return await service.calculate_wqs(waypoint_id, DEFAULT_USER_ID)
+        return await service.calculate_wqs(waypoint_id, user_id)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:
@@ -180,7 +180,7 @@ async def get_success_forecast(
     Retourne une probabilité de succès (0-100%) avec recommandations.
     """
     try:
-        return await service.calculate_success_forecast(request, DEFAULT_USER_ID)
+        return await service.calculate_success_forecast(request, user_id)
     except Exception as e:
         logger.error(f"Error calculating forecast: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -204,7 +204,7 @@ async def get_quick_forecast(
             target_hour=hour,
             temperature=temperature
         )
-        return await service.calculate_success_forecast(request, DEFAULT_USER_ID)
+        return await service.calculate_success_forecast(request, user_id)
     except Exception as e:
         logger.error(f"Error calculating quick forecast: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -230,7 +230,7 @@ async def get_ai_recommendations(
     Retourne les 5 meilleurs waypoints avec tips et probabilités.
     """
     try:
-        return await service.get_ai_recommendations(species, weather, DEFAULT_USER_ID)
+        return await service.get_ai_recommendations(species, weather, user_id)
     except Exception as e:
         logger.error(f"Error getting recommendations: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -264,7 +264,7 @@ async def get_gpt_recommendation(
         waypoint_data = {}
         if waypoint_id:
             try:
-                wqs = await service.calculate_wqs(waypoint_id, DEFAULT_USER_ID)
+                wqs = await service.calculate_wqs(waypoint_id, user_id)
                 waypoint_data = {
                     "name": wqs.waypoint_name,
                     "wqs": wqs.total_score,
