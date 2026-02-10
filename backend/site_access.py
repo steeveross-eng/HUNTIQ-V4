@@ -335,8 +335,11 @@ async def update_site_mode(
     return response
 
 @access_router.post("/add-allowed-ip")
-async def add_allowed_ip(ip: str = Query(...)):
-    """Add an IP to the allowed list"""
+async def add_allowed_ip(
+    ip: str = Query(...),
+    admin: UserWithRole = Depends(require_admin)
+):
+    """Add an IP to the allowed list (admin only)"""
     database = await get_db()
     
     await database.site_config.update_one(
@@ -345,11 +348,15 @@ async def add_allowed_ip(ip: str = Query(...)):
         upsert=True
     )
     
+    logger.info(f"IP {ip} whitelisted by {admin.email}")
     return {"success": True, "message": f"IP {ip} ajoutée à la liste blanche"}
 
 @access_router.delete("/remove-allowed-ip")
-async def remove_allowed_ip(ip: str = Query(...)):
-    """Remove an IP from the allowed list"""
+async def remove_allowed_ip(
+    ip: str = Query(...),
+    admin: UserWithRole = Depends(require_admin)
+):
+    """Remove an IP from the allowed list (admin only)"""
     database = await get_db()
     
     await database.site_config.update_one(
@@ -357,6 +364,7 @@ async def remove_allowed_ip(ip: str = Query(...)):
         {"$pull": {"allowed_ips": ip}}
     )
     
+    logger.info(f"IP {ip} removed from whitelist by {admin.email}")
     return {"success": True, "message": f"IP {ip} retirée de la liste blanche"}
 
 # ============================================
@@ -364,8 +372,11 @@ async def remove_allowed_ip(ip: str = Query(...)):
 # ============================================
 
 @access_router.get("/access-log")
-async def get_access_log(limit: int = 50):
-    """Get recent access attempts log"""
+async def get_access_log(
+    limit: int = 50,
+    admin: UserWithRole = Depends(require_admin)
+):
+    """Get recent access attempts log (admin only)"""
     database = await get_db()
     
     logs = await database.access_log.find({}).sort("timestamp", -1).limit(limit).to_list(limit)
