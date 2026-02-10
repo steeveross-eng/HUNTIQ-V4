@@ -137,14 +137,14 @@ Tous les modules opérationnels avec APIs documentées.
 
 | Métrique | Valeur |
 |----------|--------|
-| Modules Backend | 42 |
-| Modules Frontend | 21 |
-| Services Frontend | 16 |
+| Modules Backend | 43 |
+| Modules Frontend | 22 |
+| Services Frontend | 17 |
 | Dashboards | 3 |
-| APIs Connectées | 30+ |
+| APIs Connectées | 41+ |
 | Tests Unitaires | 97 |
-| Tests E2E | 14 |
-| **Total Tests** | **111** |
+| Tests E2E | 32 |
+| **Total Tests** | **129** |
 | Couverture | 100% |
 
 ---
@@ -158,6 +158,7 @@ Tous les modules opérationnels avec APIs documentées.
 - Phase 10: Frontend Plan Maître + Dashboard
 - Phase 10+: Connexion APIs Backend
 - **Phase 8+ (NEW): Legal Time Engine + Predictive Engine**
+- **Phase P4 (NEW): Geolocation Engine + PWA Avancée**
 - **Phase 11 (NEW): Tests unitaires + Documentation**
 
 ### À venir (P1)
