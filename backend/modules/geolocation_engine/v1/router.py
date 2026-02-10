@@ -25,9 +25,9 @@ from .models import (
 from .service import GeolocationService, DEFAULT_USER_ID
 
 # Database dependency
-async def get_db() -> AsyncIOMotorDatabase:
-    from database import get_database
-    return await get_database()
+def get_db() -> AsyncIOMotorDatabase:
+    from database import Database
+    return Database.get_database()
 
 logger = logging.getLogger(__name__)
 
