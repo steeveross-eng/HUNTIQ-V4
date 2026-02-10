@@ -324,6 +324,26 @@ Tous les modules opérationnels avec APIs documentées.
 - ✅ **GoogleOAuthCallback**: Composant de callback OAuth
 - ✅ **Tests E2E**: 25/25 passés (100%)
 
+### Phase P4+ - Données Réelles & Password Reset (10 Février 2026)
+- ✅ **Hunting Trip Logger**: Module de logging des sorties de chasse
+  - POST /api/v1/trips/create - Créer sortie
+  - POST /api/v1/trips/start - Démarrer avec météo
+  - POST /api/v1/trips/end - Terminer et sync analytics
+  - POST /api/v1/trips/observations - Logger observations
+  - POST /api/v1/trips/visits - Logger visites waypoints
+  - GET /api/v1/trips/statistics - Stats utilisateur
+  - GET /api/v1/trips/statistics/waypoint/{id} - Stats waypoint
+- ✅ **Data Sync**: Sorties terminées synchronisées vers analytics_engine
+- ✅ **Email Service (Resend)**: Service email pour notifications
+  - send_password_reset_email() - Email de réinitialisation
+  - send_welcome_email() - Email de bienvenue
+- ✅ **Password Reset Flow**: Flux complet de réinitialisation
+  - POST /api/auth/forgot-password - Demande reset
+  - GET /api/auth/verify-reset-token - Validation token
+  - POST /api/auth/reset-password - Reset avec token
+- ✅ **Tests E2E**: 27/27 passés (100%)
+- ⚠️ **Email**: LOGUÉ seulement (RESEND_API_KEY requis pour envoi réel)
+
 ---
 
 *HUNTIQ V3 - Powered by GPT-5.2 & Emergent Platform*
