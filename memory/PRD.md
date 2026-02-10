@@ -137,14 +137,14 @@ Tous les modules opérationnels avec APIs documentées.
 
 | Métrique | Valeur |
 |----------|--------|
-| Modules Backend | 44 |
+| Modules Backend | 45 |
 | Modules Frontend | 23 |
 | Services Frontend | 18 |
 | Dashboards | 3 |
-| APIs Connectées | 50+ |
+| APIs Connectées | 55+ |
 | Tests Unitaires | 97 |
-| Tests E2E | 43 |
-| **Total Tests** | **140** |
+| Tests E2E | 70 |
+| **Total Tests** | **167** |
 | Couverture | 100% |
 
 ---
@@ -160,6 +160,7 @@ Tous les modules opérationnels avec APIs documentées.
 - **Phase 8+ (NEW): Legal Time Engine + Predictive Engine**
 - **Phase P4 (NEW): Geolocation Engine + PWA Avancée**
 - **Phase P4 (NEW): Auth Engine (JWT + Google OAuth) + VAPID Keys**
+- **Phase P4+ (NEW): Hunting Trip Logger + Password Reset**
 - **Phase 11 (NEW): Tests unitaires + Documentation**
 
 ### À venir (P1)
