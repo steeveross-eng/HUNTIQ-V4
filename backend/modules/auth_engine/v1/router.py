@@ -6,6 +6,7 @@ Phase P4 Security Update
 from fastapi import APIRouter, HTTPException, Request, Depends, Response
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from typing import Optional
+from datetime import datetime, timezone
 import logging
 
 from .models import (
