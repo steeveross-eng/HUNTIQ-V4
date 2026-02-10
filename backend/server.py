@@ -239,6 +239,14 @@ try:
 except ImportError as e:
     logger.warning(f"User Waypoints router not available: {e}")
 
+# 5. Register site access control router
+try:
+    from site_access import access_router
+    app.include_router(access_router)
+    logger.info("✓ Loaded: Site Access Control router [/api/site/*]")
+except ImportError as e:
+    logger.warning(f"Site Access Control router not available: {e}")
+
 # ==============================================
 # CUSTOM OPENAPI SCHEMA
 # ==============================================
