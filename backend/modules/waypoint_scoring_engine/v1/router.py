@@ -2,7 +2,7 @@
 Waypoint Scoring Engine - API Router
 Provides WQS, Success Forecast, and AI recommendations
 """
-from fastapi import APIRouter, HTTPException, Query, Depends
+from fastapi import APIRouter, HTTPException, Query, Depends, Request
 from typing import List, Optional
 from motor.motor_asyncio import AsyncIOMotorDatabase
 import os
@@ -12,7 +12,10 @@ from .models import (
     WaypointQualityScore, SuccessForecast, HeatmapData,
     WaypointRecommendation, ForecastRequest, WaypointRanking
 )
-from .service import WaypointScoringService, DEFAULT_USER_ID
+from .service import WaypointScoringService
+
+# Import auth helpers
+from auth_helpers import get_user_id_with_fallback
 
 logger = logging.getLogger(__name__)
 
