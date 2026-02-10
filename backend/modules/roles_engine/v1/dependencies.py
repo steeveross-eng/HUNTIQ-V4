@@ -209,12 +209,41 @@ async def require_guide_or_admin(
     return user
 
 
+async def require_business_or_admin(
+    request: Request,
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security)
+) -> UserWithRole:
+    """
+    Require business or admin role.
+    Raises 403 if user is not a business user or admin.
+    """
+    user = await get_current_user_with_role(request, credentials)
+    
+    if user.role not in [UserRole.BUSINESS, UserRole.ADMIN]:
+        logger.warning(f"Access denied: User {user.user_id} ({user.role.value}) attempted business action")
+        raise HTTPException(
+            status_code=403,
+            detail="Accès réservé aux comptes Business et administrateurs"
+        )
+    
+    return user
+
+
 async def require_elevated_role(
     request: Request,
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(security)
 ) -> UserWithRole:
-    """Alias for require_guide_or_admin"""
-    return await require_guide_or_admin(request, credentials)
+    """Require any elevated role (guide, business, or admin)"""
+    user = await get_current_user_with_role(request, credentials)
+    
+    if user.role not in [UserRole.GUIDE, UserRole.BUSINESS, UserRole.ADMIN]:
+        logger.warning(f"Access denied: User {user.user_id} ({user.role.value}) attempted elevated action")
+        raise HTTPException(
+            status_code=403,
+            detail="Accès réservé aux comptes professionnels"
+        )
+    
+    return user
 
 
 def require_permission(permission: str):
