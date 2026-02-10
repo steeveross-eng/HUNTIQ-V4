@@ -165,6 +165,15 @@ class AuthService:
         # Store session
         await self._store_session(user["user_id"], token)
         
+        # Send welcome email (async, non-blocking)
+        try:
+            email_service = EmailService()
+            await email_service.send_welcome_email(user["email"], user["name"])
+            logger.info(f"Welcome email sent to {user['email']}")
+        except Exception as e:
+            logger.warning(f"Failed to send welcome email to {user['email']}: {e}")
+            # Don't fail registration if email fails
+        
         return True, TokenResponse(
             success=True,
             token=token,
