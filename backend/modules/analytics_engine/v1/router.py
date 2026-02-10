@@ -76,7 +76,9 @@ async def get_module_info():
 
 @router.get("/dashboard", response_model=AnalyticsDashboard, summary="Tableau de bord complet")
 async def get_dashboard(
+    request: Request,
     time_range: TimeRange = Query(TimeRange.ALL, description="Période de temps"),
+    user_id: str = Depends(get_user_id_with_fallback),
     service: AnalyticsService = Depends(get_service)
 ):
     """
@@ -85,7 +87,7 @@ async def get_dashboard(
     - **time_range**: Filtre par période (week, month, season, year, all)
     """
     try:
-        return await service.get_full_dashboard(DEFAULT_USER_ID, time_range)
+        return await service.get_full_dashboard(user_id, time_range)
     except Exception as e:
         logger.error(f"Error getting dashboard: {e}")
         raise HTTPException(status_code=500, detail=str(e))
