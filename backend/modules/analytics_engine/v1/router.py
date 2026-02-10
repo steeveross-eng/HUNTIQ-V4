@@ -2,7 +2,7 @@
 Analytics Engine - API Router
 Provides endpoints for hunting analytics and statistics
 """
-from fastapi import APIRouter, HTTPException, Query, Depends
+from fastapi import APIRouter, HTTPException, Query, Depends, Request
 from typing import List, Optional
 from motor.motor_asyncio import AsyncIOMotorDatabase
 import os
@@ -13,7 +13,10 @@ from .models import (
     WeatherAnalysis, TimeSlotAnalysis, MonthlyTrend, 
     AnalyticsDashboard, TimeRange
 )
-from .service import AnalyticsService, DEFAULT_USER_ID
+from .service import AnalyticsService
+
+# Import auth helpers
+from auth_helpers import get_user_id_with_fallback
 
 logger = logging.getLogger(__name__)
 
