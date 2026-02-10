@@ -356,7 +356,55 @@ Tous les modules opérationnels avec APIs documentées.
 - ✅ **RESEND_API_KEY**: Clé configurée - Envoi d'emails réels activé!
 - ✅ **Tests E2E**: 27/27 passés (100%)
 
+### Phase P5 - Module Rôles (10 Février 2026)
+- ✅ **roles_engine**: Module RBAC complet
+  - 4 rôles: hunter (défaut), guide, admin, business
+  - Middleware de permissions: @require_admin, @require_role
+  - Endpoints protégés pour gestion des rôles
+- ✅ **Site Access Control**: 3 modes (Live, Development, Maintenance)
+- ✅ **Documentation**: ROLE_BUSINESS_DOC.md, ARCHITECTURE_MAP.md
+
+### Phase P6 - Unification Géospatiale (10 Février 2026)
+- ✅ **DIAGNOSTIC TERMINÉ**: Analyse synchronisation Map ↔ Territory
+  - Problème identifié: 2 sources de vérité non synchronisées
+  - user_waypoints (legacy) vs territory_waypoints (moderne)
+- ✅ **MIGRATION EFFECTUÉE**: 2 waypoints migrés vers territory_waypoints
+  - Mapping: lat→latitude, lng→longitude, type→waypoint_type
+  - Ajout champs: active, color, notes pour rétrocompatibilité
+- ✅ **API UNIFIÉE**: /api/territory/waypoints
+  - GET, POST, DELETE fonctionnels
+  - Schéma enrichi avec tous les champs legacy
+- ✅ **FRONTEND MIS À JOUR**: WaypointMap.jsx
+  - Utilise maintenant l'API territory unifiée
+  - Fonction normalizeWaypoint() pour compatibilité
+  - getDefaultUserId() pour authentification
+- ✅ **LEGACY DÉPRÉCIÉ**: user_waypoints.py marqué comme deprecated
+  - Warning émis au chargement du module
+  - Documentation de migration ajoutée
+- ✅ **DOCUMENTATION**: 
+  - DIAGNOSTIC_MAP_TERRITORY_SYNC.md
+  - UNIFIED_GEOSPATIAL_ARCHITECTURE.md
+
+---
+
+## 5. Tâches En Cours / À Venir
+
+### P0 - Finalisations
+- ⏳ **Resend Domain Verification**: Attente propagation DNS par l'utilisateur
+- ⏳ **Corrections P2/P3**: Warnings mineurs du checkup précédent
+
+### P7 - Nettoyage (Planifié)
+- 🔲 Suppression complète de user_waypoints.py
+- 🔲 Archivage collection user_waypoints (optionnel)
+- 🔲 UI admin pour gestion des rôles
+
+### Backlog
+- 🔲 Dashboard profil `business`
+- 🔲 Notifications push de groupe
+- 🔲 Synchronisation temps réel (WebSocket)
+
 ---
 
 *HUNTIQ V3 - Powered by GPT-5.2 & Emergent Platform*
-*Architecture Modulaire v2.0 - 45 Backend + 23 Frontend - CONNECTÉS*
+*Architecture Modulaire v2.0 - 46 Backend + 23 Frontend - CONNECTÉS*
+*Phase P6 - Géospatial Unifié - LIVRÉ*
