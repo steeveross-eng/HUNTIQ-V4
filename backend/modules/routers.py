@@ -82,6 +82,11 @@ from modules.predictive_engine import router as predictive_router
 # ==============================================
 from modules.analytics_engine import router as analytics_router
 
+# ==============================================
+# PHASE P3 - WAYPOINT SCORING ENGINE
+# ==============================================
+from modules.waypoint_scoring_engine import router as waypoint_scoring_router
+
 
 # List of all available routers with their metadata
 CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
