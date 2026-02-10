@@ -233,6 +233,134 @@ async def get_ai_recommendations(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@router.get("/recommendations/ai", summary="Recommandation IA GPT-5.2")
+async def get_gpt_recommendation(
+    waypoint_id: Optional[str] = Query(None, description="ID du waypoint (optionnel)"),
+    species: str = Query("deer", description="Espèce ciblée"),
+    weather: Optional[str] = Query(None, description="Conditions météo"),
+    service: WaypointScoringService = Depends(get_service)
+):
+    """
+    Génère une recommandation personnalisée via GPT-5.2.
+    
+    Utilise l'intelligence artificielle pour analyser:
+    - Les données du waypoint et son historique
+    - Les conditions météo actuelles
+    - Les patterns comportementaux du gibier
+    - L'heure actuelle
+    
+    Retourne un conseil expert personnalisé.
+    """
+    from datetime import datetime
+    from .ai_service import AIRecommendationService
+    
+    try:
+        ai_service = AIRecommendationService()
+        
+        # Get waypoint data
+        waypoint_data = {}
+        if waypoint_id:
+            try:
+                wqs = await service.calculate_wqs(waypoint_id, DEFAULT_USER_ID)
+                waypoint_data = {
+                    "name": wqs.waypoint_name,
+                    "wqs": wqs.total_score,
+                    "classification": wqs.classification,
+                    "total_visits": wqs.total_visits,
+                    "success_rate": wqs.success_rate
+                }
+            except:
+                pass
+        
+        if not waypoint_data:
+            # Use best waypoint
+            all_wqs = await service.get_all_wqs(DEFAULT_USER_ID)
+            if all_wqs:
+                best = all_wqs[0]
+                waypoint_data = {
+                    "name": best.waypoint_name,
+                    "wqs": best.total_score,
+                    "classification": best.classification,
+                    "total_visits": best.total_visits,
+                    "success_rate": best.success_rate
+                }
+        
+        current_hour = datetime.now().hour
+        
+        recommendation = await ai_service.generate_recommendation(
+            waypoint_data=waypoint_data,
+            weather_conditions=weather,
+            target_species=species,
+            current_hour=current_hour
+        )
+        
+        return {
+            "success": True,
+            "waypoint": waypoint_data.get("name", "Meilleur spot"),
+            "recommendation": recommendation,
+            "species": species,
+            "weather": weather,
+            "hour": current_hour,
+            "powered_by": "GPT-5.2"
+        }
+        
+    except Exception as e:
+        logger.error(f"Error generating AI recommendation: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/briefing", summary="Briefing quotidien IA")
+async def get_daily_briefing(
+    species: str = Query("deer", description="Espèce ciblée"),
+    weather: Optional[str] = Query(None, description="Météo prévue"),
+    service: WaypointScoringService = Depends(get_service)
+):
+    """
+    Génère un briefing quotidien personnalisé via GPT-5.2.
+    
+    Inclut:
+    - Analyse des meilleurs waypoints
+    - Créneaux horaires recommandés
+    - Conseils basés sur la météo
+    - Plan d'action pour la journée
+    """
+    from .ai_service import AIRecommendationService
+    
+    try:
+        ai_service = AIRecommendationService()
+        
+        # Get all waypoints with scores
+        all_wqs = await service.get_all_wqs(DEFAULT_USER_ID)
+        
+        waypoints_data = [
+            {
+                "name": wqs.waypoint_name,
+                "wqs": wqs.total_score,
+                "classification": wqs.classification
+            }
+            for wqs in all_wqs[:5]
+        ]
+        
+        briefing = await ai_service.generate_daily_briefing(
+            waypoints=waypoints_data,
+            weather_forecast=weather,
+            target_species=species
+        )
+        
+        return {
+            "success": True,
+            "briefing": briefing,
+            "species": species,
+            "weather": weather,
+            "waypoints_analyzed": len(waypoints_data),
+            "powered_by": "GPT-5.2"
+        }
+        
+    except Exception as e:
+        logger.error(f"Error generating briefing: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # ============================================
 # DEMO DATA
 # ============================================
