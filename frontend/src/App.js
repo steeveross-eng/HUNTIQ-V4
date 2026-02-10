@@ -752,6 +752,7 @@ function App() {
             <ScrollNavigator />
             <Toaster position="bottom-right" richColors />
             <CookieConsent />
+            <OfflineIndicator />
           </BrowserRouter>
         </div>
         </NotificationProvider>
