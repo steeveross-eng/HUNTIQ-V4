@@ -400,29 +400,6 @@ export const WaypointMap = ({ defaultCenter = { lat: 46.8139, lng: -71.2080 } })
                       </Popup>
                     </Marker>
                   )})}
-                          </div>
-                          <p className="text-sm text-gray-600 mb-2">
-                            {waypoint.lat.toFixed(4)}, {waypoint.lng.toFixed(4)}
-                          </p>
-                          {waypoint.notes && (
-                            <p className="text-sm text-gray-500 mb-2">{waypoint.notes}</p>
-                          )}
-                          <div className="flex gap-2">
-                            <Badge style={{ backgroundColor: getTypeInfo(waypoint.type).color }}>
-                              {getTypeInfo(waypoint.type).label}
-                            </Badge>
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => handleDeleteWaypoint(waypoint.id)}
-                            >
-                              🗑️
-                            </Button>
-                          </div>
-                        </div>
-                      </Popup>
-                    </Marker>
-                  ))}
 
                   {/* New waypoint marker */}
                   {newWaypointLocation && (
