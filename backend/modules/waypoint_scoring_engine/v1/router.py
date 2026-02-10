@@ -269,7 +269,7 @@ async def get_gpt_recommendation(
                     "total_visits": wqs.total_visits,
                     "success_rate": wqs.success_rate
                 }
-            except:
+            except Exception:
                 pass
         
         if not waypoint_data:
