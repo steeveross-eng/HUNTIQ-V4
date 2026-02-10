@@ -139,12 +139,12 @@ Tous les modules opérationnels avec APIs documentées.
 |----------|--------|
 | Modules Backend | 45 |
 | Modules Frontend | 23 |
-| Services Frontend | 18 |
-| Dashboards | 3 |
-| APIs Connectées | 55+ |
+| Services Frontend | 21 |
+| Dashboards | 4 |
+| APIs Connectées | 60+ |
 | Tests Unitaires | 97 |
-| Tests E2E | 70 |
-| **Total Tests** | **167** |
+| Tests E2E | 97 |
+| **Total Tests** | **194** |
 | Couverture | 100% |
 
 ---
