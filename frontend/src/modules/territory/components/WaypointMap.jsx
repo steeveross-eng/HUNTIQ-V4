@@ -239,6 +239,22 @@ export const WaypointMap = ({ defaultCenter = { lat: 46.8139, lng: -71.2080 } })
               >
                 {isAddingMode ? '✕ Annuler' : '+ Ajouter sur la carte'}
               </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-green-600 text-green-400 hover:bg-green-600/20"
+                onClick={handleExportCSV}
+              >
+                📥 CSV
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-red-600 text-red-400 hover:bg-red-600/20"
+                onClick={handleExportPDF}
+              >
+                📄 PDF
+              </Button>
             </div>
             {isAddingMode && (
               <p className="text-amber-400 text-sm mt-2">
