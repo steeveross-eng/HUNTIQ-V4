@@ -130,10 +130,31 @@ class GeoMetadata(BaseModel):
     best_time: Optional[str] = Field(None, description="Best time of day (morning/evening/night)")
     seasonal_rating: Optional[Dict[str, float]] = Field(default_factory=dict, description="Rating by season")
     
+    # Hotspot-specific fields (included in base for API compatibility)
+    is_auto_generated: Optional[bool] = False
+    generation_source: Optional[str] = None  # "environmental", "behavioral", "user"
+    confidence: Optional[float] = Field(None, ge=0, le=1, description="Generation confidence 0-1")
+    is_premium: Optional[bool] = False
+    is_claimed: Optional[bool] = False
+    claimed_by: Optional[str] = None
+    wqs_score: Optional[float] = Field(None, ge=0, le=100, description="Waypoint Quality Score")
+    success_rate: Optional[float] = Field(None, ge=0, le=100, description="Historical success rate")
+    visit_count: Optional[int] = Field(0, ge=0)
+    last_success: Optional[datetime] = None
+    
+    # Corridor-specific fields
+    start_point_id: Optional[str] = None
+    end_point_id: Optional[str] = None
+    length_meters: Optional[float] = None
+    width_meters: Optional[float] = None
+    traffic_score: Optional[float] = Field(None, ge=0, le=100)
+    direction: Optional[str] = None  # "bidirectional", "north-south", etc.
+    
     # Custom
     tags: Optional[List[str]] = Field(default_factory=list)
     notes: Optional[str] = None
     custom: Optional[Dict[str, Any]] = Field(default_factory=dict)
+    legacy_id: Optional[str] = None  # For migration tracking
 
 
 class HotspotMetadata(GeoMetadata):
