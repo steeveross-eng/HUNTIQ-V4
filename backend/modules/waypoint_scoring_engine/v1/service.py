@@ -17,8 +17,6 @@ from .models import (
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_USER_ID = "default_user"
-
 # Scoring weights
 WEIGHTS = {
     "success_history": 0.40,
