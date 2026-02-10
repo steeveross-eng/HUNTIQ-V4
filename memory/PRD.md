@@ -181,6 +181,27 @@ Tous les modules opérationnels avec APIs documentées.
 
 ## 8. Changelog
 
+### P3 - Dashboard Analytics & Export (10 Février 2026)
+- ✅ **P3.1 - Dashboard Analytics Avancé**:
+  - Backend: analytics_engine avec 10 endpoints
+  - KPIs: sorties, taux de succès, heures, observations
+  - Graphiques: tendances mensuelles, répartition espèces
+  - Analyse météo et horaires optimaux
+  - Filtres temporels (semaine, mois, saison, année)
+  - Page `/analytics` avec navigation
+- ✅ **P3.2 - Carte Interactive Leaflet**:
+  - Composant WaypointMap avec OpenStreetMap
+  - Marqueurs personnalisés par type de waypoint
+  - Mode ajout par clic sur carte
+  - Liste latérale avec centrage sur waypoint
+  - Page `/map` dédiée
+- ✅ **P3.3 - Export PDF/CSV**:
+  - Service ExportService avec jsPDF
+  - Export waypoints en CSV et PDF
+  - Export rapport analytique complet en PDF
+  - Export journal de chasse en PDF
+  - Boutons d'export intégrés aux dashboards
+
 ### P2 - Stabilisation Complète (9-10 Février 2026)
 - ✅ **Tests E2E Playwright**: 14 tests passés (Homepage, Dashboards, API)
 - ✅ **MongoDB**: Database service avec indexes et seed data
