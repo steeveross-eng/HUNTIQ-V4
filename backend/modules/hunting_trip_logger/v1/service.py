@@ -215,6 +215,57 @@ class HuntingTripLoggerService:
             return HuntingTrip(**trip)
         return None
     
+    async def _send_trip_summary_email(self, user_id: str, trip: dict) -> None:
+        """Send trip completion summary email to user (non-blocking)"""
+        try:
+            # Get user info
+            user = await self.users_collection.find_one(
+                {"user_id": user_id},
+                {"_id": 0, "email": 1, "name": 1}
+            )
+            
+            if not user or not user.get("email"):
+                logger.warning(f"Cannot send trip email: user {user_id} not found or no email")
+                return
+            
+            # Format times
+            start_time = trip.get("start_time")
+            end_time = trip.get("end_time")
+            
+            def format_datetime(dt):
+                if dt is None:
+                    return "N/A"
+                if isinstance(dt, str):
+                    dt = datetime.fromisoformat(dt.replace('Z', '+00:00'))
+                return dt.strftime("%d/%m/%Y %H:%M")
+            
+            start_str = format_datetime(start_time)
+            end_str = format_datetime(end_time)
+            
+            # Send email
+            success, result = await self.email_service.send_trip_summary_email(
+                email=user["email"],
+                user_name=user.get("name", "Chasseur"),
+                trip_title=trip.get("title", "Sortie de chasse"),
+                target_species=trip.get("target_species", "unknown"),
+                duration_hours=trip.get("duration_hours", 0),
+                observations_count=trip.get("observations_count", 0),
+                success=trip.get("success", False),
+                start_time=start_str,
+                end_time=end_str,
+                weather=trip.get("actual_weather"),
+                notes=trip.get("notes")
+            )
+            
+            if success:
+                logger.info(f"Trip summary email sent to {user['email']} for trip {trip.get('trip_id')}")
+            else:
+                logger.warning(f"Failed to send trip summary email: {result}")
+                
+        except Exception as e:
+            logger.error(f"Error sending trip summary email: {e}")
+            # Don't raise - email failure should not affect trip ending
+    
     # ============================================
     # WAYPOINT VISITS
     # ============================================
