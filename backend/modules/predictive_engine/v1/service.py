@@ -464,4 +464,4 @@ class PredictiveService:
         elif success_probability >= 50:
             return f"Conditions moyennes. La patience sera clé pour le {species_name}."
         else:
-            return f"Conditions défavorables. Reportez si possible ou concentrez-vous sur les meilleures fenêtres."
+            return "Conditions défavorables. Reportez si possible ou concentrez-vous sur les meilleures fenêtres."
