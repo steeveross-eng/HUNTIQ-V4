@@ -210,6 +210,13 @@ Tous les modules opérationnels avec APIs documentées.
   - Recommandations IA basées sur météo, horaires, espèce
   - Fenêtre horaire optimale et meilleur waypoint
   - Page `/forecast` avec filtres interactifs
+- ✅ **P3.6 - Intégration GPT-5.2 & Heatmap**:
+  - Service AIRecommendationService avec GPT-5.2
+  - Recommandations personnalisées via `/recommendations/ai`
+  - Briefing quotidien via `/briefing`
+  - Heatmap de performance sur la carte Leaflet
+  - Popup waypoint avec score WQS intégré
+  - Bouton toggle Heatmap sur la carte
 
 ### P2 - Stabilisation Complète (9-10 Février 2026)
 - ✅ **Tests E2E Playwright**: 14 tests passés (Homepage, Dashboards, API)
