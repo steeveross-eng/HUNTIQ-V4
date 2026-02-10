@@ -235,44 +235,72 @@ export const WaypointMap = ({ defaultCenter = { lat: 46.8139, lng: -71.2080 } })
     return WAYPOINT_TYPES.find(t => t.id === typeId) || WAYPOINT_TYPES[6];
   };
 
+  // Get WQS for a waypoint
+  const getWQS = (waypointId) => {
+    return wqsScores[waypointId] || null;
+  };
+
+  // Get classification color
+  const getClassificationColor = (classification) => {
+    switch (classification) {
+      case 'hotspot': return 'bg-green-600';
+      case 'good': return 'bg-blue-600';
+      case 'standard': return 'bg-yellow-600';
+      case 'weak': return 'bg-red-600';
+      default: return 'bg-slate-600';
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-4" data-testid="waypoint-map">
       {/* Map */}
       <div className="lg:col-span-3">
         <Card className="bg-slate-800 border-slate-700 overflow-hidden">
           <CardHeader className="pb-2">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between flex-wrap gap-2">
               <CardTitle className="text-lg text-white flex items-center gap-2">
                 <span>🗺️</span>
                 Carte des Waypoints
               </CardTitle>
-              <Button
-                size="sm"
-                className={isAddingMode 
-                  ? 'bg-red-600 hover:bg-red-700' 
-                  : 'bg-[#f5a623] hover:bg-[#e09000] text-black'}
-                onClick={() => {
-                  setIsAddingMode(!isAddingMode);
-                  setNewWaypointLocation(null);
-                }}
-                data-testid="toggle-add-mode"
-              >
-                {isAddingMode ? '✕ Annuler' : '+ Ajouter sur la carte'}
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                className="border-green-600 text-green-400 hover:bg-green-600/20"
-                onClick={handleExportCSV}
-              >
-                📥 CSV
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                className="border-red-600 text-red-400 hover:bg-red-600/20"
-                onClick={handleExportPDF}
-              >
+              <div className="flex items-center gap-2">
+                <Button
+                  size="sm"
+                  variant={showHeatmap ? 'default' : 'outline'}
+                  className={showHeatmap 
+                    ? 'bg-purple-600 hover:bg-purple-700' 
+                    : 'border-purple-600 text-purple-400 hover:bg-purple-600/20'}
+                  onClick={() => setShowHeatmap(!showHeatmap)}
+                  data-testid="toggle-heatmap"
+                >
+                  🔥 {showHeatmap ? 'Masquer' : 'Heatmap'}
+                </Button>
+                <Button
+                  size="sm"
+                  className={isAddingMode 
+                    ? 'bg-red-600 hover:bg-red-700' 
+                    : 'bg-[#f5a623] hover:bg-[#e09000] text-black'}
+                  onClick={() => {
+                    setIsAddingMode(!isAddingMode);
+                    setNewWaypointLocation(null);
+                  }}
+                  data-testid="toggle-add-mode"
+                >
+                  {isAddingMode ? '✕ Annuler' : '+ Ajouter'}
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="border-green-600 text-green-400 hover:bg-green-600/20"
+                  onClick={handleExportCSV}
+                >
+                  📥 CSV
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="border-red-600 text-red-400 hover:bg-red-600/20"
+                  onClick={handleExportPDF}
+                >
                 📄 PDF
               </Button>
             </div>
