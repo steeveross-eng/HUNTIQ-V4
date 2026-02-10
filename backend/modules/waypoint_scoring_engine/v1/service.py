@@ -59,15 +59,21 @@ class WaypointScoringService:
         # Try different ways to find the waypoint
         waypoint = None
         
-        # Try by ObjectId
+        # Try by ObjectId (if it's a valid hex string)
         try:
             if len(waypoint_id) == 24:
                 waypoint = await self.waypoints_collection.find_one({
                     "_id": ObjectId(waypoint_id),
                     "user_id": user_id
                 })
-        except:
-            pass
+                # Also try with _id as string
+                if not waypoint:
+                    waypoint = await self.waypoints_collection.find_one({
+                        "_id": waypoint_id,
+                        "user_id": user_id
+                    })
+        except Exception as e:
+            logger.debug(f"ObjectId lookup failed: {e}")
         
         # Try by string id field
         if not waypoint:
