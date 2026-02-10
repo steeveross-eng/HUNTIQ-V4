@@ -188,9 +188,10 @@ class AnalyticsService:
         
         results = await self.trips_collection.aggregate(pipeline).to_list(length=20)
         
+        # Filter out entries with None species
         return [
             SpeciesStats(
-                species=r["_id"],
+                species=r["_id"] or "unknown",
                 trips=r["trips"],
                 successes=r["successes"],
                 success_rate=round((r["successes"] / r["trips"] * 100) if r["trips"] > 0 else 0, 1),
@@ -198,6 +199,7 @@ class AnalyticsService:
                 avg_duration=round(r["total_duration"] / max(r["trips"], 1), 1)
             )
             for r in results
+            if r["_id"] is not None  # Skip entries without species
         ]
     
     async def get_weather_analysis(self, user_id: str) -> List[WeatherAnalysis]:
