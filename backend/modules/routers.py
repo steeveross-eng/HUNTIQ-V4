@@ -87,6 +87,11 @@ from modules.analytics_engine import router as analytics_router
 # ==============================================
 from modules.waypoint_scoring_engine import router as waypoint_scoring_router
 
+# ==============================================
+# PHASE P4 - GEOLOCATION ENGINE
+# ==============================================
+from modules.geolocation_engine.v1 import router as geolocation_router
+
 
 # List of all available routers with their metadata
 CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
@@ -376,6 +381,16 @@ CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
         "version": "1.0.0",
         "phase": "P3",
         "description": "WQS, Success Forecast, and AI recommendations"
+    }),
+    
+    # ==========================================
+    # Phase P4 - Geolocation Engine
+    # ==========================================
+    (geolocation_router, {
+        "name": "geolocation_engine",
+        "version": "1.0.0",
+        "phase": "P4",
+        "description": "Background geolocation tracking and proximity alerts"
     }),
 ]
 
