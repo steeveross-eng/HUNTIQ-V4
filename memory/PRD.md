@@ -177,7 +177,16 @@ Tous les modules opérationnels avec APIs documentées.
 - ✅ **COMPLÉTÉ** - Mode hors ligne PWA (P3.4)
 - ✅ **COMPLÉTÉ** - Waypoint Quality Score (WQS) & Success Forecast (P3.5)
 - ✅ **COMPLÉTÉ** - Intégration GPT-5.2 & Heatmap (P3.6)
-- [ ] Application mobile native (Backlog P4)
+
+### Phase P4 - Mobile PWA Avancée - COMPLÉTÉ ✅
+- ✅ **COMPLÉTÉ** - Backend Geolocation Engine (11 endpoints)
+- ✅ **COMPLÉTÉ** - Tracking GPS arrière-plan (toutes les 5 min)
+- ✅ **COMPLÉTÉ** - Alertes de proximité (500m waypoints, 700m hotspots)
+- ✅ **COMPLÉTÉ** - Sessions de chasse avec calcul distance
+- ✅ **COMPLÉTÉ** - Service Worker amélioré (push, sync, geolocation)
+- ✅ **COMPLÉTÉ** - Composant BackgroundTracker
+- ✅ **COMPLÉTÉ** - Page Map avec onglet GPS Tracking
+- ⚠️ **MOCKÉ** - Notifications Push (VAPID keys requis pour production)
 
 ---
 
