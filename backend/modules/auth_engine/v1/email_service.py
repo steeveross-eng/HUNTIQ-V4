@@ -274,3 +274,198 @@ class EmailService:
         )
         
         return success, result if not success else "Email de bienvenue envoyé"
+
+
+    async def send_trip_summary_email(
+        self,
+        email: str,
+        user_name: str,
+        trip_title: str,
+        target_species: str,
+        duration_hours: float,
+        observations_count: int,
+        success: bool,
+        start_time: str,
+        end_time: str,
+        weather: str = None,
+        notes: str = None
+    ) -> Tuple[bool, str]:
+        """
+        Send trip completion summary email to user.
+        Called when a hunting trip is ended.
+        """
+        # Species emoji mapping
+        species_emojis = {
+            'deer': '🦌',
+            'moose': '🫎',
+            'bear': '🐻',
+            'turkey': '🦃',
+            'duck': '🦆',
+            'goose': '🪿',
+            'grouse': '🐔',
+            'rabbit': '🐰',
+            'coyote': '🐺',
+        }
+        
+        species_emoji = species_emojis.get(target_species, '🎯')
+        success_text = "Réussie ✅" if success else "Sans prise"
+        success_color = "#22c55e" if success else "#94a3b8"
+        
+        # Format duration
+        hours = int(duration_hours)
+        minutes = int((duration_hours - hours) * 60)
+        duration_text = f"{hours}h {minutes:02d}min" if hours > 0 else f"{minutes} min"
+        
+        # Weather section
+        weather_section = ""
+        if weather:
+            weather_section = f"""
+            <tr>
+                <td style="padding: 8px 0; border-bottom: 1px solid #334155;">
+                    <span style="color: #94a3b8;">🌤️ Météo</span>
+                </td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #334155; text-align: right;">
+                    <span style="color: #fff;">{weather}</span>
+                </td>
+            </tr>
+            """
+        
+        # Notes section
+        notes_section = ""
+        if notes:
+            notes_section = f"""
+            <tr>
+                <td colspan="2" style="padding: 16px 0 0 0;">
+                    <span style="color: #94a3b8; font-size: 12px;">📝 Notes</span>
+                    <p style="color: #fff; margin: 8px 0 0 0; font-style: italic;">"{notes}"</p>
+                </td>
+            </tr>
+            """
+        
+        html_content = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body style="margin: 0; padding: 0; background-color: #0f172a; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+            <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0f172a; padding: 40px 20px;">
+                <tr>
+                    <td align="center">
+                        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #1e293b; border-radius: 16px; overflow: hidden; border: 1px solid #334155;">
+                            <!-- Header -->
+                            <tr>
+                                <td style="background: linear-gradient(135deg, #f5a623 0%, #d4890e 100%); padding: 30px; text-align: center;">
+                                    <h1 style="margin: 0; color: #000; font-size: 24px;">
+                                        {species_emoji} Sortie Terminée
+                                    </h1>
+                                    <p style="margin: 10px 0 0 0; color: #000; opacity: 0.8;">
+                                        {trip_title}
+                                    </p>
+                                </td>
+                            </tr>
+                            
+                            <!-- Content -->
+                            <tr>
+                                <td style="padding: 30px;">
+                                    <p style="color: #94a3b8; margin: 0 0 20px 0;">
+                                        Bonjour <strong style="color: #f5a623;">{user_name}</strong>,
+                                    </p>
+                                    <p style="color: #e2e8f0; margin: 0 0 30px 0;">
+                                        Votre sortie de chasse vient de se terminer. Voici le résumé :
+                                    </p>
+                                    
+                                    <!-- Status Badge -->
+                                    <div style="text-align: center; margin-bottom: 30px;">
+                                        <span style="display: inline-block; background-color: {success_color}20; color: {success_color}; padding: 12px 24px; border-radius: 30px; font-weight: bold; font-size: 18px;">
+                                            {success_text}
+                                        </span>
+                                    </div>
+                                    
+                                    <!-- Stats Table -->
+                                    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0f172a; border-radius: 12px; padding: 20px;">
+                                        <tr>
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #334155;">
+                                                <span style="color: #94a3b8;">🎯 Espèce ciblée</span>
+                                            </td>
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #334155; text-align: right;">
+                                                <span style="color: #fff; text-transform: capitalize;">{species_emoji} {target_species}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #334155;">
+                                                <span style="color: #94a3b8;">⏱️ Durée</span>
+                                            </td>
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #334155; text-align: right;">
+                                                <span style="color: #f5a623; font-weight: bold;">{duration_text}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #334155;">
+                                                <span style="color: #94a3b8;">👁️ Observations</span>
+                                            </td>
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #334155; text-align: right;">
+                                                <span style="color: #8b5cf6; font-weight: bold;">{observations_count}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #334155;">
+                                                <span style="color: #94a3b8;">🕐 Début</span>
+                                            </td>
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #334155; text-align: right;">
+                                                <span style="color: #fff;">{start_time}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #334155;">
+                                                <span style="color: #94a3b8;">🏁 Fin</span>
+                                            </td>
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #334155; text-align: right;">
+                                                <span style="color: #fff;">{end_time}</span>
+                                            </td>
+                                        </tr>
+                                        {weather_section}
+                                        {notes_section}
+                                    </table>
+                                    
+                                    <!-- CTA -->
+                                    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
+                                        <tr>
+                                            <td align="center">
+                                                <a href="{APP_URL}/trips" style="display: inline-block; background-color: #f5a623; color: #000; padding: 14px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                                                    Voir mes statistiques
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <p style="color: #64748b; font-size: 12px; margin-top: 30px; text-align: center;">
+                                        Ces données sont synchronisées avec vos analyses et le système WQS pour améliorer vos futures prédictions.
+                                    </p>
+                                </td>
+                            </tr>
+                            
+                            <!-- Footer -->
+                            <tr>
+                                <td style="background-color: #0f172a; padding: 20px; text-align: center; border-top: 1px solid #334155;">
+                                    <p style="color: #64748b; margin: 0; font-size: 12px;">
+                                        🎯 HUNTIQ - Votre compagnon de chasse intelligent
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </body>
+        </html>
+        """
+        
+        success_send, result = await self.send_email(
+            to_email=email,
+            subject=f"🏁 Sortie terminée - {trip_title} ({success_text})",
+            html_content=html_content
+        )
+        
+        return success_send, result if not success_send else "Email de résumé envoyé"
