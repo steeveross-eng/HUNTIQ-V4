@@ -5,11 +5,15 @@ Phase P6.4 - WebSocket Implementation
 Provides real-time synchronization of geo entities between
 hunting group members.
 
+⚠️ CONFIDENTIALITÉ: Les HOTSPOTS sont EXCLUS de toute synchronisation.
+Les hotspots sont des données sensibles 100% privées, non partageables.
+Seuls les waypoints, zones et autres entités non-sensibles peuvent être synchronisés.
+
 Events:
-- geo.created: New entity created
-- geo.updated: Entity updated
-- geo.deleted: Entity deleted
-- group.member_location: Member location update
+- geo.created: New entity created (EXCLUDES hotspots)
+- geo.updated: Entity updated (EXCLUDES hotspots)
+- geo.deleted: Entity deleted (EXCLUDES hotspots)
+- group.member_location: Member location update (optional, user-controlled)
 """
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Query, HTTPException
@@ -22,6 +26,9 @@ import asyncio
 logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["WebSocket Geo Sync"])
+
+# Types d'entités EXCLUS de la synchronisation (données sensibles)
+PRIVATE_ENTITY_TYPES = {"hotspot", "corridor"}  # Hotspots = 100% privés
 
 
 # ===========================================
