@@ -37,6 +37,7 @@ class UserResponse(BaseModel):
     phone: Optional[str] = None
     picture: Optional[str] = None
     auth_provider: str = "local"
+    role: str = "hunter"  # Default role for backward compatibility
     created_at: Optional[datetime] = None
     is_active: bool = True
 
