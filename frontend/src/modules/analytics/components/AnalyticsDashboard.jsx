@@ -13,6 +13,8 @@ import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
 } from 'recharts';
 import { AnalyticsService } from '../AnalyticsService';
+import { ExportService } from '../../../services/ExportService';
+import { toast } from 'sonner';
 
 const TIME_RANGES = [
   { value: 'week', label: 'Semaine' },
