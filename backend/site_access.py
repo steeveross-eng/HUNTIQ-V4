@@ -258,7 +258,10 @@ async def get_site_config():
     }
 
 @access_router.put("/mode")
-async def update_site_mode(update: UpdateSiteMode):
+async def update_site_mode(
+    update: UpdateSiteMode,
+    admin: UserWithRole = Depends(require_admin)
+):
     """Update site mode (admin only) - Auto-syncs feature controls"""
     database = await get_db()
     
@@ -269,7 +272,7 @@ async def update_site_mode(update: UpdateSiteMode):
     update_data = {
         "mode": update.mode,
         "updated_at": datetime.now(timezone.utc).isoformat(),
-        "updated_by": "admin"
+        "updated_by": admin.email
     }
     
     if update.message is not None:
