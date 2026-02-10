@@ -1,6 +1,6 @@
 /**
  * WaypointMap - Interactive Leaflet map for waypoints
- * Phase P3.2 - Interactive Map
+ * Phase P3.2 - Interactive Map with Heatmap
  */
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
@@ -10,6 +10,8 @@ import { Badge } from '../../../components/ui/badge';
 import { Input } from '../../../components/ui/input';
 import { toast } from 'sonner';
 import { ExportService } from '../../../services/ExportService';
+import { WaypointScoringService } from '../../../services/WaypointScoringService';
+import { HeatmapLayer } from '../../../components/HeatmapLayer';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
