@@ -202,6 +202,14 @@ Tous les modules opérationnels avec APIs documentées.
   - Export rapport analytique complet en PDF
   - Export journal de chasse en PDF
   - Boutons d'export intégrés aux dashboards
+- ✅ **P3.5 - Waypoint Quality Score (WQS) & Success Forecast**:
+  - Backend: waypoint_scoring_engine avec 8 endpoints
+  - WQS avec pondération: 40% historique, 25% météo, 20% activité, 15% accessibilité
+  - Classification dynamique: Hotspot, Bon, Standard, Faible
+  - Success Forecast: probabilité 0-100% avec confiance
+  - Recommandations IA basées sur météo, horaires, espèce
+  - Fenêtre horaire optimale et meilleur waypoint
+  - Page `/forecast` avec filtres interactifs
 
 ### P2 - Stabilisation Complète (9-10 Février 2026)
 - ✅ **Tests E2E Playwright**: 14 tests passés (Homepage, Dashboards, API)
