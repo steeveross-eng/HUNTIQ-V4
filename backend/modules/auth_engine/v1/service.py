@@ -17,6 +17,7 @@ from .models import (
     UserCreate, UserLogin, UserResponse, TokenResponse,
     SessionData, AuthProvider
 )
+from .email_service import EmailService
 
 logger = logging.getLogger(__name__)
 
