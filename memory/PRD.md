@@ -170,14 +170,14 @@ Tous les modules opérationnels avec APIs documentées.
 - ✅ **COMPLÉTÉ** - MongoDB avec indexes et seed data
 - ✅ **COMPLÉTÉ** - Documentation API Swagger améliorée
 
-### Backlog (P3) - EN COURS
+### Backlog (P3) - COMPLÉTÉ ✅
 - ✅ **COMPLÉTÉ** - Dashboard analytics avancé (P3.1)
 - ✅ **COMPLÉTÉ** - Carte interactive Leaflet (P3.2)
 - ✅ **COMPLÉTÉ** - Export de données PDF/CSV (P3.3)
+- ✅ **COMPLÉTÉ** - Mode hors ligne PWA (P3.4)
 - ✅ **COMPLÉTÉ** - Waypoint Quality Score (WQS) & Success Forecast (P3.5)
 - ✅ **COMPLÉTÉ** - Intégration GPT-5.2 & Heatmap (P3.6)
-- [ ] Mode hors ligne (P3.4 - PWA)
-- [ ] Application mobile native (Backlog)
+- [ ] Application mobile native (Backlog P4)
 
 ---
 
