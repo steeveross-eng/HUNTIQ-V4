@@ -342,10 +342,21 @@ Tous les modules opérationnels avec APIs documentées.
   - POST /api/auth/forgot-password - Demande reset
   - GET /api/auth/verify-reset-token - Validation token
   - POST /api/auth/reset-password - Reset avec token
+- ✅ **Frontend Trip Logger COMPLET** (10 Février 2026):
+  - Page `/trips` avec statistiques rapides (Sorties, Succès, Heures, Observations)
+  - 3 onglets: Sortie Active, Historique, Statistiques
+  - CreateTripModal: Titre, espèce, date, notes
+  - StartTripModal: Météo, température pour démarrer
+  - ActiveTripPanel: Timer, météo, observations, actions
+  - AddObservationModal: Type, espèce, nombre, distance, comportement
+  - EndTripModal: Résumé, succès, notes finales
+  - TripHistory: Planifiées avec Démarrer, Historique terminées
+  - TripStatsDashboard: Charts Recharts, insights, meilleures conditions
+  - Navigation: Lien "🦌 Sorties" dans menu principal
+- ✅ **RESEND_API_KEY**: Clé configurée - Envoi d'emails réels activé!
 - ✅ **Tests E2E**: 27/27 passés (100%)
-- ⚠️ **Email**: LOGUÉ seulement (RESEND_API_KEY requis pour envoi réel)
 
 ---
 
 *HUNTIQ V3 - Powered by GPT-5.2 & Emergent Platform*
-*Architecture Modulaire v2.0 - 40 Backend + 21 Frontend - CONNECTÉS*
+*Architecture Modulaire v2.0 - 45 Backend + 23 Frontend - CONNECTÉS*
