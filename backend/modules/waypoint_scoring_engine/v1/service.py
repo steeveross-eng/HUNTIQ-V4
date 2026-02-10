@@ -245,15 +245,20 @@ class WaypointScoringService:
         heatmap = []
         for wp in waypoints:
             try:
-                wqs = await self.calculate_wqs(str(wp["_id"]), user_id)
+                wp_id = str(wp.get("_id", wp.get("id", "")))
+                wqs = await self.calculate_wqs(wp_id, user_id)
                 # Normalize intensity to 0-1 scale
                 intensity = wqs.total_score / 100
                 
+                # Support both lat/lng and latitude/longitude
+                lat = wp.get("lat") or wp.get("latitude", 0)
+                lng = wp.get("lng") or wp.get("longitude", 0)
+                
                 heatmap.append(HeatmapData(
-                    lat=wp.get("lat", 0),
-                    lng=wp.get("lng", 0),
+                    lat=lat,
+                    lng=lng,
                     intensity=intensity,
-                    waypoint_id=str(wp["_id"]),
+                    waypoint_id=wp_id,
                     waypoint_name=wp.get("name", "Unknown"),
                     wqs=wqs.total_score
                 ))
