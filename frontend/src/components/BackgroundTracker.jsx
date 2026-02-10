@@ -87,7 +87,8 @@ const BackgroundTracker = ({ onProximityAlert }) => {
   const checkStatus = async () => {
     const statusData = await GeolocationService.getStatus();
     setStatus(statusData);
-    setIsTracking(statusData.tracking_active || statusData.local_tracking);
+    // Only use backend tracking_active status, not local state
+    setIsTracking(statusData.tracking_active);
     setIsPushEnabled(statusData.push_enabled);
   };
 
