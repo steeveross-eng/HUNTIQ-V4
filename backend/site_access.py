@@ -293,15 +293,15 @@ async def update_site_mode(
     # ENTERING maintenance mode - backup and disable all features
     if update.mode == "maintenance" and current_mode != "maintenance":
         await backup_feature_states()
-        features_count = await disable_all_features("admin")
+        features_count = await disable_all_features(admin.email)
         features_action = "disabled"
-        logger.info(f"Entering maintenance mode - {features_count} features disabled")
+        logger.info(f"Entering maintenance mode - {features_count} features disabled by {admin.email}")
     
     # EXITING maintenance mode to live - restore feature states
     elif current_mode == "maintenance" and update.mode == "live":
-        features_count = await restore_feature_states("admin")
+        features_count = await restore_feature_states(admin.email)
         features_action = "restored"
-        logger.info(f"Exiting maintenance mode - {features_count} features restored")
+        logger.info(f"Exiting maintenance mode - {features_count} features restored by {admin.email}")
     
     await database.site_config.update_one(
         {"_id": "main"},
