@@ -1,12 +1,13 @@
 """Admin Engine Router - MÉTIER
 
 FastAPI router for administration endpoints.
+Protected by role-based authentication.
 
-Version: 1.0.0
+Version: 1.1.0
 API Prefix: /api/v1/admin
 """
 
-from fastapi import APIRouter, HTTPException, Header, Query
+from fastapi import APIRouter, HTTPException, Header, Query, Depends
 from typing import Optional
 from datetime import datetime
 from .service import AdminService
@@ -14,6 +15,13 @@ from .models import (
     AdminLogin, Alert, AlertType, AlertSeverity,
     SiteSettings, MaintenanceMode, DashboardStats
 )
+
+# Import role-based authentication
+from modules.roles_engine.v1.dependencies import (
+    require_admin, 
+    get_current_user_with_role
+)
+from modules.roles_engine.v1.models import UserWithRole
 
 router = APIRouter(prefix="/api/v1/admin", tags=["Admin Engine"])
 
@@ -23,10 +31,10 @@ _service = AdminService()
 
 @router.get("/")
 async def admin_engine_info():
-    """Get admin engine information"""
+    """Get admin engine information (public)"""
     return {
         "module": "admin_engine",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "description": "Administration and site management",
         "features": [
             "Dashboard statistics",
@@ -36,16 +44,16 @@ async def admin_engine_info():
             "Audit logging"
         ],
         "alert_types": [t.value for t in AlertType],
-        "alert_severities": [s.value for s in AlertSeverity]
+        "alert_severities": [s.value for s in AlertSeverity],
+        "note": "🔒 Endpoints protégés par authentification admin"
     }
 
 
 @router.post("/login")
 async def admin_login(credentials: AdminLogin):
     """
-    Admin login endpoint.
-    
-    Returns success status and admin token.
+    Admin login endpoint (deprecated - use /api/auth/login).
+    Maintained for backward compatibility.
     """
     valid = await _service.verify_admin_credentials(
         credentials.email, 
