@@ -48,6 +48,7 @@ import AnalyticsPage from "@/pages/AnalyticsPage";
 import MapPage from "@/pages/MapPage";
 import ForecastPage from "@/pages/ForecastPage";
 import { NotificationProvider } from "@/modules/notifications";
+import GoogleOAuthCallback from "@/components/GoogleOAuthCallback";
 import { 
   ShoppingCart, FlaskConical, GitCompare, Star, DollarSign, ThumbsUp, Heart, Eye,
   Shield, MousePointer, TrendingUp, CheckCircle, ChevronRight, Menu, X, ArrowLeft,
