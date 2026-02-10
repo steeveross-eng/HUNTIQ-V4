@@ -173,6 +173,9 @@ class HuntingTripLoggerService:
         # Update waypoint scoring data
         await self._update_waypoint_scores(user_id, updated_trip)
         
+        # Send trip summary email (non-blocking)
+        await self._send_trip_summary_email(user_id, updated_trip)
+        
         logger.info(f"Ended trip {end_data.trip_id} - Success: {end_data.success}, Duration: {duration_hours}h")
         return HuntingTrip(**updated_trip)
     
