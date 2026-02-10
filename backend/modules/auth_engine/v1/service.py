@@ -167,7 +167,7 @@ class AuthService:
         
         # Send welcome email (async, non-blocking)
         try:
-            email_service = EmailService()
+            email_service = EmailService(self.db)
             await email_service.send_welcome_email(user["email"], user["name"])
             logger.info(f"Welcome email sent to {user['email']}")
         except Exception as e:
