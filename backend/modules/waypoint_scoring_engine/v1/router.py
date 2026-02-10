@@ -147,6 +147,8 @@ async def get_waypoint_ranking(
 
 @router.get("/heatmap", response_model=List[HeatmapData], summary="Données heatmap")
 async def get_heatmap_data(
+    request: Request,
+    user_id: str = Depends(get_user_id_with_fallback),
     service: WaypointScoringService = Depends(get_service)
 ):
     """
@@ -170,7 +172,9 @@ async def get_heatmap_data(
 
 @router.post("/forecast", response_model=SuccessForecast, summary="Prévision de succès")
 async def get_success_forecast(
+    http_request: Request,
     request: ForecastRequest,
+    user_id: str = Depends(get_user_id_with_fallback),
     service: WaypointScoringService = Depends(get_service)
 ):
     """
