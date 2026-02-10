@@ -104,18 +104,37 @@ const MapClickHandler = ({ onMapClick, isAddingMode }) => {
   return null;
 };
 
-// Center map on location component
-const CenterOnLocation = ({ center }) => {
+// Center map on location component (with zoom support)
+const CenterOnLocation = ({ center, zoom }) => {
   const map = useMap();
   useEffect(() => {
     if (center) {
-      map.setView(center, 13);
+      map.setView(center, zoom || 13);
     }
-  }, [center, map]);
+  }, [center, zoom, map]);
   return null;
 };
 
-export const WaypointMap = ({ defaultCenter = { lat: 46.8139, lng: -71.2080 } }) => {
+// Set view from URL params component
+const SetViewFromProps = ({ initialCenter, initialZoom }) => {
+  const map = useMap();
+  const hasSet = React.useRef(false);
+  
+  useEffect(() => {
+    if (initialCenter && !hasSet.current) {
+      map.setView(initialCenter, initialZoom || 17);
+      hasSet.current = true;
+    }
+  }, [initialCenter, initialZoom, map]);
+  
+  return null;
+};
+
+export const WaypointMap = ({ 
+  defaultCenter = { lat: 46.8139, lng: -71.2080 },
+  initialCenter = null,  // [lat, lng] from URL params
+  initialZoom = null     // zoom level from URL params
+}) => {
   const [waypoints, setWaypoints] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAddingMode, setIsAddingMode] = useState(false);
