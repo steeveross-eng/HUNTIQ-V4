@@ -2,11 +2,21 @@
 Admin Geo Engine - Global Geospatial Administration
 Phase P6.5 - Admin Dashboard Backend
 
-Provides administrative access to all geospatial data:
-- View all waypoints, hotspots, corridors (registered and auto-generated)
-- Advanced filtering (density, habitat, season, group, user)
-- Analytics and statistics
-- Hotspot monetization preparation
+⚠️ CONFIDENTIALITÉ ABSOLUE DES HOTSPOTS
+===========================================
+Les hotspots sont des données STRICTEMENT PRIVÉES:
+- Jamais exposés aux utilisateurs non-propriétaires
+- Jamais synchronisés via WebSocket
+- Jamais inclus dans les notifications push
+- Accessibles UNIQUEMENT via cet espace admin (réservé aux administrateurs système)
+
+Cette API est réservée aux administrateurs pour:
+- Analyse globale du territoire
+- Génération de hotspots système
+- Statistiques agrégées (anonymisées)
+- Préparation de la monétisation (hotspots système uniquement)
+
+Les hotspots utilisateur restent 100% confidentiels et ne sont jamais exposés.
 """
 
 from fastapi import APIRouter, Query, HTTPException, Depends
@@ -19,7 +29,7 @@ from database import Database
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/api/admin/geo", tags=["Admin Geo (Global View)"])
+router = APIRouter(prefix="/api/admin/geo", tags=["Admin Geo (ADMIN ONLY - Confidential)"])
 
 GEO_COLLECTION = "geo_entities"
 
@@ -30,7 +40,7 @@ async def get_db():
 
 
 # ===========================================
-# GLOBAL VIEW ENDPOINTS
+# GLOBAL VIEW ENDPOINTS (ADMIN ONLY)
 # ===========================================
 
 @router.get("/all", response_model=List[GeoEntityResponse])
