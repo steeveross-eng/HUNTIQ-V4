@@ -45,7 +45,7 @@ async def lifespan(app: FastAPI):
     logger.info("=" * 60)
     logger.info("HUNTIQ V3 - Server Starting")
     logger.info("=" * 60)
-    logger.info(f"Architecture: Modular v2.0 (Pure Orchestrator)")
+    logger.info("Architecture: Modular v2.0 (Pure Orchestrator)")
     logger.info(f"Total Modules: {MODULE_STATUS['total_modules']}")
     
     # Initialize database
