@@ -3,7 +3,12 @@
  * Phase P6.4 - WebSocket Integration
  * 
  * Provides a toggle to enable/disable real-time sync with hunting group members.
- * When enabled, geo entity changes are broadcast to all group members.
+ * 
+ * ⚠️ CONFIDENTIALITÉ:
+ * - Les HOTSPOTS et CORRIDORS sont EXCLUS de la synchronisation
+ * - Ces données sensibles restent 100% privées
+ * - Seuls les waypoints, zones et POI non-sensibles peuvent être synchronisés
+ * - Aucune notification de localisation automatique
  */
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Badge } from '../components/ui/badge';
@@ -12,6 +17,9 @@ import { toast } from 'sonner';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 const WS_URL = API_URL?.replace('https://', 'wss://').replace('http://', 'ws://');
+
+// Types d'entités PRIVÉES - jamais synchronisées
+const PRIVATE_ENTITY_TYPES = new Set(['hotspot', 'corridor']);
 
 const GeoSyncToggle = ({ 
   groupId = 'default_group',
