@@ -56,6 +56,16 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.warning(f"Database initialization warning: {e}")
     
+    # Initialize geo engine indexes (Phase P6.3)
+    try:
+        from modules.geo_engine.v1 import ensure_indexes
+        await ensure_indexes()
+        logger.info("Geo Engine 2dsphere indexes created")
+    except ImportError:
+        logger.info("Geo Engine indexes skipped (module not loaded)")
+    except Exception as e:
+        logger.warning(f"Geo Engine index creation warning: {e}")
+    
     # Initialize territory sync if available
     try:
         from territory_sync import startup_sync
