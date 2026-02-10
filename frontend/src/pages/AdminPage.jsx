@@ -75,6 +75,7 @@ import ContentDepot from "@/components/ContentDepot";
 import SiteAccessControl from "@/components/SiteAccessControl";
 import MaintenanceControl from "@/components/MaintenanceControl";
 import LandsPricingAdmin from "@/components/LandsPricingAdmin";
+import AdminHotspotsPanel from "@/components/AdminHotspotsPanel";
 import NetworkingAdmin from "@/components/NetworkingAdmin";
 import EmailAdmin from "@/components/EmailAdmin";
 import FeatureControlsAdmin from "@/components/FeatureControlsAdmin";
