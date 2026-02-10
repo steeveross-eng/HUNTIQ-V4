@@ -399,8 +399,8 @@ export const WaypointMap = ({
                 </div>
               ) : (
                 <MapContainer
-                  center={mapCenter}
-                  zoom={12}
+                  center={initialCenter || mapCenter}
+                  zoom={initialZoom || 12}
                   className="h-full w-full"
                   ref={mapRef}
                 >
@@ -408,7 +408,9 @@ export const WaypointMap = ({
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
-                  <CenterOnLocation center={mapCenter} />
+                  {/* Handle URL params for centering (from Admin) */}
+                  {initialCenter && <SetViewFromProps initialCenter={initialCenter} initialZoom={initialZoom} />}
+                  <CenterOnLocation center={mapCenter} zoom={12} />
                   <MapClickHandler 
                     onMapClick={handleMapClick} 
                     isAddingMode={isAddingMode} 
