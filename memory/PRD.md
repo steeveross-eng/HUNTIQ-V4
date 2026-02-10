@@ -1,8 +1,8 @@
 # HUNTIQ V3 - Product Requirements Document
 
 ## Date de création: 2026-02-03
-## Dernière mise à jour: 10 Février 2026
-## Version: 6.1 (Phase P4+ - Trip Logger Frontend COMPLÈTE)
+## Dernière mise à jour: 10 Février 2026 (v2)
+## Version: 6.2 (Phase P4+ COMPLÈTE - Trip Logger + Email + Pipeline validés)
 
 ---
 
