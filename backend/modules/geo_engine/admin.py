@@ -264,33 +264,56 @@ async def get_analytics_overview():
     result = await db[GEO_COLLECTION].aggregate(pipeline).to_list(1)
     
     if not result:
-        return {"error": "No data available"}
+        return {
+            "total_entities": 0,
+            "by_type": {},
+            "by_habitat": {},
+            "top_users": [],
+            "top_groups": [],
+            "auto_generated_count": 0,
+            "premium_hotspots": 0,
+            "claimed_hotspots": 0,
+            "avg_confidence": 0,
+            "avg_density": 0,
+            "recent_activity": []
+        }
     
     data = result[0]
     
+    # Safely extract counts with defaults
+    def safe_count(facet_result):
+        if facet_result and len(facet_result) > 0:
+            return facet_result[0].get("count", 0)
+        return 0
+    
+    def safe_avg(facet_result):
+        if facet_result and len(facet_result) > 0:
+            return facet_result[0].get("avg", 0) or 0
+        return 0
+    
     return {
-        "total_entities": data.get("total", [{}])[0].get("count", 0),
-        "by_type": {item["_id"]: item["count"] for item in data.get("by_type", [])},
-        "by_habitat": {item["_id"]: item["count"] for item in data.get("by_habitat", []) if item["_id"]},
+        "total_entities": safe_count(data.get("total", [])),
+        "by_type": {item["_id"]: item["count"] for item in data.get("by_type", []) if item.get("_id")},
+        "by_habitat": {item["_id"]: item["count"] for item in data.get("by_habitat", []) if item.get("_id")},
         "top_users": [
             {"user_id": item["_id"], "count": item["count"]}
-            for item in data.get("by_user", [])
+            for item in data.get("by_user", []) if item.get("_id")
         ],
         "top_groups": [
             {"group_id": item["_id"], "count": item["count"]}
-            for item in data.get("by_group", [])
+            for item in data.get("by_group", []) if item.get("_id")
         ],
-        "auto_generated_count": data.get("auto_generated", [{}])[0].get("count", 0),
-        "premium_hotspots": data.get("premium_hotspots", [{}])[0].get("count", 0),
-        "claimed_hotspots": data.get("claimed_hotspots", [{}])[0].get("count", 0),
-        "avg_confidence": round(data.get("avg_confidence", [{}])[0].get("avg", 0) or 0, 3),
-        "avg_density": round(data.get("avg_density", [{}])[0].get("avg", 0) or 0, 3),
+        "auto_generated_count": safe_count(data.get("auto_generated", [])),
+        "premium_hotspots": safe_count(data.get("premium_hotspots", [])),
+        "claimed_hotspots": safe_count(data.get("claimed_hotspots", [])),
+        "avg_confidence": round(safe_avg(data.get("avg_confidence", [])), 3),
+        "avg_density": round(safe_avg(data.get("avg_density", [])), 3),
         "recent_activity": [
             {
                 "id": str(item["_id"]),
                 "name": item.get("name"),
                 "type": item.get("entity_type"),
-                "created_at": item.get("created_at")
+                "created_at": item.get("created_at").isoformat() if item.get("created_at") else None
             }
             for item in data.get("recent_activity", [])
         ]
