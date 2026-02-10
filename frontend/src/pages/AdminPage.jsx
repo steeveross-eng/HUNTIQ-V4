@@ -1056,8 +1056,20 @@ const AdminPage = ({ onProductsUpdate }) => {
             <SiteAccessControl />
           </TabsContent>
 
-          {/* Lands Pricing Tab */}
+          {/* Lands Pricing Tab - Now includes Hotspots */}
           <TabsContent value="lands" className="space-y-6">
+            {/* Hotspots Administration Panel */}
+            <AdminHotspotsPanel />
+            
+            {/* Separator */}
+            <div className="border-t border-slate-700 pt-6">
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <Trees className="h-5 w-5" />
+                Tarification des Terres
+              </h3>
+            </div>
+            
+            {/* Original Lands Pricing */}
             <LandsPricingAdmin />
           </TabsContent>
 
