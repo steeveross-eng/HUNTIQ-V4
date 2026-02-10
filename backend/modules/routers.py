@@ -97,6 +97,11 @@ from modules.geolocation_engine.v1 import router as geolocation_router
 # ==============================================
 from modules.auth_engine import router as auth_router
 
+# ==============================================
+# PHASE P4+ - HUNTING TRIP LOGGER (Real Data)
+# ==============================================
+from modules.hunting_trip_logger import router as hunting_trip_logger_router
+
 
 # List of all available routers with their metadata
 CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
