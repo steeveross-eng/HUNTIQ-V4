@@ -164,6 +164,15 @@ class RolesService:
             "Promotion au rôle Guide"
         )
     
+    async def promote_to_business(self, user_id: str, admin_id: str) -> Tuple[bool, str]:
+        """Promote a user to business role"""
+        return await self.set_user_role(
+            user_id, 
+            UserRole.BUSINESS, 
+            admin_id,
+            "Promotion au rôle Business"
+        )
+    
     async def promote_to_admin(self, user_id: str, admin_id: str) -> Tuple[bool, str]:
         """Promote a user to admin"""
         return await self.set_user_role(
