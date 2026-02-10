@@ -106,38 +106,60 @@ async def get_all_entities(
 
 
 @router.get("/hotspots")
-async def get_all_hotspots(
-    status: Optional[str] = Query(None, description="claimed|unclaimed|premium|auto"),
+async def get_admin_hotspots(
+    category: Optional[str] = Query(None, description="standard|premium|land_rental|environmental|inactive"),
     min_confidence: Optional[float] = Query(None, ge=0, le=1),
     habitat: Optional[str] = None,
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=500)
 ):
     """
-    Get all hotspots with detailed scoring and status.
-    Useful for monetization analysis.
+    Get all ADMINISTRATIVELY EXPLOITABLE hotspots (ADMIN ONLY).
+    
+    ⚠️ CONFIDENTIALITÉ: Les hotspots personnels des utilisateurs sont EXCLUS.
+    Seuls les hotspots système/auto-générés et "Terre à louer" sont affichés.
+    
+    Catégories:
+    - standard: Hotspots système de base
+    - premium: Hotspots haute qualité (confidence > 0.7)
+    - land_rental: Hotspots "Terre à louer" 
+    - environmental: Hotspots auto-générés par analyse environnementale
+    - inactive: Hotspots expirés ou désactivés
     """
     db = await get_db()
     
-    query: Dict[str, Any] = {"entity_type": "hotspot"}
+    # 🔒 EXCLURE les hotspots personnels des utilisateurs
+    # Inclure uniquement: system, auto-generated, land_rental
+    base_query: Dict[str, Any] = {
+        "entity_type": "hotspot",
+        "$or": [
+            {"user_id": "system"},
+            {"metadata.is_auto_generated": True},
+            {"metadata.hotspot_category": "land_rental"}
+        ]
+    }
     
-    if status == "claimed":
-        query["metadata.is_claimed"] = True
-    elif status == "unclaimed":
-        query["metadata.is_claimed"] = False
-    elif status == "premium":
-        query["metadata.is_premium"] = True
-    elif status == "auto":
-        query["metadata.is_auto_generated"] = True
+    # Filtrer par catégorie
+    if category == "standard":
+        base_query["metadata.is_premium"] = {"$ne": True}
+        base_query["metadata.hotspot_category"] = {"$nin": ["land_rental", "environmental"]}
+    elif category == "premium":
+        base_query["metadata.is_premium"] = True
+    elif category == "land_rental":
+        base_query["metadata.hotspot_category"] = "land_rental"
+    elif category == "environmental":
+        base_query["metadata.is_auto_generated"] = True
+    elif category == "inactive":
+        base_query["active"] = False
     
     if min_confidence is not None:
-        query["metadata.confidence"] = {"$gte": min_confidence}
+        base_query["metadata.confidence"] = {"$gte": min_confidence}
     
     if habitat:
-        query["metadata.habitat"] = habitat
+        base_query["metadata.habitat"] = habitat
     
     pipeline = [
-        {"$match": query},
+        {"$match": base_query},
         {"$sort": {"metadata.confidence": -1, "created_at": -1}},
         {"$skip": skip},
         {"$limit": limit},
@@ -148,16 +170,96 @@ async def get_all_hotspots(
             "user_id": 1,
             "metadata": 1,
             "created_at": 1,
-            "active": 1,
-            "confidence": "$metadata.confidence",
-            "is_premium": "$metadata.is_premium",
-            "is_claimed": "$metadata.is_claimed",
-            "habitat": "$metadata.habitat",
-            "density": "$metadata.density"
+            "active": 1
         }}
     ]
     
     hotspots = await db[GEO_COLLECTION].aggregate(pipeline).to_list(limit)
+    
+    # Déterminer la catégorie de chaque hotspot
+    def get_hotspot_category(h):
+        meta = h.get("metadata", {})
+        if not h.get("active", True):
+            return "inactive"
+        if meta.get("hotspot_category") == "land_rental":
+            return "land_rental"
+        if meta.get("is_auto_generated"):
+            return "environmental"
+        if meta.get("is_premium"):
+            return "premium"
+        return "standard"
+    
+    # Compter par catégorie
+    category_counts = {
+        "standard": 0,
+        "premium": 0,
+        "land_rental": 0,
+        "environmental": 0,
+        "inactive": 0
+    }
+    
+    formatted_hotspots = []
+    for h in hotspots:
+        cat = get_hotspot_category(h)
+        category_counts[cat] += 1
+        
+        loc = h.get("location", {})
+        coords = loc.get("coordinates", [0, 0])
+        meta = h.get("metadata", {})
+        
+        formatted_hotspots.append({
+            "id": str(h["_id"]),
+            "name": h.get("name", "Hotspot sans nom"),
+            "category": cat,
+            "category_label": {
+                "standard": "Hotspot standard",
+                "premium": "Hotspot premium",
+                "land_rental": "Hotspot Terre à louer",
+                "environmental": "Hotspot environnemental",
+                "inactive": "Hotspot inactif"
+            }.get(cat, cat),
+            "latitude": coords[1] if len(coords) > 1 else None,
+            "longitude": coords[0] if len(coords) > 0 else None,
+            "status": _get_hotspot_status(h),
+            "confidence": meta.get("confidence"),
+            "habitat": meta.get("habitat"),
+            "density": meta.get("density"),
+            "is_premium": meta.get("is_premium", False),
+            "is_claimed": meta.get("is_claimed", False),
+            "active": h.get("active", True),
+            "created_at": h.get("created_at"),
+            "map_link": f"/map?lat={coords[1]}&lng={coords[0]}&zoom=17" if len(coords) > 1 else None
+        })
+    
+    return {
+        "hotspots": formatted_hotspots,
+        "total": len(formatted_hotspots),
+        "by_category": category_counts,
+        "note": "Hotspots personnels des utilisateurs exclus (confidentialité)"
+    }
+
+
+def _get_hotspot_status(hotspot: dict) -> str:
+    """Déterminer le statut d'affichage d'un hotspot"""
+    if not hotspot.get("active", True):
+        return "Inactif"
+    
+    meta = hotspot.get("metadata", {})
+    
+    if meta.get("hotspot_category") == "land_rental":
+        if meta.get("is_claimed"):
+            return "Terre louée"
+        return "Terre disponible"
+    
+    if meta.get("is_premium"):
+        if meta.get("is_claimed"):
+            return "Premium (réclamé)"
+        return "Premium (disponible)"
+    
+    if meta.get("is_auto_generated"):
+        return "Auto-généré"
+    
+    return "Standard"
     
     # Calculate monetization potential
     premium_unclaimed = sum(1 for h in hotspots if h.get("is_premium") and not h.get("is_claimed"))
