@@ -103,6 +103,37 @@ export const AnalyticsDashboard = () => {
 
   const { overview, species_breakdown, weather_analysis, optimal_times, monthly_trends, recent_trips } = dashboard;
 
+  // Export handlers
+  const handleExportPDF = () => {
+    try {
+      ExportService.exportAnalyticsPDF(dashboard);
+      toast.success('Rapport PDF exporté !');
+    } catch (error) {
+      toast.error('Erreur lors de l\'export PDF');
+      console.error(error);
+    }
+  };
+
+  const handleExportTripsCSV = () => {
+    try {
+      ExportService.exportTripsCSV(recent_trips);
+      toast.success('Sorties exportées en CSV !');
+    } catch (error) {
+      toast.error('Erreur lors de l\'export CSV');
+      console.error(error);
+    }
+  };
+
+  const handleExportTripsPDF = () => {
+    try {
+      ExportService.exportTripsPDF(recent_trips);
+      toast.success('Journal de chasse exporté en PDF !');
+    } catch (error) {
+      toast.error('Erreur lors de l\'export PDF');
+      console.error(error);
+    }
+  };
+
   return (
     <div className="space-y-6" data-testid="analytics-dashboard">
       {/* Header */}
@@ -117,22 +148,46 @@ export const AnalyticsDashboard = () => {
           </p>
         </div>
         
-        {/* Time Range Filter */}
+        {/* Export Buttons */}
         <div className="flex items-center gap-2">
-          {TIME_RANGES.map(range => (
-            <Button
-              key={range.value}
-              size="sm"
-              variant={timeRange === range.value ? 'default' : 'outline'}
-              className={timeRange === range.value 
-                ? 'bg-[#f5a623] text-black hover:bg-[#e09000]' 
-                : 'border-slate-600 text-slate-300'}
-              onClick={() => setTimeRange(range.value)}
-            >
-              {range.label}
-            </Button>
-          ))}
+          <Button
+            size="sm"
+            variant="outline"
+            className="border-green-600 text-green-400 hover:bg-green-600/20"
+            onClick={handleExportTripsCSV}
+            data-testid="export-csv-btn"
+          >
+            📥 CSV
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            className="border-red-600 text-red-400 hover:bg-red-600/20"
+            onClick={handleExportPDF}
+            data-testid="export-pdf-btn"
+          >
+            📄 PDF
+          </Button>
         </div>
+      </div>
+      
+      {/* Time Range Filter */}
+      <div className="flex items-center gap-2 flex-wrap">
+        <span className="text-slate-400 text-sm">Période:</span>
+        {TIME_RANGES.map(range => (
+          <Button
+            key={range.value}
+            size="sm"
+            variant={timeRange === range.value ? 'default' : 'outline'}
+            className={timeRange === range.value 
+              ? 'bg-[#f5a623] text-black hover:bg-[#e09000]' 
+              : 'border-slate-600 text-slate-300'}
+            onClick={() => setTimeRange(range.value)}
+          >
+            {range.label}
+          </Button>
+        ))}
+      </div>
       </div>
 
       {/* KPI Cards */}
