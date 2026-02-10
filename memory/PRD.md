@@ -218,6 +218,13 @@ Tous les modules opérationnels avec APIs documentées.
   - Heatmap de performance sur la carte Leaflet
   - Popup waypoint avec score WQS intégré
   - Bouton toggle Heatmap sur la carte
+- ✅ **P3.4 - Mode Hors Ligne (PWA)**:
+  - Service Worker avec stratégies cache-first et network-first
+  - IndexedDB pour stockage local des waypoints et WQS
+  - Page offline.html pour mode déconnecté
+  - Composant OfflineIndicator pour statut connexion
+  - Manifest.json pour installation PWA
+  - Background sync pour synchronisation différée
 
 ### P2 - Stabilisation Complète (9-10 Février 2026)
 - ✅ **Tests E2E Playwright**: 14 tests passés (Homepage, Dashboards, API)
