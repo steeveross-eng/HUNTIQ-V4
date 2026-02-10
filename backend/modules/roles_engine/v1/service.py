@@ -238,6 +238,7 @@ class RolesService:
         stats = {
             "hunter": 0,
             "guide": 0,
+            "business": 0,
             "admin": 0,
             "total": 0
         }
