@@ -72,7 +72,7 @@ class WaypointScoringService:
         self.trips_collection = db['hunting_trips']
         self.visits_collection = db['waypoint_visits']
     
-    async def calculate_wqs(self, waypoint_id: str, user_id: str = DEFAULT_USER_ID) -> WaypointQualityScore:
+    async def calculate_wqs(self, waypoint_id: str, user_id: str) -> WaypointQualityScore:
         """Calculate Waypoint Quality Score for a single waypoint"""
         
         # Try different ways to find the waypoint
@@ -245,7 +245,7 @@ class WaypointScoringService:
         
         return frequency_score + recency_score
     
-    async def get_all_wqs(self, user_id: str = DEFAULT_USER_ID) -> List[WaypointQualityScore]:
+    async def get_all_wqs(self, user_id: str) -> List[WaypointQualityScore]:
         """Calculate WQS for all user waypoints"""
         cursor = self.waypoints_collection.find({"user_id": user_id})
         waypoints = await cursor.to_list(length=500)
@@ -270,7 +270,7 @@ class WaypointScoringService:
         
         return sorted(scores, key=lambda x: x.total_score, reverse=True)
     
-    async def get_heatmap_data(self, user_id: str = DEFAULT_USER_ID) -> List[HeatmapData]:
+    async def get_heatmap_data(self, user_id: str) -> List[HeatmapData]:
         """Generate heatmap data for waypoint performance visualization"""
         cursor = self.waypoints_collection.find({"user_id": user_id})
         waypoints = await cursor.to_list(length=500)
@@ -303,7 +303,7 @@ class WaypointScoringService:
     async def calculate_success_forecast(
         self, 
         request: ForecastRequest,
-        user_id: str = DEFAULT_USER_ID
+        user_id: str
     ) -> SuccessForecast:
         """Calculate success probability forecast"""
         
@@ -386,7 +386,7 @@ class WaypointScoringService:
         self,
         species: str = "deer",
         weather: Optional[str] = None,
-        user_id: str = DEFAULT_USER_ID,
+        user_id: str,
         ai_client = None
     ) -> List[WaypointRecommendation]:
         """Generate AI-powered waypoint recommendations"""
@@ -461,7 +461,7 @@ class WaypointScoringService:
         
         return sorted(recommendations, key=lambda x: x.success_probability, reverse=True)
     
-    async def seed_demo_visits(self, user_id: str = DEFAULT_USER_ID) -> int:
+    async def seed_demo_visits(self, user_id: str) -> int:
         """Seed demo visit data for testing WQS calculations"""
         # Get existing waypoints
         cursor = self.waypoints_collection.find({"user_id": user_id})
