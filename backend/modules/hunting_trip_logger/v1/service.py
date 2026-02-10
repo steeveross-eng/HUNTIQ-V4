@@ -32,8 +32,11 @@ class HuntingTripLoggerService:
         self.visits_collection = db['waypoint_visits']
         self.observations_collection = db['hunting_observations']
         self.waypoints_collection = db['user_waypoints']
+        self.users_collection = db['users']
         # Analytics collections
         self.analytics_trips_collection = db['analytics_trips']
+        # Email service
+        self.email_service = EmailService(db)
     
     def _generate_id(self, prefix: str = "trip") -> str:
         """Generate a unique ID"""
