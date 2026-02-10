@@ -71,8 +71,9 @@ async def geolocation_info():
 @router.post("/location", response_model=dict)
 async def record_location(
     location: LocationUpdate,
+    request: Request,
     session_id: Optional[str] = None,
-    user_id: str = DEFAULT_USER_ID,
+    user_id: str = Depends(get_user_id_with_fallback),
     db: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """
@@ -106,9 +107,10 @@ async def record_location(
 
 @router.get("/history", response_model=List[dict])
 async def get_location_history(
+    request: Request,
     session_id: Optional[str] = None,
     limit: int = 100,
-    user_id: str = DEFAULT_USER_ID,
+    user_id: str = Depends(get_user_id_with_fallback),
     db: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Get location history for user"""
@@ -135,7 +137,8 @@ async def get_location_history(
 
 @router.post("/session/start", response_model=dict)
 async def start_tracking_session(
-    user_id: str = DEFAULT_USER_ID,
+    request: Request,
+    user_id: str = Depends(get_user_id_with_fallback),
     db: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Start a new tracking session for a hunting trip"""
@@ -157,7 +160,8 @@ async def start_tracking_session(
 @router.post("/session/{session_id}/end", response_model=dict)
 async def end_tracking_session(
     session_id: str,
-    user_id: str = DEFAULT_USER_ID,
+    request: Request,
+    user_id: str = Depends(get_user_id_with_fallback),
     db: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """End a tracking session and get statistics"""
@@ -185,7 +189,8 @@ async def end_tracking_session(
 @router.post("/subscribe", response_model=dict)
 async def subscribe_push(
     subscription: PushSubscription,
-    user_id: str = DEFAULT_USER_ID,
+    request: Request,
+    user_id: str = Depends(get_user_id_with_fallback),
     db: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Subscribe to push notifications for proximity alerts"""
@@ -201,7 +206,8 @@ async def subscribe_push(
 
 @router.delete("/subscribe", response_model=dict)
 async def unsubscribe_push(
-    user_id: str = DEFAULT_USER_ID,
+    request: Request,
+    user_id: str = Depends(get_user_id_with_fallback),
     db: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Unsubscribe from push notifications"""
@@ -219,8 +225,9 @@ async def unsubscribe_push(
 async def get_nearby_hotspots(
     lat: float,
     lng: float,
+    request: Request,
     radius_km: float = 5.0,
-    user_id: str = DEFAULT_USER_ID,
+    user_id: str = Depends(get_user_id_with_fallback),
     db: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Get hotspot waypoints near a location"""
@@ -245,7 +252,8 @@ async def get_nearby_hotspots(
 async def check_proximity(
     lat: float,
     lng: float,
-    user_id: str = DEFAULT_USER_ID,
+    request: Request,
+    user_id: str = Depends(get_user_id_with_fallback),
     db: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Manually check proximity to waypoints"""
@@ -264,7 +272,8 @@ async def check_proximity(
 @router.post("/notify", response_model=dict)
 async def send_notification(
     notification: PushNotification,
-    user_id: str = DEFAULT_USER_ID,
+    request: Request,
+    user_id: str = Depends(get_user_id_with_fallback),
     db: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Send a push notification to user (admin/test endpoint)"""
@@ -280,7 +289,8 @@ async def send_notification(
 
 @router.get("/tracking-status", response_model=dict)
 async def get_tracking_status(
-    user_id: str = DEFAULT_USER_ID,
+    request: Request,
+    user_id: str = Depends(get_user_id_with_fallback),
     db: AsyncIOMotorDatabase = Depends(get_db)
 ):
     """Get current tracking status for user"""
