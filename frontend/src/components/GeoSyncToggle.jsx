@@ -177,10 +177,17 @@ const GeoSyncToggle = ({
     }
   };
 
-  // Send geo event to group
+  // Send geo event to group (with privacy check)
   const broadcastEvent = useCallback((eventType, entity = null, entityId = null) => {
     if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
       console.warn('WebSocket not connected, cannot broadcast');
+      return false;
+    }
+    
+    // 🔒 VÉRIFICATION DE CONFIDENTIALITÉ: Bloquer les types privés
+    if (entity && PRIVATE_ENTITY_TYPES.has(entity.entity_type)) {
+      console.warn('CONFIDENTIALITÉ: Les hotspots/corridors ne peuvent pas être synchronisés');
+      toast.error('Cette entité est privée et ne peut pas être partagée');
       return false;
     }
     
