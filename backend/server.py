@@ -255,6 +255,30 @@ try:
 except ImportError as e:
     logger.warning(f"Territory Analysis router not available: {e}")
 
+# 7. Register unified geo engine (Phase P6.2)
+try:
+    from modules.geo_engine.v1 import router as geo_router, ensure_indexes
+    app.include_router(geo_router)
+    logger.info("✓ Loaded: Unified Geo Engine [/api/v1/geo/*]")
+except ImportError as e:
+    logger.warning(f"Geo Engine not available: {e}")
+
+# 8. Register admin geo engine (Phase P6.5)
+try:
+    from modules.geo_engine.admin import router as admin_geo_router
+    app.include_router(admin_geo_router)
+    logger.info("✓ Loaded: Admin Geo Engine [/api/admin/geo/*]")
+except ImportError as e:
+    logger.warning(f"Admin Geo Engine not available: {e}")
+
+# 9. Register WebSocket geo sync (Phase P6.4)
+try:
+    from websocket.geo_sync import router as ws_geo_router
+    app.include_router(ws_geo_router)
+    logger.info("✓ Loaded: WebSocket Geo Sync [/ws/geo-sync, /api/v1/geo-sync/*]")
+except ImportError as e:
+    logger.warning(f"WebSocket Geo Sync not available: {e}")
+
 # ==============================================
 # CUSTOM OPENAPI SCHEMA
 # ==============================================
