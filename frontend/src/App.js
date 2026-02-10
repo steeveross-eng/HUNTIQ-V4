@@ -28,6 +28,7 @@ import FeatureControlsAdmin from "@/components/FeatureControlsAdmin";
 import ResetPasswordPage from "@/components/ResetPasswordPage";
 import AdminPage from "@/pages/AdminPage";
 import { AuthProvider, UserMenu, useAuth } from "@/components/GlobalAuth";
+import { OfflineIndicator } from "@/components/OfflineIndicator";
 import { LanguageProvider, useLanguage, LanguageSwitcher } from "@/contexts/LanguageContext";
 import BionicLogo from "@/components/BionicLogo";
 import ScrollNavigator from "@/components/ScrollNavigator";
