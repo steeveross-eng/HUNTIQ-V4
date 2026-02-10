@@ -299,12 +299,11 @@ class GeolocationServiceClass {
       let subscription = await registration.pushManager.getSubscription();
       
       if (!subscription) {
-        // Note: In production, you'd use VAPID keys from your server
+        // Real VAPID public key from backend
         subscription = await registration.pushManager.subscribe({
           userVisibleOnly: true,
           applicationServerKey: this._urlBase64ToUint8Array(
-            // Placeholder VAPID public key - replace with real one in production
-            'BNYVzJwfN6eLKjFjAv_qTlvBjPz8xvPqU9TnZPnKFb-PmK8nHjLqF9TvP_qTlvBjPz8xvPqU9Tn'
+            'BKWDsiVqbayHSLkU66o-BXYFPBOprvye4JowMEcEGY2iwxShqB3IZrWYejj14kuloYiFN5jBbEqsDaDVz3EirjE'
           )
         });
       }
