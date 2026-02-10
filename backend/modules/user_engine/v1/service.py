@@ -73,7 +73,7 @@ class UserService:
                 100000
             )
             return hash_obj.hex() == hash_value
-        except:
+        except Exception:
             return False
     
     def _generate_token(self) -> str:
