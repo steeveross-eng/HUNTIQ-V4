@@ -3,18 +3,46 @@
  * Phase P3.2 - Interactive Map
  * Phase P4 - Background Geolocation & Proximity Alerts
  * Phase P6.4 - Real-time WebSocket Sync
+ * Phase P6.5 - Support URL params for map centering (from Admin)
  */
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { WaypointMap } from '../modules/territory';
 import BackgroundTracker from '../components/BackgroundTracker';
 import GeoSyncToggle from '../components/GeoSyncToggle';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Map, Satellite, RefreshCw } from 'lucide-react';
+import { Map, Satellite, RefreshCw, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const MapPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState('map');
   const [refreshKey, setRefreshKey] = useState(0);
+  
+  // Get URL parameters for map centering (from Admin "Voir sur la carte")
+  const urlParams = useMemo(() => {
+    const lat = parseFloat(searchParams.get('lat'));
+    const lng = parseFloat(searchParams.get('lng'));
+    const zoom = parseInt(searchParams.get('zoom')) || 15;
+    
+    if (!isNaN(lat) && !isNaN(lng)) {
+      return { lat, lng, zoom, hasParams: true };
+    }
+    return { hasParams: false };
+  }, [searchParams]);
+
+  // Show notification when centered on a specific location
+  useEffect(() => {
+    if (urlParams.hasParams) {
+      toast.info(`Carte centrée sur: ${urlParams.lat.toFixed(4)}, ${urlParams.lng.toFixed(4)}`);
+    }
+  }, [urlParams]);
+
+  // Clear URL params (reset view)
+  const clearUrlParams = () => {
+    setSearchParams({});
+  };
 
   const handleProximityAlert = (alert) => {
     // Handle proximity alerts - could update map highlight here
@@ -62,6 +90,28 @@ const MapPage = () => {
             Gérez vos waypoints de chasse sur la carte • Phase P3/P4/P6
           </p>
         </div>
+
+        {/* URL Params Banner (when coming from Admin) */}
+        {urlParams.hasParams && (
+          <div className="mb-4 p-3 bg-blue-900/30 border border-blue-500/50 rounded-lg flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-blue-400">📍</span>
+              <span className="text-blue-300">
+                Vue centrée sur: <strong>{urlParams.lat.toFixed(6)}, {urlParams.lng.toFixed(6)}</strong>
+                <span className="text-blue-400 ml-2">(Zoom: {urlParams.zoom})</span>
+              </span>
+            </div>
+            <Button 
+              size="sm" 
+              variant="ghost" 
+              onClick={clearUrlParams}
+              className="text-blue-400 hover:text-blue-300"
+            >
+              <X className="h-4 w-4 mr-1" />
+              Réinitialiser
+            </Button>
+          </div>
+        )}
 
         {/* Real-time Sync Toggle */}
         <div className="mb-4">
