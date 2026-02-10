@@ -1,6 +1,7 @@
 /**
  * WaypointMap - Interactive Leaflet map for waypoints
  * Phase P3.2 - Interactive Map with Heatmap
+ * Phase P6 - UNIFIED: Uses territory_waypoints as single source of truth
  */
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
@@ -24,6 +25,37 @@ L.Icon.Default.mergeOptions({
 });
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
+
+// Default user ID for unified waypoints system
+const getDefaultUserId = () => {
+  const user = localStorage.getItem('user');
+  if (user) {
+    try {
+      const parsed = JSON.parse(user);
+      return parsed.email || parsed.id || 'default_user';
+    } catch (e) {
+      return 'default_user';
+    }
+  }
+  return 'default_user';
+};
+
+/**
+ * Normalize waypoint from territory API format to internal format
+ * Maps: latitude→lat, longitude→lng, waypoint_type→type
+ */
+const normalizeWaypoint = (wp) => ({
+  id: wp.id || wp._id,
+  name: wp.name,
+  lat: wp.latitude ?? wp.lat,
+  lng: wp.longitude ?? wp.lng,
+  type: wp.waypoint_type || wp.type || 'custom',
+  notes: wp.description || wp.notes || '',
+  active: wp.active !== false,
+  color: wp.color,
+  icon: wp.icon,
+  created_at: wp.created_at
+});
 
 const WAYPOINT_TYPES = [
   { id: 'hunting', label: 'Spot de chasse', icon: '🎯', color: '#f5a623' },
