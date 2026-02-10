@@ -1,0 +1,577 @@
+/**
+ * AnalyticsDashboard - Main analytics dashboard component
+ * Phase P3 - Advanced Analytics
+ */
+import React, { useState, useEffect, useCallback } from 'react';
+import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui/card';
+import { Button } from '../../../components/ui/button';
+import { Badge } from '../../../components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs';
+import { 
+  BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
+  XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+  RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
+} from 'recharts';
+import { AnalyticsService } from '../AnalyticsService';
+
+const TIME_RANGES = [
+  { value: 'week', label: 'Semaine' },
+  { value: 'month', label: 'Mois' },
+  { value: 'season', label: 'Saison' },
+  { value: 'year', label: 'Année' },
+  { value: 'all', label: 'Tout' }
+];
+
+const SPECIES_COLORS = {
+  deer: '#f5a623',
+  moose: '#8b4513',
+  bear: '#2d2d2d',
+  wild_turkey: '#cd853f',
+  duck: '#4682b4',
+  wild_boar: '#696969',
+  goose: '#708090'
+};
+
+const SPECIES_LABELS = {
+  deer: 'Cerf',
+  moose: 'Orignal',
+  bear: 'Ours',
+  wild_turkey: 'Dindon sauvage',
+  duck: 'Canard',
+  wild_boar: 'Sanglier',
+  goose: 'Oie'
+};
+
+const WEATHER_COLORS = {
+  'Ensoleillé': '#ffd700',
+  'Nuageux': '#a9a9a9',
+  'Pluvieux': '#4682b4',
+  'Brumeux': '#d3d3d3',
+  'Neigeux': '#e0ffff'
+};
+
+export const AnalyticsDashboard = () => {
+  const [loading, setLoading] = useState(true);
+  const [timeRange, setTimeRange] = useState('all');
+  const [dashboard, setDashboard] = useState(null);
+  const [activeTab, setActiveTab] = useState('overview');
+
+  const loadDashboard = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await AnalyticsService.getDashboard(timeRange);
+      setDashboard(data);
+    } catch (error) {
+      console.error('Error loading dashboard:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [timeRange]);
+
+  useEffect(() => {
+    loadDashboard();
+  }, [loadDashboard]);
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <div className="animate-pulse bg-slate-700 rounded-lg h-48" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="animate-pulse bg-slate-700 rounded-lg h-32" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (!dashboard) {
+    return (
+      <Card className="bg-slate-800 border-slate-700">
+        <CardContent className="p-8 text-center">
+          <span className="text-4xl">📊</span>
+          <p className="text-slate-400 mt-4">Erreur lors du chargement des données</p>
+          <Button onClick={loadDashboard} className="mt-4 bg-[#f5a623]">
+            Réessayer
+          </Button>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  const { overview, species_breakdown, weather_analysis, optimal_times, monthly_trends, recent_trips } = dashboard;
+
+  return (
+    <div className="space-y-6" data-testid="analytics-dashboard">
+      {/* Header */}
+      <div className="flex items-center justify-between flex-wrap gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span className="text-3xl">📊</span>
+            Dashboard Analytics
+          </h1>
+          <p className="text-slate-400 text-sm mt-1">
+            Statistiques et KPIs de chasse • Phase P3
+          </p>
+        </div>
+        
+        {/* Time Range Filter */}
+        <div className="flex items-center gap-2">
+          {TIME_RANGES.map(range => (
+            <Button
+              key={range.value}
+              size="sm"
+              variant={timeRange === range.value ? 'default' : 'outline'}
+              className={timeRange === range.value 
+                ? 'bg-[#f5a623] text-black hover:bg-[#e09000]' 
+                : 'border-slate-600 text-slate-300'}
+              onClick={() => setTimeRange(range.value)}
+            >
+              {range.label}
+            </Button>
+          ))}
+        </div>
+      </div>
+
+      {/* KPI Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="bg-gradient-to-br from-[#f5a623]/20 to-slate-900 border-[#f5a623]/50">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-slate-400 text-sm">Sorties totales</p>
+                <p className="text-3xl font-bold text-white">{overview.total_trips}</p>
+              </div>
+              <span className="text-4xl">🎯</span>
+            </div>
+            <p className="text-[#f5a623] text-sm mt-2">
+              {overview.avg_trip_duration}h en moyenne
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-green-900/30 to-slate-900 border-green-700/50">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-slate-400 text-sm">Taux de succès</p>
+                <p className="text-3xl font-bold text-green-400">{overview.success_rate}%</p>
+              </div>
+              <span className="text-4xl">✅</span>
+            </div>
+            <p className="text-green-400 text-sm mt-2">
+              {overview.successful_trips} réussites
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-blue-900/30 to-slate-900 border-blue-700/50">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-slate-400 text-sm">Heures de chasse</p>
+                <p className="text-3xl font-bold text-blue-400">{overview.total_hours}h</p>
+              </div>
+              <span className="text-4xl">⏱️</span>
+            </div>
+            <p className="text-blue-400 text-sm mt-2">
+              Temps investi
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-purple-900/30 to-slate-900 border-purple-700/50">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-slate-400 text-sm">Observations</p>
+                <p className="text-3xl font-bold text-purple-400">{overview.total_observations}</p>
+              </div>
+              <span className="text-4xl">👁️</span>
+            </div>
+            <p className="text-purple-400 text-sm mt-2">
+              {overview.most_active_species && `Plus actif: ${SPECIES_LABELS[overview.most_active_species] || overview.most_active_species}`}
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Tabs */}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="bg-slate-800 border border-slate-700 w-full justify-start">
+          <TabsTrigger value="overview" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
+            📈 Vue d'ensemble
+          </TabsTrigger>
+          <TabsTrigger value="species" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
+            🦌 Par espèce
+          </TabsTrigger>
+          <TabsTrigger value="weather" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
+            🌤️ Météo
+          </TabsTrigger>
+          <TabsTrigger value="times" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
+            ⏰ Horaires
+          </TabsTrigger>
+          <TabsTrigger value="history" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
+            📜 Historique
+          </TabsTrigger>
+        </TabsList>
+
+        {/* Overview Tab */}
+        <TabsContent value="overview" className="mt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Monthly Trends Chart */}
+            <Card className="bg-slate-800 border-slate-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg text-white flex items-center gap-2">
+                  <span>📈</span>
+                  Tendances mensuelles
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {monthly_trends.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={monthly_trends}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <XAxis dataKey="month" stroke="#9ca3af" />
+                      <YAxis stroke="#9ca3af" />
+                      <Tooltip 
+                        contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
+                        labelStyle={{ color: '#f5a623' }}
+                      />
+                      <Legend />
+                      <Line type="monotone" dataKey="trips" name="Sorties" stroke="#f5a623" strokeWidth={2} />
+                      <Line type="monotone" dataKey="successes" name="Succès" stroke="#22c55e" strokeWidth={2} />
+                      <Line type="monotone" dataKey="observations" name="Observations" stroke="#8b5cf6" strokeWidth={2} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-[300px] flex items-center justify-center text-slate-400">
+                    Pas de données disponibles
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Species Pie Chart */}
+            <Card className="bg-slate-800 border-slate-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg text-white flex items-center gap-2">
+                  <span>🥧</span>
+                  Répartition par espèce
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {species_breakdown.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie
+                        data={species_breakdown}
+                        dataKey="trips"
+                        nameKey="species"
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={100}
+                        label={({ species, trips }) => `${SPECIES_LABELS[species] || species}: ${trips}`}
+                      >
+                        {species_breakdown.map((entry, index) => (
+                          <Cell 
+                            key={`cell-${index}`} 
+                            fill={SPECIES_COLORS[entry.species] || `hsl(${index * 45}, 70%, 50%)`} 
+                          />
+                        ))}
+                      </Pie>
+                      <Tooltip 
+                        contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
+                        formatter={(value, name) => [value, SPECIES_LABELS[name] || name]}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-[300px] flex items-center justify-center text-slate-400">
+                    Pas de données disponibles
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* Species Tab */}
+        <TabsContent value="species" className="mt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Species Bar Chart */}
+            <Card className="bg-slate-800 border-slate-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg text-white flex items-center gap-2">
+                  <span>📊</span>
+                  Taux de succès par espèce
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {species_breakdown.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={species_breakdown}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <XAxis 
+                        dataKey="species" 
+                        stroke="#9ca3af"
+                        tickFormatter={(value) => SPECIES_LABELS[value] || value}
+                      />
+                      <YAxis stroke="#9ca3af" />
+                      <Tooltip 
+                        contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
+                        labelFormatter={(value) => SPECIES_LABELS[value] || value}
+                      />
+                      <Bar dataKey="success_rate" name="Taux de succès (%)" fill="#22c55e" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-[300px] flex items-center justify-center text-slate-400">
+                    Pas de données disponibles
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Species Details */}
+            <Card className="bg-slate-800 border-slate-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg text-white flex items-center gap-2">
+                  <span>🦌</span>
+                  Détails par espèce
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3 max-h-[300px] overflow-y-auto">
+                  {species_breakdown.map((species, index) => (
+                    <div 
+                      key={index}
+                      className="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div 
+                          className="w-4 h-4 rounded-full"
+                          style={{ backgroundColor: SPECIES_COLORS[species.species] || '#666' }}
+                        />
+                        <div>
+                          <p className="text-white font-medium">
+                            {SPECIES_LABELS[species.species] || species.species}
+                          </p>
+                          <p className="text-slate-400 text-sm">
+                            {species.trips} sorties • {species.total_observations} observations
+                          </p>
+                        </div>
+                      </div>
+                      <Badge className={species.success_rate >= 50 ? 'bg-green-600' : 'bg-slate-600'}>
+                        {species.success_rate}%
+                      </Badge>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* Weather Tab */}
+        <TabsContent value="weather" className="mt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Weather Bar Chart */}
+            <Card className="bg-slate-800 border-slate-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg text-white flex items-center gap-2">
+                  <span>🌤️</span>
+                  Impact de la météo
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {weather_analysis.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={weather_analysis} layout="vertical">
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <XAxis type="number" stroke="#9ca3af" />
+                      <YAxis type="category" dataKey="condition" stroke="#9ca3af" width={100} />
+                      <Tooltip 
+                        contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
+                      />
+                      <Bar dataKey="success_rate" name="Taux de succès (%)" radius={[0, 4, 4, 0]}>
+                        {weather_analysis.map((entry, index) => (
+                          <Cell 
+                            key={`cell-${index}`} 
+                            fill={WEATHER_COLORS[entry.condition] || '#f5a623'} 
+                          />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-[300px] flex items-center justify-center text-slate-400">
+                    Pas de données météo disponibles
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Weather Insights */}
+            <Card className="bg-slate-800 border-slate-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg text-white flex items-center gap-2">
+                  <span>💡</span>
+                  Insights météo
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {weather_analysis.slice(0, 5).map((weather, index) => (
+                    <div key={index} className="p-3 bg-slate-700/50 rounded-lg">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-white font-medium">{weather.condition}</span>
+                        <Badge className={weather.success_rate >= 40 ? 'bg-green-600' : 'bg-amber-600'}>
+                          {weather.success_rate}% succès
+                        </Badge>
+                      </div>
+                      <div className="flex justify-between text-sm text-slate-400">
+                        <span>{weather.trips} sorties</span>
+                        <span>{weather.avg_observations} obs. moy.</span>
+                      </div>
+                    </div>
+                  ))}
+                  {weather_analysis.length === 0 && (
+                    <p className="text-slate-400 text-center py-8">
+                      Enregistrez vos sorties avec les conditions météo pour voir ces insights
+                    </p>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* Times Tab */}
+        <TabsContent value="times" className="mt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Optimal Times Radar */}
+            <Card className="bg-slate-800 border-slate-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg text-white flex items-center gap-2">
+                  <span>🎯</span>
+                  Heures optimales
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {optimal_times.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <RadarChart data={optimal_times}>
+                      <PolarGrid stroke="#374151" />
+                      <PolarAngleAxis dataKey="label" stroke="#9ca3af" />
+                      <PolarRadiusAxis stroke="#9ca3af" />
+                      <Radar 
+                        name="Taux de succès" 
+                        dataKey="success_rate" 
+                        stroke="#f5a623" 
+                        fill="#f5a623" 
+                        fillOpacity={0.5} 
+                      />
+                      <Tooltip 
+                        contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
+                      />
+                    </RadarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-[300px] flex items-center justify-center text-slate-400">
+                    Pas de données horaires disponibles
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Time Slots Bar */}
+            <Card className="bg-slate-800 border-slate-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg text-white flex items-center gap-2">
+                  <span>⏰</span>
+                  Activité par créneau
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {optimal_times.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={optimal_times}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <XAxis dataKey="hour" stroke="#9ca3af" tickFormatter={(h) => `${h}h`} />
+                      <YAxis stroke="#9ca3af" />
+                      <Tooltip 
+                        contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
+                        labelFormatter={(h) => `${h}h - ${optimal_times.find(t => t.hour === h)?.label || ''}`}
+                      />
+                      <Legend />
+                      <Bar dataKey="trips" name="Sorties" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="activity_score" name="Score activité" fill="#f5a623" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-[300px] flex items-center justify-center text-slate-400">
+                    Pas de données horaires disponibles
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* History Tab */}
+        <TabsContent value="history" className="mt-6">
+          <Card className="bg-slate-800 border-slate-700">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg text-white flex items-center gap-2">
+                <span>📜</span>
+                Dernières sorties
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {recent_trips.length > 0 ? (
+                <div className="space-y-3">
+                  {recent_trips.map((trip, index) => (
+                    <div 
+                      key={index}
+                      className="flex items-center justify-between p-4 bg-slate-700/50 rounded-lg"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className={`w-3 h-3 rounded-full ${trip.success ? 'bg-green-500' : 'bg-slate-500'}`} />
+                        <div>
+                          <p className="text-white font-medium">
+                            {SPECIES_LABELS[trip.species] || trip.species}
+                          </p>
+                          <p className="text-slate-400 text-sm">
+                            {new Date(trip.date).toLocaleDateString('fr-CA')} • {trip.duration_hours}h
+                            {trip.weather_conditions && ` • ${trip.weather_conditions}`}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="text-slate-400 text-sm">
+                          {trip.observations} obs.
+                        </span>
+                        <Badge className={trip.success ? 'bg-green-600' : 'bg-slate-600'}>
+                          {trip.success ? 'Succès' : 'Sans succès'}
+                        </Badge>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <span className="text-4xl">📋</span>
+                  <p className="text-slate-400 mt-4">Aucune sortie enregistrée</p>
+                  <p className="text-slate-500 text-sm">Commencez à enregistrer vos sorties de chasse</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+};
+
+export default AnalyticsDashboard;
