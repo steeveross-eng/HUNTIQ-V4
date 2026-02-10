@@ -1252,7 +1252,7 @@ class TrackResponse(BaseModel):
 
 @territory_router.post("/waypoints", response_model=WaypointResponse)
 async def create_waypoint(user_id: str, waypoint: WaypointCreate):
-    """Create a new waypoint"""
+    """Create a new waypoint - UNIFIED single source of truth"""
     database = await get_db()
     
     waypoint_id = str(uuid.uuid4())
@@ -1264,10 +1264,14 @@ async def create_waypoint(user_id: str, waypoint: WaypointCreate):
         "latitude": waypoint.latitude,
         "longitude": waypoint.longitude,
         "name": waypoint.name,
-        "description": waypoint.description,
+        "description": waypoint.description or waypoint.notes,
         "waypoint_type": waypoint.waypoint_type,
         "icon": waypoint.icon,
-        "created_at": now
+        "created_at": now,
+        # UNIFIED: Added fields from legacy
+        "active": waypoint.active if waypoint.active is not None else True,
+        "color": waypoint.color,
+        "notes": waypoint.notes or waypoint.description
     }
     
     await database.territory_waypoints.insert_one(waypoint_doc)
@@ -1277,15 +1281,19 @@ async def create_waypoint(user_id: str, waypoint: WaypointCreate):
         latitude=waypoint.latitude,
         longitude=waypoint.longitude,
         name=waypoint.name,
-        description=waypoint.description,
+        description=waypoint.description or waypoint.notes,
         waypoint_type=waypoint.waypoint_type,
         icon=waypoint.icon,
-        created_at=now
+        created_at=now,
+        active=waypoint_doc["active"],
+        color=waypoint.color,
+        notes=waypoint.notes or waypoint.description,
+        user_id=user_id
     )
 
 @territory_router.get("/waypoints")
 async def list_waypoints(user_id: str):
-    """List all waypoints for a user"""
+    """List all waypoints for a user - UNIFIED single source of truth"""
     database = await get_db()
     
     waypoints = await database.territory_waypoints.find({"user_id": user_id}).sort("created_at", -1).to_list(500)
@@ -1296,9 +1304,13 @@ async def list_waypoints(user_id: str):
         longitude=wp['longitude'],
         name=wp['name'],
         description=wp.get('description'),
-        waypoint_type=wp['waypoint_type'],
+        waypoint_type=wp.get('waypoint_type', 'custom'),
         icon=wp.get('icon'),
-        created_at=wp['created_at']
+        created_at=wp.get('created_at', datetime.now(timezone.utc)),
+        active=wp.get('active', True),
+        color=wp.get('color'),
+        notes=wp.get('notes') or wp.get('description'),
+        user_id=wp.get('user_id')
     ) for wp in waypoints]
 
 @territory_router.delete("/waypoints/{waypoint_id}")
