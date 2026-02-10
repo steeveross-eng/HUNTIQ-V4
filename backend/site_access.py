@@ -3,9 +3,10 @@ Site Access Control Module
 - Manage site mode (live/development/maintenance)
 - Control access during development
 - Auto-disable features when in maintenance mode
+- Protected by role-based authentication
 """
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Depends
 from pydantic import BaseModel, Field
 from typing import Optional, Literal, List
 from datetime import datetime, timezone
@@ -13,6 +14,10 @@ import os
 import logging
 from motor.motor_asyncio import AsyncIOMotorClient
 from dotenv import load_dotenv
+
+# Import role-based authentication
+from modules.roles_engine.v1.dependencies import require_admin, get_optional_user_with_role
+from modules.roles_engine.v1.models import UserWithRole
 
 load_dotenv()
 
