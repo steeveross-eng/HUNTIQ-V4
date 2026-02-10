@@ -136,12 +136,12 @@ class GeolocationService:
             
             if distance <= alert_radius:
                 # Check if we already sent this alert recently (within 30 min)
+                from datetime import timedelta
+                thirty_min_ago = datetime.now(timezone.utc) - timedelta(minutes=30)
                 recent_alert = await self.alerts_collection.find_one({
                     "user_id": user_id,
                     "waypoint_id": str(wp["_id"]),
-                    "created_at": {"$gte": datetime.now(timezone.utc).replace(
-                        minute=datetime.now().minute - 30
-                    )}
+                    "created_at": {"$gte": thirty_min_ago}
                 })
                 
                 if not recent_alert:
