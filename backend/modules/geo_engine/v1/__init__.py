@@ -22,7 +22,7 @@ from models.geo_entity import (
     GeoQueryParams, GeoStatsResponse, GeoMetadata, HotspotMetadata,
     HuntingGroupCreate, HuntingGroupResponse, HabitatType
 )
-from database import get_db
+from database import Database
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +31,11 @@ router = APIRouter(prefix="/api/v1/geo", tags=["Geo Engine (Unified)"])
 # Collection name
 GEO_COLLECTION = "geo_entities"
 GROUPS_COLLECTION = "hunting_groups"
+
+
+async def get_db():
+    """Get database instance"""
+    return Database.get_database()
 
 
 # ===========================================
