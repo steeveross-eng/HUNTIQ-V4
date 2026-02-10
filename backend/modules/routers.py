@@ -77,6 +77,11 @@ from modules.alerts_engine import router as alerts_router
 from modules.legal_time_engine import router as legal_time_router
 from modules.predictive_engine import router as predictive_router
 
+# ==============================================
+# PHASE P3 - ANALYTICS ENGINE
+# ==============================================
+from modules.analytics_engine import router as analytics_router
+
 
 # List of all available routers with their metadata
 CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
