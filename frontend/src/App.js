@@ -45,6 +45,7 @@ import BusinessPage from "@/pages/BusinessPage";
 import PlanMaitrePage from "@/pages/PlanMaitrePage";
 import AnalyticsPage from "@/pages/AnalyticsPage";
 import MapPage from "@/pages/MapPage";
+import ForecastPage from "@/pages/ForecastPage";
 import { NotificationProvider } from "@/modules/notifications";
 import { 
   ShoppingCart, FlaskConical, GitCompare, Star, DollarSign, ThumbsUp, Heart, Eye,
