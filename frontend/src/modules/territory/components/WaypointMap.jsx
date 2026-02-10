@@ -92,16 +92,34 @@ export const WaypointMap = ({ defaultCenter = { lat: 46.8139, lng: -71.2080 } })
   const [newWaypointType, setNewWaypointType] = useState('hunting');
   const [selectedWaypoint, setSelectedWaypoint] = useState(null);
   const [mapCenter, setMapCenter] = useState([defaultCenter.lat, defaultCenter.lng]);
+  const [showHeatmap, setShowHeatmap] = useState(false);
+  const [heatmapData, setHeatmapData] = useState([]);
+  const [wqsScores, setWqsScores] = useState({});
   const mapRef = useRef(null);
 
-  // Load waypoints
+  // Load waypoints and heatmap data
   const loadWaypoints = useCallback(async () => {
     try {
-      const response = await fetch(`${API_URL}/api/user/waypoints`);
-      const data = await response.json();
-      if (data.success && data.waypoints) {
-        setWaypoints(data.waypoints);
+      const [waypointsResponse, heatmapResponse, wqsResponse] = await Promise.all([
+        fetch(`${API_URL}/api/user/waypoints`),
+        WaypointScoringService.getHeatmapData(),
+        WaypointScoringService.getAllWQS()
+      ]);
+      
+      const waypointsData = await waypointsResponse.json();
+      if (waypointsData.success && waypointsData.waypoints) {
+        setWaypoints(waypointsData.waypoints);
       }
+      
+      setHeatmapData(heatmapResponse);
+      
+      // Create WQS lookup by waypoint id
+      const wqsLookup = {};
+      wqsResponse.forEach(wqs => {
+        wqsLookup[wqs.waypoint_id] = wqs;
+      });
+      setWqsScores(wqsLookup);
+      
     } catch (error) {
       console.error('Error loading waypoints:', error);
       toast.error('Erreur lors du chargement des waypoints');
