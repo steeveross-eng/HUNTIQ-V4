@@ -112,6 +112,7 @@ const Navigation = ({ cartCount, onCartOpen }) => {
           <Link to="/plan-maitre" className="text-emerald-400 hover:text-emerald-300 transition-colors font-medium" data-testid="nav-plan-maitre">Plan Maître</Link>
           <Link to="/analytics" className="text-cyan-400 hover:text-cyan-300 transition-colors font-medium" data-testid="nav-analytics">📊 Analytics</Link>
           <Link to="/forecast" className="text-amber-400 hover:text-amber-300 transition-colors font-medium" data-testid="nav-forecast">🎯 Forecast</Link>
+          <Link to="/trips" className="text-rose-400 hover:text-rose-300 transition-colors font-medium" data-testid="nav-trips">🦌 Sorties</Link>
           <Link to="/map" className="text-teal-400 hover:text-teal-300 transition-colors font-medium" data-testid="nav-map">🗺️ Carte</Link>
           <Link to="/analyze" className="text-gray-400 hover:text-white transition-colors">{t('nav_analyze')}</Link>
           <Link to="/shop" className="text-gray-400 hover:text-white transition-colors">{t('nav_shop')}</Link>
