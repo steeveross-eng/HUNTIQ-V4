@@ -137,7 +137,11 @@ const MapPage = () => {
           </TabsList>
 
           <TabsContent value="map" className="mt-0">
-            <WaypointMap />
+            <WaypointMap 
+              key={refreshKey}
+              initialCenter={urlParams.hasParams ? [urlParams.lat, urlParams.lng] : null}
+              initialZoom={urlParams.hasParams ? urlParams.zoom : null}
+            />
           </TabsContent>
 
           <TabsContent value="tracking" className="mt-0">
