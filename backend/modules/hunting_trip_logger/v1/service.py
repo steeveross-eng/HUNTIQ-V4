@@ -587,7 +587,7 @@ class HuntingTripLoggerService:
         """Update waypoint scoring data based on trip results"""
         visited_waypoints = trip.get("visited_waypoints", [])
         success = trip.get("success", False)
-        weather = trip.get("weather")
+        trip_weather = trip.get("weather")
         
         for waypoint_id in visited_waypoints:
             # Update visit success in waypoint_visits for scoring
@@ -596,7 +596,7 @@ class HuntingTripLoggerService:
                     "trip_id": trip.get("trip_id"),
                     "waypoint_id": waypoint_id
                 },
-                {"$set": {"success": success}}
+                {"$set": {"success": success, "weather": trip_weather}}
             )
         
         logger.info(f"Updated scoring data for {len(visited_waypoints)} waypoints")
