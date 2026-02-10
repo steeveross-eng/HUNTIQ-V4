@@ -385,6 +385,61 @@ Tous les modules opérationnels avec APIs documentées.
   - DIAGNOSTIC_MAP_TERRITORY_SYNC.md
   - UNIFIED_GEOSPATIAL_ARCHITECTURE.md
 
+### Phase P6.2 - Normalisation Géospatiale (10 Février 2026)
+- ✅ **SCHÉMA UNIFIÉ**: Collection `geo_entities` avec GeoJSON
+  - Types: waypoint, zone, sector, cache, camera, poi, hotspot, corridor
+  - Format GeoJSON Point pour coordonnées [lng, lat]
+  - Métadonnées enrichies (habitat, densité, altitude, pente, exposition)
+- ✅ **MODÈLES PYDANTIC**: /app/backend/models/geo_entity.py
+  - GeoEntityCreate, GeoEntityUpdate, GeoEntityResponse
+  - GeoMetadata, HotspotMetadata, CorridorMetadata
+  - GeoJSONPoint avec conversion lat/lng
+- ✅ **HUNTING GROUPS**: Système de groupes de chasse
+  - Création et gestion de groupes
+  - Ajout/suppression de membres
+  - Rôles: owner, admin, member
+
+### Phase P6.3 - Optimisation Géospatiale (10 Février 2026)
+- ✅ **INDEX 2DSPHERE**: Index MongoDB pour requêtes spatiales
+  - Index géospatial sur `location`
+  - Index composites (user_id, entity_type, group_id)
+  - Index sur metadata.habitat et metadata.is_auto_generated
+- ✅ **REQUÊTES OPTIMISÉES**:
+  - GET /api/v1/geo/nearby - Recherche par proximité
+  - GET /api/v1/geo/within-bbox - Recherche dans rectangle
+  - GET /api/v1/geo/clusters - Clustering pour carte
+
+### Phase P6.4 - WebSocket Temps Réel (10 Février 2026)
+- ✅ **WEBSOCKET SERVER**: /ws/geo-sync
+  - Connection Manager avec isolation par groupe
+  - Événements: geo.created, geo.updated, geo.deleted
+  - member.joined, member.left pour notifications
+- ✅ **COMPOSANT FRONTEND**: GeoSyncToggle.jsx
+  - Toggle on/off synchronisation
+  - Indicateur de connexion en temps réel
+  - Keep-alive automatique (30s)
+  - Reconnexion automatique après déconnexion
+
+### Phase P6.5 - Espace Admin Global (10 Février 2026)
+- ✅ **API ADMIN**: /api/admin/geo/*
+  - GET /all - Toutes les entités
+  - GET /hotspots - Tous les hotspots
+  - GET /corridors - Tous les corridors
+  - GET /analytics/overview - Statistiques globales
+  - GET /analytics/heatmap - Données heatmap
+  - GET /monetization/available-hotspots - Hotspots premium
+  - POST /monetization/claim-hotspot/{id} - Réclamer hotspot
+  - GET /export/geojson - Export GeoJSON
+- ✅ **PAGE ADMIN**: /admin/geo (AdminGeoPage.jsx)
+  - Vue d'ensemble avec statistiques
+  - Carte globale avec filtres
+  - Onglet hotspots avec détails
+  - Onglet monétisation
+- ✅ **HOTSPOT AUTO-GENERATION**:
+  - Algorithme basé sur habitat, corridors, densité
+  - Classification par confiance (Premium > 0.7)
+  - Support monétisation (is_premium, is_claimed)
+
 ---
 
 ## 5. Tâches En Cours / À Venir
@@ -401,10 +456,10 @@ Tous les modules opérationnels avec APIs documentées.
 ### Backlog
 - 🔲 Dashboard profil `business`
 - 🔲 Notifications push de groupe
-- 🔲 Synchronisation temps réel (WebSocket)
+- ✅ Synchronisation temps réel (WebSocket) - LIVRÉ P6.4
 
 ---
 
 *HUNTIQ V3 - Powered by GPT-5.2 & Emergent Platform*
-*Architecture Modulaire v2.0 - 46 Backend + 23 Frontend - CONNECTÉS*
-*Phase P6 - Géospatial Unifié - LIVRÉ*
+*Architecture Modulaire v2.0 - 48 Backend + 24 Frontend - CONNECTÉS*
+*Phase P6.5 - Chantier Géospatial Intégré - LIVRÉ*
