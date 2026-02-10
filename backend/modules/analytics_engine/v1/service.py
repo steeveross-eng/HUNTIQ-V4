@@ -15,9 +15,6 @@ from .models import (
 
 logger = logging.getLogger(__name__)
 
-# Default user for simplified API
-DEFAULT_USER_ID = "default_user"
-
 
 def serialize_trip(doc: dict) -> dict:
     """Convert MongoDB document to serializable dict"""
