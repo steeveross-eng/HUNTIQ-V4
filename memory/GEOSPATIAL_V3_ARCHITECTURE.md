@@ -5,14 +5,40 @@
 
 ---
 
+## ⚠️ CONFIDENTIALITÉ ABSOLUE DES HOTSPOTS
+
+### Règles de sécurité strictes:
+
+1. **Les hotspots sont 100% PRIVÉS**
+   - Jamais exposés à d'autres utilisateurs
+   - Jamais synchronisés via WebSocket
+   - Jamais inclus dans les notifications
+   - Accessibles uniquement par le propriétaire
+
+2. **Pas de partage de données sensibles**
+   - Aucun toggle de partage pour les hotspots
+   - Aucune option de synchronisation
+   - Aucune notification de création
+
+3. **Espace admin réservé**
+   - `/admin/geo` accessible uniquement aux administrateurs système
+   - Utilisé pour l'analyse globale anonymisée
+   - Les hotspots utilisateur ne sont jamais exposés
+
+4. **Types d'entités privées**:
+   - `hotspot` - Points chauds de chasse
+   - `corridor` - Corridors de passage
+
+---
+
 ## 1. RÉSUMÉ EXÉCUTIF
 
 L'architecture géospatiale de HUNTIQ V3 a été entièrement refactorisée pour fournir:
 - **Une source de vérité unique** via la collection `geo_entities`
 - **Un schéma unifié** pour tous les types d'entités géospatiales
 - **Une indexation optimisée** avec 2dsphere pour les requêtes spatiales
-- **Une synchronisation temps réel** via WebSocket
-- **Un espace admin global** pour la visualisation et l'analyse
+- **Une synchronisation temps réel** via WebSocket (EXCLUT les données sensibles)
+- **Un espace admin global** pour la visualisation et l'analyse (ADMIN SEULEMENT)
 
 ---
 
