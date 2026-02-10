@@ -143,8 +143,23 @@ async def promote_to_guide(
     admin: UserWithRole = Depends(require_admin),
     service: RolesService = Depends(get_service)
 ):
-    """Promote a user to guide role"""
+    """Promote a user to guide role (terrain/group management)"""
     success, message = await service.promote_to_guide(user_id, admin.user_id)
+    
+    if not success:
+        raise HTTPException(status_code=400, detail=message)
+    
+    return {"success": True, "message": message}
+
+
+@router.post("/promote/business/{user_id}", summary="Promouvoir en Business (admin)")
+async def promote_to_business(
+    user_id: str,
+    admin: UserWithRole = Depends(require_admin),
+    service: RolesService = Depends(get_service)
+):
+    """Promote a user to business role (marketplace/commercial access)"""
+    success, message = await service.promote_to_business(user_id, admin.user_id)
     
     if not success:
         raise HTTPException(status_code=400, detail=message)
