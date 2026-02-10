@@ -1205,8 +1205,12 @@ class WaypointCreate(BaseModel):
     longitude: float
     name: str
     description: Optional[str] = None
-    waypoint_type: Literal['observation', 'camera', 'cache', 'stand', 'water', 'trail_start', 'custom'] = 'custom'
+    waypoint_type: Literal['observation', 'camera', 'cache', 'stand', 'water', 'trail_start', 'custom', 'hunting', 'feeder', 'sighting', 'parking'] = 'custom'
     icon: Optional[str] = None
+    # UNIFIED: Added fields from legacy user_waypoints
+    active: Optional[bool] = True
+    color: Optional[str] = None
+    notes: Optional[str] = None
 
 class WaypointResponse(BaseModel):
     id: str
@@ -1217,6 +1221,11 @@ class WaypointResponse(BaseModel):
     waypoint_type: str
     icon: Optional[str]
     created_at: datetime
+    # UNIFIED: Added fields from legacy user_waypoints
+    active: Optional[bool] = True
+    color: Optional[str] = None
+    notes: Optional[str] = None
+    user_id: Optional[str] = None
 
 class TrackPointCreate(BaseModel):
     latitude: float
