@@ -46,6 +46,27 @@ OPTIMAL_HOURS = {
 }
 
 
+def make_aware(dt):
+    """Ensure datetime is timezone-aware"""
+    if dt is None:
+        return None
+    if dt.tzinfo is None:
+        return dt.replace(tzinfo=timezone.utc)
+    return dt
+
+
+def safe_days_ago(dt):
+    """Safely calculate days since a datetime, handling timezone issues"""
+    if dt is None:
+        return float('inf')
+    try:
+        aware_dt = make_aware(dt)
+        now = datetime.now(timezone.utc)
+        return (now - aware_dt).days
+    except:
+        return float('inf')
+
+
 class WaypointScoringService:
     def __init__(self, db: AsyncIOMotorDatabase):
         self.db = db
