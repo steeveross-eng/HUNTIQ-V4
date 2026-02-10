@@ -7,7 +7,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/ca
 import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
 import { Progress } from '../../components/ui/progress';
-import { WaypointScoringService } from '../../services/WaypointScoringService';
+import { WaypointScoringService } from '../services/WaypointScoringService';
 
 const SPECIES_OPTIONS = [
   { id: 'deer', label: 'Cerf', icon: '🦌' },
