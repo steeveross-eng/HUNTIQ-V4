@@ -268,30 +268,46 @@ async def _validate_group_membership(user_id: str, group_id: str) -> bool:
 
 
 async def _handle_message(user_id: str, group_id: str, message: dict):
-    """Handle incoming WebSocket message"""
+    """
+    Handle incoming WebSocket message.
+    
+    ⚠️ SÉCURITÉ: Les hotspots et corridors sont EXCLUS de la synchronisation.
+    Ces données sensibles restent 100% privées et ne sont jamais partagées.
+    """
     msg_type = message.get("type")
+    entity = message.get("entity", {})
+    
+    # 🔒 VÉRIFICATION DE CONFIDENTIALITÉ: Bloquer les types sensibles
+    entity_type = entity.get("entity_type", "") if entity else ""
+    if entity_type in PRIVATE_ENTITY_TYPES:
+        logger.warning(f"SECURITY: Blocked sync attempt for private entity type: {entity_type}")
+        await geo_sync_manager.send_to_user(user_id, {
+            "type": "error",
+            "message": "Les hotspots et corridors sont privés et ne peuvent pas être synchronisés."
+        })
+        return
     
     if msg_type == "geo.created":
-        # Broadcast new entity to group
+        # Broadcast new entity to group (EXCLUDES hotspots/corridors)
         await geo_sync_manager.broadcast_to_group(group_id, {
             "type": "geo.created",
             "user_id": user_id,
-            "entity": message.get("entity"),
+            "entity": entity,
             "timestamp": datetime.now(timezone.utc).isoformat()
         }, exclude_user=user_id)
     
     elif msg_type == "geo.updated":
-        # Broadcast entity update to group
+        # Broadcast entity update to group (EXCLUDES hotspots/corridors)
         await geo_sync_manager.broadcast_to_group(group_id, {
             "type": "geo.updated",
             "user_id": user_id,
-            "entity": message.get("entity"),
+            "entity": entity,
             "entity_id": message.get("entity_id"),
             "timestamp": datetime.now(timezone.utc).isoformat()
         }, exclude_user=user_id)
     
     elif msg_type == "geo.deleted":
-        # Broadcast entity deletion to group
+        # Broadcast entity deletion to group (EXCLUDES hotspots/corridors)
         await geo_sync_manager.broadcast_to_group(group_id, {
             "type": "geo.deleted",
             "user_id": user_id,
@@ -299,21 +315,15 @@ async def _handle_message(user_id: str, group_id: str, message: dict):
             "timestamp": datetime.now(timezone.utc).isoformat()
         }, exclude_user=user_id)
     
-    elif msg_type == "location.update":
-        # Broadcast member location update
-        await geo_sync_manager.broadcast_to_group(group_id, {
-            "type": "location.update",
-            "user_id": user_id,
-            "location": message.get("location"),
-            "timestamp": datetime.now(timezone.utc).isoformat()
-        }, exclude_user=user_id)
-    
     elif msg_type == "ping":
-        # Respond with pong
+        # Respond with pong (keep-alive only)
         await geo_sync_manager.send_to_user(user_id, {
             "type": "pong",
             "timestamp": datetime.now(timezone.utc).isoformat()
         })
+    
+    # NOTE: location.update désactivé pour raisons de confidentialité
+    # Les positions des membres ne sont pas partagées automatiquement
 
 
 # ===========================================
