@@ -63,7 +63,7 @@ def safe_days_ago(dt):
         aware_dt = make_aware(dt)
         now = datetime.now(timezone.utc)
         return (now - aware_dt).days
-    except:
+    except Exception:
         return float('inf')
 
 
