@@ -56,14 +56,21 @@ class WaypointScoringService:
     async def calculate_wqs(self, waypoint_id: str, user_id: str = DEFAULT_USER_ID) -> WaypointQualityScore:
         """Calculate Waypoint Quality Score for a single waypoint"""
         
-        # Get waypoint
-        waypoint = await self.waypoints_collection.find_one({
-            "_id": ObjectId(waypoint_id) if len(waypoint_id) == 24 else None,
-            "user_id": user_id
-        })
+        # Try different ways to find the waypoint
+        waypoint = None
         
+        # Try by ObjectId
+        try:
+            if len(waypoint_id) == 24:
+                waypoint = await self.waypoints_collection.find_one({
+                    "_id": ObjectId(waypoint_id),
+                    "user_id": user_id
+                })
+        except:
+            pass
+        
+        # Try by string id field
         if not waypoint:
-            # Try by string id
             waypoint = await self.waypoints_collection.find_one({
                 "user_id": user_id,
                 "id": waypoint_id
@@ -73,8 +80,9 @@ class WaypointScoringService:
             raise ValueError(f"Waypoint {waypoint_id} not found")
         
         waypoint_name = waypoint.get("name", "Unknown")
-        wp_lat = waypoint.get("lat", 0)
-        wp_lng = waypoint.get("lng", 0)
+        # Support both lat/lng and latitude/longitude
+        wp_lat = waypoint.get("lat") or waypoint.get("latitude", 0)
+        wp_lng = waypoint.get("lng") or waypoint.get("longitude", 0)
         
         # Get visits/trips near this waypoint (within 0.5km)
         nearby_trips = await self._get_nearby_trips(wp_lat, wp_lng, user_id, radius_km=0.5)
