@@ -352,6 +352,16 @@ CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
         "phase": 8,
         "description": "Hunting success predictions and activity forecasts"
     }),
+    
+    # ==========================================
+    # Phase P3 - Analytics Engine (1 module)
+    # ==========================================
+    (analytics_router, {
+        "name": "analytics_engine",
+        "version": "1.0.0",
+        "phase": "P3",
+        "description": "Hunting analytics dashboard with KPIs and statistics"
+    }),
 ]
 
 
