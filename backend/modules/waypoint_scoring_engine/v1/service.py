@@ -443,6 +443,10 @@ class WaypointScoringService:
         weather_options = list(WEATHER_SUCCESS_RATES.keys())
         
         for wp in waypoints:
+            # Support both lat/lng and latitude/longitude
+            wp_lat = wp.get("lat") or wp.get("latitude", 0)
+            wp_lng = wp.get("lng") or wp.get("longitude", 0)
+            
             # Generate 5-15 visits per waypoint
             num_visits = random.randint(5, 15)
             
@@ -467,8 +471,8 @@ class WaypointScoringService:
                     "user_id": user_id,
                     "date": trip_date,
                     "species": random.choice(["deer", "moose", "bear"]),
-                    "location_lat": wp["lat"] + random.uniform(-0.001, 0.001),
-                    "location_lng": wp["lng"] + random.uniform(-0.001, 0.001),
+                    "location_lat": wp_lat + random.uniform(-0.001, 0.001),
+                    "location_lng": wp_lng + random.uniform(-0.001, 0.001),
                     "duration_hours": round(random.uniform(2, 6), 1),
                     "weather_conditions": weather,
                     "temperature": round(random.uniform(-5, 20), 1),
