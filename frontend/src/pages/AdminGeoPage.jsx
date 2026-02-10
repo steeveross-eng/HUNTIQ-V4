@@ -2,21 +2,25 @@
  * AdminGeoPage - Global Geospatial Administration Dashboard
  * Phase P6.5 - Admin Dashboard
  * 
+ * ⚠️ ADMIN ONLY - Cette page n'est jamais visible par les utilisateurs réguliers
+ * 
  * Features:
- * - Global view of all geo entities
- * - Advanced filtering (type, habitat, density)
- * - Hotspot monetization overview
- * - Analytics and statistics
- * - Real-time sync status
+ * - Global view of all geo entities (system only)
+ * - Hotspots section (renamed from "Terre à louer")
+ * - Advanced filtering by category
+ * - "View on map" links for each hotspot
+ * 
+ * ⚠️ CONFIDENTIALITÉ: Les hotspots personnels des utilisateurs sont EXCLUS
  */
 import React, { useState, useEffect, useCallback } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, CircleMarker } from 'react-leaflet';
+import { useNavigate } from 'react-router-dom';
+import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
-import { Input } from '../components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { toast } from 'sonner';
+import { MapPin, ExternalLink, Filter, RefreshCw } from 'lucide-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -30,16 +34,31 @@ L.Icon.Default.mergeOptions({
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
-// Entity type colors
-const TYPE_COLORS = {
-  waypoint: '#3b82f6',
-  zone: '#22c55e',
-  sector: '#8b5cf6',
-  hotspot: '#ef4444',
-  camera: '#f97316',
-  cache: '#eab308',
-  corridor: '#06b6d4',
-  poi: '#ec4899'
+// Hotspot category colors
+const CATEGORY_COLORS = {
+  standard: '#6b7280',      // Gray
+  premium: '#f59e0b',       // Amber
+  land_rental: '#10b981',   // Emerald
+  environmental: '#3b82f6', // Blue
+  inactive: '#ef4444'       // Red
+};
+
+// Category labels in French
+const CATEGORY_LABELS = {
+  standard: 'Hotspot standard',
+  premium: 'Hotspot premium',
+  land_rental: 'Hotspot Terre à louer',
+  environmental: 'Hotspot environnemental',
+  inactive: 'Hotspot inactif'
+};
+
+// Category icons
+const CATEGORY_ICONS = {
+  standard: '📍',
+  premium: '⭐',
+  land_rental: '🏠',
+  environmental: '🌲',
+  inactive: '⏸️'
 };
 
 // Habitat labels
@@ -57,15 +76,12 @@ const HABITAT_LABELS = {
 };
 
 const AdminGeoPage = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [analytics, setAnalytics] = useState(null);
-  const [entities, setEntities] = useState([]);
   const [hotspots, setHotspots] = useState([]);
-  const [filters, setFilters] = useState({
-    entity_type: '',
-    habitat: '',
-    is_auto_generated: null
-  });
+  const [hotspotStats, setHotspotStats] = useState({});
+  const [categoryFilter, setCategoryFilter] = useState('');
   const [mapCenter] = useState([46.82, -71.21]);
   const [activeTab, setActiveTab] = useState('overview');
 
@@ -81,58 +97,58 @@ const AdminGeoPage = () => {
     }
   }, []);
 
-  // Load all entities
-  const loadEntities = useCallback(async () => {
+  // Load hotspots (admin only - excludes user personal hotspots)
+  const loadHotspots = useCallback(async () => {
     try {
-      let url = `${API_URL}/api/admin/geo/all?limit=200`;
-      
-      if (filters.entity_type) {
-        url += `&entity_type=${filters.entity_type}`;
-      }
-      if (filters.habitat) {
-        url += `&habitat=${filters.habitat}`;
-      }
-      if (filters.is_auto_generated !== null) {
-        url += `&is_auto_generated=${filters.is_auto_generated}`;
+      let url = `${API_URL}/api/admin/geo/hotspots?limit=200`;
+      if (categoryFilter) {
+        url += `&category=${categoryFilter}`;
       }
       
       const response = await fetch(url);
       const data = await response.json();
-      setEntities(data);
-    } catch (error) {
-      console.error('Error loading entities:', error);
-    }
-  }, [filters]);
-
-  // Load hotspots for monetization
-  const loadHotspots = useCallback(async () => {
-    try {
-      const response = await fetch(`${API_URL}/api/admin/geo/monetization/available-hotspots?min_confidence=0.3`);
-      const data = await response.json();
-      setHotspots(data.available_hotspots || []);
+      setHotspots(data.hotspots || []);
+      setHotspotStats(data.by_category || {});
     } catch (error) {
       console.error('Error loading hotspots:', error);
+      toast.error('Erreur lors du chargement des hotspots');
     }
-  }, []);
+  }, [categoryFilter]);
 
   // Initial load
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
-      await Promise.all([loadAnalytics(), loadEntities(), loadHotspots()]);
+      await Promise.all([loadAnalytics(), loadHotspots()]);
       setLoading(false);
     };
     loadData();
-  }, [loadAnalytics, loadEntities, loadHotspots]);
+  }, [loadAnalytics, loadHotspots]);
 
-  // Reload entities when filters change
+  // Reload hotspots when filter changes
   useEffect(() => {
-    loadEntities();
-  }, [filters, loadEntities]);
+    loadHotspots();
+  }, [categoryFilter, loadHotspots]);
 
-  // Get marker color based on entity type
-  const getMarkerColor = (entity) => {
-    return TYPE_COLORS[entity.entity_type] || '#6b7280';
+  // Navigate to map centered on hotspot
+  const viewOnMap = (hotspot) => {
+    if (hotspot.latitude && hotspot.longitude) {
+      navigate(`/map?lat=${hotspot.latitude}&lng=${hotspot.longitude}&zoom=17`);
+    } else {
+      toast.error('Coordonnées non disponibles');
+    }
+  };
+
+  // Get badge variant based on category
+  const getCategoryBadgeClass = (category) => {
+    const classes = {
+      standard: 'bg-gray-500',
+      premium: 'bg-amber-500',
+      land_rental: 'bg-emerald-500',
+      environmental: 'bg-blue-500',
+      inactive: 'bg-red-500'
+    };
+    return classes[category] || 'bg-gray-500';
   };
 
   // Render stats card
@@ -163,38 +179,47 @@ const AdminGeoPage = () => {
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-white mb-2">
-          🗺️ Espace Admin Géospatial
+          🔒 Espace Admin Géospatial
         </h1>
         <p className="text-slate-400">
-          Vue globale de toutes les entités géospatiales - Phase P6.5
+          Administration des hotspots système • Phase P6.5
+        </p>
+        <p className="text-amber-400 text-sm mt-1">
+          ⚠️ Les hotspots personnels des utilisateurs sont exclus (confidentialité)
         </p>
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
         <StatsCard 
-          title="Total Entités" 
-          value={analytics?.total_entities || 0} 
-          icon="📍"
-          color="blue"
-        />
-        <StatsCard 
-          title="Hotspots" 
-          value={analytics?.by_type?.hotspot || 0} 
+          title="Total Hotspots" 
+          value={hotspots.length} 
           icon="🔥"
           color="red"
         />
         <StatsCard 
-          title="Auto-générés" 
-          value={analytics?.auto_generated_count || 0} 
-          icon="🤖"
-          color="purple"
+          title="Premium" 
+          value={hotspotStats.premium || 0} 
+          icon="⭐"
+          color="amber"
         />
         <StatsCard 
-          title="Premium" 
-          value={analytics?.premium_hotspots || 0} 
-          icon="⭐"
-          color="yellow"
+          title="Terre à louer" 
+          value={hotspotStats.land_rental || 0} 
+          icon="🏠"
+          color="emerald"
+        />
+        <StatsCard 
+          title="Environnemental" 
+          value={hotspotStats.environmental || 0} 
+          icon="🌲"
+          color="blue"
+        />
+        <StatsCard 
+          title="Inactifs" 
+          value={hotspotStats.inactive || 0} 
+          icon="⏸️"
+          color="gray"
         />
       </div>
 
@@ -204,172 +229,223 @@ const AdminGeoPage = () => {
           <TabsTrigger value="overview" className="data-[state=active]:bg-blue-600">
             Vue d'ensemble
           </TabsTrigger>
-          <TabsTrigger value="map" className="data-[state=active]:bg-blue-600">
-            Carte globale
+          <TabsTrigger value="hotspots" className="data-[state=active]:bg-red-600">
+            🔥 Hotspots
           </TabsTrigger>
-          <TabsTrigger value="hotspots" className="data-[state=active]:bg-blue-600">
-            Hotspots
-          </TabsTrigger>
-          <TabsTrigger value="monetization" className="data-[state=active]:bg-blue-600">
-            Monétisation
+          <TabsTrigger value="map" className="data-[state=active]:bg-emerald-600">
+            Carte
           </TabsTrigger>
         </TabsList>
 
         {/* Overview Tab */}
         <TabsContent value="overview">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* By Type Chart */}
+            {/* By Category Chart */}
             <Card className="bg-slate-800/50 border-slate-700">
               <CardHeader>
-                <CardTitle className="text-white">Répartition par type</CardTitle>
+                <CardTitle className="text-white">Répartition par catégorie</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {Object.entries(analytics?.by_type || {}).map(([type, count]) => (
-                    <div key={type} className="flex items-center justify-between">
+                  {Object.entries(hotspotStats).map(([category, count]) => (
+                    <div key={category} className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <div 
-                          className="w-4 h-4 rounded"
-                          style={{ backgroundColor: TYPE_COLORS[type] || '#6b7280' }}
-                        />
-                        <span className="text-slate-300 capitalize">{type}</span>
+                        <span className="text-xl">{CATEGORY_ICONS[category] || '📍'}</span>
+                        <span className="text-slate-300">{CATEGORY_LABELS[category] || category}</span>
                       </div>
-                      <Badge variant="secondary">{count}</Badge>
+                      <Badge className={getCategoryBadgeClass(category)}>{count}</Badge>
                     </div>
                   ))}
                 </div>
               </CardContent>
             </Card>
 
-            {/* By Habitat Chart */}
+            {/* Analytics Summary */}
             <Card className="bg-slate-800/50 border-slate-700">
               <CardHeader>
-                <CardTitle className="text-white">Répartition par habitat</CardTitle>
+                <CardTitle className="text-white">Statistiques globales</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {Object.entries(analytics?.by_habitat || {}).map(([habitat, count]) => (
-                    <div key={habitat} className="flex items-center justify-between">
-                      <span className="text-slate-300">
-                        {HABITAT_LABELS[habitat] || habitat}
-                      </span>
-                      <Badge variant="secondary">{count}</Badge>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Top Users */}
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardHeader>
-                <CardTitle className="text-white">Top Utilisateurs</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {(analytics?.top_users || []).slice(0, 5).map((user, idx) => (
-                    <div key={user.user_id} className="flex items-center justify-between">
-                      <span className="text-slate-300">
-                        {idx + 1}. {user.user_id?.substring(0, 20)}...
-                      </span>
-                      <Badge>{user.count} entités</Badge>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Recent Activity */}
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardHeader>
-                <CardTitle className="text-white">Activité récente</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {(analytics?.recent_activity || []).map((item) => (
-                    <div key={item.id} className="flex items-center justify-between border-b border-slate-700 pb-2">
-                      <div>
-                        <span className="text-white">{item.name}</span>
-                        <Badge className="ml-2" variant="outline">{item.type}</Badge>
-                      </div>
-                    </div>
-                  ))}
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Total entités système</span>
+                    <span className="text-white font-bold">{analytics?.total_entities || 0}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Auto-générés</span>
+                    <span className="text-blue-400 font-bold">{analytics?.auto_generated_count || 0}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Premium disponibles</span>
+                    <span className="text-amber-400 font-bold">{analytics?.premium_hotspots || 0}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Confiance moyenne</span>
+                    <span className="text-emerald-400 font-bold">
+                      {analytics?.avg_confidence ? `${(analytics.avg_confidence * 100).toFixed(0)}%` : 'N/A'}
+                    </span>
+                  </div>
                 </div>
               </CardContent>
             </Card>
           </div>
         </TabsContent>
 
+        {/* Hotspots Tab (renamed from "Terre à louer") */}
+        <TabsContent value="hotspots">
+          <Card className="bg-slate-800/50 border-slate-700">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center justify-between">
+                <span>🔥 Hotspots Administratifs ({hotspots.length})</span>
+                <div className="flex items-center gap-2">
+                  <Filter className="h-4 w-4 text-slate-400" />
+                  <select
+                    className="bg-slate-700 text-white px-3 py-1 rounded text-sm"
+                    value={categoryFilter}
+                    onChange={(e) => setCategoryFilter(e.target.value)}
+                  >
+                    <option value="">Toutes catégories</option>
+                    <option value="standard">Standard</option>
+                    <option value="premium">Premium</option>
+                    <option value="land_rental">Terre à louer</option>
+                    <option value="environmental">Environnemental</option>
+                    <option value="inactive">Inactif</option>
+                  </select>
+                  <Button 
+                    size="sm" 
+                    variant="outline"
+                    onClick={() => loadHotspots()}
+                  >
+                    <RefreshCw className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="border-b border-slate-700">
+                      <th className="text-slate-400 pb-3 font-medium">Nom</th>
+                      <th className="text-slate-400 pb-3 font-medium">Catégorie</th>
+                      <th className="text-slate-400 pb-3 font-medium">Coordonnées GPS</th>
+                      <th className="text-slate-400 pb-3 font-medium">Statut</th>
+                      <th className="text-slate-400 pb-3 font-medium">Confiance</th>
+                      <th className="text-slate-400 pb-3 font-medium">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {hotspots.map((hotspot) => (
+                      <tr key={hotspot.id} className="border-b border-slate-700/50 hover:bg-slate-700/30">
+                        <td className="py-4">
+                          <div className="flex items-center gap-2">
+                            <span className="text-xl">{CATEGORY_ICONS[hotspot.category] || '📍'}</span>
+                            <span className="text-white font-medium">{hotspot.name}</span>
+                          </div>
+                        </td>
+                        <td className="py-4">
+                          <Badge className={getCategoryBadgeClass(hotspot.category)}>
+                            {hotspot.category_label}
+                          </Badge>
+                        </td>
+                        <td className="py-4">
+                          <div className="text-slate-300 font-mono text-sm">
+                            <div>Lat: {hotspot.latitude?.toFixed(6) || 'N/A'}</div>
+                            <div>Lng: {hotspot.longitude?.toFixed(6) || 'N/A'}</div>
+                          </div>
+                        </td>
+                        <td className="py-4">
+                          <span className={`text-sm ${hotspot.active ? 'text-emerald-400' : 'text-red-400'}`}>
+                            {hotspot.status}
+                          </span>
+                        </td>
+                        <td className="py-4">
+                          {hotspot.confidence ? (
+                            <Badge className={hotspot.confidence > 0.7 ? 'bg-emerald-500' : hotspot.confidence > 0.4 ? 'bg-amber-500' : 'bg-gray-500'}>
+                              {(hotspot.confidence * 100).toFixed(0)}%
+                            </Badge>
+                          ) : (
+                            <span className="text-slate-500">-</span>
+                          )}
+                        </td>
+                        <td className="py-4">
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            className="flex items-center gap-1 text-blue-400 hover:text-blue-300"
+                            onClick={() => viewOnMap(hotspot)}
+                          >
+                            <MapPin className="h-4 w-4" />
+                            Voir sur la carte
+                            <ExternalLink className="h-3 w-3" />
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              
+              {hotspots.length === 0 && (
+                <div className="text-center py-12">
+                  <p className="text-slate-500 text-lg">
+                    Aucun hotspot administratif trouvé pour ce filtre.
+                  </p>
+                  <p className="text-slate-600 text-sm mt-2">
+                    Les hotspots personnels des utilisateurs ne sont pas affichés (confidentialité).
+                  </p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         {/* Map Tab */}
         <TabsContent value="map">
           <Card className="bg-slate-800/50 border-slate-700">
             <CardHeader>
-              <CardTitle className="text-white flex items-center justify-between">
-                <span>Carte Globale ({entities.length} entités)</span>
-                <div className="flex gap-2">
-                  <select
-                    className="bg-slate-700 text-white px-3 py-1 rounded text-sm"
-                    value={filters.entity_type}
-                    onChange={(e) => setFilters({...filters, entity_type: e.target.value})}
-                  >
-                    <option value="">Tous les types</option>
-                    <option value="waypoint">Waypoints</option>
-                    <option value="hotspot">Hotspots</option>
-                    <option value="zone">Zones</option>
-                    <option value="camera">Caméras</option>
-                  </select>
-                  <select
-                    className="bg-slate-700 text-white px-3 py-1 rounded text-sm"
-                    value={filters.is_auto_generated === null ? '' : filters.is_auto_generated}
-                    onChange={(e) => setFilters({
-                      ...filters, 
-                      is_auto_generated: e.target.value === '' ? null : e.target.value === 'true'
-                    })}
-                  >
-                    <option value="">Toutes sources</option>
-                    <option value="true">Auto-générés</option>
-                    <option value="false">Manuels</option>
-                  </select>
-                </div>
+              <CardTitle className="text-white">
+                Carte des Hotspots Administratifs
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[500px] rounded-lg overflow-hidden">
                 <MapContainer
                   center={mapCenter}
-                  zoom={11}
+                  zoom={10}
                   style={{ height: '100%', width: '100%' }}
                 >
                   <TileLayer
                     attribution='&copy; OpenStreetMap'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
-                  {entities.map((entity) => (
-                    entity.latitude && entity.longitude && (
+                  {hotspots.map((hotspot) => (
+                    hotspot.latitude && hotspot.longitude && (
                       <CircleMarker
-                        key={entity.id}
-                        center={[entity.latitude, entity.longitude]}
-                        radius={8}
+                        key={hotspot.id}
+                        center={[hotspot.latitude, hotspot.longitude]}
+                        radius={10}
                         pathOptions={{
-                          fillColor: getMarkerColor(entity),
+                          fillColor: CATEGORY_COLORS[hotspot.category] || '#6b7280',
                           fillOpacity: 0.8,
                           color: '#fff',
                           weight: 2
                         }}
                       >
                         <Popup>
-                          <div className="text-sm">
-                            <strong>{entity.name}</strong>
-                            <br />
-                            Type: {entity.entity_type}
-                            <br />
-                            {entity.metadata?.habitat && (
-                              <>Habitat: {HABITAT_LABELS[entity.metadata.habitat] || entity.metadata.habitat}<br /></>
+                          <div className="text-sm min-w-[200px]">
+                            <strong className="text-base">{hotspot.name}</strong>
+                            <hr className="my-2" />
+                            <p><strong>Catégorie:</strong> {hotspot.category_label}</p>
+                            <p><strong>Statut:</strong> {hotspot.status}</p>
+                            <p><strong>Latitude:</strong> {hotspot.latitude?.toFixed(6)}</p>
+                            <p><strong>Longitude:</strong> {hotspot.longitude?.toFixed(6)}</p>
+                            {hotspot.confidence && (
+                              <p><strong>Confiance:</strong> {(hotspot.confidence * 100).toFixed(0)}%</p>
                             )}
-                            {entity.metadata?.confidence && (
-                              <>Confiance: {(entity.metadata.confidence * 100).toFixed(0)}%<br /></>
+                            {hotspot.habitat && (
+                              <p><strong>Habitat:</strong> {HABITAT_LABELS[hotspot.habitat] || hotspot.habitat}</p>
                             )}
-                            User: {entity.user_id?.substring(0, 15)}...
                           </div>
                         </Popup>
                       </CircleMarker>
@@ -379,123 +455,16 @@ const AdminGeoPage = () => {
               </div>
               {/* Legend */}
               <div className="mt-4 flex flex-wrap gap-4">
-                {Object.entries(TYPE_COLORS).map(([type, color]) => (
-                  <div key={type} className="flex items-center gap-2">
+                {Object.entries(CATEGORY_COLORS).map(([category, color]) => (
+                  <div key={category} className="flex items-center gap-2">
                     <div 
                       className="w-3 h-3 rounded-full"
                       style={{ backgroundColor: color }}
                     />
-                    <span className="text-slate-400 text-sm capitalize">{type}</span>
+                    <span className="text-slate-400 text-sm">{CATEGORY_LABELS[category]}</span>
                   </div>
                 ))}
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Hotspots Tab */}
-        <TabsContent value="hotspots">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white">
-                🔥 Tous les Hotspots ({entities.filter(e => e.entity_type === 'hotspot').length})
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {entities.filter(e => e.entity_type === 'hotspot').map((hotspot) => (
-                  <Card key={hotspot.id} className="bg-slate-700/50 border-slate-600">
-                    <CardContent className="p-4">
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className="text-white font-medium">{hotspot.name}</h3>
-                        {hotspot.metadata?.is_premium && (
-                          <Badge className="bg-yellow-500">Premium</Badge>
-                        )}
-                      </div>
-                      <div className="space-y-1 text-sm text-slate-400">
-                        <p>📍 {hotspot.latitude?.toFixed(4)}, {hotspot.longitude?.toFixed(4)}</p>
-                        {hotspot.metadata?.confidence && (
-                          <p>🎯 Confiance: {(hotspot.metadata.confidence * 100).toFixed(0)}%</p>
-                        )}
-                        {hotspot.metadata?.habitat && (
-                          <p>🌲 {HABITAT_LABELS[hotspot.metadata.habitat] || hotspot.metadata.habitat}</p>
-                        )}
-                        {hotspot.metadata?.density && (
-                          <p>📊 Densité: {(hotspot.metadata.density * 100).toFixed(0)}%</p>
-                        )}
-                      </div>
-                      {hotspot.metadata?.is_auto_generated && (
-                        <Badge variant="outline" className="mt-2">Auto-généré</Badge>
-                      )}
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Monetization Tab */}
-        <TabsContent value="monetization">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white">
-                💰 Hotspots Premium Disponibles ({hotspots.length})
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-slate-400 mb-4">
-                Ces hotspots premium non réclamés sont disponibles pour la monétisation.
-              </p>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left">
-                  <thead>
-                    <tr className="border-b border-slate-700">
-                      <th className="text-slate-400 pb-2">Nom</th>
-                      <th className="text-slate-400 pb-2">Confiance</th>
-                      <th className="text-slate-400 pb-2">Habitat</th>
-                      <th className="text-slate-400 pb-2">Densité</th>
-                      <th className="text-slate-400 pb-2">Valeur Est.</th>
-                      <th className="text-slate-400 pb-2">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {hotspots.map((h) => (
-                      <tr key={h.id} className="border-b border-slate-700/50">
-                        <td className="py-3 text-white">{h.name}</td>
-                        <td className="py-3">
-                          <Badge className={h.confidence > 0.6 ? 'bg-green-500' : 'bg-yellow-500'}>
-                            {(h.confidence * 100).toFixed(0)}%
-                          </Badge>
-                        </td>
-                        <td className="py-3 text-slate-300">
-                          {HABITAT_LABELS[h.habitat] || h.habitat || '-'}
-                        </td>
-                        <td className="py-3 text-slate-300">
-                          {h.density ? `${(h.density * 100).toFixed(0)}%` : '-'}
-                        </td>
-                        <td className="py-3 text-green-400 font-medium">
-                          ${h.estimated_value?.toFixed(2) || '0.00'}
-                        </td>
-                        <td className="py-3">
-                          <Button 
-                            size="sm" 
-                            variant="outline"
-                            onClick={() => toast.info(`Claiming hotspot ${h.name}`)}
-                          >
-                            Réclamer
-                          </Button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              {hotspots.length === 0 && (
-                <p className="text-center text-slate-500 py-8">
-                  Aucun hotspot premium disponible actuellement.
-                </p>
-              )}
             </CardContent>
           </Card>
         </TabsContent>
