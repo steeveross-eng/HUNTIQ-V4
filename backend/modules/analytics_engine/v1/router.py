@@ -231,7 +231,9 @@ async def get_trips(
 
 @router.post("/trips", response_model=dict, summary="Créer une sortie")
 async def create_trip(
+    request: Request,
     trip: TripCreate,
+    user_id: str = Depends(get_user_id_with_fallback),
     service: AnalyticsService = Depends(get_service)
 ):
     """
@@ -245,7 +247,7 @@ async def create_trip(
     - **observations**: Nombre d'observations
     """
     try:
-        result = await service.create_trip(DEFAULT_USER_ID, trip)
+        result = await service.create_trip(user_id, trip)
         return {"success": True, "trip": result}
     except Exception as e:
         logger.error(f"Error creating trip: {e}")
@@ -254,12 +256,14 @@ async def create_trip(
 
 @router.delete("/trips/{trip_id}", summary="Supprimer une sortie")
 async def delete_trip(
+    request: Request,
     trip_id: str,
+    user_id: str = Depends(get_user_id_with_fallback),
     service: AnalyticsService = Depends(get_service)
 ):
     """Supprime une sortie de chasse"""
     try:
-        deleted = await service.delete_trip(DEFAULT_USER_ID, trip_id)
+        deleted = await service.delete_trip(user_id, trip_id)
         if not deleted:
             raise HTTPException(status_code=404, detail="Sortie non trouvée")
         return {"success": True, "message": "Sortie supprimée"}
@@ -276,6 +280,8 @@ async def delete_trip(
 
 @router.post("/seed", summary="Générer données démo")
 async def seed_demo_data(
+    request: Request,
+    user_id: str = Depends(get_user_id_with_fallback),
     service: AnalyticsService = Depends(get_service)
 ):
     """
@@ -284,7 +290,7 @@ async def seed_demo_data(
     Crée 50 sorties de chasse simulées sur les 12 derniers mois.
     """
     try:
-        count = await service.seed_demo_data(DEFAULT_USER_ID)
+        count = await service.seed_demo_data(user_id)
         return {
             "success": True,
             "message": f"{count} sorties de démonstration créées",
