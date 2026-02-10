@@ -13,7 +13,7 @@ Endpoints:
 - POST /check-proximity - Check proximity to waypoints
 """
 
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Request
 from typing import List, Optional
 from motor.motor_asyncio import AsyncIOMotorDatabase
 import logging
@@ -22,7 +22,10 @@ from .models import (
     LocationUpdate, ProximityAlert, LocationHistory,
     TrackingSession, PushSubscription, PushNotification
 )
-from .service import GeolocationService, DEFAULT_USER_ID
+from .service import GeolocationService
+
+# Import auth helpers
+from auth_helpers import get_user_id_with_fallback
 
 # Database dependency
 def get_db() -> AsyncIOMotorDatabase:
