@@ -2,6 +2,7 @@
 Geolocation Engine - Service Layer
 Handles location tracking, proximity detection, and push notifications
 """
+import os
 from datetime import datetime, timezone
 from typing import List, Optional, Dict, Tuple
 from motor.motor_asyncio import AsyncIOMotorDatabase
@@ -17,9 +18,13 @@ from .models import (
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_USER_ID = "default_user"
 PROXIMITY_RADIUS_METERS = 500  # Alert when within 500m of waypoint
 HOTSPOT_BONUS_RADIUS = 200  # Extra alert radius for hotspots
+
+# VAPID Configuration for Push Notifications
+VAPID_PUBLIC_KEY = os.environ.get("VAPID_PUBLIC_KEY", "")
+VAPID_PRIVATE_KEY = os.environ.get("VAPID_PRIVATE_KEY", "")
+VAPID_CONTACT_EMAIL = os.environ.get("VAPID_CONTACT_EMAIL", "support@huntiq.ca")
 
 
 def haversine_distance(lat1: float, lng1: float, lat2: float, lng2: float) -> float:
