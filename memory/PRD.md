@@ -286,6 +286,25 @@ Tous les modules opérationnels avec APIs documentées.
 - ✅ Tests backend 24/24 passés
 - ✅ Tous les dashboards affichent données réelles
 
+### Phase P4 - Geolocation Engine & PWA Avancée (10 Février 2026)
+- ✅ **Backend Geolocation Engine**: 11 nouveaux endpoints
+  - POST /api/v1/geolocation/location - Enregistrement positions
+  - POST /api/v1/geolocation/session/start - Démarrage session
+  - POST /api/v1/geolocation/session/{id}/end - Fin session avec stats
+  - GET /api/v1/geolocation/history - Historique positions
+  - GET /api/v1/geolocation/nearby-hotspots - Waypoints proches
+  - POST /api/v1/geolocation/check-proximity - Vérification proximité
+  - POST /api/v1/geolocation/subscribe - Abonnement push
+- ✅ **Service Haversine**: Calcul distances GPS précis (mètres)
+- ✅ **Alertes de Proximité**: 500m pour waypoints standard, 700m pour hotspots
+- ✅ **Sessions de Chasse**: Tracking avec distance parcourue
+- ✅ **Service Worker v2**: Sync arrière-plan, notifications push, IndexedDB
+- ✅ **Composant BackgroundTracker**: Interface tracking GPS complète
+- ✅ **Page Map**: Nouvel onglet "GPS Tracking" avec guide
+- ✅ **PWA Manifest**: Shortcuts, permissions geolocation
+- ✅ **Tests E2E**: 18/18 passés (100%)
+- ⚠️ **Push Notifications**: MOCKÉES (nécessite clés VAPID en production)
+
 ---
 
 *HUNTIQ V3 - Powered by GPT-5.2 & Emergent Platform*
