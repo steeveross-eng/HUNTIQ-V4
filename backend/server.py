@@ -247,6 +247,14 @@ try:
 except ImportError as e:
     logger.warning(f"Site Access Control router not available: {e}")
 
+# 6. Register territory analysis router (UNIFIED waypoints source of truth)
+try:
+    from territory import territory_router
+    app.include_router(territory_router)
+    logger.info("✓ Loaded: Territory Analysis router [/api/territory/*] (UNIFIED waypoints)")
+except ImportError as e:
+    logger.warning(f"Territory Analysis router not available: {e}")
+
 # ==============================================
 # CUSTOM OPENAPI SCHEMA
 # ==============================================
