@@ -22,6 +22,9 @@ import { WeatherService } from '../weather/WeatherService';
 import { AIService } from '../ai/AIService';
 import { StrategyService } from '../strategy/StrategyService';
 
+// Trip Widget
+import ActiveTripWidget from '../../components/trips/ActiveTripWidget';
+
 const DEFAULT_COORDS = { lat: 46.8139, lng: -71.2082 }; // Quebec City
 
 export const CoreDashboard = ({ 
