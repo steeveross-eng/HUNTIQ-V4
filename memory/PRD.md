@@ -175,6 +175,7 @@ Tous les modules opérationnels avec APIs documentées.
 - ✅ **COMPLÉTÉ** - Carte interactive Leaflet (P3.2)
 - ✅ **COMPLÉTÉ** - Export de données PDF/CSV (P3.3)
 - ✅ **COMPLÉTÉ** - Waypoint Quality Score (WQS) & Success Forecast (P3.5)
+- ✅ **COMPLÉTÉ** - Intégration GPT-5.2 & Heatmap (P3.6)
 - [ ] Mode hors ligne (P3.4 - PWA)
 - [ ] Application mobile native (Backlog)
 
