@@ -1,4 +1,4 @@
-const CACHE_NAME = 'huntiq-v3-cache-v1';
+const CACHE_NAME = 'huntiq-v3-cache-v2';
 const OFFLINE_URL = '/offline.html';
 
 // Assets to cache immediately on install
@@ -15,12 +15,20 @@ const API_CACHE_ROUTES = [
   '/api/user/waypoints',
   '/api/v1/waypoint-scoring/wqs',
   '/api/v1/waypoint-scoring/forecast/quick',
-  '/api/v1/analytics/overview'
+  '/api/v1/analytics/overview',
+  '/api/v1/legal-time/legal-window'
 ];
+
+// Background geolocation config
+const GEOLOCATION_CONFIG = {
+  interval: 5 * 60 * 1000, // 5 minutes
+  enabled: false,
+  lastPosition: null
+};
 
 // Install event - cache static assets
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing Service Worker...');
+  console.log('[SW] Installing Service Worker v2...');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
@@ -33,7 +41,7 @@ self.addEventListener('install', (event) => {
 
 // Activate event - clean old caches
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating Service Worker...');
+  console.log('[SW] Activating Service Worker v2...');
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -132,6 +140,9 @@ self.addEventListener('sync', (event) => {
   if (event.tag === 'sync-waypoints') {
     event.waitUntil(syncWaypoints());
   }
+  if (event.tag === 'sync-locations') {
+    event.waitUntil(syncPendingLocations());
+  }
 });
 
 // Sync waypoints when back online
@@ -158,10 +169,45 @@ async function syncWaypoints() {
   }
 }
 
+// Sync pending location updates
+async function syncPendingLocations() {
+  try {
+    const db = await openIndexedDB();
+    const pendingLocations = await getPendingLocations(db);
+    
+    for (const loc of pendingLocations) {
+      try {
+        const response = await fetch('/api/v1/geolocation/location', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(loc.data)
+        });
+        
+        if (response.ok) {
+          await removePendingLocation(db, loc.id);
+          console.log('[SW] Synced location:', loc.id);
+          
+          // Check for alerts in response
+          const result = await response.json();
+          if (result.alerts && result.alerts.length > 0) {
+            for (const alert of result.alerts) {
+              await showProximityNotification(alert);
+            }
+          }
+        }
+      } catch (error) {
+        console.error('[SW] Failed to sync location:', loc.id);
+      }
+    }
+  } catch (error) {
+    console.error('[SW] Location sync error:', error);
+  }
+}
+
 // IndexedDB helpers
 function openIndexedDB() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open('huntiq-offline', 1);
+    const request = indexedDB.open('huntiq-offline', 2);
     request.onerror = () => reject(request.error);
     request.onsuccess = () => resolve(request.result);
     request.onupgradeneeded = (event) => {
@@ -171,6 +217,12 @@ function openIndexedDB() {
       }
       if (!db.objectStoreNames.contains('cached-data')) {
         db.createObjectStore('cached-data', { keyPath: 'key' });
+      }
+      if (!db.objectStoreNames.contains('pending-locations')) {
+        db.createObjectStore('pending-locations', { keyPath: 'id', autoIncrement: true });
+      }
+      if (!db.objectStoreNames.contains('geolocation-config')) {
+        db.createObjectStore('geolocation-config', { keyPath: 'key' });
       }
     };
   });
@@ -196,37 +248,253 @@ function removePendingAction(db, id) {
   });
 }
 
-// Push notifications
+function getPendingLocations(db) {
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction('pending-locations', 'readonly');
+    const store = transaction.objectStore('pending-locations');
+    const request = store.getAll();
+    request.onerror = () => reject(request.error);
+    request.onsuccess = () => resolve(request.result);
+  });
+}
+
+function removePendingLocation(db, id) {
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction('pending-locations', 'readwrite');
+    const store = transaction.objectStore('pending-locations');
+    const request = store.delete(id);
+    request.onerror = () => reject(request.error);
+    request.onsuccess = () => resolve();
+  });
+}
+
+async function savePendingLocation(location) {
+  try {
+    const db = await openIndexedDB();
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction('pending-locations', 'readwrite');
+      const store = transaction.objectStore('pending-locations');
+      const request = store.add({
+        data: location,
+        timestamp: new Date().toISOString()
+      });
+      request.onerror = () => reject(request.error);
+      request.onsuccess = () => resolve(request.result);
+    });
+  } catch (error) {
+    console.error('[SW] Error saving pending location:', error);
+  }
+}
+
+// Push notifications - Enhanced for proximity alerts
 self.addEventListener('push', (event) => {
   if (!event.data) return;
   
-  const data = event.data.json();
+  let data;
+  try {
+    data = event.data.json();
+  } catch (e) {
+    data = { title: 'HUNTIQ', body: event.data.text() };
+  }
+  
   const options = {
     body: data.body || 'Nouvelle notification HUNTIQ',
-    icon: '/logos/bionic-logo.svg',
+    icon: data.icon || '/logos/bionic-logo.svg',
     badge: '/logos/bionic-logo.svg',
-    vibrate: [100, 50, 100],
+    vibrate: data.vibrate || [200, 100, 200],
+    tag: data.tag || 'huntiq-notification',
+    renotify: true,
+    requireInteraction: data.requireInteraction || false,
     data: data,
-    actions: [
-      { action: 'open', title: 'Ouvrir' },
+    actions: data.actions || [
+      { action: 'open', title: 'Ouvrir', icon: '/logos/bionic-logo.svg' },
       { action: 'dismiss', title: 'Fermer' }
     ]
   };
+  
+  // Add image for proximity alerts
+  if (data.type === 'proximity' && data.image) {
+    options.image = data.image;
+  }
   
   event.waitUntil(
     self.registration.showNotification(data.title || 'HUNTIQ', options)
   );
 });
 
+// Show proximity notification
+async function showProximityNotification(alert) {
+  const options = {
+    body: alert.message,
+    icon: '/logos/bionic-logo.svg',
+    badge: '/logos/bionic-logo.svg',
+    vibrate: alert.classification === 'hotspot' ? [200, 100, 200, 100, 200] : [200, 100, 200],
+    tag: `proximity-${alert.waypoint_id}`,
+    renotify: true,
+    requireInteraction: alert.classification === 'hotspot',
+    data: {
+      type: 'proximity',
+      waypoint_id: alert.waypoint_id,
+      waypoint_name: alert.waypoint_name,
+      url: `/map?highlight=${alert.waypoint_id}`
+    },
+    actions: [
+      { action: 'navigate', title: 'Voir sur carte' },
+      { action: 'dismiss', title: 'Ignorer' }
+    ]
+  };
+  
+  await self.registration.showNotification(
+    alert.classification === 'hotspot' ? '🔥 Hotspot Détecté!' : '📍 Waypoint Proche',
+    options
+  );
+}
+
 // Notification click handler
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   
-  if (event.action === 'open' || !event.action) {
-    event.waitUntil(
-      clients.openWindow(event.notification.data?.url || '/')
-    );
+  const data = event.notification.data || {};
+  let targetUrl = '/';
+  
+  if (event.action === 'navigate' || event.action === 'open') {
+    targetUrl = data.url || '/';
+  } else if (event.action === 'dismiss') {
+    return; // Just close
+  } else {
+    // Default click - open the relevant page
+    targetUrl = data.url || '/';
+  }
+  
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true })
+      .then((windowClients) => {
+        // Check if there's already a window open
+        for (const client of windowClients) {
+          if (client.url.includes(self.location.origin) && 'focus' in client) {
+            client.navigate(targetUrl);
+            return client.focus();
+          }
+        }
+        // Open new window if none exists
+        if (clients.openWindow) {
+          return clients.openWindow(targetUrl);
+        }
+      })
+  );
+});
+
+// Message handler for communication with main app
+self.addEventListener('message', (event) => {
+  const { type, data } = event.data || {};
+  
+  switch (type) {
+    case 'START_TRACKING':
+      startBackgroundTracking(data);
+      break;
+    case 'STOP_TRACKING':
+      stopBackgroundTracking();
+      break;
+    case 'RECORD_LOCATION':
+      handleLocationUpdate(data);
+      break;
+    case 'CHECK_TRACKING_STATUS':
+      event.ports[0].postMessage({
+        tracking: GEOLOCATION_CONFIG.enabled,
+        lastPosition: GEOLOCATION_CONFIG.lastPosition
+      });
+      break;
+    case 'SKIP_WAITING':
+      self.skipWaiting();
+      break;
+    default:
+      console.log('[SW] Unknown message type:', type);
   }
 });
 
-console.log('[SW] Service Worker loaded - HUNTIQ V3 PWA');
+// Background tracking control
+function startBackgroundTracking(config = {}) {
+  GEOLOCATION_CONFIG.enabled = true;
+  GEOLOCATION_CONFIG.interval = config.interval || 5 * 60 * 1000;
+  console.log('[SW] Background tracking started');
+  
+  // Notify all clients
+  notifyClients({ type: 'TRACKING_STARTED' });
+}
+
+function stopBackgroundTracking() {
+  GEOLOCATION_CONFIG.enabled = false;
+  console.log('[SW] Background tracking stopped');
+  
+  // Notify all clients
+  notifyClients({ type: 'TRACKING_STOPPED' });
+}
+
+// Handle location update from main app
+async function handleLocationUpdate(location) {
+  if (!GEOLOCATION_CONFIG.enabled) return;
+  
+  GEOLOCATION_CONFIG.lastPosition = {
+    ...location,
+    timestamp: new Date().toISOString()
+  };
+  
+  try {
+    // Try to send to server
+    const response = await fetch('/api/v1/geolocation/location', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        latitude: location.latitude,
+        longitude: location.longitude,
+        accuracy: location.accuracy,
+        altitude: location.altitude,
+        speed: location.speed,
+        heading: location.heading,
+        timestamp: new Date().toISOString()
+      })
+    });
+    
+    if (response.ok) {
+      const result = await response.json();
+      
+      // Handle proximity alerts
+      if (result.alerts && result.alerts.length > 0) {
+        for (const alert of result.alerts) {
+          await showProximityNotification(alert);
+        }
+        
+        // Notify main app about alerts
+        notifyClients({
+          type: 'PROXIMITY_ALERTS',
+          alerts: result.alerts
+        });
+      }
+    }
+  } catch (error) {
+    console.log('[SW] Offline - saving location for later sync');
+    await savePendingLocation(location);
+    
+    // Request background sync when online
+    if ('sync' in self.registration) {
+      await self.registration.sync.register('sync-locations');
+    }
+  }
+}
+
+// Notify all clients
+async function notifyClients(message) {
+  const allClients = await clients.matchAll({ includeUncontrolled: true });
+  for (const client of allClients) {
+    client.postMessage(message);
+  }
+}
+
+// Periodic background sync (if supported)
+self.addEventListener('periodicsync', (event) => {
+  if (event.tag === 'background-location-sync') {
+    event.waitUntil(syncPendingLocations());
+  }
+});
+
+console.log('[SW] Service Worker v2 loaded - HUNTIQ V3 PWA with Geolocation');
