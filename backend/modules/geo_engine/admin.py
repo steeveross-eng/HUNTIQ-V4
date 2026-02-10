@@ -260,32 +260,6 @@ def _get_hotspot_status(hotspot: dict) -> str:
         return "Auto-généré"
     
     return "Standard"
-    
-    # Calculate monetization potential
-    premium_unclaimed = sum(1 for h in hotspots if h.get("is_premium") and not h.get("is_claimed"))
-    
-    return {
-        "hotspots": [
-            {
-                "id": str(h["_id"]),
-                "name": h.get("name"),
-                "latitude": h["location"]["coordinates"][1] if h.get("location") else None,
-                "longitude": h["location"]["coordinates"][0] if h.get("location") else None,
-                "confidence": h.get("confidence"),
-                "is_premium": h.get("is_premium", False),
-                "is_claimed": h.get("is_claimed", False),
-                "habitat": h.get("habitat"),
-                "density": h.get("density"),
-                "created_at": h.get("created_at")
-            }
-            for h in hotspots
-        ],
-        "summary": {
-            "total": len(hotspots),
-            "premium_unclaimed": premium_unclaimed,
-            "monetization_potential": premium_unclaimed  # Simple metric
-        }
-    }
 
 
 @router.get("/corridors")
