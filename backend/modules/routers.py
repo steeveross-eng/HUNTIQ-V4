@@ -367,6 +367,16 @@ CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
         "phase": "P3",
         "description": "Hunting analytics dashboard with KPIs and statistics"
     }),
+    
+    # ==========================================
+    # Phase P3 - Waypoint Scoring Engine
+    # ==========================================
+    (waypoint_scoring_router, {
+        "name": "waypoint_scoring_engine",
+        "version": "1.0.0",
+        "phase": "P3",
+        "description": "WQS, Success Forecast, and AI recommendations"
+    }),
 ]
 
 
