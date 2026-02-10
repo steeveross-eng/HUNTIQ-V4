@@ -140,7 +140,7 @@ async def set_maintenance_mode(
     message: Optional[str] = None,
     estimated_end: Optional[str] = None
 ):
-    """Enable or disable maintenance mode"""
+    """Enable or disable maintenance mode (admin only)"""
     end_date = None
     if estimated_end:
         try:
@@ -150,7 +150,7 @@ async def set_maintenance_mode(
     
     mode = await _service.set_maintenance_mode(
         enabled=enabled,
-        admin_id=admin_id,
+        admin_id=admin.user_id,
         title=title,
         message=message,
         estimated_end=end_date
@@ -159,16 +159,18 @@ async def set_maintenance_mode(
     return {
         "success": True,
         "message": "Maintenance mode " + ("enabled" if enabled else "disabled"),
-        "maintenance": mode.model_dump()
+        "maintenance": mode.model_dump(),
+        "changed_by": admin.email
     }
 
 
 @router.get("/alerts")
 async def get_alerts(
     unread_only: bool = Query(False),
-    limit: int = Query(50, ge=1, le=200)
+    limit: int = Query(50, ge=1, le=200),
+    admin: UserWithRole = Depends(require_admin)
 ):
-    """Get system alerts"""
+    """Get system alerts (admin only)"""
     alerts = await _service.get_alerts(unread_only, limit)
     
     return {
@@ -179,8 +181,10 @@ async def get_alerts(
 
 
 @router.post("/alerts/generate")
-async def generate_alerts():
-    """Generate alerts based on system state"""
+async def generate_alerts(
+    admin: UserWithRole = Depends(require_admin)
+):
+    """Generate alerts based on system state (admin only)"""
     alerts = await _service.generate_alerts()
     
     return {
@@ -191,8 +195,11 @@ async def generate_alerts():
 
 
 @router.put("/alerts/{alert_id}/read")
-async def mark_alert_read(alert_id: str):
-    """Mark alert as read"""
+async def mark_alert_read(
+    alert_id: str,
+    admin: UserWithRole = Depends(require_admin)
+):
+    """Mark alert as read (admin only)"""
     success = await _service.mark_alert_read(alert_id)
     
     return {
