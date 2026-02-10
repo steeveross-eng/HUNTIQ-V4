@@ -92,9 +92,24 @@ from modules.waypoint_scoring_engine import router as waypoint_scoring_router
 # ==============================================
 from modules.geolocation_engine.v1 import router as geolocation_router
 
+# ==============================================
+# PHASE P4 - AUTH ENGINE (Hybrid JWT + Google OAuth)
+# ==============================================
+from modules.auth_engine import router as auth_router
+
 
 # List of all available routers with their metadata
 CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
+    # ==========================================
+    # Phase P4 - Auth Engine (Priority - First)
+    # ==========================================
+    (auth_router, {
+        "name": "auth_engine",
+        "version": "1.0.0",
+        "phase": "P4",
+        "description": "Hybrid Authentication (JWT + Google OAuth)"
+    }),
+    
     # ==========================================
     # Phase 2 - Core Engines (7 modules)
     # ==========================================
