@@ -230,7 +230,8 @@ class WaypointScoringService:
         scores = []
         for wp in waypoints:
             try:
-                wqs = await self.calculate_wqs(str(wp["_id"]), user_id)
+                wp_id = str(wp.get("_id", wp.get("id", "")))
+                wqs = await self.calculate_wqs(wp_id, user_id)
                 scores.append(wqs)
             except Exception as e:
                 logger.error(f"Error calculating WQS for {wp.get('name')}: {e}")
