@@ -207,6 +207,57 @@ async def get_active_trip(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# ============================================
+# STATISTICS (before /{trip_id} to avoid conflicts)
+# ============================================
+
+@router.get("/statistics", response_model=dict, summary="Statistiques utilisateur")
+async def get_user_statistics(
+    request: Request,
+    user_id: str = Depends(get_user_id_with_fallback),
+    service: HuntingTripLoggerService = Depends(get_service)
+):
+    """
+    Récupère les statistiques complètes de l'utilisateur.
+    
+    Inclut:
+    - Nombre total de sorties
+    - Taux de succès
+    - Heures totales
+    - Statistiques par espèce et météo
+    """
+    try:
+        stats = await service.get_trip_statistics(user_id)
+        return {
+            "success": True,
+            "statistics": stats.dict()
+        }
+    except Exception as e:
+        logger.error(f"Error getting statistics: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/statistics/waypoint/{waypoint_id}", response_model=dict, summary="Stats waypoint")
+async def get_waypoint_stats(
+    request: Request,
+    waypoint_id: str,
+    user_id: str = Depends(get_user_id_with_fallback),
+    service: HuntingTripLoggerService = Depends(get_service)
+):
+    """Récupère les statistiques d'un waypoint spécifique"""
+    try:
+        stats = await service.get_waypoint_statistics(user_id, waypoint_id)
+        if not stats:
+            return {"success": True, "statistics": None, "message": "Aucune visite pour ce waypoint"}
+        return {
+            "success": True,
+            "statistics": stats.dict()
+        }
+    except Exception as e:
+        logger.error(f"Error getting waypoint statistics: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.get("/{trip_id}", response_model=dict, summary="Détails sortie")
 async def get_trip(
     request: Request,
