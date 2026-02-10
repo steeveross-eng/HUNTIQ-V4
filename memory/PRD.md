@@ -414,14 +414,16 @@ Tous les modules opérationnels avec APIs documentées.
   - Connection Manager avec isolation par groupe
   - Événements: geo.created, geo.updated, geo.deleted
   - member.joined, member.left pour notifications
+  - ⚠️ **HOTSPOTS EXCLUS** de la synchronisation (confidentialité)
 - ✅ **COMPOSANT FRONTEND**: GeoSyncToggle.jsx
   - Toggle on/off synchronisation
   - Indicateur de connexion en temps réel
   - Keep-alive automatique (30s)
   - Reconnexion automatique après déconnexion
+  - **Vérification de confidentialité** avant broadcast
 
 ### Phase P6.5 - Espace Admin Global (10 Février 2026)
-- ✅ **API ADMIN**: /api/admin/geo/*
+- ✅ **API ADMIN**: /api/admin/geo/* (ADMIN SEULEMENT)
   - GET /all - Toutes les entités
   - GET /hotspots - Tous les hotspots
   - GET /corridors - Tous les corridors
@@ -434,11 +436,29 @@ Tous les modules opérationnels avec APIs documentées.
   - Vue d'ensemble avec statistiques
   - Carte globale avec filtres
   - Onglet hotspots avec détails
-  - Onglet monétisation
+  - Onglet monétisation (admin uniquement)
 - ✅ **HOTSPOT AUTO-GENERATION**:
   - Algorithme basé sur habitat, corridors, densité
   - Classification par confiance (Premium > 0.7)
   - Support monétisation (is_premium, is_claimed)
+
+### Phase P6.6 - Confidentialité Absolue (10 Février 2026)
+- ✅ **HOTSPOTS 100% PRIVÉS**:
+  - Jamais synchronisés via WebSocket
+  - Jamais exposés à d'autres utilisateurs
+  - Jamais inclus dans les notifications
+  - Accessibles UNIQUEMENT par le propriétaire
+- ✅ **TYPES PRIVÉS DÉFINIS**:
+  - `hotspot` - Points chauds de chasse
+  - `corridor` - Corridors de passage
+- ✅ **VÉRIFICATIONS BACKEND**:
+  - Blocage automatique des tentatives de sync hotspots
+  - Vérification de propriété stricte
+  - group_id forcé à null pour entités privées
+- ✅ **VÉRIFICATIONS FRONTEND**:
+  - Blocage des broadcasts d'entités privées
+  - Messages d'erreur explicites
+  - Aucun toggle de partage pour hotspots
 
 ---
 
