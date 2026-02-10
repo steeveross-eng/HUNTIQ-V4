@@ -235,8 +235,11 @@ export const CoreDashboard = ({
               </div>
             </div>
 
-            {/* Right Column - AI Insights */}
+            {/* Right Column - AI Insights & Active Trip */}
             <div className="space-y-4">
+              {/* Active Trip Widget */}
+              <ActiveTripWidget />
+              
               <AIInsights 
                 insights={aiInsights.length > 0 ? aiInsights : [
                   { type: 'tip', title: 'Période optimale', message: 'Le rut est à son pic. Privilégiez les zones de frottage.' },
