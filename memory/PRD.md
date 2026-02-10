@@ -1,8 +1,8 @@
 # HUNTIQ V3 - Product Requirements Document
 
 ## Date de création: 2026-02-03
-## Dernière mise à jour: 10 Février 2026 (v4)
-## Version: 6.4 (Phase P4+ COMPLÈTE - Emails transactionnels complets)
+## Dernière mise à jour: 10 Février 2026 (v5)
+## Version: 6.5 (Phase P5 - Module Rôles LIVRÉ)
 
 ---
 
