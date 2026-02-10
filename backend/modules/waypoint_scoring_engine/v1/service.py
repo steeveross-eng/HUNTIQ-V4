@@ -233,10 +233,19 @@ class WaypointScoringService:
         cursor = self.waypoints_collection.find({"user_id": user_id})
         waypoints = await cursor.to_list(length=500)
         
+        logger.info(f"Found {len(waypoints)} waypoints for user {user_id}")
+        
         scores = []
         for wp in waypoints:
             try:
-                wp_id = str(wp.get("_id", wp.get("id", "")))
+                # Get ID from either _id (as string or ObjectId) or id field
+                wp_id = wp.get("_id")
+                if wp_id:
+                    wp_id = str(wp_id)
+                else:
+                    wp_id = wp.get("id", "")
+                
+                logger.debug(f"Calculating WQS for waypoint {wp_id}: {wp.get('name')}")
                 wqs = await self.calculate_wqs(wp_id, user_id)
                 scores.append(wqs)
             except Exception as e:
