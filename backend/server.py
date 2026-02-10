@@ -77,7 +77,7 @@ async def lifespan(app: FastAPI):
     try:
         from territory_sync import shutdown_sync
         await shutdown_sync()
-    except:
+    except Exception:
         pass
 
 # ==============================================
