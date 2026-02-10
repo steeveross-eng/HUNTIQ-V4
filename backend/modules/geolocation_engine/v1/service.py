@@ -341,16 +341,12 @@ class GeolocationService:
         user_id: str, 
         notification: PushNotification
     ) -> bool:
-        """Send push notification to user (placeholder - needs VAPID keys)"""
+        """Send push notification to user using Web Push with VAPID"""
         
         subscription = await self.get_push_subscription(user_id)
         if not subscription:
             logger.warning(f"No push subscription for user {user_id}")
             return False
-        
-        # Note: Full implementation requires VAPID keys
-        # This is a placeholder that logs the notification
-        logger.info(f"Push notification for {user_id}: {notification.title}")
         
         # Store notification for retrieval
         await self.db['notifications'].insert_one({
@@ -360,7 +356,48 @@ class GeolocationService:
             "read": False
         })
         
-        return True
+        # Send actual push notification if VAPID keys are configured
+        if VAPID_PUBLIC_KEY and VAPID_PRIVATE_KEY:
+            try:
+                from pywebpush import webpush, WebPushException
+                
+                payload = json.dumps({
+                    "title": notification.title,
+                    "body": notification.body,
+                    "icon": notification.icon,
+                    "badge": notification.badge,
+                    "url": notification.url,
+                    "tag": notification.tag,
+                    "data": notification.data
+                })
+                
+                webpush(
+                    subscription_info={
+                        "endpoint": subscription["endpoint"],
+                        "keys": subscription["keys"]
+                    },
+                    data=payload,
+                    vapid_private_key=VAPID_PRIVATE_KEY,
+                    vapid_claims={
+                        "sub": f"mailto:{VAPID_CONTACT_EMAIL}"
+                    }
+                )
+                
+                logger.info(f"Push notification sent to {user_id}: {notification.title}")
+                return True
+                
+            except WebPushException as e:
+                logger.error(f"Push notification failed for {user_id}: {e}")
+                # If subscription is invalid, remove it
+                if e.response and e.response.status_code in [404, 410]:
+                    await self.remove_push_subscription(user_id)
+                return False
+            except Exception as e:
+                logger.error(f"Push error: {e}")
+                return False
+        else:
+            logger.info(f"Push notification logged for {user_id}: {notification.title} (VAPID not configured)")
+            return True
     
     async def get_nearby_hotspots(
         self, 
