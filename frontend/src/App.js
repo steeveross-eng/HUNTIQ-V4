@@ -749,6 +749,7 @@ function App() {
               <Route path="/reset-password" element={<ResetPasswordPage />} />
               <Route path="/become-partner" element={<BecomePartner />} />
               <Route path="/partner/dashboard" element={<PartnerDashboard />} />
+              <Route path="/auth/google/callback" element={<GoogleOAuthCallback />} />
             </Routes>
             <Footer />
             <ScrollNavigator />
