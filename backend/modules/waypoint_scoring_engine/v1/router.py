@@ -196,10 +196,12 @@ async def get_success_forecast(
 
 @router.get("/forecast/quick", response_model=SuccessForecast, summary="Prévision rapide")
 async def get_quick_forecast(
+    http_request: Request,
     species: str = Query("deer", description="Espèce ciblée"),
     weather: Optional[str] = Query(None, description="Conditions météo"),
     hour: Optional[int] = Query(None, ge=0, le=23, description="Heure prévue"),
     temperature: Optional[float] = Query(None, description="Température prévue"),
+    user_id: str = Depends(get_user_id_with_fallback),
     service: WaypointScoringService = Depends(get_service)
 ):
     """
@@ -224,8 +226,10 @@ async def get_quick_forecast(
 
 @router.get("/recommendations", response_model=List[WaypointRecommendation], summary="Recommandations IA")
 async def get_ai_recommendations(
+    request: Request,
     species: str = Query("deer", description="Espèce ciblée"),
     weather: Optional[str] = Query(None, description="Conditions météo actuelles"),
+    user_id: str = Depends(get_user_id_with_fallback),
     service: WaypointScoringService = Depends(get_service)
 ):
     """
@@ -246,6 +250,7 @@ async def get_ai_recommendations(
 
 @router.get("/recommendations/ai", summary="Recommandation IA GPT-5.2")
 async def get_gpt_recommendation(
+    request: Request,
     waypoint_id: Optional[str] = Query(None, description="ID du waypoint (optionnel)"),
     species: str = Query("deer", description="Espèce ciblée"),
     weather: Optional[str] = Query(None, description="Conditions météo"),
