@@ -181,7 +181,7 @@ export const WaypointMap = ({ defaultCenter = { lat: 46.8139, lng: -71.2080 } })
     toast.info('Cliquez sur "Enregistrer" pour créer le waypoint');
   };
 
-  // Save new waypoint
+  // Save new waypoint - UNIFIED API (territory_waypoints)
   const handleSaveWaypoint = async () => {
     if (!newWaypointLocation) {
       toast.error('Cliquez sur la carte pour placer le waypoint');
@@ -193,29 +193,42 @@ export const WaypointMap = ({ defaultCenter = { lat: 46.8139, lng: -71.2080 } })
     }
 
     try {
-      const response = await fetch(`${API_URL}/api/user/waypoints`, {
+      const userId = getDefaultUserId();
+      
+      // UNIFIED: Use territory API with correct field names
+      const response = await fetch(`${API_URL}/api/territory/waypoints?user_id=${encodeURIComponent(userId)}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: newWaypointName,
-          lat: newWaypointLocation.lat,
-          lng: newWaypointLocation.lng,
-          type: newWaypointType,
-          active: true
+          latitude: newWaypointLocation.lat,
+          longitude: newWaypointLocation.lng,
+          waypoint_type: newWaypointType,
+          description: ''
         })
       });
 
       const data = await response.json();
-      if (data.success) {
+      
+      // Territory API returns the waypoint directly
+      if (data.id) {
         toast.success('Waypoint créé !');
-        setWaypoints(prev => [data.waypoint, ...prev]);
+        setWaypoints(prev => [normalizeWaypoint(data), ...prev]);
+        setNewWaypointLocation(null);
+        setNewWaypointName('');
+        setIsAddingMode(false);
+      } else if (data.success && data.waypoint) {
+        // Legacy format fallback
+        toast.success('Waypoint créé !');
+        setWaypoints(prev => [normalizeWaypoint(data.waypoint), ...prev]);
         setNewWaypointLocation(null);
         setNewWaypointName('');
         setIsAddingMode(false);
       } else {
-        toast.error(data.error || 'Erreur lors de la création');
+        toast.error(data.error || data.detail || 'Erreur lors de la création');
       }
     } catch (error) {
+      console.error('Error creating waypoint:', error);
       toast.error('Erreur de connexion');
     }
   };
