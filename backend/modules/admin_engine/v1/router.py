@@ -77,19 +77,24 @@ async def admin_login(credentials: AdminLogin):
 
 
 @router.get("/dashboard")
-async def get_dashboard():
-    """Get dashboard statistics"""
+async def get_dashboard(
+    admin: UserWithRole = Depends(require_admin)
+):
+    """Get dashboard statistics (admin only)"""
     stats = await _service.get_dashboard_stats()
     
     return {
         "success": True,
-        "stats": stats.model_dump()
+        "stats": stats.model_dump(),
+        "admin": admin.email
     }
 
 
 @router.get("/settings")
-async def get_site_settings():
-    """Get site settings"""
+async def get_site_settings(
+    admin: UserWithRole = Depends(require_admin)
+):
+    """Get site settings (admin only)"""
     settings = await _service.get_site_settings()
     
     return {
@@ -101,21 +106,24 @@ async def get_site_settings():
 @router.put("/settings")
 async def update_site_settings(
     settings: dict,
-    admin_id: str = Query("admin", description="Admin ID")
+    admin: UserWithRole = Depends(require_admin)
 ):
-    """Update site settings"""
-    updated = await _service.update_site_settings(settings, admin_id)
+    """Update site settings (admin only)"""
+    updated = await _service.update_site_settings(settings, admin.user_id)
     
     return {
         "success": True,
         "message": "Settings updated",
-        "settings": updated.model_dump()
+        "settings": updated.model_dump(),
+        "updated_by": admin.email
     }
 
 
 @router.get("/maintenance")
-async def get_maintenance_status():
-    """Get maintenance mode status"""
+async def get_maintenance_status(
+    admin: UserWithRole = Depends(require_admin)
+):
+    """Get maintenance mode status (admin only)"""
     mode = await _service.get_maintenance_mode()
     
     return {
@@ -127,7 +135,7 @@ async def get_maintenance_status():
 @router.put("/maintenance")
 async def set_maintenance_mode(
     enabled: bool,
-    admin_id: str = Query("admin"),
+    admin: UserWithRole = Depends(require_admin),
     title: Optional[str] = None,
     message: Optional[str] = None,
     estimated_end: Optional[str] = None
