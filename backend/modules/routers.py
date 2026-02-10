@@ -102,6 +102,11 @@ from modules.auth_engine import router as auth_router
 # ==============================================
 from modules.hunting_trip_logger import router as hunting_trip_logger_router
 
+# ==============================================
+# PHASE P5 - ROLES ENGINE (User Roles & Permissions)
+# ==============================================
+from modules.roles_engine.v1 import router as roles_router
+
 
 # List of all available routers with their metadata
 CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
