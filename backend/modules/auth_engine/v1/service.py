@@ -125,6 +125,7 @@ class AuthService:
             "phone": phone,
             "picture": picture,
             "auth_provider": auth_provider.value,
+            "role": "hunter",  # Default role for new users
             "is_active": True,
             "created_at": now,
             "updated_at": now
