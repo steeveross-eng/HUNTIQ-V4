@@ -99,6 +99,8 @@ async def get_waypoint_wqs(
 
 @router.get("/wqs", response_model=List[WaypointQualityScore], summary="WQS pour tous les waypoints")
 async def get_all_wqs(
+    request: Request,
+    user_id: str = Depends(get_user_id_with_fallback),
     service: WaypointScoringService = Depends(get_service)
 ):
     """
@@ -114,8 +116,10 @@ async def get_all_wqs(
 
 @router.get("/ranking", response_model=WaypointRanking, summary="Classement dynamique")
 async def get_waypoint_ranking(
+    request: Request,
     species: Optional[str] = Query(None, description="Filtrer par espèce"),
     weather: Optional[str] = Query(None, description="Filtrer par météo"),
+    user_id: str = Depends(get_user_id_with_fallback),
     service: WaypointScoringService = Depends(get_service)
 ):
     """
