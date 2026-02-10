@@ -744,6 +744,7 @@ function App() {
               <Route path="/analytics" element={<AnalyticsPage />} />
               <Route path="/map" element={<MapPage />} />
               <Route path="/forecast" element={<ForecastPage />} />
+              <Route path="/trips" element={<TripsPage />} />
               <Route path="/referral" element={<ReferralModule />} />
               <Route path="/admin" element={<AdminPage onProductsUpdate={fetchProducts} />} />
               <Route path="/networking" element={<NetworkingHub />} />
