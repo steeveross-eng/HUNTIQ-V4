@@ -427,6 +427,16 @@ CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
         "phase": "P4+",
         "description": "Real data logging for hunting trips, waypoint visits, and observations"
     }),
+    
+    # ==========================================
+    # Phase P5 - Roles Engine (User Roles & Permissions)
+    # ==========================================
+    (roles_router, {
+        "name": "roles_engine",
+        "version": "1.0.0",
+        "phase": "P5",
+        "description": "Role-based access control (hunter, guide, admin) and permissions management"
+    }),
 ]
 
 
