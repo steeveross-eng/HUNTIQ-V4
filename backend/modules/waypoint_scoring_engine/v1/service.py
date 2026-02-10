@@ -384,8 +384,8 @@ class WaypointScoringService:
     
     async def get_ai_recommendations(
         self,
-        species: str = "deer",
-        weather: Optional[str] = None,
+        species: str,
+        weather: Optional[str],
         user_id: str,
         ai_client = None
     ) -> List[WaypointRecommendation]:
