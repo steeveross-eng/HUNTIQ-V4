@@ -265,16 +265,97 @@ async def ip_info(request: Request):
 
 
 # ==========================================
-# Password Reset (placeholder)
+# Password Reset (Full Implementation)
 # ==========================================
 
 @router.post("/forgot-password")
 async def forgot_password(reset_data: PasswordReset):
-    """Request password reset email (placeholder - requires email service)"""
-    # TODO: Implement email sending
+    """
+    Request password reset email.
+    REMINDER: Always returns success to prevent email enumeration attacks.
+    """
+    from .email_service import EmailService
+    
+    db = get_db()
+    auth_service = AuthService(db)
+    email_service = EmailService(db)
+    
+    # Check if user exists
+    user = await auth_service.get_user_by_email(reset_data.email)
+    
+    if user:
+        # Send reset email
+        success, message = await email_service.send_password_reset_email(
+            user_id=user["user_id"],
+            email=user["email"],
+            user_name=user.get("name", "Utilisateur")
+        )
+        logger.info(f"Password reset requested for {reset_data.email}: {message}")
+    else:
+        logger.info(f"Password reset requested for non-existent email: {reset_data.email}")
+    
+    # Always return success to prevent email enumeration
     return {
         "success": True,
-        "message": "Si un compte existe, un email a été envoyé"
+        "message": "Si un compte existe avec cet email, un lien de réinitialisation a été envoyé"
+    }
+
+
+@router.post("/reset-password")
+async def reset_password(token: str, new_password: str):
+    """
+    Reset password using token from email.
+    """
+    from .email_service import EmailService
+    
+    if len(new_password) < 6:
+        raise HTTPException(status_code=400, detail="Le mot de passe doit contenir au moins 6 caractères")
+    
+    db = get_db()
+    auth_service = AuthService(db)
+    email_service = EmailService(db)
+    
+    # Verify token
+    token_data = await email_service.verify_reset_token(token)
+    if not token_data:
+        raise HTTPException(status_code=400, detail="Lien invalide ou expiré")
+    
+    # Get user
+    user = await auth_service.get_user_by_id(token_data["user_id"])
+    if not user:
+        raise HTTPException(status_code=404, detail="Utilisateur non trouvé")
+    
+    # Update password
+    new_hash = auth_service.hash_password(new_password)
+    await auth_service.users_collection.update_one(
+        {"user_id": user["user_id"]},
+        {"$set": {"password_hash": new_hash, "updated_at": datetime.now(timezone.utc)}}
+    )
+    
+    # Mark token as used
+    await email_service.mark_token_used(token)
+    
+    logger.info(f"Password reset completed for user {user['user_id']}")
+    
+    return {
+        "success": True,
+        "message": "Mot de passe réinitialisé avec succès. Vous pouvez maintenant vous connecter."
+    }
+
+
+@router.get("/verify-reset-token")
+async def verify_reset_token(token: str):
+    """Verify if a reset token is valid"""
+    from .email_service import EmailService
+    
+    db = get_db()
+    email_service = EmailService(db)
+    
+    token_data = await email_service.verify_reset_token(token)
+    
+    return {
+        "valid": token_data is not None,
+        "email": token_data.get("email") if token_data else None
     }
 
 
