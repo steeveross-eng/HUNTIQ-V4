@@ -254,6 +254,7 @@ async def get_gpt_recommendation(
     waypoint_id: Optional[str] = Query(None, description="ID du waypoint (optionnel)"),
     species: str = Query("deer", description="Espèce ciblée"),
     weather: Optional[str] = Query(None, description="Conditions météo"),
+    user_id: str = Depends(get_user_id_with_fallback),
     service: WaypointScoringService = Depends(get_service)
 ):
     """
@@ -290,7 +291,7 @@ async def get_gpt_recommendation(
         
         if not waypoint_data:
             # Use best waypoint
-            all_wqs = await service.get_all_wqs(DEFAULT_USER_ID)
+            all_wqs = await service.get_all_wqs(user_id)
             if all_wqs:
                 best = all_wqs[0]
                 waypoint_data = {
