@@ -187,7 +187,8 @@ class HuntingTripLoggerService:
         limit: int = 50
     ) -> List[HuntingTrip]:
         """Get all trips for a user"""
-        query = {"user_id": user_id}
+        # Only query trips with new schema (trip_id field exists)
+        query = {"user_id": user_id, "trip_id": {"$exists": True}}
         if status:
             query["status"] = status.value
         
