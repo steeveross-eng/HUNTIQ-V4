@@ -127,6 +127,9 @@ class HuntingTripLoggerService:
         if start_time:
             if isinstance(start_time, str):
                 start_time = datetime.fromisoformat(start_time.replace('Z', '+00:00'))
+            # Ensure start_time is timezone-aware
+            if start_time.tzinfo is None:
+                start_time = start_time.replace(tzinfo=timezone.utc)
             duration = now - start_time
             duration_hours = round(duration.total_seconds() / 3600, 2)
         
