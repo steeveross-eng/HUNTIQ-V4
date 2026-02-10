@@ -358,7 +358,7 @@ async def get_upcoming_legal_alerts(
                 "type": "legal_time_end",
                 "scheduled_time": end_dt.isoformat(),
                 "title": "🌙 Fin période légale",
-                "body": f"La chasse n'est plus autorisée",
+                "body": "La chasse n'est plus autorisée",
                 "priority": "urgent"
             })
     
