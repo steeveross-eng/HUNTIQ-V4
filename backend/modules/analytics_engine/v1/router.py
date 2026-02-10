@@ -145,6 +145,8 @@ async def get_species_breakdown(
 
 @router.get("/weather", response_model=List[WeatherAnalysis], summary="Analyse météo")
 async def get_weather_analysis(
+    request: Request,
+    user_id: str = Depends(get_user_id_with_fallback),
     service: AnalyticsService = Depends(get_service)
 ):
     """
@@ -154,7 +156,7 @@ async def get_weather_analysis(
     pour chaque type de condition météo.
     """
     try:
-        return await service.get_weather_analysis(DEFAULT_USER_ID)
+        return await service.get_weather_analysis(user_id)
     except Exception as e:
         logger.error(f"Error getting weather analysis: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -162,6 +164,8 @@ async def get_weather_analysis(
 
 @router.get("/optimal-times", response_model=List[TimeSlotAnalysis], summary="Heures optimales")
 async def get_optimal_times(
+    request: Request,
+    user_id: str = Depends(get_user_id_with_fallback),
     service: AnalyticsService = Depends(get_service)
 ):
     """
@@ -173,7 +177,7 @@ async def get_optimal_times(
     - Score d'activité
     """
     try:
-        return await service.get_optimal_times(DEFAULT_USER_ID)
+        return await service.get_optimal_times(user_id)
     except Exception as e:
         logger.error(f"Error getting optimal times: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -181,7 +185,9 @@ async def get_optimal_times(
 
 @router.get("/trends", response_model=List[MonthlyTrend], summary="Tendances mensuelles")
 async def get_monthly_trends(
+    request: Request,
     months: int = Query(12, ge=1, le=24, description="Nombre de mois"),
+    user_id: str = Depends(get_user_id_with_fallback),
     service: AnalyticsService = Depends(get_service)
 ):
     """
@@ -190,7 +196,7 @@ async def get_monthly_trends(
     Permet de visualiser l'évolution sur plusieurs mois.
     """
     try:
-        return await service.get_monthly_trends(DEFAULT_USER_ID, months)
+        return await service.get_monthly_trends(user_id, months)
     except Exception as e:
         logger.error(f"Error getting trends: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -202,9 +208,11 @@ async def get_monthly_trends(
 
 @router.get("/trips", response_model=List[dict], summary="Liste des sorties")
 async def get_trips(
+    request: Request,
     time_range: TimeRange = Query(TimeRange.ALL, description="Période de temps"),
     species: Optional[str] = Query(None, description="Filtrer par espèce"),
     limit: int = Query(50, ge=1, le=200, description="Nombre maximum"),
+    user_id: str = Depends(get_user_id_with_fallback),
     service: AnalyticsService = Depends(get_service)
 ):
     """
@@ -215,7 +223,7 @@ async def get_trips(
     - **limit**: Nombre maximum de résultats
     """
     try:
-        return await service.get_trips(DEFAULT_USER_ID, time_range, species, limit)
+        return await service.get_trips(user_id, time_range, species, limit)
     except Exception as e:
         logger.error(f"Error getting trips: {e}")
         raise HTTPException(status_code=500, detail=str(e))
