@@ -328,8 +328,10 @@ async def get_gpt_recommendation(
 
 @router.get("/briefing", summary="Briefing quotidien IA")
 async def get_daily_briefing(
+    request: Request,
     species: str = Query("deer", description="Espèce ciblée"),
     weather: Optional[str] = Query(None, description="Météo prévue"),
+    user_id: str = Depends(get_user_id_with_fallback),
     service: WaypointScoringService = Depends(get_service)
 ):
     """
@@ -347,7 +349,7 @@ async def get_daily_briefing(
         ai_service = AIRecommendationService()
         
         # Get all waypoints with scores
-        all_wqs = await service.get_all_wqs(DEFAULT_USER_ID)
+        all_wqs = await service.get_all_wqs(user_id)
         
         waypoints_data = [
             {
@@ -384,6 +386,8 @@ async def get_daily_briefing(
 
 @router.post("/seed-visits", summary="Générer visites démo")
 async def seed_demo_visits(
+    request: Request,
+    user_id: str = Depends(get_user_id_with_fallback),
     service: WaypointScoringService = Depends(get_service)
 ):
     """
