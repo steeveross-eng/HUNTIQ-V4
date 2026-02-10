@@ -2,20 +2,52 @@
  * MapPage - Interactive Map Page for Waypoints
  * Phase P3.2 - Interactive Map
  * Phase P4 - Background Geolocation & Proximity Alerts
+ * Phase P6.4 - Real-time WebSocket Sync
  */
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { WaypointMap } from '../modules/territory';
 import BackgroundTracker from '../components/BackgroundTracker';
+import GeoSyncToggle from '../components/GeoSyncToggle';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Map, Satellite } from 'lucide-react';
+import { Map, Satellite, RefreshCw } from 'lucide-react';
 
 const MapPage = () => {
   const [activeTab, setActiveTab] = useState('map');
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const handleProximityAlert = (alert) => {
     // Handle proximity alerts - could update map highlight here
     console.log('Proximity alert received:', alert);
+  };
+
+  // Handle real-time sync events from other group members
+  const handleEntityReceived = useCallback(({ action, entity, entityId, userId }) => {
+    console.log('Sync event:', action, entity || entityId);
+    // Refresh map to show new/updated/deleted entities
+    setRefreshKey(prev => prev + 1);
+  }, []);
+
+  const handleMemberJoined = useCallback((userId) => {
+    console.log('Member joined:', userId);
+  }, []);
+
+  const handleMemberLeft = useCallback((userId) => {
+    console.log('Member left:', userId);
+  }, []);
+
+  // Get user info for sync
+  const getUserId = () => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      try {
+        const parsed = JSON.parse(user);
+        return parsed.email || parsed.id || 'default_user';
+      } catch (e) {
+        return 'default_user';
+      }
+    }
+    return 'default_user';
   };
 
   return (
@@ -27,8 +59,19 @@ const MapPage = () => {
             Carte Interactive
           </h1>
           <p className="text-slate-400 text-sm mt-1">
-            Gérez vos waypoints de chasse sur la carte • Phase P3/P4
+            Gérez vos waypoints de chasse sur la carte • Phase P3/P4/P6
           </p>
+        </div>
+
+        {/* Real-time Sync Toggle */}
+        <div className="mb-4">
+          <GeoSyncToggle
+            groupId="default_group"
+            userId={getUserId()}
+            onEntityReceived={handleEntityReceived}
+            onMemberJoined={handleMemberJoined}
+            onMemberLeft={handleMemberLeft}
+          />
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
