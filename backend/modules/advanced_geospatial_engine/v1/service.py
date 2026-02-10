@@ -52,7 +52,8 @@ class AdvancedGeospatialService:
         species: Optional[str] = None
     ) -> List[ConcentrationZone]:
         """Identify wildlife concentration zones in area"""
-        center = {"lat": lat, "lng": lng}
+        # Center coordinates used for zone calculations
+        _ = {"lat": lat, "lng": lng}  # Reserved for future use
         
         # Placeholder - would analyze observation data, habitat, etc.
         zones = [
