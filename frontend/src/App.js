@@ -48,6 +48,7 @@ import PlanMaitrePage from "@/pages/PlanMaitrePage";
 import AnalyticsPage from "@/pages/AnalyticsPage";
 import MapPage from "@/pages/MapPage";
 import ForecastPage from "@/pages/ForecastPage";
+import AdminGeoPage from "@/pages/AdminGeoPage";
 import { NotificationProvider } from "@/modules/notifications";
 import GoogleOAuthCallback from "@/components/GoogleOAuthCallback";
 import { 
