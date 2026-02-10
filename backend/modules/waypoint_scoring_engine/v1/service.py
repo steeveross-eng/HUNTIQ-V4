@@ -224,8 +224,7 @@ class WaypointScoringService:
         score = min(100, avg_observations * 20)
         
         # Bonus for recent activity
-        recent_trips = [t for t in trips if t.get("date") and 
-                       (datetime.now(timezone.utc) - t["date"]).days < 30]
+        recent_trips = [t for t in trips if t.get("date") and safe_days_ago(t["date"]) < 30]
         if recent_trips:
             score = min(100, score + 10)
         
@@ -240,8 +239,7 @@ class WaypointScoringService:
         total_visits = len(trips)
         
         # Recent visits (last 90 days)
-        recent_visits = sum(1 for t in trips if t.get("date") and 
-                          (datetime.now(timezone.utc) - t["date"]).days < 90)
+        recent_visits = sum(1 for t in trips if t.get("date") and safe_days_ago(t["date"]) < 90)
         
         # Score based on frequency
         frequency_score = min(50, total_visits * 5)
