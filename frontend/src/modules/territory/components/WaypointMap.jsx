@@ -233,21 +233,27 @@ export const WaypointMap = ({ defaultCenter = { lat: 46.8139, lng: -71.2080 } })
     }
   };
 
-  // Delete waypoint
+  // Delete waypoint - UNIFIED API (territory_waypoints)
   const handleDeleteWaypoint = async (waypointId) => {
     try {
-      const response = await fetch(`${API_URL}/api/user/waypoints/${waypointId}`, {
+      const userId = getDefaultUserId();
+      
+      // UNIFIED: Use territory API for deletion
+      const response = await fetch(`${API_URL}/api/territory/waypoints/${waypointId}?user_id=${encodeURIComponent(userId)}`, {
         method: 'DELETE'
       });
       const data = await response.json();
-      if (data.success) {
+      
+      // Territory API returns {status: 'deleted'} on success
+      if (data.status === 'deleted' || data.success) {
         toast.success('Waypoint supprimé');
         setWaypoints(prev => prev.filter(w => w.id !== waypointId));
         setSelectedWaypoint(null);
       } else {
-        toast.error(data.error || 'Erreur lors de la suppression');
+        toast.error(data.error || data.detail || 'Erreur lors de la suppression');
       }
     } catch (error) {
+      console.error('Error deleting waypoint:', error);
       toast.error('Erreur de connexion');
     }
   };
