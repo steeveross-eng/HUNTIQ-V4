@@ -156,8 +156,15 @@ ROLE_METADATA: Dict[str, RoleInfo] = {
     UserRole.GUIDE.value: RoleInfo(
         role=UserRole.GUIDE,
         label="🧭 Guide",
-        description="Guide professionnel avec accès étendu pour gérer des groupes",
+        description="Guide professionnel avec accès étendu pour gérer des groupes terrain",
         permissions=ROLE_PERMISSIONS[UserRole.GUIDE.value],
+        is_elevated=True
+    ),
+    UserRole.BUSINESS.value: RoleInfo(
+        role=UserRole.BUSINESS,
+        label="🏪 Business",
+        description="Profil commercial avec accès marketplace, ventes et programme affilié",
+        permissions=ROLE_PERMISSIONS[UserRole.BUSINESS.value],
         is_elevated=True
     ),
     UserRole.ADMIN.value: RoleInfo(
