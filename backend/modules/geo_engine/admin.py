@@ -15,14 +15,18 @@ from datetime import datetime, timezone
 import logging
 
 from models.geo_entity import GeoEntityResponse, GeoStatsResponse, HabitatType
-from database import get_db
-from modules.roles_engine.v1 import require_admin
+from database import Database
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/admin/geo", tags=["Admin Geo (Global View)"])
 
 GEO_COLLECTION = "geo_entities"
+
+
+async def get_db():
+    """Get database instance"""
+    return Database.get_database()
 
 
 # ===========================================
