@@ -19,3 +19,4 @@ export { TerritoryService } from './TerritoryService';
 export { TerritoryCard } from './components/TerritoryCard';
 export { TerritoryList } from './components/TerritoryList';
 export { WaypointManager } from './components/WaypointManager';
+export { WaypointMap } from './components/WaypointMap';
