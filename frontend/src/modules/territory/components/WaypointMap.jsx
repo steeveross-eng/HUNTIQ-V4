@@ -301,8 +301,9 @@ export const WaypointMap = ({ defaultCenter = { lat: 46.8139, lng: -71.2080 } })
                   className="border-red-600 text-red-400 hover:bg-red-600/20"
                   onClick={handleExportPDF}
                 >
-                📄 PDF
-              </Button>
+                  📄 PDF
+                </Button>
+              </div>
             </div>
             {isAddingMode && (
               <p className="text-amber-400 text-sm mt-2">
