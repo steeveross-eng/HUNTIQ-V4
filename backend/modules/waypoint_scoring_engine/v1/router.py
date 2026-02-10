@@ -106,7 +106,7 @@ async def get_all_wqs(
     Retourne la liste triée par score décroissant.
     """
     try:
-        return await service.get_all_wqs(DEFAULT_USER_ID)
+        return await service.get_all_wqs(user_id)
     except Exception as e:
         logger.error(f"Error getting all WQS: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -124,7 +124,7 @@ async def get_waypoint_ranking(
     """
     try:
         from datetime import datetime, timezone
-        rankings = await service.get_all_wqs(DEFAULT_USER_ID)
+        rankings = await service.get_all_wqs(user_id)
         
         return WaypointRanking(
             rankings=rankings,
@@ -154,7 +154,7 @@ async def get_heatmap_data(
     - Informations du waypoint
     """
     try:
-        return await service.get_heatmap_data(DEFAULT_USER_ID)
+        return await service.get_heatmap_data(user_id)
     except Exception as e:
         logger.error(f"Error getting heatmap: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -377,7 +377,7 @@ async def seed_demo_visits(
     Crée 5-15 visites par waypoint existant.
     """
     try:
-        count = await service.seed_demo_visits(DEFAULT_USER_ID)
+        count = await service.seed_demo_visits(user_id)
         return {
             "success": True,
             "message": f"{count} visites de démonstration créées",
