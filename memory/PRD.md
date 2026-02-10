@@ -304,7 +304,24 @@ Tous les modules opérationnels avec APIs documentées.
 - ✅ **Page Map**: Nouvel onglet "GPS Tracking" avec guide
 - ✅ **PWA Manifest**: Shortcuts, permissions geolocation
 - ✅ **Tests E2E**: 18/18 passés (100%)
-- ⚠️ **Push Notifications**: MOCKÉES (nécessite clés VAPID en production)
+
+### Phase P4 - Authentification Hybride & VAPID (10 Février 2026)
+- ✅ **Auth Engine (JWT + Google OAuth)**: Module complet d'authentification
+  - POST /api/auth/register - Inscription email/password
+  - POST /api/auth/login - Connexion avec tokens JWT (24h)
+  - POST /api/auth/google/callback - Google OAuth via Emergent Auth
+  - GET /api/auth/me - Utilisateur courant (authentifié)
+  - POST /api/auth/logout - Déconnexion
+  - GET /api/auth/auto-login - Connexion automatique (appareil de confiance)
+  - GET /api/auth/ip-info - Info IP et confiance
+- ✅ **auth_helpers.py**: Helper centralisé pour tous les modules
+  - get_user_id_with_fallback() - Auth optionnelle avec fallback
+  - get_current_user_id() - Auth requise
+- ✅ **Modules mis à jour**: analytics, geolocation, waypoint_scoring
+- ✅ **VAPID Keys**: Générées et configurées pour push notifications réelles
+- ✅ **Frontend Auth Modal**: Email/password + Google OAuth
+- ✅ **GoogleOAuthCallback**: Composant de callback OAuth
+- ✅ **Tests E2E**: 25/25 passés (100%)
 
 ---
 
