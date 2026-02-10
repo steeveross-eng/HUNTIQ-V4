@@ -129,18 +129,28 @@ export const WaypointMap = ({ defaultCenter = { lat: 46.8139, lng: -71.2080 } })
   const [wqsScores, setWqsScores] = useState({});
   const mapRef = useRef(null);
 
-  // Load waypoints and heatmap data
+  // Load waypoints and heatmap data - UNIFIED API (territory_waypoints)
   const loadWaypoints = useCallback(async () => {
     try {
+      const userId = getDefaultUserId();
+      
       const [waypointsResponse, heatmapResponse, wqsResponse] = await Promise.all([
-        fetch(`${API_URL}/api/user/waypoints`),
+        // UNIFIED: Use territory API as single source of truth
+        fetch(`${API_URL}/api/territory/waypoints?user_id=${encodeURIComponent(userId)}`),
         WaypointScoringService.getHeatmapData(),
         WaypointScoringService.getAllWQS()
       ]);
       
       const waypointsData = await waypointsResponse.json();
-      if (waypointsData.success && waypointsData.waypoints) {
-        setWaypoints(waypointsData.waypoints);
+      
+      // Territory API returns array directly, normalize the format
+      if (Array.isArray(waypointsData)) {
+        setWaypoints(waypointsData.map(normalizeWaypoint));
+      } else if (waypointsData.success && waypointsData.waypoints) {
+        // Legacy format fallback
+        setWaypoints(waypointsData.waypoints.map(normalizeWaypoint));
+      } else {
+        setWaypoints([]);
       }
       
       setHeatmapData(heatmapResponse);
