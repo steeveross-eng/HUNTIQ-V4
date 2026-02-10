@@ -18,22 +18,35 @@ logger = logging.getLogger(__name__)
 
 def serialize_trip(doc: dict) -> dict:
     """Convert MongoDB document to serializable dict"""
+    # Handle date - required field, use current time as fallback
+    date_val = doc.get("date")
+    if date_val:
+        date_str = date_val.isoformat() if hasattr(date_val, 'isoformat') else str(date_val)
+    else:
+        date_str = datetime.now(timezone.utc).isoformat()
+    
+    # Handle created_at - optional field
+    created_at = doc.get("created_at")
+    created_at_str = None
+    if created_at and hasattr(created_at, 'isoformat'):
+        created_at_str = created_at.isoformat()
+    
     return {
         "id": str(doc.get("_id", "")),
         "user_id": doc.get("user_id", ""),
-        "date": doc.get("date").isoformat() if doc.get("date") else None,
-        "species": doc.get("species", ""),
-        "location_lat": doc.get("location_lat", 0),
-        "location_lng": doc.get("location_lng", 0),
-        "duration_hours": doc.get("duration_hours", 0),
+        "date": date_str,
+        "species": doc.get("species") or "unknown",
+        "location_lat": float(doc.get("location_lat") or 0),
+        "location_lng": float(doc.get("location_lng") or 0),
+        "duration_hours": float(doc.get("duration_hours") or 0),
         "weather_conditions": doc.get("weather_conditions"),
         "temperature": doc.get("temperature"),
         "wind_speed": doc.get("wind_speed"),
         "moon_phase": doc.get("moon_phase"),
-        "success": doc.get("success", False),
-        "observations": doc.get("observations", 0),
+        "success": bool(doc.get("success", False)),
+        "observations": int(doc.get("observations") or 0),
         "notes": doc.get("notes"),
-        "created_at": doc.get("created_at").isoformat() if doc.get("created_at") else None
+        "created_at": created_at_str
     }
 
 
