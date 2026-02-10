@@ -1,0 +1,22 @@
+{
+  "short_name": "HUNTIQ",
+  "name": "HUNTIQ - Chasse Intelligente",
+  "description": "Application de chasse intelligente avec prévisions de succès et waypoints",
+  "icons": [
+    {
+      "src": "logos/bionic-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#f5a623",
+  "background_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": ["lifestyle", "utilities"],
+  "lang": "fr-CA",
+  "prefer_related_applications": false
+}
