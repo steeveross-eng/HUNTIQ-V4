@@ -333,8 +333,15 @@ export const WaypointMap = ({ defaultCenter = { lat: 46.8139, lng: -71.2080 } })
                     isAddingMode={isAddingMode} 
                   />
 
+                  {/* Heatmap layer */}
+                  {showHeatmap && heatmapData.length > 0 && (
+                    <HeatmapLayer data={heatmapData} />
+                  )}
+
                   {/* Existing waypoints */}
-                  {waypoints.map(waypoint => (
+                  {waypoints.map(waypoint => {
+                    const wqs = getWQS(waypoint.id);
+                    return (
                     <Marker
                       key={waypoint.id}
                       position={[waypoint.lat, waypoint.lng]}
@@ -344,10 +351,55 @@ export const WaypointMap = ({ defaultCenter = { lat: 46.8139, lng: -71.2080 } })
                       }}
                     >
                       <Popup>
-                        <div className="p-2 min-w-[200px]">
+                        <div className="p-2 min-w-[220px]">
                           <div className="flex items-center gap-2 mb-2">
                             <span className="text-xl">{getTypeInfo(waypoint.type).icon}</span>
                             <strong>{waypoint.name}</strong>
+                          </div>
+                          
+                          {/* WQS Score */}
+                          {wqs && (
+                            <div className="bg-slate-100 rounded p-2 mb-2">
+                              <div className="flex items-center justify-between">
+                                <span className="text-sm font-medium">WQS Score</span>
+                                <span className="text-lg font-bold text-orange-500">{wqs.total_score}%</span>
+                              </div>
+                              <div className="flex items-center justify-between text-xs text-gray-500">
+                                <span>{wqs.total_visits} visites</span>
+                                <span className={`px-2 py-0.5 rounded text-white ${
+                                  wqs.classification === 'hotspot' ? 'bg-green-500' :
+                                  wqs.classification === 'good' ? 'bg-blue-500' :
+                                  wqs.classification === 'standard' ? 'bg-yellow-500' : 'bg-red-500'
+                                }`}>
+                                  {wqs.classification === 'hotspot' ? '🔥 Hotspot' :
+                                   wqs.classification === 'good' ? '👍 Bon' :
+                                   wqs.classification === 'standard' ? '📍 Standard' : '⚠️ Faible'}
+                                </span>
+                              </div>
+                            </div>
+                          )}
+                          
+                          <p className="text-sm text-gray-600 mb-2">
+                            {waypoint.lat.toFixed(4)}, {waypoint.lng.toFixed(4)}
+                          </p>
+                          {waypoint.notes && (
+                            <p className="text-sm text-gray-500 mb-2">{waypoint.notes}</p>
+                          )}
+                          <div className="flex gap-2">
+                            <span className="px-2 py-1 rounded text-xs text-white" style={{ backgroundColor: getTypeInfo(waypoint.type).color }}>
+                              {getTypeInfo(waypoint.type).label}
+                            </span>
+                            <button
+                              className="px-2 py-1 rounded text-xs bg-red-500 text-white hover:bg-red-600"
+                              onClick={() => handleDeleteWaypoint(waypoint.id)}
+                            >
+                              🗑️
+                            </button>
+                          </div>
+                        </div>
+                      </Popup>
+                    </Marker>
+                  )})}
                           </div>
                           <p className="text-sm text-gray-600 mb-2">
                             {waypoint.lat.toFixed(4)}, {waypoint.lng.toFixed(4)}
