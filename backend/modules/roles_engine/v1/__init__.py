@@ -5,6 +5,7 @@ from .service import RolesService
 from .dependencies import (
     require_admin,
     require_guide_or_admin,
+    require_business_or_admin,
     require_elevated_role,
     require_permission,
     require_any_permission,
@@ -23,6 +24,7 @@ __all__ = [
     'RolesService',
     'require_admin',
     'require_guide_or_admin',
+    'require_business_or_admin',
     'require_elevated_role',
     'require_permission',
     'require_any_permission',
