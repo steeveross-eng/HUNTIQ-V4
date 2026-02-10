@@ -412,6 +412,16 @@ CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
         "phase": "P4",
         "description": "Background geolocation tracking and proximity alerts"
     }),
+    
+    # ==========================================
+    # Phase P4+ - Hunting Trip Logger (Real Data)
+    # ==========================================
+    (hunting_trip_logger_router, {
+        "name": "hunting_trip_logger",
+        "version": "1.0.0",
+        "phase": "P4+",
+        "description": "Real data logging for hunting trips, waypoint visits, and observations"
+    }),
 ]
 
 
