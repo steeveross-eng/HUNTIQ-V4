@@ -568,11 +568,7 @@ async def get_recent_events(
     if species:
         query["metadata.species"] = species
     
-    logger.info(f"P2 events query: {query}")
-    
     events = await database.geo_entities.find(query).sort("created_at", -1).limit(limit).to_list(limit)
-    
-    logger.info(f"P2 events found: {len(events)}")
     
     return [_geo_entity_to_event_response(event) for event in events]
 
