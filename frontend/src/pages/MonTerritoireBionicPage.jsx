@@ -594,7 +594,7 @@ const MonTerritoireBionicPage = () => {
   // ============================================
   const [showEcoforestryPanel, setShowEcoforestryPanel] = useState(false);
   const [activeEcoLayers, setActiveEcoLayers] = useState({
-    baseMap: 'bionic-premium', // Fond de carte BIONIC Premium par défaut
+    baseMap: 'bionicPremium', // Fond de carte BIONIC Premium par défaut
     peuplements: false,
     essences: false,
     perturbations: false,
@@ -611,11 +611,11 @@ const MonTerritoireBionicPage = () => {
   useEffect(() => {
     // Mapper les types de carte BIONIC aux baseMap du système existant
     const mapTypeToBaseMap = {
-      'bionic-premium': 'bionic-premium',
+      'bionic-premium': 'bionicPremium',
       'ecoforestry': 'ecoforestry',
       'satellite': 'satellite_hd',
-      'iqho': 'terrain',
-      'bathymetry': 'bionic-premium',
+      'iqho': 'iqho',
+      'bathymetry': 'bionicPremium',
       'forest-roads': 'topo_hd',
       'topo-advanced': 'topo_hd'
     };
