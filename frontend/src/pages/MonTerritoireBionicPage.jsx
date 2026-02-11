@@ -569,6 +569,20 @@ const MonTerritoireBionicPage = () => {
   const [showAnalysisPanel, setShowAnalysisPanel] = useState(true);
   const [liveMode, setLiveMode] = useState(false);
   
+  // ============================================
+  // CARTE PREMIUM BIONIC - Sélecteur de type de carte
+  // ============================================
+  const { 
+    mapType, 
+    setMapType, 
+    mapOptions, 
+    setMapOptions, 
+    tileUrl, 
+    attribution,
+    isDarkOptimized,
+    getZoneOpacityForCurrentMap
+  } = useMapType(MAP_TYPES.BIONIC_PREMIUM);
+  
   // Mode d'affichage des zones BIONIC
   const [zoneDisplayMode, setZoneDisplayMode] = useState('micro'); // 'micro' ou 'classic'
   const [showConcentricCircles, setShowConcentricCircles] = useState(true);
