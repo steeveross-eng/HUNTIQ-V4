@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Select,
   SelectContent,
@@ -47,37 +48,37 @@ import {
   Calendar
 } from "lucide-react";
 
-// Configuration des catégories et options
+// Configuration des catégories et options - IDs are translation keys
 const CATEGORIES = [
-  { id: "all", name: "Toutes catégories", icon: "🎯" },
-  { id: "urine", name: "Urines", icon: "💧" },
-  { id: "gel", name: "Gels", icon: "🧴" },
-  { id: "granules", name: "Granulés", icon: "🔘" },
-  { id: "bloc", name: "Blocs", icon: "🧊" },
-  { id: "liquide", name: "Liquides", icon: "💦" },
-  { id: "poudre", name: "Poudres", icon: "✨" },
-  { id: "spray", name: "Sprays", icon: "💨" }
+  { id: "all", nameKey: "filter_all_categories" },
+  { id: "urine", nameKey: "filter_urine" },
+  { id: "gel", nameKey: "filter_gel" },
+  { id: "granules", nameKey: "filter_granules" },
+  { id: "bloc", nameKey: "filter_blocks" },
+  { id: "liquide", nameKey: "filter_liquids" },
+  { id: "poudre", nameKey: "filter_powders" },
+  { id: "spray", nameKey: "filter_sprays" }
 ];
 
 const ANIMALS = [
-  { id: "all", name: "Tous animaux" },
-  { id: "deer", name: "Cerf / Chevreuil" },
-  { id: "moose", name: "Orignal" },
-  { id: "bear", name: "Ours" },
-  { id: "wild_boar", name: "Sanglier" },
-  { id: "coyote", name: "Coyote" },
-  { id: "fox", name: "Renard" }
+  { id: "all", nameKey: "filter_all_animals" },
+  { id: "deer", nameKey: "filter_deer" },
+  { id: "moose", nameKey: "filter_moose" },
+  { id: "bear", nameKey: "filter_bear" },
+  { id: "wild_boar", nameKey: "filter_wild_boar" },
+  { id: "coyote", nameKey: "filter_coyote" },
+  { id: "fox", nameKey: "filter_fox" }
 ];
 
 const SEASONS = [
-  { id: "all", name: "Toutes saisons" },
-  { id: "pre_rut", name: "Pré-rut" },
-  { id: "rut", name: "Rut" },
-  { id: "post_rut", name: "Post-rut" },
-  { id: "spring", name: "Printemps" },
-  { id: "summer", name: "Été" },
-  { id: "fall", name: "Automne" },
-  { id: "winter", name: "Hiver" },
+  { id: "all", nameKey: "filter_all_seasons" },
+  { id: "pre_rut", nameKey: "filter_pre_rut" },
+  { id: "rut", nameKey: "filter_rut" },
+  { id: "post_rut", nameKey: "filter_post_rut" },
+  { id: "spring", nameKey: "filter_spring" },
+  { id: "summer", nameKey: "filter_summer" },
+  { id: "fall", nameKey: "filter_fall" },
+  { id: "winter", nameKey: "filter_winter" },
   { id: "year_round", name: "Toute l'année" }
 ];
 
