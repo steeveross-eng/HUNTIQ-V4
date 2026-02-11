@@ -457,8 +457,8 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
 
   // Territory Types and Mock Data
   const TERRITORY_TYPES = {
-    zec: { name: 'ZEC', color: '#22c55e', icon: '🏕️' },
-    sepaq: { name: 'Réserve faunique', color: '#3b82f6', icon: '🦌' },
+    zec: { name: 'ZEC', color: '#22c55e', iconType: 'tent' },
+    sepaq: { name: 'Réserve faunique', color: '#3b82f6', iconType: 'shield' },
     clic: { name: 'Zone Clic', color: '#f59e0b', icon: '🟠' },
     pourvoirie: { name: 'Pourvoirie', color: '#8b5cf6', icon: '🟣' },
     prive: { name: 'Territoire privé', color: '#ef4444', icon: '🔴' },
