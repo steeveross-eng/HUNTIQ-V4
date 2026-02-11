@@ -4477,6 +4477,39 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
             </div>
           )}
 
+          {/* BIONIC TACTICAL Advanced Layer Panel */}
+          {showBionicLayerPanel && (
+            <div className="absolute top-36 left-4 z-[750]">
+              <BionicLayerPanel
+                visibility={advancedZoneVisibility}
+                onVisibilityChange={setAdvancedZoneVisibility}
+                opacity={advancedZoneOpacity}
+                onOpacityChange={setAdvancedZoneOpacity}
+                onClose={() => setShowBionicLayerPanel(false)}
+                onMinimize={() => setBionicLayerPanelMinimized(!bionicLayerPanelMinimized)}
+                minimized={bionicLayerPanelMinimized}
+                language="fr"
+              />
+            </div>
+          )}
+          
+          {/* Toggle BIONIC Layer Panel Button */}
+          {!showBionicLayerPanel && (
+            <button
+              onClick={() => setShowBionicLayerPanel(true)}
+              className="absolute top-36 left-4 z-[700] bg-black/80 backdrop-blur-xl border border-white/10 rounded-md p-3 shadow-xl hover:border-[#F5A623]/30 transition-colors group"
+              data-testid="bionic-layer-panel-toggle"
+              title="Panneau Couches BIONIC"
+            >
+              <div className="flex items-center gap-2">
+                <Target className="h-5 w-5 text-[#F5A623]" />
+                <span className="text-white text-xs font-semibold uppercase tracking-wider hidden group-hover:inline">
+                  Zones Avancées
+                </span>
+              </div>
+            </button>
+          )}
+
           {/* Active tool indicator */}
           {activeTool && (
             <div className={`absolute top-4 left-1/2 transform -translate-x-1/2 z-[600] text-sm px-4 py-2 rounded-lg font-medium shadow-lg ${
