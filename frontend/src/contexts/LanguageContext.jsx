@@ -2181,7 +2181,69 @@ export const TRANSLATIONS = {
     optimization_balanced: "Balanced (distance + probability)",
     optimization_probability: "Maximize probability",
     optimization_distance: "Minimum distance",
-    event_shot: "Shot"
+    event_shot: "Shot",
+    
+    // Business Dashboard - Lot 4
+    business_loading: "Loading business dashboard...",
+    common_products: "Products",
+    common_orders: "Orders",
+    common_customers: "Customers",
+    common_suppliers: "Suppliers",
+    
+    // Territory Inventory - Lot 4
+    territory_inventory: "Inventory",
+    territory_ai_scraping: "AI & Scraping",
+    common_territories: "Territories",
+    common_provinces: "Provinces",
+    territory_avg_score: "Avg Score",
+    territory_search_placeholder: "Search for a territory, region...",
+    filter_all_types: "All types",
+    filter_all_provinces: "All provinces",
+    filter_all_species: "All species",
+    common_sort: "Sort",
+    sort_score: "Score",
+    sort_name: "Name",
+    sort_success: "Success",
+    sort_recent: "Recent",
+    filter_reset: "Reset",
+    territory_found_count: "territory",
+    territory_found: "found",
+    filter_hint: "Modify your filters or try another search",
+    pagination_prev: "Prev",
+    pagination_next: "Next",
+    territory_loading_data: "Loading territories...",
+    
+    // Networking Hub - Lot 4
+    feed_share_prompt: "Share your hunting experience...",
+    feed_no_posts: "No posts yet",
+    feed_be_first: "Be the first to share!",
+    common_share: "Share",
+    feed_new_post: "New Post",
+    feed_share_desc: "Share your experience with the community",
+    common_title: "Title",
+    common_optional: "optional",
+    feed_title_placeholder: "My hunting story...",
+    common_content: "Content",
+    feed_content_placeholder: "Describe your experience...",
+    common_location: "Location",
+    location_placeholder: "Region, Zone...",
+    common_select: "Select",
+    common_tags: "Tags",
+    common_comma_separated: "comma separated",
+    common_publish: "Publish",
+    species_moose: "Moose",
+    species_deer: "Deer",
+    species_bear: "Black Bear",
+    species_turkey: "Turkey",
+    species_small_game: "Small Game",
+    services_guided: "Guided Hunt",
+    services_meals: "Meals Included",
+    services_processing: "Game Processing",
+    
+    // Common - Lot 4
+    common_loading: "Loading...",
+    common_error: "Error",
+    retry: "Retry"
   }
 };
 
