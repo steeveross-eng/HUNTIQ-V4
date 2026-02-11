@@ -1,8 +1,8 @@
 # HUNTIQ V3 - Product Requirements Document
 
 ## Date de création: 2026-02-03
-## Dernière mise à jour: 11 Février 2026 (v9)
-## Version: 6.9 (i18n FR/EN Traduction Instantanée - LIVRÉ)
+## Dernière mise à jour: 11 Février 2026 (v10)
+## Version: 6.10 (i18n FR/EN Complète + Design Professionnel - LIVRÉ)
 
 ---
 
