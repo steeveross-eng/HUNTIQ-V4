@@ -145,16 +145,20 @@ async def cancel_order(
 async def get_commissions(
     status: Optional[str] = None,
     commission_type: Optional[str] = None,
-    limit: int = Query(500, le=1000)
+    limit: int = Query(500, le=1000),
+    user: UserWithRole = Depends(require_business_or_admin)
 ):
-    """Get all commissions"""
+    """Get all commissions (Business/Admin only)"""
     service = get_orders_service()
     return await service.get_commissions(status, commission_type, limit)
 
 
 @router.put("/commissions/{commission_id}/pay")
-async def mark_commission_paid(commission_id: str):
-    """Mark a commission as paid"""
+async def mark_commission_paid(
+    commission_id: str,
+    user: UserWithRole = Depends(require_business_or_admin)
+):
+    """Mark a commission as paid (Business/Admin only)"""
     service = get_orders_service()
     commission = await service.mark_commission_paid(commission_id)
     
