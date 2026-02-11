@@ -242,7 +242,9 @@ export const SuccessForecast = () => {
             {/* Unfavorable */}
             {forecast?.unfavorable_conditions?.length > 0 && (
               <div className="bg-red-900/20 rounded-lg p-3 border border-red-700/50">
-                <h5 className="text-red-400 font-medium mb-2">⚠️ Conditions défavorables</h5>
+                <h5 className="text-red-400 font-medium mb-2 flex items-center gap-1">
+                  <AlertTriangle className="h-4 w-4" /> Conditions défavorables
+                </h5>
                 <ul className="text-sm text-slate-300 space-y-1">
                   {forecast.unfavorable_conditions.map((cond, i) => (
                     <li key={i}>• {cond}</li>
@@ -255,8 +257,8 @@ export const SuccessForecast = () => {
           {/* Optimal Window */}
           {forecast?.optimal_time_window && (
             <div className="mt-4 text-center">
-              <p className="text-slate-400">
-                🕐 Fenêtre horaire optimale: <span className="text-[#f5a623] font-bold">{forecast.optimal_time_window}</span>
+              <p className="text-slate-400 flex items-center justify-center gap-2">
+                <Clock className="h-4 w-4" /> Fenêtre horaire optimale: <span className="text-[#f5a623] font-bold">{forecast.optimal_time_window}</span>
               </p>
             </div>
           )}
@@ -267,7 +269,7 @@ export const SuccessForecast = () => {
       <Card className="bg-slate-800 border-slate-700">
         <CardHeader className="pb-2">
           <CardTitle className="text-lg text-white flex items-center gap-2">
-            <span>🏆</span>
+            <Trophy className="h-5 w-5 text-[#f5a623]" />
             Classement WQS des Waypoints
           </CardTitle>
         </CardHeader>
@@ -291,15 +293,18 @@ export const SuccessForecast = () => {
                   <div className="flex-1">
                     <p className="text-white font-medium">{wp.waypoint_name}</p>
                     <div className="flex gap-4 text-sm text-slate-400">
-                      <span>📊 Succès: {wp.success_rate}%</span>
-                      <span>👁️ {wp.total_visits} visites</span>
+                      <span className="flex items-center gap-1"><BarChart3 className="h-3 w-3" /> Succès: {wp.success_rate}%</span>
+                      <span className="flex items-center gap-1"><Eye className="h-3 w-3" /> {wp.total_visits} visites</span>
                     </div>
                   </div>
                   
                   <div className="text-right">
                     <div className="text-2xl font-bold text-[#f5a623]">{wp.total_score}%</div>
-                    <Badge className={getClassificationColor(wp.classification)}>
-                      {getClassificationLabel(wp.classification)}
+                    <Badge className={`${getClassificationColor(wp.classification)} flex items-center gap-1`}>
+                      {(() => {
+                        const { Icon, label } = getClassificationIcon(wp.classification);
+                        return <><Icon className="h-3 w-3" /> {label}</>;
+                      })()}
                     </Badge>
                   </div>
                 </div>
@@ -307,7 +312,7 @@ export const SuccessForecast = () => {
             </div>
           ) : (
             <div className="text-center py-8">
-              <span className="text-4xl">📍</span>
+              <MapPin className="h-10 w-10 text-[#f5a623] mx-auto" />
               <p className="text-slate-400 mt-2">Aucun waypoint avec données</p>
               <p className="text-slate-500 text-sm">Enregistrez des sorties pour voir le classement</p>
             </div>
