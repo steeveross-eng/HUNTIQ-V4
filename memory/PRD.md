@@ -681,10 +681,43 @@ Tous les modules opérationnels avec APIs documentées.
 6. 🛤️ **Chemins Forestiers** - Sentiers et accès (OpenTopoMap)
 7. 📐 **Topo Avancée** - Courbes de niveau fines (OpenTopoMap)
 
-### Prochaines étapes Design System
-- 📋 **Phase 2**: Zones avancées sur la carte (polygones colorés)
-- 📋 **Phase 3**: Admin (uniformisation avec BIONIC TACTICAL)
-- 📋 **Phase 4**: Finitions et polissage
+---
+
+## 🎯 SÉQUENCE DE PRIORITÉS ACTUELLE
+
+### P0 - Phase 2 Cartes (EN COURS)
+- 🔲 **Écoforestière améliorée** - Coupes, peuplements, essences via WMS MFFP
+- 🔲 **Bathymétrie** - Intégration des données de profondeur des lacs du Québec
+
+### P0 - Zones Avancées (14 types)
+- 🔲 **Zones comportementales** - Rut, Repos, Alimentation
+- 🔲 **Zones environnementales** - Soleil, Pente, Hydro, Forêt, Thermique
+- 🔲 **Zones stratégiques** - Corridor, Affût, Habitat, Hotspot, Pression, Accès
+- 🔲 **Affichage polygones colorés** avec opacité adaptative par type de carte
+
+### P0.5 - Mode Hors-Ligne & Navigation Terrain
+- 🔲 **Téléchargement tuiles** - Zone délimitée, multi-cartes, progression
+- 🔲 **Navigation GPS en direct** - Guidage vers waypoint sans réseau
+- 🔲 **Boussole temps réel** - Orientation + mode heading-up
+- 🔲 **Sync automatique** - Mise à jour tuiles au retour connexion
+- 🔲 **Cache intelligent** - IndexedDB, LRU, quota management
+- 🔲 **Compatibilité totale** - 7 cartes, 14 zones, chemins, hotspots
+- 📄 Documentation: `/app/memory/ROADMAP_OFFLINE_NAVIGATION.md`
+
+### P1 - Chemins Privés
+- 🔲 **Ajout chemins utilisateur** - Intégration dans geo_entities
+- 🔲 **Édition/suppression** - CRUD complet sur la carte
+- 🔲 **Partage groupe** - Chemins partagés entre membres
+
+### P1 - i18n Centralisée
+- 🔲 **Connecter i18next** - Provider dans App.js
+- 🔲 **Sélecteur de langue** - FR/EN avec persistance
+- 🔲 **Remplacement textes** - Utiliser clés de traduction
+
+### P1 - Refactorisation Admin
+- 🔲 **Alignement BIONIC TACTICAL** - Toutes les interfaces admin
+
+---
 
 ### Backlog
 - 🔲 Notifications push de groupe
@@ -692,13 +725,14 @@ Tous les modules opérationnels avec APIs documentées.
 - ✅ **Dashboard Business** - LIVRÉ (11 Février 2026)
 - ✅ **Suppression user_waypoints.py** - LIVRÉ P1 (11 Février 2026)
 
-### P3 - Prochaines Phases (Planifié)
+### P3 - Phases Futures
 - 🔲 **WebSocket Sync & Scoring Avancé**: Sync temps réel tous types d'entités
 - 🔲 **Scoring Météo-Faune**: Intégration données météo dans calculs de probabilité
 - 🔲 **Dashboard Admin Global**: Vue unifiée de toutes les entités géospatiales
+- 🔲 **Migration territories**: Collection territories vers geo_entities
 
 ---
 
 *HUNTIQ V3 - Powered by GPT-5.2 & Emergent Platform*
 *Architecture Modulaire v2.0 - 48 Backend + 24 Frontend - CONNECTÉS*
-*Phase P2 Géospatiale + Design System BIONIC TACTICAL Phase 1 - LIVRÉ (11 Fév 2026)*
+*Design System BIONIC TACTICAL + Cartes Premium Phase 1 - LIVRÉ (11 Fév 2026)*
