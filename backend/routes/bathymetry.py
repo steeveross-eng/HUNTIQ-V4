@@ -207,7 +207,7 @@ async def upload_bathymetry_data(data: BathymetryUpload):
     }
     
     # Upsert
-    result = await bathymetry_lakes.update_one(
+    await bathymetry_lakes.update_one(
         {"lake_id": lake_id},
         {"$set": lake_doc},
         upsert=True
