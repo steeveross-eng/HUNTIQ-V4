@@ -1756,7 +1756,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       // Générer les zones de probabilité
       generateProbabilityZones();
       
-      toast.success(`🎯 Point analysé: ${analysisRes.data.probability_score}% de probabilité pour ${selectedAnalysisSpecies}`, {
+      toast.success(`Point analysé: ${analysisRes.data.probability_score}% de probabilité pour ${selectedAnalysisSpecies}`, {
         description: `${huntingRes.data?.total_count || 0} territoires à proximité`,
         duration: 5000
       });
