@@ -1,37 +1,26 @@
 <analysis>**original_problem_statement:**
-The user, Steeve Ross, is continuing the development of his project, HUNTIQ V3, based on a master plan (Plan Maître BIONIC).
+The user, Steeve Ross, is overseeing the development of his project, HUNTIQ V3, following a master plan (Plan Maître BIONIC). This session's goal was to execute a major UI/UX overhaul by implementing the BIONIC TACTICAL Design System.
 
-This session involved executing a complex, multi-stage data migration and simultaneously launching a major UI/UX overhaul.
+Initial work involved integrating the new design system into the application's main navigation. Following this, the user requested a significant new feature: a selection of seven premium, high-utility map layers (e.g., Ecoforestry, Satellite HR, Bathymetry). The agent built the UI selector for this and the underlying frontend architecture.
 
-The primary completed task was **P2 - Geospatial Normalization**. This involved:
-1.  **Analysis & Planning:** Analyzing all geospatial data models, creating a detailed implementation plan, and developing reversible migration scripts.
-2.  **Dry-Run & Debugging:** Creating test data, performing a full dry-run of the migration, identifying and fixing a bug in the migration script, and submitting a detailed report.
-3.  **Live Migration & Refactoring:** Upon user validation, executing the live migration of  and  data into a unified  collection. This was followed by refactoring the  backend module to use the new unified collection. A critical routing conflict with a legacy module was also diagnosed and resolved.
+The user then provided strategic direction to make the ecoforestry layer multi-regional (Canada, USA, Quebec) and to plan for an offline mode with live GPS navigation. The agent successfully implemented the multi-region architecture and a robust fallback system for geo-restricted data sources.
 
-In parallel, the user initiated a major new workstream: **UI/UX Overhaul & BIONIC TACTICAL Design System**.
-1.  **Comprehensive Audit:** The agent conducted a full audit of the application's UI/UX, navigation (for both users and admins), visual identity, and translation readiness.
-2.  **Design & Strategy Proposal:** Based on the audit, the agent proposed a new BIONIC TACTICAL Design System, a centralized  (FR/EN) structure, a new streamlined navigation, and a plan for refactoring the admin interfaces.
-3.  **New Feature Proposal:** At the user's request, the agent also created a detailed proposal for an Advanced Zone Display feature on the main map.
-4.  **User Validation:** The user validated all audit reports and proposals, giving the green light to begin implementation.
-
-A side task was to **validate the OpenWeatherMap API key**, which became active during the session. The agent removed the temporary fallback logic, and the application now successfully fetches real weather data.
+The final directive was to prepare for and begin implementing the Advanced Zones feature, which involves rendering 14 different types of tactical zones (rutting, bedding, feeding, etc.) on the map. The agent has laid the architectural foundation for this feature by creating the necessary backend APIs and frontend component placeholders.
 
 **User's preferred language**: French
 
 **what currently exists?**
-*   **Unified Geospatial Backend (P2 Complete):** The  MongoDB collection is now the single source of truth for geospatial events and tracks. The backend module  has been fully refactored to read from and write to this collection. A backup of the old data exists in  collections.
-*   **Live Weather Engine:** The  is fully operational with the user's active OpenWeatherMap API key, providing real-time weather data. The temporary fallback to simulated data has been removed.
-*   **BIONIC TACTICAL Design System (Foundation):** The foundational structure for the new design system has been created at . This includes a theme file and the first set of core components (, , , etc.).
-*   **i18n Structure (Foundation):** The basic file structure for a centralized  translation system is in place at , ready for integration.
-*   **Extensive Documentation:** A suite of approved analysis, planning, and proposal documents exists in , detailing the P2 migration and the full UI/UX overhaul plan.  has been updated to reflect P2 completion.
+*   **BIONIC TACTICAL Design System (Phase 1):** The new design system is live and integrated into the primary application navigation (), including a functional responsive mobile menu.
+*   **Premium Map Selector:** A  component is integrated into the main map page (), allowing users to switch between 7 premium map types. The selection is persistent and drives the map display.
+*   **Multi-Region Ecoforestry Architecture:** The application now supports multiple regions (QC, CA, USA) for ecoforestry data, with a central registry () and a smart hook () that handles data source availability and fallbacks.
+*   **Robust WMS Fallback System:** When a geo-restricted WMS layer (like Quebec's MFFP) is unavailable, the application automatically and gracefully falls back to a high-definition topographic map, informing the user.
+*   **Bathymetry & Advanced Zones Foundation:** The backend APIs (, ) and frontend component/hook placeholders have been created, preparing the application for the implementation of these features. The advanced zones API is functional and returns the 14 zone types.
+*   **Comprehensive Documentation:** The  is updated, and new planning documents for Premium Maps () and Offline Mode () have been created and approved.
 
 **Last working item**:
-*   **Last item agent was working:** The agent was working on several parallel tasks initiated by the user. The most recent actions were:
-    1.  Creating the foundational file structure and initial components for the **BIONIC TACTICAL Design System (Phase 1)**.
-    2.  Verifying the user's **OpenWeatherMap API key** became active and removing the corresponding fallback logic from the backend.
-    3.  Restarting the frontend and taking a screenshot to confirm the app was still running after these changes.
+*   **Last item agent was working:** Setting up the foundational architecture for the Advanced Zones feature. This involved creating the backend API to serve zone configurations, a new router, and placeholder hooks/components on the frontend. The goal was to prepare for the actual rendering of the zones on the map.
 *   **Status:** IN PROGRESS
-*   **Agent Testing Done:** Y (for Weather API via curl), N (for Design System)
+*   **Agent Testing Done:** Y (The new backend endpoint  was successfully tested with .)
 *   **Which testing method agent to use?** frontend testing agent
 *   **User Testing Done:** N
 
@@ -39,126 +28,117 @@ A side task was to **validate the OpenWeatherMap API key**, which became active 
 *   None.
 
 **In progress Task List**:
-- **Task 1: Implement Design System BIONIC TACTICAL (Phase 1)** (Priority: P0)
-    -   **Where to resume:** The foundational components are created in . The next step is to integrate them into the application, starting by replacing the existing main navigation in  with the new  component and progressively replacing standard elements like buttons and cards with their Bionic counterparts.
-    -   **What will be achieved with this?** The application's visual appearance will begin to align with the new, user-approved BIONIC TACTICAL identity, starting with the most prominent UI elements.
+- **Task 1: (P0) Implement Rendering of 14 Advanced Zones** (Priority: P0)
+    -   **Where to resume:** The backend API () is ready. The next step is to implement the logic within  to fetch zone geometry data and then use  to render the GeoJSON polygons on the Leaflet map in .
+    -   **What will be achieved with this?** Users will be able to toggle and view 14 distinct, color-coded tactical zones on their map, fulfilling a core requirement of the BIONIC vision.
     -   **Status:** IN PROGRESS
     -   **Should Test frontend/backend/both after fix?** Frontend
     -   **Blocked on something:** No.
 
 **Upcoming and Future Tasks**
 *   **Upcoming Tasks:**
-    *   **(P0) Implement Advanced Zone Display:** The proposal () is approved. The next step is to implement the  component and integrate it into  to allow users to toggle the visibility of 14 different types of geospatial zones.
-    *   **(P1) Integrate Centralized i18n:** The file structure is ready. The next step is to wire up the  provider in the React application, create a language switcher, and begin replacing hardcoded text with translation keys.
-    *   **(P1) Refactor Admin Interfaces:** The audit () is approved. After the Design System (Task 1) is more established, refactor all admin pages and components to align with the BIONIC TACTICAL look and feel.
-*   **Future Tasks (from Plan Maître):**
-    *   **(P3) WebSocket Sync & Advanced Scoring:** Implement real-time synchronization and integrate weather/fauna scoring models.
-    *   **(P3)  Data Migration:** The migration for the  collection was explicitly deferred to Phase P3.
-    *   **(P3) Global Admin Dashboard:** Further enhancements to the admin dashboard functionality.
+    *   **(P0.5) Implement Offline Mode & Live Navigation:** Based on the user-approved , build the architecture for downloading map tiles for offline use. Implement live GPS tracking and compass orientation.
+    *   **(P1) Implement Private Paths:** Develop a full CRUD interface for users to add and manage their private paths, storing the data in the  collection.
+    *   **(P1) Integrate Centralized i18n:** Connect the  provider in  and begin migrating hardcoded strings to translation keys.
+    *   **(P1) Refactor Admin Interfaces:** Update all administrative pages and components to align with the BIONIC TACTICAL design system.
+*   **Future Tasks (from Plan Maître BIONIC):**
+    *   **(P2 - Phase 2 Cartes) Implement Bathymetry Data:** Integrate real data sources into the existing backend/frontend structure for bathymetry.
+    *   **(PROD) Deploy Quebec Proxy:** Deploy a reverse proxy in a Quebec datacenter to provide production access to the geo-restricted MFFP WMS.
+    *   **(P3) WebSocket Sync & Advanced Scoring:** Implement real-time data synchronization.
+    *   **(P3)  Data Migration:** Migrate the legacy  collection.
 
 **Completed work in this session**
-- **P2 Geospatial Migration (DONE):**
-    - Successfully migrated  and  data to a unified  collection using a custom, reversible script.
-    - Refactored all related endpoints in  to use the new collection.
-    - Diagnosed and fixed a critical API routing conflict caused by a legacy module.
-- **OpenWeatherMap API Activation (DONE):**
-    - Confirmed the user's API key is active and removed the simulated data fallback from the .
-- **UI/UX & Design Overhaul (Analysis & Planning DONE):**
-    - Conducted and delivered comprehensive audits of the user UI, admin UI, and navigation structure.
-    - Created and received user validation for the BIONIC TACTICAL design system, a centralized i18n strategy, and the Advanced Zone Display feature.
-- **Documentation (DONE):**
-    - Created multiple analysis, planning, and proposal documents to guide future work (, , , etc.).
-    - Updated  to reflect the completion of Phase P2.
+- **Design System BIONIC TACTICAL (Phase 1 Integration):** Successfully replaced the main navigation in , including the header, dropdowns, and a responsive mobile menu. Fixed UI regressions found by the testing agent.
+- **Premium Map Feature (Phase 1 & 2 Prep):**
+    - Built and integrated the  component for 7 premium map types.
+    - Established a multi-region architecture for the Ecoforestry layer to support sources from QC, CA, and USA.
+    - Created the foundational backend API and frontend components for the upcoming Bathymetry layer.
+- **Advanced Zones Feature (Foundation):**
+    - Updated frontend configurations to include all 14 zone types.
+    - Created a new backend API () to serve zone data.
+    - Created placeholder frontend components and hooks to prepare for rendering.
+- **Documentation:** Updated  and created  and .
 
 **Earlier issues found/mentioned but not fixed**
-- Minor checkup warnings from a previous platform diagnostic were deferred by the user and remain in the backlog.
+*   Minor platform diagnostic warnings from a previous session were deferred by the user.
 
 **Known issue recurrence from previous fork**
-- None.
+*   None.
 
 **Code Architecture**
-
+routes
 
 **Key Technical Concepts**
-*   **Scripted Database Migration:** Executing a complex data model transformation from multiple collections to a single, unified schema using a custom Python script with dry-run and rollback capabilities.
-*   **API Route Conflict Resolution:** Debugging and resolving a critical issue in FastAPI where router inclusion order caused a legacy endpoint to incorrectly handle requests intended for a newer, modular endpoint.
-*   **Design System Architecture:** Initiating a centralized frontend component library in React () to enforce a consistent and maintainable UI/UX across the application.
-*   **Internationalization (i18n) Scaffolding:** Setting up the foundational directory and file structure to support multi-language capabilities in the frontend.
+*   **Modular Frontend Architecture:** Features like map layers and zones are being built as independent, reusable components and hooks to avoid monolithic components and ensure extensibility.
+*   **API-Driven UI:** The frontend dynamically renders features (like map types and zone configurations) based on data fetched from the backend, allowing for easier updates.
+*   **Multi-Region Data Registry:** A centralized configuration () manages different data sources for various geographic regions, allowing the application to scale.
+*   **Robust Fallback Mechanisms:** The application is designed to handle unavailable external services (like geo-restricted WMS) by gracefully switching to an alternative data source without breaking the user experience.
 
 **key DB schema**
-- **geo_entities**:  - The new, unified source of truth for geospatial objects like  and . Contains , GeoJSON , , and other metadata.
-- **_p2_migration_backup_events**, **_p2_migration_backup_tracks**:  - Automatically created backups of the original data before the P2 migration.
+*   No changes were made to the database schema in this session. The primary collection remains .
 
 **changes in tech stack**
-- No new technologies were added, but a significant architectural shift has begun in the frontend with the creation of the centralized **BIONIC TACTICAL Design System**.
+*   None.
 
 **All files of reference**
-*   **/app/backend/migrations/p2_migration_main.py**: The script that performed the successful data migration to .
-*   **/app/backend/territory.py**: Heavily refactored to use the new  collection for all event/track operations.
-*   **/app/backend/server_monolith_backup.py**: Modified to comment out legacy routes that were causing API conflicts.
-*   **/app/backend/modules/weather_engine/v1/external_service.py**: Updated to remove the simulated data fallback.
-*   **/app/frontend/src/design-system/**: New directory containing the foundational components of the BIONIC TACTICAL Design System.
-*   **/app/frontend/src/i18n/**: New directory containing the foundational files for the FR/EN translation system.
-*   **/app/memory/AUDIT_UIUX_COMPLET.md**: The approved audit report that serves as the blueprint for the UI/UX overhaul.
-*   **/app/memory/PROPOSITION_ZONES_AVANCEES.md**: The approved proposal for the next major map feature.
+*   : The main map page where new features (Map Selector, Advanced Zones) are being integrated.
+*   : The new UI component for selecting premium maps.
+*   : The central configuration for multi-region WMS data sources.
+*   : The new API for fetching advanced zone configurations.
+*   : The user-approved plan for the critical offline mode feature.
+*   : The canonical source for project status and future work.
 
 **Areas that need refactoring**:
-- The entire frontend is the subject of an ongoing, user-approved refactoring effort to adopt the new **BIONIC TACTICAL Design System**. This is the primary workstream. The admin interfaces are slated for refactoring after the main user-facing components.
+*   The  component has grown significantly and handles a large amount of state and rendering logic. It is a candidate for future refactoring into smaller, more focused child components to improve maintainability.
 
 **key api endpoints**
-*   : Now correctly reads from the  collection.
-*   : Now correctly writes new observations to the  collection.
-*   : All weather endpoints now serve live, real-world data from the OpenWeatherMap API.
+*   : (NEW) Placeholder endpoint for bathymetric data statistics.
+*   : (NEW) Returns the configuration for the 14 advanced zone types.
 
 **Critical Info for New Agent**
 *   **Vous devez communiquer avec l'utilisateur en français.**
-*   The project is in a multi-stream development phase. The immediate highest priority is **Phase 1 of the BIONIC TACTICAL Design System implementation**. You should resume by integrating the newly created components into the application's main layout and navigation.
-*   The **P2 Geospatial Migration is 100% complete and validated**. The backend logic in  relies on the new  collection. Do not revert to using the old collections.
-*   The **OpenWeatherMap API is live**. There is no longer a fallback to simulated data; all weather information is real.
-*   Adhere strictly to the user's governance model: Propose -> Get Validation -> Implement. The next tasks (Advanced Zones, i18n, Admin UI) have all been proposed and validated at a high level. You are cleared to proceed with implementation, starting with the Design System.
+*   The immediate highest priority (P0) is to implement the **visual rendering of the 14 Advanced Zones**. The architectural foundation for this is already in place. Your task is to build out the rendering logic.
+*   The project follows a strict **modular architecture**. Avoid creating tight coupling between features. New functionalities should be self-contained in their own components/hooks.
+*   Adhere to the user's validated roadmap: **1. Advanced Zones (P0)**, **2. Offline Mode (P0.5)**, **3. Private Paths (P1)**, **4. i18n (P1)**.
+*   Do not attempt to fix the direct WMS access for Quebec's MFFP data source. It is geo-restricted. The application has a working fallback, and a production proxy is planned.
 
 **documents and test reports created in this job**
-*   /app/memory/P2_GEOSPATIAL_NORMALIZATION_ANALYSIS.md
-*   /app/memory/P2_IMPLEMENTATION_PLAN.md
-*   /app/memory/P2_DRYRUN_REPORT.md
-*   /app/memory/AUDIT_UIUX_COMPLET.md
-*   /app/memory/AUDIT_ADMIN_INTERFACES.md
-*   /app/memory/PROPOSITION_ZONES_AVANCEES.md
-*   /app/memory/RAPPORT_ALIGNEMENT_COMPLET.md
-*   /app/backend/migrations/p2_migration_main.py
-*   /app/backend/migrations/p2_rollback.py
+*   
+*   
+*   
+*    (updated)
 
 **Last 10 User Messages and any pending HUMAN messages**
-10. **User:** Validates all UI/UX/i18n/Zone proposals. Authorizes the agent to **begin implementation**, starting with the **Design System (Phase 1)** as the top priority.
-9.  **Agent:** Submits the complete UI/UX audit, Admin interface audit, i18n plan, and Advanced Zones proposal for validation.
-8.  **User:** Requests a comprehensive audit and refactoring plan for all **Admin interfaces** to align them with the new BIONIC TACTICAL design.
-7.  **Agent:** Submits a final summary of the successful P2 Migration and asks for confirmation to proceed with the UI/UX implementation plan.
-6.  **User:** **Validates the P2 migration**. Confirms the agent can proceed with the real migration and subsequent endpoint updates. In parallel, validates the UI/UX audit report and authorizes the next steps (creating mockups/plans).
-5.  **Agent:** Submits the full P2 dry-run report, confirming 100% success after fixing a bug, and asks for approval to run the real migration. Also submits the initial UI/UX audit report.
-4.  **User:** **Initiates a major parallel workstream**: a complete UI/UX audit, a new BIONIC TACTICAL visual identity, a unified FR/EN translation system, and a full analysis of the navigation menu to eliminate redundancy.
-3.  **Agent:** Submits the detailed P2 implementation plan and reversible migration scripts, asking for validation before running the dry-run.
-2.  **User:** **Validates the P2 analysis report**. Authorizes the agent to create the implementation plan and migration scripts.
-1.  **Agent:** Submits the comprehensive P2 Geospatial Normalization analysis report for user validation.
+10. **User:** Validates the multi-region architecture. Confirms the next immediate priority is **rendering the Advanced Zones (P0)**. Provides a detailed roadmap with targets for Offline Mode, the Production Proxy, and Private Paths.
+9.  **Agent:** Summarizes the successful implementation of the multi-region ecoforestry architecture and asks for validation to proceed.
+8.  **User:** Clarifies that the ecoforestry layer must be multi-region (Canada/USA) and that a proxy will be needed for the geo-restricted Quebec WMS in production. Confirms the next steps.
+7.  **Agent:** Finishes the implementation of the Bathymetry API placeholder and the WMS fallback system. Confirms the Ecoforestry layer is ready for production access via proxy.
+6.  **User:** Validates Phase 1 of the premium maps. Emphasizes the need for an **offline mode** with live GPS guidance and tile downloads, and provides a new priority list. Authorizes the agent to start Phase 2 (Ecoforestry WMS).
+5.  **Agent:** Finishes implementation of Phase 1 of the premium maps (BionicMapSelector + Bionic Premium map style) and provides a summary.
+4.  **User:** Validates the proposal for 7 premium maps and provides clear directives for implementation phases, data sources, and technical preferences (hybrid tile hosting). Authorizes the agent to proceed with Phase 1.
+3.  **Agent:** Submits a detailed proposal for the 7 premium map types, including mockups and an implementation plan.
+2.  **User:** After the BIONIC Design system integration, requests a new feature: 7 types of premium, purpose-built map styles.
+1.  **Agent:** Completes the BIONIC TACTICAL Design System (Phase 1) integration and fixes all UI regressions found by the testing agent.
 
 **Project Health Check:**
 *   **Running:** Yes
 *   **Broken:** None
-*   **Mocked:** None
+*   **Mocked:** The backend APIs for Bathymetry and Advanced Zones return placeholder/configuration data. The actual geometric/geospatial data is not yet being served.
 
 **3rd Party Integrations**
 *   **OpenAI GPT-5.2:** Used for AI recommendations via **Emergent LLM Key**.
 *   **Google OAuth:** Used for social login.
-*   **Resend:** Integrated for transactional emails, in **production mode**. Requires User API Key.
+*   **Resend:** Integrated for transactional emails, requires User API Key.
 *   **MongoDB:** Primary database.
 *   **Leaflet / react-leaflet:** Frontend library for the interactive map.
 *   **Recharts:** Frontend library for analytics charts.
-*   **OpenWeatherMap:** Integrated and now **fully active** with real data. Requires User API Key.
+*   **OpenWeatherMap:** Integrated and fully active with real data, requires User API Key.
 
 **Testing status**
-- **Testing agent used after significant changes:** NO (in this session, but the next step will require it).
-- **Troubleshoot agent used after agent stuck in loop:** NO
-- **Test files created:** [, ]
-- **Known regressions:** None.
+*   **Testing agent used after significant changes:** YES (Used to validate the Bionic Navigation integration).
+*   **Troubleshoot agent used after agent stuck in loop:** NO
+*   **Test files created:** None in this session.
+*   **Known regressions:** The testing agent found and the main agent fixed regressions related to the mobile menu and button positioning during the design system integration.
 
 **Credentials to test flow:**
 *   **Admin Login:**  / 
@@ -166,4 +146,4 @@ A side task was to **validate the OpenWeatherMap API key**, which became active 
 *   **Hunter User:**  / 
 
 **What agent forgot to execute**
-- Nothing. The agent successfully managed multiple complex, parallel tasks while adhering to the user's strict governance and sequential validation requirements. The debugging of the API routing conflict was handled effectively.</analysis>
+*   Nothing was forgotten. The agent successfully navigated complex, evolving user requirements, building a modular and extensible architecture while adhering to the user's strict validation process. The agent correctly prioritized user requests and documented all decisions and future work.</analysis>

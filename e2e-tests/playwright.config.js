@@ -16,7 +16,7 @@ module.exports = defineConfig({
     ['json', { outputFile: 'test-results.json' }]
   ],
   use: {
-    baseURL: process.env.BASE_URL || 'https://geomap-tactical.preview.emergentagent.com',
+    baseURL: process.env.BASE_URL || 'https://huntiq-map.preview.emergentagent.com',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
