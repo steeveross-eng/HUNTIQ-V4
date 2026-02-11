@@ -1040,6 +1040,7 @@ const BionicAnalyzer = ({ territory, onClose, onAnalysisComplete }) => {
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {Object.entries(SPECIES_ICONS).map(([id, config]) => {
                       const isSelected = selectedSpecies.includes(id);
+                      const SpeciesIcon = config.Icon || CircleDot;
                       return (
                         <Button
                           key={id}
@@ -1054,7 +1055,7 @@ const BionicAnalyzer = ({ territory, onClose, onAnalysisComplete }) => {
                           }}
                           className={isSelected ? 'bg-[#f5a623] text-black' : ''}
                         >
-                          <span className="mr-1">{config.emoji}</span>
+                          <SpeciesIcon className="h-4 w-4 mr-1" style={{ color: isSelected ? 'inherit' : config.color }} />
                           {config.name}
                         </Button>
                       );
