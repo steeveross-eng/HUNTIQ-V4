@@ -156,22 +156,22 @@ const createCustomIcon = (color, iconType = 'default') => {
   });
 };
 
-// Species configuration - BIONIC Design System compliant (no emoji)
+// Species configuration - BIONIC Design System compliant (Lucide icons only)
 const SPECIES_CONFIG = {
-  orignal: { color: '#8B4513', iconType: 'circle', labelKey: 'animal_moose', heatColor: 'brown' },
-  chevreuil: { color: '#D2691E', iconType: 'circle', labelKey: 'animal_deer', heatColor: 'orange' },
-  ours: { color: '#2F4F4F', iconType: 'circle', labelKey: 'animal_bear', heatColor: 'darkslategray' },
-  autre: { color: '#808080', iconType: 'default', labelKey: 'common_other', heatColor: 'gray' }
+  orignal: { color: BIONIC_COLORS.gold.dark, iconType: 'circle', labelKey: 'animal_moose', heatColor: 'brown', Icon: CircleDot },
+  chevreuil: { color: BIONIC_COLORS.gold.primary, iconType: 'circle', labelKey: 'animal_deer', heatColor: 'orange', Icon: CircleDot },
+  ours: { color: BIONIC_COLORS.gray[600], iconType: 'circle', labelKey: 'animal_bear', heatColor: 'darkslategray', Icon: CircleDot },
+  autre: { color: BIONIC_COLORS.gray[500], iconType: 'default', labelKey: 'common_other', heatColor: 'gray', Icon: CircleDot }
 };
 
-// Event type configuration - BIONIC Design System compliant (no emoji)
+// Event type configuration - BIONIC Design System compliant (Lucide icons only)
 const EVENT_TYPE_CONFIG = {
-  observation: { color: '#22c55e', iconType: 'eye', labelKey: 'waypoint_observation' },
-  camera_photo: { color: '#3b82f6', iconType: 'camera', labelKey: 'waypoint_camera' },
-  tir: { color: '#ef4444', iconType: 'target', labelKey: 'event_shot' },
-  cache: { color: '#a855f7', iconType: 'home', labelKey: 'place_camp' },
-  saline: { color: '#06b6d4', iconType: 'droplet', labelKey: 'place_salt_lick' },
-  feeding_station: { color: '#f59e0b', iconType: 'leaf', labelKey: 'waypoint_feeding' }
+  observation: { color: BIONIC_COLORS.green.primary, iconType: 'eye', labelKey: 'waypoint_observation', Icon: Eye },
+  camera_photo: { color: BIONIC_COLORS.blue.light, iconType: 'camera', labelKey: 'waypoint_camera', Icon: Camera },
+  tir: { color: BIONIC_COLORS.red.primary, iconType: 'target', labelKey: 'event_shot', Icon: Target },
+  cache: { color: BIONIC_COLORS.purple.primary, iconType: 'home', labelKey: 'place_camp', Icon: Tent },
+  saline: { color: BIONIC_COLORS.cyan.primary, iconType: 'droplet', labelKey: 'place_salt_lick', Icon: Droplet },
+  feeding_station: { color: BIONIC_COLORS.gold.primary, iconType: 'leaf', labelKey: 'waypoint_feeding', Icon: Leaf }
 };
 
 // Heatmap Layer Component
