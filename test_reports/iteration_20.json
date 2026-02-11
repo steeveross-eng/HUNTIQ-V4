@@ -1,0 +1,80 @@
+{
+  "iteration": 20,
+  "summary": "Frontend testing of TerritoryMap BIONIC Design System refactoring. CRITICAL ISSUE: The refactored TerritoryMap.jsx component is NOT being used - the page at /mon-territoire-bionic uses MonTerritoireBionicPage.jsx instead. The refactoring was done on an unused component.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "critical": [
+      {
+        "component": "TerritoryMap.jsx",
+        "issue": "WRONG COMPONENT REFACTORED - TerritoryMap.jsx is imported in App.js but NOT used in any route. The page /mon-territoire-bionic uses MonTerritoireBionicPage.jsx instead",
+        "priority": "CRITICAL"
+      },
+      {
+        "component": "TerritoryMap.jsx",
+        "issue": "Missing useLanguage() call - Component imports useLanguage but never calls it, yet uses t() function throughout. This would cause runtime errors if the component was actually used",
+        "priority": "HIGH"
+      }
+    ],
+    "ui_bugs": [
+      {
+        "component": "MonTerritoireBionicPage.jsx",
+        "issue": "Still contains emojis in WAYPOINT_TYPES array (🏠, 🦌, 🎯, 🧂) and custom marker icons (👤, 📍, ⭐)",
+        "selector": "WAYPOINT_TYPES, createCustomIcon",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [
+      {
+        "flow": "Language switching (i18n)",
+        "issue": "MonTerritoireBionicPage content does NOT translate when switching FR/EN. Navigation bar translates but page content stays in French",
+        "affected_selectors": ["Couches", "Carte BIONIC", "Waypoints actifs", "Lieux enregistrés"]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iteration_20.json"],
+  "action_items": [
+    "CRITICAL: Either use TerritoryMap.jsx in the route for /mon-territoire-bionic OR refactor MonTerritoireBionicPage.jsx instead",
+    "Add const { t } = useLanguage(); to TerritoryMap.jsx if it will be used",
+    "Replace emojis in MonTerritoireBionicPage.jsx WAYPOINT_TYPES with Lucide icons",
+    "Replace emojis in MonTerritoireBionicPage.jsx createCustomIcon function with Lucide icons",
+    "Implement i18n translations in MonTerritoireBionicPage.jsx using useLanguage() hook"
+  ],
+  "critical_code_review_comments": [
+    "TerritoryMap.jsx imports useLanguage but never calls it - t() function would be undefined",
+    "TerritoryMap.jsx is 5127 lines - should be split into smaller modules",
+    "MonTerritoireBionicPage.jsx still has hardcoded French text without i18n",
+    "Route mismatch: /mon-territoire-bionic uses MonTerritoireBionicPage, not TerritoryMap"
+  ],
+  "updated_files": [],
+  "success_rate": {
+    "backend": "N/A (skipped)",
+    "frontend": "40%"
+  },
+  "test_credentials": null,
+  "seed_data_creation": null,
+  "retest_needed": true,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "The main agent refactored TerritoryMap.jsx but this component is NOT used in the app routing. The page at /mon-territoire-bionic uses MonTerritoireBionicPage.jsx instead. The refactoring needs to be applied to the correct component or the routing needs to be updated.",
+  "working_features": [
+    "Map loads correctly at /mon-territoire-bionic",
+    "56 out of 58 SVGs are Lucide icons in MonTerritoireBionicPage",
+    "Waypoint creation button works",
+    "LIVE toggle is present",
+    "Base map selector works (BIONIC, ECOFORESTIER, SATELLITE, etc.)",
+    "Layers panel works with professional icons"
+  ],
+  "emojis_still_present": {
+    "MonTerritoireBionicPage.jsx": {
+      "line_87": "👤, 📍, ⭐ in createCustomIcon function",
+      "line_114": "🏠 for Pourvoirie",
+      "line_116": "🦌 for Réserve faunique",
+      "line_117": "🎯 for Affût / Cache",
+      "line_118": "🧂 for Saline",
+      "line_1901": "📍 fallback icon"
+    }
+  }
+}
