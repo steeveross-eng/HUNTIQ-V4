@@ -1,8 +1,8 @@
 # HUNTIQ V3 - Product Requirements Document
 
 ## Date de création: 2026-02-03
-## Dernière mise à jour: 10 Février 2026 (v5)
-## Version: 6.5 (Phase P5 - Module Rôles LIVRÉ)
+## Dernière mise à jour: 11 Février 2026 (v6)
+## Version: 6.6 (Phase P0/P1 - Sécurisation Admin + Nettoyage Legacy LIVRÉ)
 
 ---
 
