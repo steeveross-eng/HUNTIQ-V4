@@ -144,19 +144,19 @@ const getVegetationConclusion = (ndvi, ndwi) => {
   if (ndwi === null || ndwi === undefined) ndwi = 0;
   
   if (ndvi < 0.20 && ndwi < 0) {
-    return "❄️ Période de dormance ou début de saison";
+    return "Période de dormance ou début de saison";
   } else if (ndvi < 0.20 && ndwi >= 0) {
-    return "🌱 Début de croissance probable";
+    return "Début de croissance probable";
   } else if (ndvi >= 0.20 && ndvi < 0.40 && ndwi < 0) {
-    return "⚠️ Stress hydrique détecté";
+    return "Stress hydrique détecté";
   } else if (ndvi >= 0.40 && ndvi < 0.60) {
-    return "🌿 Croissance active - bonnes conditions";
+    return "Croissance active - bonnes conditions";
   } else if (ndvi >= 0.60 && ndwi >= 0.10) {
-    return "✅ Conditions optimales - habitat de qualité";
+    return "Conditions optimales - habitat de qualité";
   } else if (ndvi >= 0.60 && ndwi < 0.10) {
-    return "🔥 Végétation dense mais sèche";
+    return "Végétation dense mais sèche";
   }
-  return "🌳 Conditions normales pour la saison";
+  return "Conditions normales pour la saison";
 };
 
 // Score Gauge Component
