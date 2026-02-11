@@ -20,7 +20,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 // Import BIONIC Analyzer
 import BionicAnalyzer from './BionicAnalyzer';
 // Import BIONIC Layer Panel from Design System
-import { BionicLayerPanel, LAYER_GROUPS, ZONE_COLORS } from '@/design-system';
+import { BionicLayerPanel, LAYER_GROUPS, ZONE_COLORS as DS_ZONE_COLORS } from '@/design-system';
 // Import extracted sub-components
 import { 
   TerritoryHeader, 
