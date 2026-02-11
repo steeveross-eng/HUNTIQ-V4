@@ -3257,7 +3257,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
             {pendingMarker && (
               <Marker
                 position={[pendingMarker.lat, pendingMarker.lng]}
-                icon={createCustomIcon('#22c55e', '+')}
+                icon={createCustomIcon('#22c55e', 'default')}
               />
             )}
 
