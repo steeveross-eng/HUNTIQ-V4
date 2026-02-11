@@ -51,7 +51,8 @@ import {
   CloudRain,
   Wind,
   Cloud,
-  Satellite
+  Satellite,
+  CircleDot
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useLanguage } from '@/contexts/LanguageContext';
