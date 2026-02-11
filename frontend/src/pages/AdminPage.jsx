@@ -355,7 +355,7 @@ const AdminPage = ({ onProductsUpdate }) => {
               <Globe className="h-4 w-4 mr-2" />Accès Site
             </TabsTrigger>
             <TabsTrigger value="lands" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <Trees className="h-4 w-4 mr-2" />Terres à louer
+              <Trees className="h-4 w-4 mr-2" />Hotspots
             </TabsTrigger>
             <TabsTrigger value="networking" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
               <Users className="h-4 w-4 mr-2" />Réseautage
