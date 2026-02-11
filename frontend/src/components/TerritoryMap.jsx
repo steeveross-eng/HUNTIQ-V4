@@ -2963,7 +2963,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                       onClick={() => setMapCenter([event.latitude, event.longitude])}
                     >
                       <span className="text-xl">
-                        {SPECIES_CONFIG[event.species]?.emoji || '❓'}
+                        <CircleDot className="h-4 w-4 inline" />
                       </span>
                       <div className="flex-1 min-w-0">
                         <p className="text-white text-sm font-medium truncate">
