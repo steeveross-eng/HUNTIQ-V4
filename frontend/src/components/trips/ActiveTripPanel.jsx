@@ -1,5 +1,6 @@
 /**
  * ActiveTripPanel - Panel for managing an active hunting trip
+ * BIONIC Design System compliant
  */
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -19,39 +20,42 @@ import { toast } from 'sonner';
 import {
   Play, Square, Clock, Eye, Footprints, Volume2, Target, MapPin,
   Thermometer, Wind, Cloud, Plus, CheckCircle, XCircle, Loader2,
-  AlertTriangle, Crosshair
+  AlertTriangle, Crosshair, Sun, CloudSun, CloudRain, Snowflake, CloudFog, CircleDot, Leaf
 } from 'lucide-react';
 import TripService from '@/services/TripService';
 
+// BIONIC Design System - Weather options with Lucide icons
 const WEATHER_OPTIONS = [
-  { value: 'sunny', label: '☀️ Ensoleillé' },
-  { value: 'cloudy', label: '☁️ Nuageux' },
-  { value: 'overcast', label: '🌥️ Couvert' },
-  { value: 'rainy', label: '🌧️ Pluvieux' },
-  { value: 'snowy', label: '❄️ Neigeux' },
-  { value: 'foggy', label: '🌫️ Brumeux' },
-  { value: 'windy', label: '💨 Venteux' }
+  { value: 'sunny', label: 'Ensoleillé', Icon: Sun, color: '#f5a623' },
+  { value: 'cloudy', label: 'Nuageux', Icon: Cloud, color: '#9ca3af' },
+  { value: 'overcast', label: 'Couvert', Icon: CloudSun, color: '#6b7280' },
+  { value: 'rainy', label: 'Pluvieux', Icon: CloudRain, color: '#3b82f6' },
+  { value: 'snowy', label: 'Neigeux', Icon: Snowflake, color: '#06b6d4' },
+  { value: 'foggy', label: 'Brumeux', Icon: CloudFog, color: '#64748b' },
+  { value: 'windy', label: 'Venteux', Icon: Wind, color: '#8b5cf6' }
 ];
 
+// BIONIC Design System - Observation types with Lucide icons
 const OBSERVATION_TYPES = [
-  { value: 'sighting', label: '👁️ Observation visuelle', icon: Eye },
-  { value: 'tracks', label: '🐾 Pistes/Traces', icon: Footprints },
-  { value: 'sounds', label: '🔊 Sons entendus', icon: Volume2 },
-  { value: 'signs', label: '🌿 Indices (frottoirs, etc.)', icon: Target },
-  { value: 'harvest', label: '🎯 Récolte', icon: Crosshair }
+  { value: 'sighting', label: 'Observation visuelle', Icon: Eye, color: '#22c55e' },
+  { value: 'tracks', label: 'Pistes/Traces', Icon: Footprints, color: '#f59e0b' },
+  { value: 'sounds', label: 'Sons entendus', Icon: Volume2, color: '#8b5cf6' },
+  { value: 'signs', label: 'Indices (frottoirs, etc.)', Icon: Leaf, color: '#10b981' },
+  { value: 'harvest', label: 'Récolte', Icon: Crosshair, color: '#ef4444' }
 ];
 
-const SPECIES_EMOJIS = {
-  deer: '🦌',
-  moose: '🫎',
-  bear: '🐻',
-  turkey: '🦃',
-  duck: '🦆',
-  goose: '🪿',
-  grouse: '🐔',
-  rabbit: '🐰',
-  coyote: '🐺',
-  other: '🎯'
+// BIONIC Design System - Species config with colors
+const SPECIES_CONFIG = {
+  deer: { label: 'Cerf', Icon: CircleDot, color: '#D2691E' },
+  moose: { label: 'Orignal', Icon: CircleDot, color: '#8B4513' },
+  bear: { label: 'Ours', Icon: CircleDot, color: '#2F4F4F' },
+  turkey: { label: 'Dindon', Icon: CircleDot, color: '#ef4444' },
+  duck: { label: 'Canard', Icon: CircleDot, color: '#3b82f6' },
+  goose: { label: 'Oie', Icon: CircleDot, color: '#6b7280' },
+  grouse: { label: 'Gélinotte', Icon: CircleDot, color: '#a855f7' },
+  rabbit: { label: 'Lièvre', Icon: CircleDot, color: '#f59e0b' },
+  coyote: { label: 'Coyote', Icon: CircleDot, color: '#64748b' },
+  other: { label: 'Autre', Icon: Target, color: '#9ca3af' }
 };
 
 const ActiveTripPanel = ({ trip, onTripEnded, onRefresh }) => {
