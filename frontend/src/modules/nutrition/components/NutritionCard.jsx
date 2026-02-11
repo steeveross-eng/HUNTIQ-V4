@@ -1,5 +1,6 @@
 /**
  * NutritionCard - Compact nutrition info card
+ * Professional design - accepts Lucide icons or React components
  */
 import React from 'react';
 
@@ -7,7 +8,8 @@ export const NutritionCard = ({
   title, 
   value, 
   unit = '', 
-  icon = '📊',
+  icon = null,
+  IconComponent = null,
   trend = null,
   color = 'emerald'
 }) => {
@@ -18,11 +20,23 @@ export const NutritionCard = ({
     red: 'text-red-400 border-red-700 bg-red-900/20',
     purple: 'text-purple-400 border-purple-700 bg-purple-900/20'
   };
+  
+  const iconColorClasses = {
+    emerald: 'text-emerald-400',
+    blue: 'text-blue-400',
+    amber: 'text-amber-400',
+    red: 'text-red-400',
+    purple: 'text-purple-400'
+  };
 
   return (
     <div className={`rounded-lg border p-3 ${colorClasses[color]}`}>
       <div className="flex items-center justify-between">
-        <span className="text-lg">{icon}</span>
+        {IconComponent ? (
+          <IconComponent className={`h-5 w-5 ${iconColorClasses[color]}`} />
+        ) : (
+          <span className="text-lg">{icon}</span>
+        )}
         {trend !== null && (
           <span className={`text-xs ${trend > 0 ? 'text-green-400' : 'text-red-400'}`}>
             {trend > 0 ? '↑' : '↓'} {Math.abs(trend)}%
