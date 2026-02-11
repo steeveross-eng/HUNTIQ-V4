@@ -2058,7 +2058,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
 
       // Toast with summary
       toast.success(
-        `🗺️ Parcours créé: ${response.data.total_distance_km} km, ${response.data.waypoint_order.length} points`,
+        `${t('route_created')}: ${response.data.total_distance_km} km, ${response.data.waypoint_order.length} ${t('points')}`,
         { duration: 5000 }
       );
 
@@ -2206,7 +2206,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       // Load nearby territories
       searchNearbyTerritories(zone.lat, zone.lng, 100);
       
-      toast.success(`📊 Analyse de ${zone.name} complétée`);
+      toast.success(`${t('analysis_completed')}: ${zone.name}`);
     } catch (error) {
       console.error('Error analyzing territory:', error);
       toast.error('Erreur lors de l\'analyse du territoire');
