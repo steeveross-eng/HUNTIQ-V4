@@ -1,8 +1,8 @@
 # HUNTIQ V3 - Product Requirements Document
 
 ## Date de création: 2026-02-03
-## Dernière mise à jour: 12 Février 2026 (v14)
-## Version: 6.14 (BIONIC Design System - Lot 4 UI Complet)
+## Dernière mise à jour: 12 Février 2026 (v15)
+## Version: 6.15 (BIONIC Design System - Lot 5 UI Complet)
 
 ---
 
@@ -11,7 +11,7 @@
 Fusionner HUNTIQ V1 et V2 + Intégrer l'IA GPT-5.2 pour l'analyse d'attractants.
 Refactorisation majeure vers une architecture modulaire stricte ("PLAN MAÎTRE BIONIC").
 
-**NOUVELLE DIRECTIVE v14:** Conformité totale au Design System BIONIC - Aucun emoji, couleurs centralisées, icônes Lucide professionnelles. **LOT 4 COMPLET.**
+**NOUVELLE DIRECTIVE v15:** Conformité totale au Design System BIONIC - Aucun emoji, couleurs centralisées, icônes Lucide professionnelles. **LOTS 1-5 COMPLÉTÉS.**
 
 ---
 
@@ -24,9 +24,9 @@ Refactorisation majeure vers une architecture modulaire stricte ("PLAN MAÎTRE B
 - **IA**: GPT-5.2 via Emergent LLM Key (planifié)
 - **Architecture**: Modulaire v2.0 (Backend 100% + Frontend 100% Connecté)
 
-### BIONIC Design System (v14 - LOT 4 COMPLET)
+### BIONIC Design System (v15 - LOTS 1-5 COMPLÉTÉS)
 ```
-Composants Refactorisés (18 fichiers):
+Composants Refactorisés (23 fichiers):
 ├── Lot 1:
 │   ├── TerritoryMap.jsx              ✅ 5100+ lignes, 100+ emojis
 │   └── MonTerritoireBionicPage.jsx   ✅ PLACE_TYPES, createCustomIcon
@@ -43,13 +43,19 @@ Composants Refactorisés (18 fichiers):
 │   ├── TerritoryAnalysisModule.jsx   ✅ 25 emojis, ANALYSIS_CATEGORIES
 │   ├── ActiveTripPanel.jsx           ✅ 22 emojis, SPECIES_CONFIG
 │   └── WaypointMap.jsx               ✅ 18 emojis, WAYPOINT_TYPES
-├── Lot 4 (NEW):
+├── Lot 4:
 │   ├── BusinessDashboard.jsx         ✅ 19 emojis, Lucide icons
 │   ├── TerritoryInventory.jsx        ✅ 18 emojis, TYPE_CONFIG/SPECIES_CONFIG
 │   ├── NetworkingHub.jsx             ✅ 19 emojis, groupTypeIcons/relationshipLabels
 │   ├── EcoforestryLayers.jsx         ✅ 19 emojis, BASE_MAPS/ECOFORESTRY_LAYERS iconName
 │   └── BionicMicroZones.jsx          ✅ 17 emojis, BIONIC_MODULES iconName
-└── LanguageContext.jsx               ✅ 180+ clés i18n (60+ nouvelles pour Lot 4)
+├── Lot 5 (NEW):
+│   ├── TripHistory.jsx               ✅ 16 emojis, WEATHER_OPTIONS/SPECIES_ICONS
+│   ├── PlanMaitreDashboard.jsx       ✅ 15 emojis, TabsTrigger icons
+│   ├── LandsRental.jsx               ✅ 15 emojis, SPECIES_CONFIG/TERRAIN_ICONS
+│   ├── AdminGeoPage.jsx              ✅ 14 emojis, CATEGORY_ICONS Lucide
+│   └── BionicAdvancedZones.jsx       ✅ 14 emojis, ZONE_CONFIG iconName
+└── LanguageContext.jsx               ✅ 260+ clés i18n (100+ nouvelles pour Lot 5)
 ```
 
 ### Connexion Frontend-Backend
