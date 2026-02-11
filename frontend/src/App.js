@@ -246,19 +246,25 @@ const Navigation = ({ cartCount, onCartOpen }) => {
           </nav>
           
           {/* Right Content */}
-          <div className="flex items-center gap-3">
-            <LanguageSwitcher />
+          <div className="flex items-center gap-2 lg:gap-3">
+            {/* Hidden on mobile, visible on desktop */}
+            <div className="hidden lg:block">
+              <LanguageSwitcher />
+            </div>
             
-            {/* Admin Link */}
-            <Link to="/admin">
+            {/* Admin Link - Hidden on mobile */}
+            <Link to="/admin" className="hidden lg:block">
               <Button variant="ghost" size="sm" className="text-gray-400 hover:text-[#F5A623] hover:bg-white/5" data-testid="admin-link">
                 <Lock className="h-4 w-4" />
               </Button>
             </Link>
             
-            <UserMenu />
+            {/* User Menu - Compact on mobile */}
+            <div className="hidden lg:block">
+              <UserMenu />
+            </div>
             
-            {/* Cart Button - BIONIC Style */}
+            {/* Cart Button - Always visible */}
             <Button 
               variant="outline" 
               onClick={onCartOpen} 
@@ -277,6 +283,7 @@ const Navigation = ({ cartCount, onCartOpen }) => {
             <button 
               className="lg:hidden p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-sm transition-colors" 
               onClick={() => setIsOpen(!isOpen)}
+              data-testid="mobile-menu-btn"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
