@@ -385,5 +385,148 @@ const EcoforestryWMSLayers = ({
   );
 };
 
+/**
+ * Composant de sélection de région écoforestière
+ * Permet de changer entre les différentes sources WMS
+ */
+export const EcoforestryRegionSelector = ({
+  currentRegion = 'QC',
+  onRegionChange,
+  currentSource = null,
+  onSourceChange,
+  availability = {},
+  language = 'fr'
+}) => {
+  const labels = {
+    fr: {
+      title: 'Région Écoforestière',
+      canada: 'Canada',
+      usa: 'États-Unis',
+      source: 'Source de données',
+      status: {
+        available: 'Disponible',
+        unavailable: 'Indisponible',
+        checking: 'Vérification...',
+        restricted: 'Accès restreint'
+      }
+    },
+    en: {
+      title: 'Ecoforestry Region',
+      canada: 'Canada',
+      usa: 'United States',
+      source: 'Data Source',
+      status: {
+        available: 'Available',
+        unavailable: 'Unavailable',
+        checking: 'Checking...',
+        restricted: 'Restricted access'
+      }
+    }
+  };
+  
+  const t = labels[language] || labels.fr;
+  
+  // Grouper les régions par pays
+  const canadaRegions = Object.values(REGIONS).filter(r => r.country === 'CA');
+  const usaRegions = Object.values(REGIONS).filter(r => r.country === 'US');
+  
+  // Sources disponibles pour la région actuelle
+  const regionConfig = ECOFORESTRY_SOURCES[currentRegion];
+  const availableSources = regionConfig?.sources || [];
+  
+  return (
+    <div className="bg-black/80 backdrop-blur-xl border border-white/10 rounded-lg p-3 space-y-3">
+      {/* Titre */}
+      <div className="text-white text-xs font-bold uppercase tracking-wider">
+        {t.title}
+      </div>
+      
+      {/* Sélection région - Canada */}
+      <div>
+        <div className="text-gray-400 text-[10px] uppercase mb-1">🍁 {t.canada}</div>
+        <div className="flex flex-wrap gap-1">
+          {canadaRegions.map(region => (
+            <button
+              key={region.id}
+              onClick={() => onRegionChange?.(region.id)}
+              className={`px-2 py-1 text-[10px] rounded transition-all ${
+                currentRegion === region.id
+                  ? 'bg-[#F5A623] text-black font-bold'
+                  : 'bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white'
+              }`}
+            >
+              {region.id.replace('_NATIONAL', '')}
+            </button>
+          ))}
+        </div>
+      </div>
+      
+      {/* Sélection région - USA */}
+      <div>
+        <div className="text-gray-400 text-[10px] uppercase mb-1">🇺🇸 {t.usa}</div>
+        <div className="flex flex-wrap gap-1">
+          {usaRegions.map(region => (
+            <button
+              key={region.id}
+              onClick={() => onRegionChange?.(region.id)}
+              className={`px-2 py-1 text-[10px] rounded transition-all ${
+                currentRegion === region.id
+                  ? 'bg-[#F5A623] text-black font-bold'
+                  : 'bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white'
+              }`}
+            >
+              {region.id.replace('USA_', '').replace('_', ' ')}
+            </button>
+          ))}
+        </div>
+      </div>
+      
+      {/* Sélection source */}
+      {availableSources.length > 1 && (
+        <div>
+          <div className="text-gray-400 text-[10px] uppercase mb-1">{t.source}</div>
+          <div className="space-y-1">
+            {availableSources.map(source => (
+              <button
+                key={source.id}
+                onClick={() => onSourceChange?.(source.id)}
+                className={`w-full flex items-center justify-between px-2 py-1 text-[10px] rounded transition-all ${
+                  currentSource?.id === source.id
+                    ? 'bg-[#F5A623]/20 border border-[#F5A623]/50 text-white'
+                    : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700 hover:text-white'
+                }`}
+              >
+                <span>{language === 'fr' ? source.name : source.nameEn}</span>
+                {source.restricted && (
+                  <span className="text-[8px] px-1 py-0.5 bg-orange-500/20 text-orange-400 rounded">
+                    Proxy
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+      
+      {/* Statut */}
+      {availability.status && (
+        <div className="pt-2 border-t border-white/10">
+          <div className="flex items-center gap-2">
+            <div className={`w-2 h-2 rounded-full ${
+              availability.status === 'available' ? 'bg-green-500' :
+              availability.status === 'checking' ? 'bg-yellow-500 animate-pulse' :
+              availability.status === 'restricted' ? 'bg-orange-500' :
+              'bg-red-500'
+            }`} />
+            <span className="text-gray-400 text-[10px]">
+              {t.status[availability.status] || availability.status}
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default EcoforestryWMSLayers;
 export { WMS_SERVICES };
