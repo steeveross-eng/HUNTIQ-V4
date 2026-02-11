@@ -4419,8 +4419,8 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                       onChange={(e) => setShowReliefLayer(e.target.checked)}
                       className="rounded border-gray-600 text-orange-500 focus:ring-orange-500"
                     />
-                    <span className="text-lg">🏔️</span>
-                    <span className="text-white text-sm">Relief LiDAR</span>
+                    <Mountain className="h-5 w-5 text-orange-500" />
+                    <span className="text-white text-sm">{t('relief_lidar')}</span>
                   </label>
                   <label className="flex items-center gap-2 p-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 cursor-pointer">
                     <input 
@@ -4429,8 +4429,8 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                       onChange={(e) => setShowRoadsLayer(e.target.checked)}
                       className="rounded border-gray-600 text-yellow-500 focus:ring-yellow-500"
                     />
-                    <span className="text-lg">🛤️</span>
-                    <span className="text-white text-sm">Routes forestières</span>
+                    <Route className="h-5 w-5 text-yellow-500" />
+                    <span className="text-white text-sm">{t('forest_roads')}</span>
                   </label>
                 </div>
               </div>
@@ -4446,38 +4446,39 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                     <div className="flex items-center gap-2">
                       <Brain className="h-4 w-4 text-[#f5a623]" />
                       <span className="text-[10px] text-[#f5a623] uppercase tracking-wider font-bold">BIONIC™ Zones</span>
-                      <span className="text-[9px] bg-green-500/20 text-green-400 px-1 rounded">PRÉCISION</span>
+                      <span className="text-[9px] bg-green-500/20 text-green-400 px-1 rounded">{t('precision')}</span>
                     </div>
                     <div className="flex gap-1">
                       <button
                         onClick={() => toggleAllBionicLayers(true)}
                         className="text-[9px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 hover:bg-green-500/30"
                       >
-                        Tout
+                        {t('all')}
                       </button>
                       <button
                         onClick={() => toggleAllBionicLayers(false)}
                         className="text-[9px] px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 hover:bg-red-500/30"
                       >
-                        Aucun
+                        {t('none')}
                       </button>
                       <button
                         onClick={clearBionicAnalysis}
                         className="text-[9px] px-1.5 py-0.5 rounded bg-gray-500/20 text-gray-400 hover:bg-gray-500/30"
                       >
-                        Effacer
+                        {t('clear')}
                       </button>
                     </div>
                   </div>
                   
                   {/* Zone count */}
                   <div className="text-[10px] text-gray-500 mb-2">
-                    {bionicPrecisionZones.length} micro-zones calculées
+                    {bionicPrecisionZones.length} {t('micro_zones_calculated')}
                   </div>
                   
                   <div className="space-y-1 max-h-[200px] overflow-y-auto">
                     {Object.entries(bionicModuleStats).map(([key, stats]) => {
                       if (!stats) return null;
+                      const ModuleIcon = BIONIC_MODULE_CONFIG[key]?.Icon || CircleDot;
                       
                       return (
                         <label 
@@ -4495,9 +4496,9 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                             className="rounded border-gray-600 focus:ring-[#f5a623]"
                             style={{ accentColor: stats.color }}
                           />
-                          <span className="text-lg">{stats.icon}</span>
+                          <ModuleIcon className="h-5 w-5" style={{ color: stats.color }} />
                           <div className="flex-1">
-                            <span className="text-white text-sm">{stats.label}</span>
+                            <span className="text-white text-sm">{t(BIONIC_MODULE_CONFIG[key]?.labelKey) || stats.label}</span>
                             <div className="flex items-center gap-2">
                               <span 
                                 className="text-xs font-bold"
