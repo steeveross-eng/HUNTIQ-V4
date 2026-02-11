@@ -559,19 +559,22 @@ export const PotentialPartners = () => {
 // TERRITORY MAP COMPONENT
 // ============================================
 
-// Custom marker icon helper
+// Custom marker icon helper - BIONIC Design System (SVG icons)
 const createMarkerIcon = (color, type) => {
-  const icons = {
-    zec: '🏕️',
-    sepaq: '🦌',
-    pourvoirie: '🏠',
-    club: '🎯',
-    outfitter: '🦬',
-    private: '🔒',
-    anticosti: '🏝️',
-    reserve: '🌲',
-    indigenous: '🪶'
+  // SVG icon paths for different types
+  const svgIcons = {
+    zec: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><path d="M3 17h3l3-3 4 3h5"/><path d="m13 5 7 7-3 3"/></svg>',
+    sepaq: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="3"/></svg>',
+    pourvoirie: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+    club: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+    outfitter: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+    private: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+    anticosti: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>',
+    reserve: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><path d="M17 14v7"/><path d="M7 14v7"/><path d="M17 3v7"/><path d="M7 3v7"/><path d="M22 6H2"/><path d="M22 18H2"/></svg>',
+    indigenous: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><path d="M12 3v18"/><path d="m6 6 6-3 6 3"/><path d="m6 18 6 3 6-3"/></svg>'
   };
+  
+  const defaultIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
   
   return L.divIcon({
     className: 'custom-marker',
@@ -585,8 +588,7 @@ const createMarkerIcon = (color, type) => {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
-    ">${icons[type] || '📍'}</div>`,
+    ">${svgIcons[type] || defaultIcon}</div>`,
     iconSize: [32, 32],
     iconAnchor: [16, 16],
     popupAnchor: [0, -16]
