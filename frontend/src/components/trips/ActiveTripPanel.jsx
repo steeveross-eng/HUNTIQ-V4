@@ -107,11 +107,15 @@ const ActiveTripPanel = ({ trip, onTripEnded, onRefresh }) => {
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="text-white flex items-center gap-2">
-                <span className="text-2xl">{SPECIES_EMOJIS[trip.target_species] || '🎯'}</span>
+                {(() => {
+                  const speciesConfig = SPECIES_CONFIG[trip.target_species] || SPECIES_CONFIG.other;
+                  const SpeciesIcon = speciesConfig.Icon;
+                  return <SpeciesIcon className="h-6 w-6" style={{ color: speciesConfig.color }} />;
+                })()}
                 {trip.title}
               </CardTitle>
               <p className="text-gray-400 text-sm mt-1">
-                Espèce: {trip.target_species} • Statut: En cours
+                Espèce: {SPECIES_CONFIG[trip.target_species]?.label || trip.target_species} • Statut: En cours
               </p>
             </div>
             <div className="text-right">
@@ -128,7 +132,11 @@ const ActiveTripPanel = ({ trip, onTripEnded, onRefresh }) => {
           {trip.weather && (
             <div className="flex items-center gap-4 mb-4 p-3 bg-slate-700/30 rounded-lg">
               <div className="flex items-center gap-2">
-                <Cloud className="h-4 w-4 text-blue-400" />
+                {(() => {
+                  const weatherConfig = WEATHER_OPTIONS.find(w => w.value === trip.weather);
+                  const WeatherIcon = weatherConfig?.Icon || Cloud;
+                  return <WeatherIcon className="h-4 w-4" style={{ color: weatherConfig?.color || '#9ca3af' }} />;
+                })()}
                 <span className="text-gray-300">
                   {WEATHER_OPTIONS.find(w => w.value === trip.weather)?.label || trip.weather}
                 </span>
