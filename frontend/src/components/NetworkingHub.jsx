@@ -134,26 +134,26 @@ const FeedTab = ({ userId, userName }) => {
   };
 
   if (loading) {
-    return <div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-[#f5a623]" /></div>;
+    return <div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-[var(--bionic-gold-primary)]" /></div>;
   }
 
   return (
     <div className="space-y-4">
       {/* New Post Button */}
-      <Card className="bg-card border-border">
+      <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
         <CardContent className="p-4">
           <div className="flex gap-3">
             <Avatar>
-              <AvatarFallback className="bg-[#f5a623]/20 text-[#f5a623]">{userName?.charAt(0) || 'U'}</AvatarFallback>
+              <AvatarFallback className="bg-[var(--bionic-gold-muted)] text-[var(--bionic-gold-primary)]">{userName?.charAt(0) || 'U'}</AvatarFallback>
             </Avatar>
             <Button 
               variant="outline" 
-              className="flex-1 justify-start text-gray-400"
+              className="flex-1 justify-start text-[var(--bionic-text-secondary)] border-[var(--bionic-border-secondary)]"
               onClick={() => setShowNewPost(true)}
               data-testid="new-post-btn"
             >
               <Plus className="h-4 w-4 mr-2" />
-              Partagez votre expérience de chasse...
+              {t('feed_share_prompt') || 'Partagez votre expérience de chasse...'}
             </Button>
           </div>
         </CardContent>
@@ -161,40 +161,40 @@ const FeedTab = ({ userId, userName }) => {
 
       {/* Posts Feed */}
       {posts.length === 0 ? (
-        <Card className="bg-card border-border">
+        <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
           <CardContent className="py-12 text-center">
-            <Newspaper className="h-12 w-12 text-gray-600 mx-auto mb-4" />
-            <p className="text-gray-400">Aucune publication pour le moment</p>
-            <p className="text-sm text-gray-500">Soyez le premier à partager!</p>
+            <Newspaper className="h-12 w-12 text-[var(--bionic-gray-500)] mx-auto mb-4" />
+            <p className="text-[var(--bionic-text-secondary)]">{t('feed_no_posts') || 'Aucune publication pour le moment'}</p>
+            <p className="text-sm text-[var(--bionic-text-muted)]">{t('feed_be_first') || 'Soyez le premier à partager!'}</p>
           </CardContent>
         </Card>
       ) : (
         posts.map(post => (
-          <Card key={post.id} className="bg-card border-border" data-testid={`post-${post.id}`}>
+          <Card key={post.id} className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]" data-testid={`post-${post.id}`}>
             <CardHeader className="pb-2">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <Avatar>
-                    <AvatarFallback className="bg-[#f5a623]/20 text-[#f5a623]">
+                    <AvatarFallback className="bg-[var(--bionic-gold-muted)] text-[var(--bionic-gold-primary)]">
                       {post.author_name?.charAt(0) || 'U'}
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="font-medium text-white">{post.author_name}</p>
-                    <p className="text-xs text-gray-500">
+                    <p className="font-medium text-[var(--bionic-text-primary)]">{post.author_name}</p>
+                    <p className="text-xs text-[var(--bionic-text-muted)]">
                       {new Date(post.created_at).toLocaleDateString('fr-CA')}
                       {post.location && <span className="ml-2"><MapPin className="h-3 w-3 inline" /> {post.location}</span>}
                     </p>
                   </div>
                 </div>
                 {post.species && (
-                  <Badge variant="outline" className="border-[#f5a623] text-[#f5a623]">{post.species}</Badge>
+                  <Badge variant="outline" className="border-[var(--bionic-gold-primary)] text-[var(--bionic-gold-primary)]">{post.species}</Badge>
                 )}
               </div>
             </CardHeader>
             <CardContent className="pb-2">
-              {post.title && <h3 className="font-semibold text-white mb-2">{post.title}</h3>}
-              <p className="text-gray-300 whitespace-pre-wrap">{post.body}</p>
+              {post.title && <h3 className="font-semibold text-[var(--bionic-text-primary)] mb-2">{post.title}</h3>}
+              <p className="text-[var(--bionic-text-secondary)] whitespace-pre-wrap">{post.body}</p>
               {post.tags?.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-3">
                   {post.tags.map((tag, i) => (
@@ -203,24 +203,24 @@ const FeedTab = ({ userId, userName }) => {
                 </div>
               )}
             </CardContent>
-            <CardFooter className="pt-2 border-t border-border">
+            <CardFooter className="pt-2 border-t border-[var(--bionic-border-secondary)]">
               <div className="flex items-center gap-4 w-full">
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="text-gray-400 hover:text-red-400"
+                  className="text-[var(--bionic-text-secondary)] hover:text-[var(--bionic-red-primary)]"
                   onClick={() => handleLike(post.id)}
                 >
                   <Heart className="h-4 w-4 mr-1" />
                   {post.likes_count || 0}
                 </Button>
-                <Button variant="ghost" size="sm" className="text-gray-400">
+                <Button variant="ghost" size="sm" className="text-[var(--bionic-text-secondary)]">
                   <MessageCircle className="h-4 w-4 mr-1" />
                   {post.comments_count || 0}
                 </Button>
-                <Button variant="ghost" size="sm" className="text-gray-400">
+                <Button variant="ghost" size="sm" className="text-[var(--bionic-text-secondary)]">
                   <Share2 className="h-4 w-4 mr-1" />
-                  Partager
+                  {t('common_share') || 'Partager'}
                 </Button>
               </div>
             </CardFooter>
