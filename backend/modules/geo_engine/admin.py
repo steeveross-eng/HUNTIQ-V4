@@ -107,50 +107,58 @@ async def get_all_entities(
 
 @router.get("/hotspots")
 async def get_admin_hotspots(
-    category: Optional[str] = Query(None, description="standard|premium|land_rental|environmental|inactive"),
+    category: Optional[str] = Query(None, description="standard|premium|land_rental|environmental|chalet|user_personal|inactive"),
+    user_id: Optional[str] = Query(None, description="Filter by specific user"),
     min_confidence: Optional[float] = Query(None, ge=0, le=1),
     habitat: Optional[str] = None,
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=500)
 ):
     """
-    Get all ADMINISTRATIVELY EXPLOITABLE hotspots (ADMIN ONLY).
+    Get ALL hotspots for admin management (ADMIN ONLY).
     
-    ⚠️ CONFIDENTIALITÉ: Les hotspots personnels des utilisateurs sont EXCLUS.
-    Seuls les hotspots système/auto-générés et "Terre à louer" sont affichés.
+    🔒 ADMIN SEULEMENT: Cette section affiche TOUS les hotspots de TOUS les membres
+    pour permettre la gestion, modération et supervision globale.
+    Ces données ne sont jamais partagées ni accessibles aux utilisateurs réguliers.
     
     Catégories:
-    - standard: Hotspots système de base
+    - standard: Hotspots de base
     - premium: Hotspots haute qualité (confidence > 0.7)
-    - land_rental: Hotspots "Terre à louer" 
+    - land_rental: Hotspots "Terre à louer"
+    - chalet: Chalets disponibles
     - environmental: Hotspots auto-générés par analyse environnementale
+    - user_personal: Hotspots personnels des utilisateurs
     - inactive: Hotspots expirés ou désactivés
     """
     db = await get_db()
     
-    # 🔒 EXCLURE les hotspots personnels des utilisateurs
-    # Inclure uniquement: system, auto-generated, land_rental
+    # 🔓 ADMIN: Afficher TOUS les hotspots (pas de filtre d'exclusion)
     base_query: Dict[str, Any] = {
-        "entity_type": "hotspot",
-        "$or": [
-            {"user_id": "system"},
-            {"metadata.is_auto_generated": True},
-            {"metadata.hotspot_category": "land_rental"}
-        ]
+        "entity_type": "hotspot"
     }
     
     # Filtrer par catégorie
     if category == "standard":
         base_query["metadata.is_premium"] = {"$ne": True}
-        base_query["metadata.hotspot_category"] = {"$nin": ["land_rental", "environmental"]}
+        base_query["metadata.is_auto_generated"] = {"$ne": True}
+        base_query["metadata.hotspot_category"] = {"$nin": ["land_rental", "chalet"]}
     elif category == "premium":
         base_query["metadata.is_premium"] = True
     elif category == "land_rental":
         base_query["metadata.hotspot_category"] = "land_rental"
+    elif category == "chalet":
+        base_query["metadata.hotspot_category"] = "chalet"
     elif category == "environmental":
         base_query["metadata.is_auto_generated"] = True
+    elif category == "user_personal":
+        base_query["user_id"] = {"$ne": "system"}
+        base_query["metadata.is_auto_generated"] = {"$ne": True}
     elif category == "inactive":
         base_query["active"] = False
+    
+    # Filtrer par utilisateur spécifique
+    if user_id:
+        base_query["user_id"] = user_id
     
     if min_confidence is not None:
         base_query["metadata.confidence"] = {"$gte": min_confidence}
