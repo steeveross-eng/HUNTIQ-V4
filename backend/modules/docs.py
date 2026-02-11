@@ -266,7 +266,7 @@ Les endpoints admin utilisent l'authentification existante.
         },
         "servers": [
             {
-                "url": "https://bionic-redesign.preview.emergentagent.com",
+                "url": "https://tactical-ui-1.preview.emergentagent.com",
                 "description": "Preview Server"
             }
         ],

@@ -1,49 +1,42 @@
 <analysis>**original_problem_statement:**
-The user, Steeve Ross, is overseeing the development of his project, HUNTIQ V3, following a master plan (Plan Maître BIONIC). The project's current focus is a complete UI/UX overhaul to enforce a strict, professional, and scientific BIONIC TACTICAL design standard across the entire application.
+The user, Steeve Ross, is overseeing the development of his project, HUNTIQ V3. The project's current and overriding focus is a complete UI/UX overhaul to enforce a strict, professional, and scientific BIONIC TACTICAL design standard across the entire application.
 
-Initially, the user reported that the FR/EN translation feature was completely broken. After the agent fixed the internationalization (i18n) across the main navigation, Admin section, and several key pages, the user mandated a much larger task: a full UI audit and subsequent correction of all visual and structural inconsistencies.
-
-The new directives are extremely strict:
-1.  **Uniform Design System:** All pages must adhere to a single, centralized design system defining a specific tactical color palette, typography (Inter), professional linear icons (Lucide), and standardized layouts. No cartoon styles, emojis, or whimsical elements are permitted.
-2.  **Real Game Imagery:** All representations of wildlife must use high-quality, real photos of mature male animals (e.g., large antlers), reinforcing the scientific and tactical identity.
-3.  **Mandatory Audit & Correction:** The agent was required to first perform a full UI audit to identify all non-compliant elements (emojis, hardcoded text/styles, inconsistent colors) and then systematically correct them, page by page.
-4.  **Structural Integrity:** All changes must respect the existing modular architecture (CORE / MÉTIER / PLAN MAÎTRE) and not introduce technical debt.
+The core directives are:
+1.  **Uniform Design System:** All pages must adhere to a single, centralized design system defining a specific tactical color palette, typography, professional Lucide icons, and standardized layouts. No cartoon styles, emojis, or whimsical elements are permitted.
+2.  **Strict Audit & Correction:** The agent must follow a comprehensive UI audit report () to systematically identify and correct all non-compliant elements (emojis, hardcoded text/styles, inconsistent colors) in a precise order.
+3.  **Architectural Integrity:** All changes must respect the existing modular architecture (CORE / MÉTIER / PLAN MAÎTRE) and not introduce technical debt.
+4.  **Systematic i18n:** All user-facing strings must be internationalized using the existing FR/EN .
+5.  **Accelerated Cadence:** The user expects a fast pace of delivery (+20%) and a formal validation report with each completed batch of work.
 
 **User's preferred language**: French
 
 **what currently exists?**
-*   **Functional i18n:** A robust FR/EN translation system using  is now implemented and tested across the entire application, including the main navigation, all 18+ Admin tabs, the Shop page, Trips page, and Dashboard.
-*   **UI Audit Report:** A comprehensive audit identifying over 365 emojis, 150+ hardcoded French strings, and dozens of non-standard styles has been completed and saved as .
-*   **Centralized BIONIC Design System (v1):** The foundation for the new design standard has been created and integrated into the app. This includes:
-    *   : A global CSS file with variables for the approved tactical color palette, fonts, and spacing.
-    *   : A mapping of over 50 emojis to their corresponding professional Lucide icons.
-    *   : A JavaScript version of the color palette for component logic.
-    *   : Centralized constants for map place types, waypoints, etc., removing hardcoded configurations from components.
-    *   : Documentation for the new system.
+*   A robust FR/EN internationalization (i18n) system is fully functional.
+*   A centralized BIONIC Design System is established through several key files:
+    *   : Global CSS variables for the tactical color palette, fonts, etc.
+    *   : A central mapping of legacy emojis to their corresponding professional Lucide icons.
+    *   : A JS export of the color palette.
+    *   : Centralized constants.
+*   A detailed UI audit report () serves as the definitive checklist for the refactoring effort.
+*   A significant portion of the frontend has been successfully refactored to align with the BIONIC Design System, including the main territory page and numerous admin and analytics components.
 
 **Last working item**:
-*   **Last item agent was working:** A large-scale refactoring of , the file identified as most non-compliant in the UI audit (119+ emojis). The agent was systematically removing hardcoded emojis, colors, and styles, replacing them with imports and variables from the new centralized BIONIC Design System.
-*   **Status:** IN PROGRESS
-*   **Agent Testing Done:** N
-*   **Which testing method agent to use?** frontend testing agent
+*   **Last item agent was working:** The agent just completed Lot 3 of the UI refactoring plan. This involved systematically removing all emojis, hardcoded styles, and hardcoded text from a batch of five high-priority components identified in the UI audit, replacing them with elements from the centralized BIONIC Design System and adding i18n keys. The affected files were: , , , , and .
+*   **Status:** USER VERIFICATION PENDING (The user has acknowledged receipt of the work and given instructions to proceed, which serves as implicit approval, but has not formally verified this specific batch.)
+*   **Agent Testing Done:** Y (Linting and screenshot verification were performed.)
+*   **Which testing method agent to use?** Frontend testing agent (to ensure no regressions and full compliance on the next batch of components).
 *   **User Testing Done:** N
 
 **All Pending/In progress Issue list**:
-*   None. The current focus is a large, planned refactoring task.
+*   None. The project is following a planned, task-based refactoring schedule.
 
 **In progress Task List**:
-*   **Task 1: (P0) Complete the visual refactoring of **
-    *   **Where to resume:** Continue the replacement of all remaining hardcoded emojis, colors, and styles within . The agent has already replaced many common emojis (✅, ❌, ⚠️, 📍) but needs to address the remaining specific ones (e.g., 📷, 🏕️, 🦌, 🫎) and ensure all icons are sourced from  and all colors use CSS variables from .
-    *   **What will be achieved with this?** The application's most complex and non-compliant component will be fully aligned with the BIONIC Design System, serving as a template for subsequent corrections.
-    *   **Status:** IN PROGRESS
-    *   **Should Test frontend/backend/both after fix?** Frontend
-    *   **Blocked on something:** No.
+*   None. The previous batch of tasks was just completed and delivered.
 
 **Upcoming and Future Tasks**
 *   **Upcoming Tasks:**
-    *   **(P0) Complete UI Corrections (Post-):** Systematically apply the BIONIC Design System to all remaining non-compliant files identified in , following the priority list. This includes , , etc.
-    *   **(P0) Complete i18n for Sub-components:** Translate remaining hardcoded text within child components like , , and .
-    *   **(P0.5) Integrate Real Mature Game Images:** Replace placeholder icons (e.g., the one for 🦌) and other animal representations with high-quality, real photos of mature animals in relevant sections (Homepage, Dashboard, Products).
+    *   **(P0) Execute Lot 4 of UI Corrections:** Continue the UI refactoring by following the **exact order** of the remaining files listed in . The next agent must read this file to identify the next batch of components to correct.
+    *   **(P0.5) Integrate Real Mature Game Images:** Once the UI components are stabilized, replace placeholder icons and animal representations with high-quality, real photos of mature game animals.
     *   **(P1) Implement Offline Mode & Live Navigation:** Based on the user-approved .
     *   **(P1) Implement Private Paths:** Full CRUD interface for users to add and manage their private paths.
 *   **Future Tasks:**
@@ -52,14 +45,14 @@ The new directives are extremely strict:
     *   **(P3) WebSocket Sync & Advanced Scoring.**
 
 **Completed work in this session**
-- **Full i18n Implementation (FR/EN):** Fixed the broken language switcher and successfully internationalized the entire application, including the main navigation, all Admin pages, Shop, Trips, and Dashboard. Validated with the testing agent.
-- **UI/UX Professionalism Overhaul (Foundation):**
-    -   **UI Audit:** Executed a comprehensive frontend audit, generating a detailed report () that now guides the refactoring effort.
-    -   **Centralized BIONIC Design System:** Created and integrated the core files (, , , ) that define the new visual standard.
-    -   **Initial Cleanup:** Replaced emojis with Lucide icons in  as an initial proof-of-concept.
+- **BIONIC Refactoring - Lot 1:** Successfully refactored  (the main map page) to be fully compliant with the BIONIC Design System, removing over 100 emojis and hardcoded styles. This corrected an initial mistake where the agent worked on an unused file ().
+- **i18n Enrichment:** Added dozens of new translation keys to  to support the newly refactored components.
+- **BIONIC Refactoring - Lot 2:** Completed a full design system refactor and i18n implementation for a batch of high-priority components: , , , and sub-components , , .
+- **BIONIC Refactoring - Lot 3:** Completed a full design system refactor for the next batch of five components from the audit: , , , , and .
+- **Documentation:** Continuously updated  to reflect the progress of the UI overhaul.
 
 **Earlier issues found/mentioned but not fixed**
-*   Minor platform diagnostic warnings from a previous session were deferred by the user.
+*   None.
 
 **Known issue recurrence from previous fork**
 *   None.
@@ -68,10 +61,10 @@ The new directives are extremely strict:
 
 
 **Key Technical Concepts**
-*   **Strict UI/UX Enforcement:** All development must now adhere to the BIONIC standard: professional, scientific, analytical, and tactical. No exceptions.
-*   **Centralized Design System:** A single source of truth for all visual and configuration elements (colors, icons, constants) has been established to eliminate inconsistencies and local overrides.
-*   **Large-Scale Refactoring:** A systematic process of cleaning up the entire frontend based on a detailed audit report, starting with the most complex components.
-*   **Comprehensive i18n:** The application now has a fully functional and tested FR/EN translation system managed via a single React context.
+*   **Strict UI/UX Enforcement:** All development must adhere to the BIONIC standard: professional, scientific, analytical, and tactical.
+*   **Centralized Design System:** Using a single source of truth for colors (), icons (), and configurations to enforce consistency.
+*   **Audit-Driven Refactoring:** A systematic process of cleaning up the entire frontend based on the detailed report in .
+*   **Comprehensive i18n:** All new and modified components are fully translated using .
 
 **key DB schema**
 *   No changes were made to the database schema.
@@ -80,46 +73,43 @@ The new directives are extremely strict:
 *   None.
 
 **All files of reference**
-*   **/app/memory/AUDIT_UI_BIONIC.md**: **(CRITICAL)** The audit report that lists all non-compliant files and serves as the checklist for the current refactoring work.
-*   **/app/frontend/src/styles/bionic-design-system.css**: The new source of truth for all colors and styles.
-*   **/app/frontend/src/config/bionic-icons.js**: The mapping of all old emojis to new professional Lucide icons.
-*   **/app/frontend/src/config/bionic-config.js**: Centralized configurations to be used instead of hardcoded values in components.
-*   **/app/frontend/src/components/TerritoryMap.jsx**: The large, complex file currently undergoing refactoring.
+*   **/app/memory/AUDIT_UI_BIONIC.md**: **(CRITICAL)** The audit report that dictates the exact order of files to be refactored.
+*   **/app/frontend/src/styles/bionic-design-system.css**: Source of truth for all colors and styles.
+*   **/app/frontend/src/config/bionic-icons.js**: The mapping of all old emojis to new Lucide icons.
+*   **/app/frontend/src/contexts/LanguageContext.jsx**: The file containing all FR/EN translations.
 
 **Areas that need refactoring**:
-*   The entire frontend is undergoing a planned refactoring effort, guided by . The work has started with  and must continue through the rest of the identified files.
+*   The entire frontend is undergoing a planned refactoring. The next agent must consult  to identify the next batch of files to process.
 
 **key api endpoints**
-*   The agent successfully debugged and used the legacy  endpoint.
+*   No new API endpoints were created or modified.
 
 **Critical Info for New Agent**
 *   **Vous devez communiquer avec l'utilisateur en français.**
-*   **IMMEDIATE PRIORITY (P0):** Your first task is to finish the refactoring of . This is a large and critical file. Systematically replace all remaining emojis and hardcoded styles using the new centralized BIONIC Design System files (, , ).
-*   **FOLLOW THE AUDIT:** The file  is your guide. After , proceed to the next highest priority files on that list.
-*   **STRICT ADHERENCE TO DESIGN SYSTEM:** The user has a zero-tolerance policy for deviations from the new BIONIC Design System. Do not use any colors, icons, or styles not defined in the central files.
-*   **Admin Password:** The admin password is . The frontend was fixed to work with the legacy backend login endpoint.
+*   **IMMEDIATE PRIORITY (P0):** Your first task is to start **Lot 4** of the UI refactoring. You **must** read  to identify the next set of files to be corrected, following the exact sequence listed in the report.
+*   **STRICT ADHERENCE TO DESIGN SYSTEM:** The user has a zero-tolerance policy for deviations from the BIONIC Design System. Do not use any colors, icons, or styles not defined in the central files. All text must be internationalized.
+*   **ACCELERATED CADENCE:** The user expects a rapid pace and requires a formal validation update (files modified, screenshots, compliance check) with each delivery.
+*   **Admin Credentials:**  / .
 
 **documents and test reports created in this job**
 *   
-*   
-*   
-*   
-*    (updated)
+*    (updated multiple times)
 
 **Last 10 User Messages and any pending HUMAN messages**
-1.  **User (Latest):** Approves the audit report and instructs the agent to create the centralized Design System.
-2.  **Agent:** Presents the UI Audit report and summary, asking for confirmation to proceed to the next step (creating the Design System).
-3.  **User:** Lays out strict directives for a complete UI overhaul: mandatory Design System, UI audit, use of real game images, and a specific execution order. Instructs the agent to start with the audit.
-4.  **Agent:** Finishes the full i18n implementation and an initial design cleanup (emojis in ), asking about remaining untranslated sub-components.
-5.  **User:** Provides screenshots showing that while navigation/admin is translated, the content within pages (Dashboard, Shop) is not.
-6.  **Agent:** Acknowledges the previous i18n work was incomplete and plans to audit and correct all pages.
-7.  **User:** Repeats the demand for a strict ELITE visual standard and a full UI audit, reinforcing the i18n fix as a priority.
-8.  **Agent:** Finishes the initial i18n fix and asks for confirmation and next steps.
-9.  **User:** Validates the previous feature (Advanced Zones) but immediately flags the broken FR/EN translation as a critical, top-priority issue that must be fixed everywhere, including the Admin page.
+1.  **User (Latest):** Acknowledges receipt of Lot 2 delivery, confirms it is compliant, and gives strict instructions to proceed immediately with the next batch of files as ordered in the audit report, maintaining the accelerated pace.
+2.  **Agent:** Finishes Lot 2 refactoring, updates PRD, and provides a summary of work completed, asking for the next priority.
+3.  **User:** Acknowledges receipt of Lot 1 (), confirms its compliance, and gives strict instructions to continue with the next batch from the audit, demanding an accelerated cadence.
+4.  **Agent:** Finishes the refactoring of  and i18n updates, confirms via screenshot, updates PRD, and finishes the task.
+5.  **Agent:** Realizes from a test report that the initial work was on the wrong file () and correctly identifies  as the target, beginning the refactoring process on the correct file.
+6.  **Agent:** Runs the testing agent, which reveals the critical flaw that  is the rendered component, not .
+7.  **Agent:** Completes a massive refactoring of , removing all emojis and hardcoded styles, and updates the i18n context.
+8.  **User:** Approves the initial plan to refactor  and lays out a non-negotiable framework for all future UI work, demanding strict adherence to the BIONIC Design System, the modular architecture, and i18n.
+9.  **Agent:** Proposes a detailed plan to refactor the entire application based on the new BIONIC Design System, starting with .
+10. **Agent:** Analyzes the  and  to prepare for the large-scale refactoring.
 
 **Project Health Check:**
 *   **Running:** Yes
-*   **Broken:** The  component is currently in a broken state mid-refactoring.
+*   **Broken:** No. All refactored components are integrated and the application is stable.
 *   **Mocked:** Backend APIs for Bathymetry.
 
 **3rd Party Integrations**
@@ -132,13 +122,13 @@ The new directives are extremely strict:
 *   OpenWeatherMap (User API Key)
 
 **Testing status**
-*   **Testing agent used after significant changes:** YES, used to successfully validate the app-wide i18n implementation.
+*   **Testing agent used after significant changes:** YES. It was instrumental in identifying that the agent was initially editing the wrong component.
 *   **Troubleshoot agent used after agent stuck in loop:** NO
 *   **Test files created:** None.
-*   **Known regressions:** None from the completed i18n work. The current refactoring is expected to cause temporary breakage until complete.
+*   **Known regressions:** None.
 
 **Credentials to test flow:**
 *   **Admin Login:**  / 
 
 **What agent forgot to execute**
-*   The agent has not forgotten anything. It is in the middle of a large, multi-step task explicitly defined and approved by the user. The current work on  is the first and most critical part of that approved plan.</analysis>
+*   The agent initially refactored the wrong file (), but this was caught by the testing agent and subsequently corrected by refactoring the correct file (). The agent has since been meticulously following user instructions.</analysis>
