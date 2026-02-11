@@ -285,6 +285,14 @@ try:
 except ImportError as e:
     logger.warning(f"WebSocket Geo Sync not available: {e}")
 
+# 10. Register Bathymetry routes (Phase P2 Cartes Premium)
+try:
+    from routes.bathymetry import router as bathymetry_router
+    app.include_router(bathymetry_router)
+    logger.info("✓ Loaded: Bathymetry API [/api/bathymetry/*]")
+except ImportError as e:
+    logger.warning(f"Bathymetry API not available: {e}")
+
 # ==============================================
 # CUSTOM OPENAPI SCHEMA
 # ==============================================
