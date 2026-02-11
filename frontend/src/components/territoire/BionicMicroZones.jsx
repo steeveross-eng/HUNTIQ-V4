@@ -23,59 +23,140 @@ import { Badge } from '@/components/ui/badge';
 
 // Configuration des modules thématiques - Style "Dany Lavoie"
 // Couleurs vives et saturées pour contraste optimal sur carte topo
+// 14 TYPES DE ZONES BIONIC TACTICAL
 export const BIONIC_MODULES = {
-  habitats: { 
-    color: '#00CC00', // Vert vif (style Dany Lavoie)
-    label: 'Habitat optimal', 
-    icon: '🌲',
-    interpretation: { high: 'Zone de refuge idéale', medium: 'Habitat favorable', low: 'Habitat secondaire' }
-  },
+  // ============================================
+  // ZONES COMPORTEMENTALES (4)
+  // ============================================
   rut: { 
-    color: '#FF0066', // Rose/magenta vif
+    color: '#FF4D6D', // Rose/magenta vif
     label: 'Zone de rut', 
     icon: '💕',
+    category: 'behavioral',
     interpretation: { high: 'Activité intense', medium: 'Zone de reproduction', low: 'Passage occasionnel' }
   },
-  affuts: { 
-    color: '#9900FF', // Violet vif
-    label: 'Affût potentiel', 
-    icon: '🎯',
-    interpretation: { high: 'Position stratégique', medium: 'Bon potentiel', low: 'Point d\'observation' }
-  },
-  corridors: { 
-    color: '#FF9900', // Orange vif (style Dany Lavoie)
-    label: 'Corridor faunique', 
-    icon: '🦌',
-    interpretation: { high: 'Passage principal', medium: 'Route fréquente', low: 'Itinéraire secondaire' }
-  },
-  alimentation: { 
-    color: '#66CC00', // Vert lime
-    label: 'Zone alimentation', 
-    icon: '🌿',
-    interpretation: { high: 'Gagnage optimal', medium: 'Zone de nourrissage', low: 'Ressource limitée' }
-  },
   repos: { 
-    color: '#996633', // Brun/terre
+    color: '#8B5CF6', // Violet
     label: 'Zone de repos', 
     icon: '💤',
+    category: 'behavioral',
     interpretation: { high: 'Remise principale', medium: 'Zone de couche', low: 'Repos temporaire' }
   },
+  alimentation: { 
+    color: '#22C55E', // Vert lime
+    label: 'Zone d\'alimentation', 
+    icon: '🌿',
+    category: 'behavioral',
+    interpretation: { high: 'Gagnage optimal', medium: 'Zone de nourrissage', low: 'Ressource limitée' }
+  },
+  corridors: { 
+    color: '#06B6D4', // Cyan
+    label: 'Corridor faunique', 
+    icon: '🦌',
+    category: 'behavioral',
+    interpretation: { high: 'Passage principal', medium: 'Route fréquente', low: 'Itinéraire secondaire' }
+  },
+  
+  // ============================================
+  // ZONES ENVIRONNEMENTALES (6)
+  // ============================================
+  habitats: { 
+    color: '#10B981', // Vert émeraude
+    label: 'Habitat optimal', 
+    icon: '🌲',
+    category: 'environmental',
+    interpretation: { high: 'Zone de refuge idéale', medium: 'Habitat favorable', low: 'Habitat secondaire' }
+  },
+  soleil: { 
+    color: '#FCD34D', // Jaune soleil
+    label: 'Ensoleillement', 
+    icon: '☀️',
+    category: 'environmental',
+    interpretation: { high: 'Exposition maximale', medium: 'Mi-ombre', low: 'Zone ombragée' }
+  },
+  pente: { 
+    color: '#A78BFA', // Violet clair
+    label: 'Orientation/Pentes', 
+    icon: '⛰️',
+    category: 'environmental',
+    interpretation: { high: 'Pente abrupte', medium: 'Pente modérée', low: 'Terrain plat' }
+  },
+  hydro: { 
+    color: '#3B82F6', // Bleu
+    label: 'Hydrographie', 
+    icon: '💧',
+    category: 'environmental',
+    interpretation: { high: 'Point d\'eau vital', medium: 'Zone humide', low: 'Proximité eau' }
+  },
+  foret: { 
+    color: '#15803D', // Vert foncé
+    label: 'Couvert forestier', 
+    icon: '🌳',
+    category: 'environmental',
+    interpretation: { high: 'Forêt dense', medium: 'Couvert mixte', low: 'Clairière' }
+  },
+  thermique: { 
+    color: '#EF4444', // Rouge
+    label: 'Zone thermique', 
+    icon: '🌡️',
+    category: 'environmental',
+    interpretation: { high: 'Zone de chaleur', medium: 'Température modérée', low: 'Zone fraîche' }
+  },
+  
+  // ============================================
+  // ZONES STRATÉGIQUES (4)
+  // ============================================
+  affuts: { 
+    color: '#F5A623', // Or BIONIC
+    label: 'Affût potentiel', 
+    icon: '🎯',
+    category: 'strategic',
+    interpretation: { high: 'Position stratégique', medium: 'Bon potentiel', low: 'Point d\'observation' }
+  },
+  hotspot: { 
+    color: '#FF6B6B', // Rouge corail
+    label: 'Point chaud', 
+    icon: '🔥',
+    category: 'strategic',
+    interpretation: { high: 'Activité très élevée', medium: 'Zone active', low: 'Activité modérée' }
+  },
+  pression: { 
+    color: '#F97316', // Orange
+    label: 'Zone de pression', 
+    icon: '⚠️',
+    category: 'strategic',
+    interpretation: { high: 'Pression forte', medium: 'Pression modérée', low: 'Zone tranquille' }
+  },
+  acces: { 
+    color: '#8B5CF6', // Violet
+    label: 'Point d\'accès', 
+    icon: '🚶',
+    category: 'strategic',
+    interpretation: { high: 'Accès principal', medium: 'Accès secondaire', low: 'Accès difficile' }
+  },
+  
+  // ============================================
+  // ZONES LEGACY (maintenues pour compatibilité)
+  // ============================================
   fraicheur: { 
-    color: '#00CCFF', // Cyan vif
+    color: '#00CCFF', // Cyan vif (alias de hydro)
     label: 'Zone de fraîcheur', 
     icon: '💧',
+    category: 'environmental',
     interpretation: { high: 'Point d\'eau vital', medium: 'Zone humide', low: 'Fraîcheur relative' }
   },
   salines: { 
-    color: '#FFFF00', // Jaune vif (style Dany Lavoie)
+    color: '#FFFF00', // Jaune vif
     label: 'Saline potentielle', 
     icon: '🧂',
+    category: 'environmental',
     interpretation: { high: 'Saline active', medium: 'Zone minérale', low: 'Présence possible' }
   },
   transition: { 
-    color: '#999999', // Gris moyen
+    color: '#9CA3AF', // Gris
     label: 'Zone tampon', 
     icon: '↔️',
+    category: 'strategic',
     interpretation: { high: 'Transition clé', medium: 'Zone intermédiaire', low: 'Bordure de territoire' }
   }
 };
