@@ -1192,7 +1192,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
     setMapCenter([lat, lng]);
     
     // 4. Lancer automatiquement l'analyse du territoire
-    toast.info('🛰️ Analyse automatique du territoire en cours...', { duration: 2000 });
+    toast.info(t('analysis_auto_starting'), { duration: 2000 });
     
     try {
       // Appeler l'API d'analyse
@@ -1231,7 +1231,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
   const handleWaypointDragStart = (waypoint) => {
     setDraggingWaypoint(waypoint);
     setGpsFlowMode(true);
-    toast.info('🛰️ Flux GPS en direct activé');
+    toast.info(t('gps_live_flow_active'));
   };
 
   // Handle waypoint drag end - AUTO INTEGRATION
@@ -1276,7 +1276,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       // Auto-trigger analysis if enabled
       if (autoAnalyzeOnConfirm) {
         setTimeout(() => {
-          toast.info('🔍 Analyse du territoire en cours...');
+          toast.info(t('analysis_territory_progress'));
           handleAnalyzeGPS();
         }, 500);
       }
