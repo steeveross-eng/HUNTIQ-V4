@@ -944,7 +944,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       setPendingWaypoint(null);
       setWaypointName('');
       
-      toast.info('📍 Coordonnées GPS intégrées automatiquement');
+      toast.info('Coordonnées GPS intégrées automatiquement');
       
       // DÉCLENCHEMENT AUTOMATIQUE DE L'ANALYSE
       if (autoAnalyzeOnConfirm) {
@@ -1194,7 +1194,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
     } catch (error) {
       console.error('Auto-analysis error:', error);
       // Même si l'API échoue, on garde les coordonnées injectées
-      toast.success(`📍 Coordonnées capturées: ${lat.toFixed(6)}, ${lng.toFixed(6)}`);
+      toast.success(`Coordonnées capturées: ${lat.toFixed(6)}, ${lng.toFixed(6)}`);
     }
   }, [selectedSpecies]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -1242,7 +1242,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       
       setMapCenter([newPosition.lat, newPosition.lng]);
       
-      toast.success('📍 Coordonnées GPS intégrées automatiquement');
+      toast.success('Coordonnées GPS intégrées automatiquement');
       
       // Auto-trigger analysis if enabled
       if (autoAnalyzeOnConfirm) {
@@ -3595,7 +3595,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                       <SelectItem value="stand">🏕️ Affût/Mirador</SelectItem>
                       <SelectItem value="water">💧 Point d'eau</SelectItem>
                       <SelectItem value="trail_start">🚶 Départ sentier</SelectItem>
-                      <SelectItem value="custom">📍 Autre</SelectItem>
+                      <SelectItem value="custom">Autre</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -4532,7 +4532,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
             <div className={`absolute top-4 left-1/2 transform -translate-x-1/2 z-[600] text-sm px-4 py-2 rounded-lg font-medium shadow-lg ${
               activeTool === 'waypoint' ? 'bg-green-500 text-white' : 'bg-[#f5a623] text-black'
             }`} style={{marginLeft: '140px'}}>
-              {activeTool === 'pin' && '📍 Cliquez sur la carte pour ajouter une observation'}
+              {activeTool === 'pin' && 'Cliquez sur la carte pour ajouter une observation'}
               {activeTool === 'waypoint' && '🚩 Cliquez sur la carte pour placer un waypoint GPS'}
               {activeTool === 'route' && '🛤️ Cliquez pour tracer un chemin'}
               {activeTool === 'measure' && '📏 Cliquez pour mesurer une distance'}
