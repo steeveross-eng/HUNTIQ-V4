@@ -14,7 +14,8 @@ import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
 } from 'recharts';
 import { 
-  BarChart3, TrendingUp, Target, Cloud, CircleDot, Download, RefreshCw 
+  BarChart3, TrendingUp, Target, Cloud, CircleDot, Download, RefreshCw,
+  Clock, Eye
 } from 'lucide-react';
 import { AnalyticsService } from '../AnalyticsService';
 import { ExportService } from '../../../services/ExportService';
