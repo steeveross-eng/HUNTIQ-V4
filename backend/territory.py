@@ -517,8 +517,31 @@ async def get_camera_status(camera_id: str):
     }
 
 # ===========================================
-# API ENDPOINTS - EVENTS
+# API ENDPOINTS - EVENTS (P2 NORMALIZED - Using geo_entities)
 # ===========================================
+
+def _geo_entity_to_event_response(entity: dict) -> EventResponse:
+    """Convert a geo_entity document to EventResponse format"""
+    # Extract coordinates from GeoJSON location
+    location = entity.get('location', {})
+    coords = location.get('coordinates', [0, 0])
+    lng, lat = coords[0], coords[1]
+    
+    # Extract metadata
+    metadata = entity.get('metadata', {})
+    
+    return EventResponse(
+        id=str(entity['_id']),
+        event_type=metadata.get('event_type', entity.get('subtype', 'observation')),
+        species=metadata.get('species'),
+        species_confidence=metadata.get('species_confidence'),
+        count_estimate=metadata.get('count_estimate', 1) or 1,
+        latitude=lat,
+        longitude=lng,
+        captured_at=metadata.get('captured_at') or entity.get('created_at', datetime.now(timezone.utc)),
+        source=metadata.get('source', 'app'),
+        metadata=metadata
+    )
 
 @territory_router.get("/events/recent")
 async def get_recent_events(
@@ -527,37 +550,28 @@ async def get_recent_events(
     hours: int = 72,
     limit: int = 100
 ):
-    """Get recent events for a user"""
+    """Get recent events for a user (P2 NORMALIZED - reads from geo_entities)"""
     database = await get_db()
     
     cutoff_time = datetime.now(timezone.utc) - timedelta(hours=hours)
     
+    # Query geo_entities with entity_type: observation
     query = {
         "user_id": user_id,
-        "captured_at": {"$gte": cutoff_time}
+        "entity_type": "observation",
+        "created_at": {"$gte": cutoff_time}
     }
     
     if species:
-        query["species"] = species
+        query["metadata.species"] = species
     
-    events = await database.territory_events.find(query).sort("captured_at", -1).limit(limit).to_list(limit)
+    events = await database.geo_entities.find(query).sort("created_at", -1).limit(limit).to_list(limit)
     
-    return [EventResponse(
-        id=str(event['_id']),
-        event_type=event['event_type'],
-        species=event.get('species'),
-        species_confidence=event.get('species_confidence'),
-        count_estimate=event.get('count_estimate', 1),
-        latitude=event['latitude'],
-        longitude=event['longitude'],
-        captured_at=event['captured_at'],
-        source=event.get('source', 'app'),
-        metadata=event.get('metadata', {})
-    ) for event in events]
+    return [_geo_entity_to_event_response(event) for event in events]
 
 @territory_router.get("/events/species/{species}")
 async def get_events_by_species(user_id: str, species: str, limit: int = 100):
-    """Get events filtered by species"""
+    """Get events filtered by species (P2 NORMALIZED)"""
     if species not in ['orignal', 'chevreuil', 'ours', 'autre']:
         raise HTTPException(status_code=400, detail="Invalid species")
     
@@ -565,32 +579,61 @@ async def get_events_by_species(user_id: str, species: str, limit: int = 100):
 
 @territory_router.post("/events", response_model=EventResponse)
 async def create_event(user_id: str, event: EventCreate):
-    """Create a new event/observation"""
+    """Create a new event/observation (P2 NORMALIZED - writes to geo_entities)"""
     database = await get_db()
     
     event_id = str(uuid.uuid4())
     captured_at = event.captured_at or datetime.now(timezone.utc)
+    now = datetime.now(timezone.utc)
     
-    event_doc = {
+    # Generate name from event type and species
+    event_type = event.event_type or 'observation'
+    species = event.species or 'inconnu'
+    name = f"{event_type.replace('_', ' ').title()} - {species.title()}"
+    
+    # Create geo_entity document (P2 normalized format)
+    geo_entity_doc = {
         "_id": event_id,
         "user_id": user_id,
-        "event_type": event.event_type,
-        "species": event.species,
-        "species_confidence": event.species_confidence,
-        "count_estimate": event.count_estimate or 1,
-        "latitude": event.latitude,
-        "longitude": event.longitude,
-        "captured_at": captured_at,
-        "source": event.source,
-        "metadata": event.metadata or {},
-        "created_at": datetime.now(timezone.utc)
+        "group_id": None,
+        "name": name,
+        "entity_type": "observation",
+        "subtype": event_type,
+        
+        # GeoJSON location
+        "location": {
+            "type": "Point",
+            "coordinates": [event.longitude, event.latitude]
+        },
+        
+        "geometry": None,
+        "radius": None,
+        "active": True,
+        "visible": True,
+        "color": "#FF6B6B",
+        "icon": "eye",
+        
+        # Enriched metadata
+        "metadata": {
+            "event_type": event_type,
+            "species": event.species,
+            "species_confidence": event.species_confidence,
+            "count_estimate": event.count_estimate or 1,
+            "captured_at": captured_at,
+            "source": event.source,
+            **(event.metadata or {})
+        },
+        
+        "description": None,
+        "created_at": now,
+        "updated_at": now
     }
     
-    await database.territory_events.insert_one(event_doc)
+    await database.geo_entities.insert_one(geo_entity_doc)
     
     return EventResponse(
         id=event_id,
-        event_type=event.event_type,
+        event_type=event_type,
         species=event.species,
         species_confidence=event.species_confidence,
         count_estimate=event.count_estimate or 1,
@@ -603,12 +646,13 @@ async def create_event(user_id: str, event: EventCreate):
 
 @territory_router.delete("/events/{event_id}")
 async def delete_event(event_id: str, user_id: str):
-    """Delete an event/observation"""
+    """Delete an event/observation (P2 NORMALIZED - deletes from geo_entities)"""
     database = await get_db()
     
-    result = await database.territory_events.delete_one({
+    result = await database.geo_entities.delete_one({
         "_id": event_id,
-        "user_id": user_id
+        "user_id": user_id,
+        "entity_type": "observation"
     })
     
     if result.deleted_count == 0:
