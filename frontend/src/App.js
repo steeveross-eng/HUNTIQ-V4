@@ -97,8 +97,12 @@ const Logo = ({ size = "default" }) => {
 // Navigation Component
 const Navigation = ({ cartCount, onCartOpen }) => {
   const { t } = useLanguage();
+  const { user } = useAuth();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+
+  // Role-based navigation visibility
+  const isBusinessOrAdmin = user && ['business', 'admin'].includes(user.role);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-sm border-b border-border">
