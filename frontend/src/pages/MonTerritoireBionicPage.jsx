@@ -2291,7 +2291,12 @@ const MonTerritoireBionicPage = () => {
                 </SelectTrigger>
                 <SelectContent className="bg-gray-800 border-gray-700">
                   {PLACE_TYPES.map(type => (
-                    <SelectItem key={type.id} value={type.id} className="text-white">{type.icon} {type.name}</SelectItem>
+                    <SelectItem key={type.id} value={type.id} className="text-white">
+                      <span className="flex items-center gap-2">
+                        {type.Icon && <type.Icon className="h-4 w-4" style={{ color: type.color }} />}
+                        {type.name}
+                      </span>
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
