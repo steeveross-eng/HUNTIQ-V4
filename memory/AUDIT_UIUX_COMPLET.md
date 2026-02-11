@@ -5,6 +5,10 @@
 **Phase:** Analyse Préalable (Aucune modification)  
 **Statut:** EN ATTENTE DE VALIDATION
 
+**Documents Liés:**
+- `/app/memory/AUDIT_ADMIN_INTERFACES.md` - Audit Interfaces Administrateur
+- `/app/design_guidelines.json` - Design Guidelines JSON
+
 ---
 
 ## 1. RÉSUMÉ EXÉCUTIF
@@ -17,10 +21,12 @@ Auditer l'interface utilisateur de BIONIC pour aligner l'identité visuelle avec
 | Domaine | État Actuel | Priorité |
 |---------|-------------|----------|
 | **Identité visuelle** | Incohérente (mélange styles) | 🔴 ÉLEVÉE |
-| **Onglets menu** | Redondances détectées | 🔴 ÉLEVÉE |
+| **Onglets menu utilisateur** | Redondances détectées (10 → 7) | 🔴 ÉLEVÉE |
+| **Onglets menu Admin** | 18 onglets, 2 incohérences couleur | 🔴 ÉLEVÉE |
 | **Système i18n** | Existant mais incomplet | 🟡 MOYENNE |
 | **Design System** | Partiel (pas centralisé) | 🔴 ÉLEVÉE |
 | **Images gibier** | Absentes (pas réalistes) | 🟡 MOYENNE |
+| **Emojis Admin** | Utilisés au lieu de Lucide | 🔴 ÉLEVÉE |
 
 ---
 
