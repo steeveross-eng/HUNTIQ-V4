@@ -3249,7 +3249,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
               <Marker
                 key={`measure-${idx}`}
                 position={[point.lat, point.lng]}
-                icon={createCustomIcon('#3b82f6', '📍')}
+                icon={createCustomIcon('#3b82f6', 'pin')}
               />
             ))}
 
@@ -3418,7 +3418,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
               >
                 <Marker
                   position={[currentPosition.lat, currentPosition.lng]}
-                  icon={createCustomIcon('#3b82f6', '📍')}
+                  icon={createCustomIcon('#3b82f6', 'pin')}
                 >
                   <Popup>
                     <div className="text-sm">
