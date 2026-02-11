@@ -2,6 +2,7 @@
  * WaypointMap - Interactive Leaflet map for waypoints
  * Phase P3.2 - Interactive Map with Heatmap
  * Phase P6 - UNIFIED: Uses territory_waypoints as single source of truth
+ * BIONIC Design System compliant
  */
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
@@ -13,6 +14,9 @@ import { toast } from 'sonner';
 import { ExportService } from '../../../services/ExportService';
 import { WaypointScoringService } from '../../../services/WaypointScoringService';
 import { HeatmapLayer } from '../../../components/HeatmapLayer';
+import { 
+  Target, Camera, Eye, MapPin, Leaf, Tent, ParkingCircle, CircleDot
+} from 'lucide-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -57,19 +61,24 @@ const normalizeWaypoint = (wp) => ({
   created_at: wp.created_at
 });
 
+// BIONIC Design System - Waypoint Types with Lucide icons
 const WAYPOINT_TYPES = [
-  { id: 'hunting', label: 'Spot de chasse', icon: '🎯', color: '#f5a623' },
-  { id: 'stand', label: 'Mirador/Affût', icon: '🪵', color: '#8b4513' },
-  { id: 'camera', label: 'Caméra trail', icon: '📷', color: '#3b82f6' },
-  { id: 'feeder', label: 'Nourrisseur', icon: '🌾', color: '#22c55e' },
-  { id: 'sighting', label: 'Observation', icon: '👁️', color: '#8b5cf6' },
-  { id: 'parking', label: 'Stationnement', icon: '🅿️', color: '#6b7280' },
-  { id: 'custom', label: 'Autre', icon: '📍', color: '#ef4444' }
+  { id: 'hunting', label: 'Spot de chasse', Icon: Target, color: '#f5a623' },
+  { id: 'stand', label: 'Mirador/Affût', Icon: Tent, color: '#8b4513' },
+  { id: 'camera', label: 'Caméra trail', Icon: Camera, color: '#3b82f6' },
+  { id: 'feeder', label: 'Nourrisseur', Icon: Leaf, color: '#22c55e' },
+  { id: 'sighting', label: 'Observation', Icon: Eye, color: '#8b5cf6' },
+  { id: 'parking', label: 'Stationnement', Icon: ParkingCircle, color: '#6b7280' },
+  { id: 'custom', label: 'Autre', Icon: MapPin, color: '#ef4444' }
 ];
 
-// Custom marker icons
+// Custom marker icons - BIONIC Design System (SVG)
 const createCustomIcon = (type) => {
   const typeInfo = WAYPOINT_TYPES.find(t => t.id === type) || WAYPOINT_TYPES[6];
+  
+  // SVG path for the icon
+  const svgIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>';
+  
   return L.divIcon({
     className: 'custom-marker',
     html: `<div style="
