@@ -2221,10 +2221,10 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       warnings.push('⚠️ Forte pression de chasse - Planifiez à l\'avance');
     }
     if (type === 'prive') {
-      warnings.push('🏠 Autorisation du propriétaire obligatoire');
+      warnings.push('Autorisation du propriétaire obligatoire');
     }
     if (type === 'refuge') {
-      warnings.push('🦌 Restrictions spéciales - Vérifiez les règlements');
+      warnings.push('Restrictions spéciales - Vérifiez les règlements');
     }
     if (zone.accessibility === 'moyenne' || zone.accessibility === 'difficile') {
       warnings.push('🚗 Accès difficile - Véhicule 4x4 recommandé');
