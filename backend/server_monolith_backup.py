@@ -4390,34 +4390,36 @@ class EventCreate(BaseModel):
     notes: Optional[str] = None
     metadata: Dict[str, Any] = {}
 
-@api_router.get("/territory/events")
-async def list_events(species: Optional[str] = None, limit: int = 50):
-    """Liste les événements récents"""
-    query = {}
-    if species:
-        query["species"] = species
-    
-    events = await db.territory_events.find(query, {"_id": 0}).sort("captured_at", -1).limit(limit).to_list(limit)
-    return {"events": events}
+# [P2] DEPRECATED - These routes are now handled by territory.py with P2 normalized geo_entities
+# @api_router.get("/territory/events")
+# async def list_events(species: Optional[str] = None, limit: int = 50):
+#     """Liste les événements récents"""
+#     query = {}
+#     if species:
+#         query["species"] = species
+#     
+#     events = await db.territory_events.find(query, {"_id": 0}).sort("captured_at", -1).limit(limit).to_list(limit)
+#     return {"events": events}
 
-@api_router.post("/territory/events")
-async def create_event(request: EventCreate):
-    """Crée un nouvel événement"""
-    event = {
-        "id": str(__import__('uuid').uuid4()),
-        "user_id": "default",
-        "event_type": request.event_type,
-        "species": request.species,
-        "species_confidence": 1.0 if request.species else 0.0,
-        "location": request.location,
-        "captured_at": datetime.now(timezone.utc).isoformat(),
-        "source": "manual",
-        "metadata": request.metadata,
-        "notes": request.notes
-    }
-    await db.territory_events.insert_one(event)
-    event.pop("_id", None)
-    return {"success": True, "event": event}
+# [P2] DEPRECATED - Now handled by territory.py POST /api/territory/events
+# @api_router.post("/territory/events")
+# async def create_event(request: EventCreate):
+#     """Crée un nouvel événement"""
+#     event = {
+#         "id": str(__import__('uuid').uuid4()),
+#         "user_id": "default",
+#         "event_type": request.event_type,
+#         "species": request.species,
+#         "species_confidence": 1.0 if request.species else 0.0,
+#         "location": request.location,
+#         "captured_at": datetime.now(timezone.utc).isoformat(),
+#         "source": "manual",
+#         "metadata": request.metadata,
+#         "notes": request.notes
+#     }
+#     await db.territory_events.insert_one(event)
+#     event.pop("_id", None)
+#     return {"success": True, "event": event}
 
 # Photo classification (AI simulation)
 @api_router.post("/territory/classify-photo")
