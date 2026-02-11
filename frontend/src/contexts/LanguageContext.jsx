@@ -1099,6 +1099,49 @@ export const TRANSLATIONS = {
     territory_bathymetry: "Bathymetry",
     territory_hybrid: "Hybrid",
     
+    // Filters - Categories
+    filter_all_categories: "All Categories",
+    filter_urine: "Urines",
+    filter_gel: "Gels",
+    filter_granules: "Granules",
+    filter_blocks: "Blocks",
+    filter_liquids: "Liquids",
+    filter_powders: "Powders",
+    filter_sprays: "Sprays",
+    
+    // Filters - Animals
+    filter_all_animals: "All Animals",
+    filter_deer: "Deer / Whitetail",
+    filter_moose: "Moose",
+    filter_bear: "Bear",
+    filter_wild_boar: "Wild Boar",
+    filter_coyote: "Coyote",
+    filter_fox: "Fox",
+    
+    // Filters - Seasons
+    filter_all_seasons: "All Seasons",
+    filter_pre_rut: "Pre-rut",
+    filter_rut: "Rut",
+    filter_post_rut: "Post-rut",
+    filter_spring: "Spring",
+    filter_summer: "Summer",
+    filter_fall: "Fall",
+    filter_winter: "Winter",
+    
+    // Filters - Features
+    filter_features: "Features",
+    filter_rainproof: "Rainproof",
+    filter_pheromones: "With Pheromones",
+    filter_certified: "Food Certified",
+    filter_price_range: "Price Range",
+    filter_min_score: "Minimum Score",
+    filter_brand: "Brand",
+    filter_all_brands: "All Brands",
+    filter_sort: "Sort by",
+    filter_reset: "Reset",
+    filter_apply: "Apply",
+    filter_active: "active filters",
+    
     // Forecast Page
     forecast_title: "Hunting Forecast",
     forecast_success_probability: "Success Probability",
