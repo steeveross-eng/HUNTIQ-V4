@@ -49,38 +49,48 @@ import {
   RefreshCw,
   Eye,
   Bookmark,
-  Share2
+  Share2,
+  Shield,
+  Lock,
+  CircleDot
 } from 'lucide-react';
+import { 
+  TERRITORY_ICONS, 
+  ANIMAL_ICONS 
+} from '@/config/bionic-icons';
+import { 
+  TERRITORY_COLORS 
+} from '@/config/bionic-colors';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 // ============================================
-// TYPE ICONS & LABELS
+// TYPE ICONS & LABELS - BIONIC Design System
 // ============================================
 
 const TYPE_CONFIG = {
-  zec: { icon: '🏕️', label: 'ZEC', color: 'bg-green-500/20 text-green-400 border-green-500/50' },
-  sepaq: { icon: '🦌', label: 'Sépaq', color: 'bg-blue-500/20 text-blue-400 border-blue-500/50' },
-  pourvoirie: { icon: '🏠', label: 'Pourvoirie', color: 'bg-purple-500/20 text-purple-400 border-purple-500/50' },
-  club: { icon: '🎯', label: 'Club', color: 'bg-orange-500/20 text-orange-400 border-orange-500/50' },
-  outfitter: { icon: '🦬', label: 'Outfitter', color: 'bg-amber-500/20 text-amber-400 border-amber-500/50' },
-  private: { icon: '🔒', label: 'Privé', color: 'bg-gray-500/20 text-gray-400 border-gray-500/50' },
-  anticosti: { icon: '🏝️', label: 'Anticosti', color: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/50' },
-  reserve: { icon: '🌲', label: 'Réserve', color: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50' },
-  indigenous: { icon: '🪶', label: 'Autochtone', color: 'bg-red-500/20 text-red-400 border-red-500/50' }
+  zec: { icon: Tent, label: 'ZEC', color: 'bg-[var(--bionic-green-muted)] text-[var(--bionic-green-primary)] border-[var(--bionic-green-primary)]/50' },
+  sepaq: { icon: CircleDot, label: 'Sépaq', color: 'bg-[var(--bionic-blue-muted)] text-[var(--bionic-blue-light)] border-[var(--bionic-blue-light)]/50' },
+  pourvoirie: { icon: Building2, label: 'Pourvoirie', color: 'bg-[var(--bionic-purple-muted)] text-[var(--bionic-purple-primary)] border-[var(--bionic-purple-primary)]/50' },
+  club: { icon: Target, label: 'Club', color: 'bg-[var(--bionic-gold-muted)] text-[var(--bionic-gold-primary)] border-[var(--bionic-gold-primary)]/50' },
+  outfitter: { icon: Compass, label: 'Outfitter', color: 'bg-[var(--bionic-gold-muted)] text-[var(--bionic-gold-light)] border-[var(--bionic-gold-light)]/50' },
+  private: { icon: Lock, label: 'Privé', color: 'bg-[var(--bionic-gray-800)] text-[var(--bionic-gray-400)] border-[var(--bionic-gray-500)]/50' },
+  anticosti: { icon: Mountain, label: 'Anticosti', color: 'bg-[var(--bionic-cyan-muted)] text-[var(--bionic-cyan-primary)] border-[var(--bionic-cyan-primary)]/50' },
+  reserve: { icon: Trees, label: 'Réserve', color: 'bg-[var(--bionic-green-muted)] text-[var(--bionic-green-light)] border-[var(--bionic-green-light)]/50' },
+  indigenous: { icon: Shield, label: 'Autochtone', color: 'bg-[var(--bionic-red-muted)] text-[var(--bionic-red-primary)] border-[var(--bionic-red-primary)]/50' }
 };
 
 const SPECIES_CONFIG = {
-  orignal: { icon: '🫎', label: 'Orignal' },
-  chevreuil: { icon: '🦌', label: 'Chevreuil' },
-  ours: { icon: '🐻', label: 'Ours' },
-  caribou: { icon: '🦌', label: 'Caribou' },
-  wapiti: { icon: '🦌', label: 'Wapiti' },
-  cerf_mulet: { icon: '🦌', label: 'Cerf mulet' },
-  dindon: { icon: '🦃', label: 'Dindon' },
-  petit_gibier: { icon: '🐰', label: 'Petit gibier' },
-  sauvagine: { icon: '🦆', label: 'Sauvagine' },
-  grizzly: { icon: '🐻', label: 'Grizzly' }
+  orignal: { icon: CircleDot, label: 'Orignal' },
+  chevreuil: { icon: CircleDot, label: 'Chevreuil' },
+  ours: { icon: CircleDot, label: 'Ours' },
+  caribou: { icon: CircleDot, label: 'Caribou' },
+  wapiti: { icon: CircleDot, label: 'Wapiti' },
+  cerf_mulet: { icon: CircleDot, label: 'Cerf mulet' },
+  dindon: { icon: CircleDot, label: 'Dindon' },
+  petit_gibier: { icon: CircleDot, label: 'Petit gibier' },
+  sauvagine: { icon: CircleDot, label: 'Sauvagine' },
+  grizzly: { icon: CircleDot, label: 'Grizzly' }
 };
 
 const PROVINCE_NAMES = {
@@ -129,17 +139,18 @@ const ScoreBadge = ({ score, size = 'md' }) => {
 
 const TerritoryCard = ({ territory, onClick }) => {
   const typeConfig = TYPE_CONFIG[territory.establishment_type] || TYPE_CONFIG.outfitter;
+  const TypeIcon = typeConfig.icon;
   
   return (
     <Card 
-      className="bg-card border-border hover:border-[#f5a623]/50 transition-all cursor-pointer group"
+      className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)] hover:border-[var(--bionic-gold-primary)]/50 transition-all cursor-pointer group"
       onClick={() => onClick(territory)}
       data-testid={`territory-card-${territory.id}`}
     >
       <CardContent className="p-2">
         <div className="flex items-start justify-between mb-1">
           <div className="flex items-center gap-1">
-            <span className="text-lg">{typeConfig.icon}</span>
+            <TypeIcon className="h-4 w-4 text-[var(--bionic-gold-primary)]" />
             <Badge variant="outline" className={`${typeConfig.color} text-[10px] px-1 py-0`}>
               {typeConfig.label}
             </Badge>
@@ -147,42 +158,48 @@ const TerritoryCard = ({ territory, onClick }) => {
           <ScoreBadge score={territory.scoring?.global_score || 0} />
         </div>
         
-        <h3 className="text-white font-semibold text-sm mb-0.5 group-hover:text-[#f5a623] transition-colors line-clamp-1">
+        <h3 className="text-[var(--bionic-text-primary)] font-semibold text-sm mb-0.5 group-hover:text-[var(--bionic-gold-primary)] transition-colors line-clamp-1">
           {territory.name}
         </h3>
         
-        <div className="flex items-center gap-1 text-gray-400 text-xs mb-1">
+        <div className="flex items-center gap-1 text-[var(--bionic-text-secondary)] text-xs mb-1">
           <MapPin className="h-2.5 w-2.5" />
           <span className="truncate">{territory.region || PROVINCE_NAMES[territory.province] || territory.province}</span>
           {territory.is_verified && (
-            <CheckCircle className="h-3 w-3 text-green-400 ml-auto flex-shrink-0" />
+            <CheckCircle className="h-3 w-3 text-[var(--bionic-green-primary)] ml-auto flex-shrink-0" />
           )}
         </div>
         
-        {/* Species - Compact */}
+        {/* Species - Compact with Lucide icons */}
         <div className="flex flex-wrap gap-0.5 mb-1">
-          {(territory.species || []).slice(0, 3).map(species => (
-            <span key={species} className="text-sm" title={SPECIES_CONFIG[species]?.label}>
-              {SPECIES_CONFIG[species]?.icon || '🎯'}
-            </span>
-          ))}
+          {(territory.species || []).slice(0, 3).map(species => {
+            const speciesConfig = SPECIES_CONFIG[species];
+            const SpeciesIcon = speciesConfig?.icon || CircleDot;
+            return (
+              <SpeciesIcon 
+                key={species} 
+                className="h-3.5 w-3.5 text-[var(--bionic-gold-primary)]" 
+                title={speciesConfig?.label} 
+              />
+            );
+          })}
           {(territory.species || []).length > 3 && (
-            <span className="text-gray-500 text-[10px]">+{territory.species.length - 3}</span>
+            <span className="text-[var(--bionic-text-muted)] text-[10px]">+{territory.species.length - 3}</span>
           )}
         </div>
         
         {/* Quick stats - Single line */}
-        <div className="flex items-center gap-2 text-[10px] text-gray-400">
+        <div className="flex items-center gap-2 text-[10px] text-[var(--bionic-text-secondary)]">
           <span className="flex items-center gap-0.5">
-            <Target className="h-2.5 w-2.5 text-green-400" />
+            <Target className="h-2.5 w-2.5 text-[var(--bionic-green-primary)]" />
             {territory.success_rate ? `${territory.success_rate}%` : 'N/D'}
           </span>
           <span className="flex items-center gap-0.5">
-            <Trees className="h-2.5 w-2.5 text-blue-400" />
+            <Trees className="h-2.5 w-2.5 text-[var(--bionic-blue-light)]" />
             {territory.hunting_zones?.length || 0} zones
           </span>
           {territory.price_range && (
-            <span className="text-[#f5a623] ml-auto">{territory.price_range}</span>
+            <span className="text-[var(--bionic-gold-primary)] ml-auto">{territory.price_range}</span>
           )}
         </div>
       </CardContent>
