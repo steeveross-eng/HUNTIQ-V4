@@ -1,6 +1,7 @@
 /**
  * AnalyticsDashboard - Main analytics dashboard component
  * Phase P3 - Advanced Analytics
+ * BIONIC Design System compliant
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui/card';
@@ -12,6 +13,9 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
 } from 'recharts';
+import { 
+  BarChart3, TrendingUp, Target, Cloud, CircleDot, Download, RefreshCw 
+} from 'lucide-react';
 import { AnalyticsService } from '../AnalyticsService';
 import { ExportService } from '../../../services/ExportService';
 import { toast } from 'sonner';
