@@ -480,3 +480,193 @@
         padding-right: 4rem;
     }
 }
+
+
+
+/* ============================================
+   BIONIC TACTICAL Design System Styles
+   ============================================ */
+
+/* BIONIC Typography */
+.bionic-heading {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+}
+
+.bionic-data {
+    font-family: var(--font-data);
+}
+
+/* BIONIC Card Styles */
+.bionic-card {
+    background: var(--bionic-bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--bionic-border-subtle);
+    border-radius: 0.375rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.bionic-card-interactive {
+    transition: all 0.3s ease;
+}
+
+.bionic-card-interactive:hover {
+    border-color: rgba(245, 166, 35, 0.3);
+    box-shadow: 0 0 20px rgba(245, 166, 35, 0.1);
+}
+
+/* BIONIC Button Styles */
+.bionic-btn-primary {
+    background-color: var(--bionic-gold);
+    color: #000;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 0.125rem;
+    box-shadow: 0 0 10px rgba(245, 166, 35, 0.2);
+    transition: all 0.2s ease;
+}
+
+.bionic-btn-primary:hover {
+    background-color: var(--bionic-gold-hover);
+    box-shadow: 0 0 20px rgba(245, 166, 35, 0.4);
+}
+
+/* BIONIC Glow Effects */
+.glow-gold {
+    box-shadow: 0 0 20px rgba(245, 166, 35, 0.4);
+}
+
+.glow-tactical {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+}
+
+.glow-red {
+    filter: drop-shadow(0 0 8px rgba(255, 107, 107, 0.6));
+}
+
+/* ============================================
+   BIONIC Map Zone Animations
+   ============================================ */
+
+/* Pulsation subtile pour zones actives */
+@keyframes bionic-pulse-subtle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+}
+
+.animate-bionic-pulse {
+    animation: bionic-pulse-subtle 3s ease-in-out infinite;
+}
+
+/* Effet de flux pour corridors */
+@keyframes bionic-flow {
+    0% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 32; }
+}
+
+.animate-bionic-flow {
+    animation: bionic-flow 2s linear infinite;
+}
+
+/* Zone layer hover */
+.bionic-zone-layer {
+    transition: all 0.3s ease;
+}
+
+.bionic-zone-layer:hover {
+    filter: brightness(1.2);
+}
+
+/* ============================================
+   BIONIC Layer Panel Styles
+   ============================================ */
+.bionic-layer-panel {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.375rem;
+}
+
+.bionic-layer-item {
+    transition: background-color 0.2s ease;
+}
+
+.bionic-layer-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.bionic-layer-item-active {
+    background-color: rgba(245, 166, 35, 0.1);
+}
+
+/* ============================================
+   BIONIC Navigation Styles
+   ============================================ */
+.bionic-nav-item {
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.125rem;
+    transition: all 0.2s ease;
+}
+
+.bionic-nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.bionic-nav-item-active {
+    color: var(--bionic-gold);
+    background-color: rgba(245, 166, 35, 0.1);
+}
+
+/* BIONIC Dropdown Menu */
+.bionic-dropdown {
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.375rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.bionic-dropdown-item {
+    transition: background-color 0.15s ease;
+}
+
+.bionic-dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   BIONIC Zone Colors (for dynamic styling)
+   ============================================ */
+.zone-rut { color: var(--zone-rut); }
+.zone-repos { color: var(--zone-repos); }
+.zone-alimentation { color: var(--zone-alimentation); }
+.zone-corridor { color: var(--zone-corridor); }
+.zone-affut { color: var(--zone-affut); }
+.zone-habitat { color: var(--zone-habitat); }
+.zone-hotspot { color: var(--zone-hotspot); }
+
+.bg-zone-rut { background-color: var(--zone-rut); }
+.bg-zone-repos { background-color: var(--zone-repos); }
+.bg-zone-alimentation { background-color: var(--zone-alimentation); }
+.bg-zone-corridor { background-color: var(--zone-corridor); }
+.bg-zone-affut { background-color: var(--zone-affut); }
+.bg-zone-habitat { background-color: var(--zone-habitat); }
+.bg-zone-hotspot { background-color: var(--zone-hotspot); }
+
+/* Fill opacity variants */
+.fill-zone-rut { fill: rgba(255, 77, 109, 0.25); }
+.fill-zone-repos { fill: rgba(139, 92, 246, 0.25); }
+.fill-zone-alimentation { fill: rgba(34, 197, 94, 0.25); }
+.fill-zone-habitat { fill: rgba(16, 185, 129, 0.20); }
+.fill-zone-hotspot { fill: rgba(255, 107, 107, 0.30); }
