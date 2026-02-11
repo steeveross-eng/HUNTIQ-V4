@@ -300,10 +300,10 @@ const AdminPage = ({ onProductsUpdate }) => {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
-            <BackButton to="/" label="Accueil" />
+            <BackButton to="/" />
             <div>
-              <h1 className="golden-text text-4xl font-bold">Administration</h1>
-              <p className="text-gray-400 mt-2">Système Hybride Dropshipping + Affiliation</p>
+              <h1 className="golden-text text-4xl font-bold">{t('admin_title')}</h1>
+              <p className="text-gray-400 mt-2">{t('admin_hybrid_system')}</p>
             </div>
           </div>
           <div className="flex gap-2">
@@ -316,7 +316,7 @@ const AdminPage = ({ onProductsUpdate }) => {
               {t('common_refresh')}
             </Button>
             <Button variant="outline" className="border-red-500 text-red-500" onClick={handleLogout}>
-              <LogOut className="h-4 w-4 mr-2" />Déconnexion
+              <LogOut className="h-4 w-4 mr-2" />{t('common_logout')}
             </Button>
           </div>
         </div>
@@ -325,58 +325,58 @@ const AdminPage = ({ onProductsUpdate }) => {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="bg-card border border-border flex-wrap h-auto p-1">
             <TabsTrigger value="dashboard" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <BarChart3 className="h-4 w-4 mr-2" />Tableau de bord
+              <BarChart3 className="h-4 w-4 mr-2" />{t('admin_dashboard')}
             </TabsTrigger>
             <TabsTrigger value="sales" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <TrendingUp className="h-4 w-4 mr-2" />Ventes
+              <TrendingUp className="h-4 w-4 mr-2" />{t('admin_sales')}
             </TabsTrigger>
             <TabsTrigger value="products" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <Package className="h-4 w-4 mr-2" />Produits
+              <Package className="h-4 w-4 mr-2" />{t('admin_products')}
             </TabsTrigger>
             <TabsTrigger value="suppliers" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <Store className="h-4 w-4 mr-2" />Partenaires
+              <Store className="h-4 w-4 mr-2" />{t('admin_suppliers')}
             </TabsTrigger>
             <TabsTrigger value="customers" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <Users className="h-4 w-4 mr-2" />Clients
+              <Users className="h-4 w-4 mr-2" />{t('admin_customers')}
             </TabsTrigger>
             <TabsTrigger value="commissions" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <Percent className="h-4 w-4 mr-2" />Commissions
+              <Percent className="h-4 w-4 mr-2" />{t('admin_commissions')}
             </TabsTrigger>
             <TabsTrigger value="performance" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <Award className="h-4 w-4 mr-2" />Performances
+              <Award className="h-4 w-4 mr-2" />{t('admin_performance')}
             </TabsTrigger>
             <TabsTrigger value="categories" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <FlaskConical className="h-4 w-4 mr-2" />Catégories
+              <FlaskConical className="h-4 w-4 mr-2" />{t('admin_categories')}
             </TabsTrigger>
             <TabsTrigger value="content" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <FolderOpen className="h-4 w-4 mr-2" />Contenu SEO
+              <FolderOpen className="h-4 w-4 mr-2" />{t('admin_content')}
             </TabsTrigger>
             <TabsTrigger value="backup" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black" data-testid="backup-tab">
-              <FolderOpen className="h-4 w-4 mr-2" />BACKUP
+              <FolderOpen className="h-4 w-4 mr-2" />{t('admin_backup')}
             </TabsTrigger>
             <TabsTrigger value="access" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <Globe className="h-4 w-4 mr-2" />Accès Site
+              <Globe className="h-4 w-4 mr-2" />{t('admin_access')}
             </TabsTrigger>
             <TabsTrigger value="lands" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <Trees className="h-4 w-4 mr-2" />Hotspots
+              <Trees className="h-4 w-4 mr-2" />{t('admin_hotspots')}
             </TabsTrigger>
             <TabsTrigger value="networking" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <Users className="h-4 w-4 mr-2" />Réseautage
+              <Users className="h-4 w-4 mr-2" />{t('admin_networking')}
             </TabsTrigger>
             <TabsTrigger value="email" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <Mail className="h-4 w-4 mr-2" />Email
+              <Mail className="h-4 w-4 mr-2" />{t('admin_email')}
             </TabsTrigger>
             <TabsTrigger value="marketing" className="data-[state=active]:bg-purple-500 data-[state=active]:text-white">
-              <Sparkles className="h-4 w-4 mr-2" />Marketing
+              <Sparkles className="h-4 w-4 mr-2" />{t('admin_marketing')}
             </TabsTrigger>
             <TabsTrigger value="partnership" className="data-[state=active]:bg-green-500 data-[state=active]:text-white">
-              <Handshake className="h-4 w-4 mr-2" />Partenaires
+              <Handshake className="h-4 w-4 mr-2" />{t('admin_partnership')}
             </TabsTrigger>
             <TabsTrigger value="controls" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <Power className="h-4 w-4 mr-2" />Contrôles
+              <Power className="h-4 w-4 mr-2" />{t('admin_controls')}
             </TabsTrigger>
             <TabsTrigger value="identity" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-              <Palette className="h-4 w-4 mr-2" />Identité
+              <Palette className="h-4 w-4 mr-2" />{t('admin_identity')}
             </TabsTrigger>
           </TabsList>
 
