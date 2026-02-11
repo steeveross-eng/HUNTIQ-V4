@@ -98,11 +98,20 @@ const SPECIES_CONFIG = {
 
 const TERRAIN_ICONS = {
   foret: { icon: Trees, name: 'Forêt' },
-  mixte: { icon: <Mountain className="h-4 w-4" />, name: 'Mixte' },
-  agricole: { icon: <Grid className="h-4 w-4" />, name: 'Agricole' },
-  montagne: { icon: <Mountain className="h-4 w-4" />, name: 'Montagne' },
-  marecage: { icon: <Navigation className="h-4 w-4" />, name: 'Marécage' },
-  prairie: { icon: <Compass className="h-4 w-4" />, name: 'Prairie' }
+  mixte: { icon: Mountain, name: 'Mixte' },
+  agricole: { icon: Grid, name: 'Agricole' },
+  montagne: { icon: Mountain, name: 'Montagne' },
+  marecage: { icon: Navigation, name: 'Marécage' },
+  prairie: { icon: Compass, name: 'Prairie' }
+};
+
+// Amenities - BIONIC Design System icons
+const AMENITIES_CONFIG = {
+  blinds: { icon: Tent, name: 'Caches aménagées' },
+  cameras: { icon: Camera, name: 'Caméras de surveillance' },
+  dogs_allowed: { icon: Dog, name: 'Chiens permis' },
+  camping: { icon: Tent, name: 'Camping' },
+  lodge: { icon: Home, name: 'Pavillon' }
 };
 
 // ============================================
