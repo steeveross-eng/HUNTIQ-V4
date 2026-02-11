@@ -180,6 +180,24 @@ const AdminHotspotsPanel = () => {
 
       {expanded && (
         <>
+          {/* Auth Error Banner */}
+          {authError && (
+            <Card className="bg-red-900/30 border-red-500/50">
+              <CardContent className="p-4">
+                <p className="text-red-300 text-sm flex items-start gap-2">
+                  <Shield className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                  <span>
+                    <strong>Authentification requise</strong><br />
+                    {authError}<br />
+                    <span className="text-xs text-red-400 mt-1 block">
+                      Cliquez sur "Connexion" en haut de page pour vous authentifier avec votre compte admin BIONIC™.
+                    </span>
+                  </span>
+                </p>
+              </CardContent>
+            </Card>
+          )}
+
           {/* Quick Stats - All categories */}
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
             {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
