@@ -206,41 +206,43 @@ const CategoryCard = ({ category, categoryKey, onSelect, isSelected }) => {
               </Badge>
             );
           })}
-          </Badge>
-        ))}
-        {category.subcategories.length > 3 && (
-          <Badge variant="outline" className="text-xs">
-            +{category.subcategories.length - 3}
-          </Badge>
-        )}
-      </div>
-    </CardContent>
-  </Card>
-);
+          {category.subcategories.length > 3 && (
+            <Badge variant="outline" className="text-xs">
+              +{category.subcategories.length - 3}
+            </Badge>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
 
 // ============================================
-// SPECIES SELECTOR COMPONENT
+// SPECIES SELECTOR COMPONENT - BIONIC Design System
 // ============================================
 
 const SpeciesSelector = ({ selectedSpecies, onSelect }) => (
   <div className="grid grid-cols-3 gap-3">
-    {Object.entries(SPECIES_INFO).map(([key, species]) => (
-      <button
-        key={key}
-        onClick={() => onSelect(key)}
-        className={`p-4 rounded-xl border-2 transition-all duration-300 ${
-          selectedSpecies === key
-            ? "border-[#f5a623] bg-[#f5a623]/10 scale-105"
-            : "border-border hover:border-[#f5a623]/50 hover:bg-white/5"
-        }`}
-      >
-        <div className="text-4xl mb-2">{species.icon}</div>
-        <p className="text-white font-semibold text-sm">{species.name}</p>
-        <Badge className={`${species.color} mt-2 text-xs`}>
-          {selectedSpecies === key ? "Sélectionné" : "Choisir"}
-        </Badge>
-      </button>
-    ))}
+    {Object.entries(SPECIES_INFO).map(([key, species]) => {
+      const SpeciesIcon = species.Icon || CircleDot;
+      return (
+        <button
+          key={key}
+          onClick={() => onSelect(key)}
+          className={`p-4 rounded-xl border-2 transition-all duration-300 ${
+            selectedSpecies === key
+              ? "border-[#f5a623] bg-[#f5a623]/10 scale-105"
+              : "border-border hover:border-[#f5a623]/50 hover:bg-white/5"
+          }`}
+        >
+          <SpeciesIcon className="h-10 w-10 mx-auto mb-2" style={{ color: species.color || '#f5a623' }} />
+          <p className="text-white font-semibold text-sm">{species.name}</p>
+          <Badge className={`${species.bgClass} mt-2 text-xs`}>
+            {selectedSpecies === key ? "Sélectionné" : "Choisir"}
+          </Badge>
+        </button>
+      );
+    })}
   </div>
 );
 
