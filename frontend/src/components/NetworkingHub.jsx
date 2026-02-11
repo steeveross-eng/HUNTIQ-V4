@@ -128,7 +128,7 @@ const FeedTab = ({ userId, userName }) => {
       const response = await axios.post(`${API}/networking/like`, null, {
         params: { user_id: userId, user_name: userName, target_type: 'post', target_id: postId }
       });
-      toast.success(response.data.action === 'liked' ? '❤️ Aimé!' : 'Retiré');
+      toast.success(response.data.action === 'liked' ? t('feed_liked') || 'Aimé!' : t('feed_removed') || 'Retiré');
       loadPosts();
     } catch (error) {
       toast.error('Erreur');
