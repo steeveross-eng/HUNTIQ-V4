@@ -6,18 +6,21 @@
  * - Zones environnementales (6): Soleil, Pente, Hydro, Forêt, Thermique, Habitat
  * - Zones stratégiques (4): Affût, Hotspot, Pression, Accès
  * 
+ * Version: 1.1.0 - BIONIC Design System Compliance
+ * 
  * Caractéristiques:
  * - Polygones colorés avec opacité adaptative selon le type de carte
  * - Contours nets et précis
  * - Hiérarchie visuelle claire
  * - Compatible avec les 7 cartes premium
+ * - Icônes Lucide via iconName property
  */
 
 import React, { useMemo, useCallback } from 'react';
 import { Polygon, Circle, Polyline, LayerGroup, Tooltip } from 'react-leaflet';
 
 // ==================================================
-// CONFIGURATION DES 14 ZONES BIONIC
+// CONFIGURATION DES 14 ZONES BIONIC - DESIGN SYSTEM
 // ==================================================
 
 export const ZONE_CONFIG = {
@@ -30,7 +33,7 @@ export const ZONE_CONFIG = {
     nameEn: 'Rut Zone',
     category: 'behavioral',
     color: '#FF4D6D',
-    icon: '💕',
+    iconName: 'heart',
     priority: 1, // Plus haute priorité d'affichage
     description: 'Zone d\'activité reproductrice',
     descriptionEn: 'Breeding activity zone'
@@ -41,7 +44,7 @@ export const ZONE_CONFIG = {
     nameEn: 'Rest Zone',
     category: 'behavioral',
     color: '#8B5CF6',
-    icon: '💤',
+    iconName: 'moon',
     priority: 2,
     description: 'Zone de couche et remise',
     descriptionEn: 'Bedding and resting area'
@@ -52,7 +55,7 @@ export const ZONE_CONFIG = {
     nameEn: 'Feeding Zone',
     category: 'behavioral',
     color: '#22C55E',
-    icon: '🌿',
+    iconName: 'leaf',
     priority: 3,
     description: 'Zone de gagnage',
     descriptionEn: 'Feeding area'
@@ -63,7 +66,7 @@ export const ZONE_CONFIG = {
     nameEn: 'Wildlife Corridor',
     category: 'behavioral',
     color: '#06B6D4',
-    icon: '🦌',
+    iconName: 'route',
     priority: 4,
     description: 'Passage régulier',
     descriptionEn: 'Regular travel route'
