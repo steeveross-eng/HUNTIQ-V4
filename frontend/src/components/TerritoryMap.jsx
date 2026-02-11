@@ -1705,7 +1705,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       });
 
       setProbabilityData(response.data);
-      toast.success(`🎯 Analyse complète: ${selectedAnalysisSpecies} - ${response.data.probability_score}% de probabilité`, { duration: 5000 });
+      toast.success(`Analyse complète: ${selectedAnalysisSpecies} - ${response.data.probability_score}% de probabilité`, { duration: 5000 });
     } catch (error) {
       toast.error('Erreur lors de l\'analyse du territoire');
     }
