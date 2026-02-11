@@ -116,6 +116,22 @@ Tous les modules opérationnels avec APIs documentées.
 
 ## 5. Tests et Validation
 
+### Rapport de Test Business Dashboard (11 Février 2026)
+| Métrique | Valeur |
+|----------|--------|
+| Tests Backend | 65/66 (98.5%) |
+| Tests Frontend | 100% |
+| Endpoints Sécurisés | 20/20 |
+| Services Validés | 6/6 |
+
+### Vérification Accès Rôles
+| Rôle | /api/v1/orders | /api/v1/suppliers | /business page |
+|------|----------------|-------------------|----------------|
+| Non-auth | 401 ✅ | 401 ✅ | Accès Refusé ✅ |
+| Hunter | 403 ✅ | 403 ✅ | Accès Refusé ✅ |
+| Business | 200 ✅ | 200 ✅ | Dashboard ✅ |
+| Admin | 200 ✅ | 200 ✅ | Dashboard ✅ |
+
 ### Rapport de Test Phase 8+ (iteration_7.json)
 - **Backend**: 100% (19/19 tests passés)
 - **Frontend**: 100% (tous les dashboards fonctionnels)
@@ -144,7 +160,8 @@ Tous les modules opérationnels avec APIs documentées.
 | APIs Connectées | 60+ |
 | Tests Unitaires | 97 |
 | Tests E2E | 97 |
-| **Total Tests** | **194** |
+| Tests Sécurité | 66 |
+| **Total Tests** | **260** |
 | Couverture | 100% |
 
 ---
