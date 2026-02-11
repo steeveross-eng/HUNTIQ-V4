@@ -330,6 +330,19 @@ const Navigation = ({ cartCount, onCartOpen }) => {
                 <Briefcase className="h-4 w-4" /> Business
               </Link>
             )}
+            
+            {/* Divider */}
+            <div className="border-t border-white/10 my-2" />
+            
+            {/* Admin link on mobile */}
+            <Link to="/admin" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
+              <Lock className="h-4 w-4" /> {isAdmin ? 'Admin' : 'Connexion'}
+            </Link>
+            
+            {/* Language Switcher on mobile */}
+            <div className="px-3 py-2">
+              <LanguageSwitcher />
+            </div>
           </div>
         </div>
       )}
