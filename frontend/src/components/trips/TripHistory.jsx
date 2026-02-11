@@ -235,6 +235,7 @@ const TripCard = ({ trip, t, onStartClick }) => {
 
 // Start Trip Modal
 const StartTripModal = ({ open, onClose, trip, onTripStarted }) => {
+  const { t } = useLanguage();
   const [loading, setLoading] = useState(false);
   const [weather, setWeather] = useState('cloudy');
   const [temperature, setTemperature] = useState('');
@@ -252,10 +253,10 @@ const StartTripModal = ({ open, onClose, trip, onTripStarted }) => {
         onTripStarted(result.trip);
         onClose();
       } else {
-        toast.error(result.detail || 'Erreur');
+        toast.error(result.detail || t('common_error') || 'Erreur');
       }
     } catch (error) {
-      toast.error('Erreur de connexion');
+      toast.error(t('error_connection') || 'Erreur de connexion');
     } finally {
       setLoading(false);
     }
@@ -263,13 +264,13 @@ const StartTripModal = ({ open, onClose, trip, onTripStarted }) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-md">
+      <DialogContent className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)] text-[var(--bionic-text-primary)] max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Play className="h-5 w-5 text-emerald-400" />
-            Démarrer la Sortie
+            <Play className="h-5 w-5 text-[var(--bionic-green-primary)]" />
+            {t('trips_start_trip') || 'Démarrer la Sortie'}
           </DialogTitle>
-          <DialogDescription className="text-gray-400">
+          <DialogDescription className="text-[var(--bionic-text-secondary)]">
             {trip.title}
           </DialogDescription>
         </DialogHeader>
@@ -277,45 +278,51 @@ const StartTripModal = ({ open, onClose, trip, onTripStarted }) => {
         <div className="space-y-4 mt-4">
           {/* Weather */}
           <div className="space-y-2">
-            <Label className="text-gray-300">Conditions météo actuelles</Label>
+            <Label className="text-[var(--bionic-text-secondary)]">{t('weather_current_conditions') || 'Conditions météo actuelles'}</Label>
             <Select value={weather} onValueChange={setWeather}>
-              <SelectTrigger className="bg-slate-800 border-slate-600">
+              <SelectTrigger className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)]">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-600">
-                {WEATHER_OPTIONS.map((w) => (
-                  <SelectItem key={w.value} value={w.value} className="text-white">
-                    {w.label}
-                  </SelectItem>
-                ))}
+              <SelectContent className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
+                {WEATHER_OPTIONS.map((w) => {
+                  const WeatherIcon = w.icon;
+                  return (
+                    <SelectItem key={w.value} value={w.value} className="text-[var(--bionic-text-primary)]">
+                      <span className="flex items-center gap-2">
+                        <WeatherIcon className="h-4 w-4" />
+                        {t(`weather_${w.value}`) || w.label}
+                      </span>
+                    </SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
           </div>
 
           {/* Temperature */}
           <div className="space-y-2">
-            <Label className="text-gray-300">Température (°C)</Label>
+            <Label className="text-[var(--bionic-text-secondary)]">{t('weather_temperature') || 'Température'} (°C)</Label>
             <div className="relative">
-              <Thermometer className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Thermometer className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--bionic-text-muted)]" />
               <Input
                 type="number"
                 value={temperature}
                 onChange={(e) => setTemperature(e.target.value)}
-                className="bg-slate-800 border-slate-600 pl-10"
+                className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)] pl-10"
                 placeholder="Ex: 5"
               />
             </div>
           </div>
 
           {/* Info */}
-          <div className="bg-slate-800/50 rounded-lg p-3 flex items-start gap-3">
-            <AlertTriangle className="h-5 w-5 text-amber-400 flex-shrink-0 mt-0.5" />
-            <div className="text-sm text-gray-400">
-              <p>Une fois démarrée, vous pourrez:</p>
+          <div className="bg-[var(--bionic-bg-secondary)] rounded-lg p-3 flex items-start gap-3">
+            <AlertTriangle className="h-5 w-5 text-[var(--bionic-gold-primary)] flex-shrink-0 mt-0.5" />
+            <div className="text-sm text-[var(--bionic-text-secondary)]">
+              <p>{t('trips_start_info') || 'Une fois démarrée, vous pourrez:'}:</p>
               <ul className="list-disc list-inside mt-1">
-                <li>Ajouter des observations</li>
-                <li>Logger vos visites de waypoints</li>
-                <li>Suivre le temps écoulé</li>
+                <li>{t('trips_add_observations') || 'Ajouter des observations'}</li>
+                <li>{t('trips_log_waypoints') || 'Logger vos visites de waypoints'}</li>
+                <li>{t('trips_track_time') || 'Suivre le temps écoulé'}</li>
               </ul>
             </div>
           </div>
@@ -325,14 +332,14 @@ const StartTripModal = ({ open, onClose, trip, onTripStarted }) => {
             <Button
               variant="outline"
               onClick={onClose}
-              className="flex-1 border-slate-600"
+              className="flex-1 border-[var(--bionic-border-secondary)]"
               disabled={loading}
             >
-              Annuler
+              {t('common_cancel')}
             </Button>
             <Button
               onClick={handleStart}
-              className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+              className="flex-1 bg-[var(--bionic-green-primary)] hover:bg-[var(--bionic-green-light)]"
               disabled={loading}
             >
               {loading ? (
@@ -340,7 +347,7 @@ const StartTripModal = ({ open, onClose, trip, onTripStarted }) => {
               ) : (
                 <>
                   <Play className="h-4 w-4 mr-2" />
-                  C'est parti!
+                  {t('trips_lets_go') || "C'est parti!"}
                 </>
               )}
             </Button>
