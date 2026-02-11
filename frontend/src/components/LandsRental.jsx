@@ -84,20 +84,20 @@ import { useNavigate } from 'react-router-dom';
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 // ============================================
-// GAME SPECIES ICONS
+// GAME SPECIES CONFIG - BIONIC Design System
 // ============================================
 
 const SPECIES_CONFIG = {
-  orignal: { icon: '🦌', name: 'Orignal', color: 'bg-amber-500/20 text-amber-400' },
-  chevreuil: { icon: '🦌', name: 'Chevreuil', color: 'bg-orange-500/20 text-orange-400' },
-  ours: { icon: '🐻', name: 'Ours', color: 'bg-stone-500/20 text-stone-400' },
-  dindon: { icon: '🦃', name: 'Dindon', color: 'bg-red-500/20 text-red-400' },
-  petit_gibier: { icon: '🐰', name: 'Petit gibier', color: 'bg-green-500/20 text-green-400' },
-  multi_especes: { icon: '🎯', name: 'Multi-espèces', color: 'bg-purple-500/20 text-purple-400' }
+  orignal: { icon: Target, name: 'Orignal', color: 'bg-[var(--bionic-gold-muted)] text-[var(--bionic-gold-primary)]' },
+  chevreuil: { icon: Target, name: 'Chevreuil', color: 'bg-[var(--bionic-gold-muted)] text-[var(--bionic-gold-light)]' },
+  ours: { icon: Target, name: 'Ours', color: 'bg-[var(--bionic-gray-800)] text-[var(--bionic-gray-400)]' },
+  dindon: { icon: Target, name: 'Dindon', color: 'bg-[var(--bionic-red-muted)] text-[var(--bionic-red-primary)]' },
+  petit_gibier: { icon: Target, name: 'Petit gibier', color: 'bg-[var(--bionic-green-muted)] text-[var(--bionic-green-primary)]' },
+  multi_especes: { icon: Sparkles, name: 'Multi-espèces', color: 'bg-[var(--bionic-purple-muted)] text-[var(--bionic-purple-primary)]' }
 };
 
 const TERRAIN_ICONS = {
-  foret: { icon: <Trees className="h-4 w-4" />, name: 'Forêt' },
+  foret: { icon: Trees, name: 'Forêt' },
   mixte: { icon: <Mountain className="h-4 w-4" />, name: 'Mixte' },
   agricole: { icon: <Grid className="h-4 w-4" />, name: 'Agricole' },
   montagne: { icon: <Mountain className="h-4 w-4" />, name: 'Montagne' },
