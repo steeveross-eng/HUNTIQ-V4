@@ -179,6 +179,9 @@ Tous les modules opérationnels avec APIs documentées.
 - **Phase P4 (NEW): Auth Engine (JWT + Google OAuth) + VAPID Keys**
 - **Phase P4+ (NEW): Hunting Trip Logger + Password Reset**
 - **Phase 11 (NEW): Tests unitaires + Documentation**
+- **Phase P0/P1 (11 Fév 2026): Sécurisation Admin + Nettoyage Legacy**
+- **Phase Business Dashboard (11 Fév 2026): Sécurisation 20 endpoints**
+- **Phase Weather Widget (11 Fév 2026): OpenWeatherMap Integration**
 
 ### À venir (P1)
 - ✅ **COMPLÉTÉ** - Intégration GPT-5.2 pour ai_engine
