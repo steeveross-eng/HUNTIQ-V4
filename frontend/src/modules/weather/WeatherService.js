@@ -193,6 +193,86 @@ export class WeatherService {
       }
     };
   }
+
+  // === NEW METHODS - OPENWEATHERMAP INTEGRATION ===
+
+  /**
+   * Get current real-time weather for a location
+   * @param {number} lat - Latitude
+   * @param {number} lng - Longitude
+   * @returns {Promise<Object>} Current weather data
+   */
+  static async getCurrentWeatherReal(lat, lng) {
+    try {
+      const response = await fetch(`${API_URL}/api/v1/weather/current?lat=${lat}&lng=${lng}`);
+      if (!response.ok) {
+        throw new Error(`Weather API error: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching current weather:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get hourly forecast for a location
+   * @param {number} lat - Latitude
+   * @param {number} lng - Longitude
+   * @param {number} hours - Number of hours (max 48)
+   * @returns {Promise<Array>} Hourly forecast data
+   */
+  static async getHourlyForecast(lat, lng, hours = 48) {
+    try {
+      const response = await fetch(`${API_URL}/api/v1/weather/hourly?lat=${lat}&lng=${lng}&hours=${hours}`);
+      if (!response.ok) {
+        throw new Error(`Weather API error: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching hourly forecast:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get daily forecast for a location
+   * @param {number} lat - Latitude
+   * @param {number} lng - Longitude
+   * @param {number} days - Number of days (max 7)
+   * @returns {Promise<Array>} Daily forecast data
+   */
+  static async getDailyForecast(lat, lng, days = 7) {
+    try {
+      const response = await fetch(`${API_URL}/api/v1/weather/daily?lat=${lat}&lng=${lng}&days=${days}`);
+      if (!response.ok) {
+        throw new Error(`Weather API error: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching daily forecast:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get full weather data with hunting analysis
+   * @param {number} lat - Latitude
+   * @param {number} lng - Longitude
+   * @returns {Promise<Object>} Complete weather data including hunting analysis
+   */
+  static async getFullWeather(lat, lng) {
+    try {
+      const response = await fetch(`${API_URL}/api/v1/weather/full?lat=${lat}&lng=${lng}`);
+      if (!response.ok) {
+        throw new Error(`Weather API error: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching full weather:', error);
+      throw error;
+    }
+  }
 }
 
 export default WeatherService;
