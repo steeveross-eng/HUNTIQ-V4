@@ -11,7 +11,7 @@ import { Progress } from '../components/ui/progress';
 import { WaypointScoringService } from '../services/WaypointScoringService';
 import { 
   CircleDot, Sun, Cloud, CloudRain, CloudFog, Snowflake, 
-  Flame, ThumbsUp, MapPin, AlertTriangle, Target
+  Flame, ThumbsUp, MapPin, AlertTriangle, Target, Clock, Trophy, BarChart3, Eye
 } from 'lucide-react';
 
 // BIONIC Design System - Species config with Lucide icons
