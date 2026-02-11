@@ -13,6 +13,7 @@ import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { toast } from 'sonner';
 import { MapPin, ExternalLink, Filter, RefreshCw, ChevronDown, ChevronUp, Shield } from 'lucide-react';
+import { useAuth } from './GlobalAuth';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
