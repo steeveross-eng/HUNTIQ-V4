@@ -2198,7 +2198,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
     
     // Timing recommendations
     if (zone.qualityScore >= 85) {
-      recs.push('🎯 Zone à fort potentiel - Réservez tôt en saison');
+      recs.push('Zone à fort potentiel - Réservez tôt en saison');
     }
     if (zone.huntingPressure === 'faible' || zone.huntingPressure === 'très faible') {
       recs.push('🌲 Pression de chasse faible - Conditions idéales');
