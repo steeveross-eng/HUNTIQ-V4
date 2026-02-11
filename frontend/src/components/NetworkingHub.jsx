@@ -975,49 +975,51 @@ const GroupsTab = ({ userId, userName }) => {
   };
 
   const groupTypeIcons = {
-    hunting_club: '🎯',
-    family: '👨‍👩‍👧‍👦',
-    business: '💼',
-    friends: '👥',
-    custom: '📋'
+    hunting_club: Target,
+    family: UsersRound,
+    business: Building2,
+    friends: Users,
+    custom: Tag
   };
 
   if (loading) {
-    return <div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-[#f5a623]" /></div>;
+    return <div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-[var(--bionic-gold-primary)]" /></div>;
   }
 
   return (
     <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <p className="text-gray-400">{groups.length} groupe(s)</p>
-        <Button onClick={() => setShowNewGroup(true)} className="bg-[#f5a623] hover:bg-[#d4891c] text-black" data-testid="new-group-btn">
+        <p className="text-[var(--bionic-text-secondary)]">{groups.length} {t('common_groups') || 'groupe(s)'}</p>
+        <Button onClick={() => setShowNewGroup(true)} className="bg-[var(--bionic-gold-primary)] hover:bg-[var(--bionic-gold-light)] text-black" data-testid="new-group-btn">
           <Plus className="h-4 w-4 mr-2" />
-          Créer un groupe
+          {t('network_create_group') || 'Créer un groupe'}
         </Button>
       </div>
 
       {/* Groups List */}
       {groups.length === 0 ? (
-        <Card className="bg-card border-border">
+        <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
           <CardContent className="py-12 text-center">
-            <UsersRound className="h-12 w-12 text-gray-600 mx-auto mb-4" />
-            <p className="text-gray-400">Aucun groupe</p>
+            <UsersRound className="h-12 w-12 text-[var(--bionic-gray-500)] mx-auto mb-4" />
+            <p className="text-[var(--bionic-text-secondary)]">{t('network_no_groups') || 'Aucun groupe'}</p>
           </CardContent>
         </Card>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {groups.map(group => (
-            <Card key={group.id} className="bg-card border-border" data-testid={`group-${group.id}`}>
+          {groups.map(group => {
+            const GroupIcon = groupTypeIcons[group.group_type] || Tag;
+            return (
+            <Card key={group.id} className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]" data-testid={`group-${group.id}`}>
               <CardContent className="p-4">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-lg bg-[#f5a623]/20 flex items-center justify-center text-2xl">
-                      {groupTypeIcons[group.group_type] || '📋'}
+                    <div className="w-12 h-12 rounded-lg bg-[var(--bionic-gold-muted)] flex items-center justify-center">
+                      <GroupIcon className="h-6 w-6 text-[var(--bionic-gold-primary)]" />
                     </div>
                     <div>
-                      <p className="font-medium text-white">{group.name}</p>
-                      <p className="text-sm text-gray-400">{group.member_count} membre(s)</p>
+                      <p className="font-medium text-[var(--bionic-text-primary)]">{group.name}</p>
+                      <p className="text-sm text-[var(--bionic-text-secondary)]">{group.member_count} {t('common_members') || 'membre(s)'}</p>
                     </div>
                   </div>
                   <Badge variant={group.privacy === 'public' ? 'default' : 'outline'}>
