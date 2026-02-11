@@ -212,25 +212,27 @@ const TerritoryCard = ({ territory, onClick }) => {
 // ============================================
 
 const TerritoryDetailModal = ({ territory, open, onClose }) => {
+  const { t } = useLanguage();
   if (!territory) return null;
   
   const typeConfig = TYPE_CONFIG[territory.establishment_type] || TYPE_CONFIG.outfitter;
+  const TypeIcon = typeConfig.icon;
   const scoring = territory.scoring || {};
   
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-card border-border">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
         <DialogHeader>
           <div className="flex items-center gap-3">
-            <span className="text-3xl">{typeConfig.icon}</span>
+            <TypeIcon className="h-8 w-8 text-[var(--bionic-gold-primary)]" />
             <div>
-              <DialogTitle className="text-white text-xl">{territory.name}</DialogTitle>
+              <DialogTitle className="text-[var(--bionic-text-primary)] text-xl">{territory.name}</DialogTitle>
               <DialogDescription className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
                 {territory.region}, {PROVINCE_NAMES[territory.province] || territory.province}
                 {territory.is_verified && (
-                  <Badge className="bg-green-500/20 text-green-400 text-xs ml-2">
-                    <CheckCircle className="h-3 w-3 mr-1" /> Vérifié
+                  <Badge className="bg-[var(--bionic-green-muted)] text-[var(--bionic-green-primary)] text-xs ml-2">
+                    <CheckCircle className="h-3 w-3 mr-1" /> {t('territory_verified')}
                   </Badge>
                 )}
               </DialogDescription>
@@ -240,47 +242,47 @@ const TerritoryDetailModal = ({ territory, open, onClose }) => {
         
         <div className="space-y-6 py-4">
           {/* Score Section */}
-          <div className="bg-background p-4 rounded-lg border border-border">
-            <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
-              <BarChart3 className="h-5 w-5 text-[#f5a623]" />
-              Score BIONIC™
+          <div className="bg-[var(--bionic-bg-primary)] p-4 rounded-lg border border-[var(--bionic-border-secondary)]">
+            <h4 className="text-[var(--bionic-text-primary)] font-semibold mb-4 flex items-center gap-2">
+              <BarChart3 className="h-5 w-5 text-[var(--bionic-gold-primary)]" />
+              {t('territory_bionic_score')}
             </h4>
             
             <div className="flex items-center justify-center mb-6">
               <div className="text-center">
                 <ScoreBadge score={scoring.global_score || 0} size="lg" />
-                <p className="text-gray-400 text-sm mt-2">Score Global</p>
+                <p className="text-[var(--bionic-text-secondary)] text-sm mt-2">{t('global_score')}</p>
               </div>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-400">Habitat (H)</span>
-                  <span className="text-white">{scoring.habitat_index || 0}%</span>
+                  <span className="text-[var(--bionic-text-secondary)]">{t('habitat_quality')} (H)</span>
+                  <span className="text-[var(--bionic-text-primary)]">{scoring.habitat_index || 0}%</span>
                 </div>
                 <Progress value={scoring.habitat_index || 0} className="h-2" />
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-400">Pression (P)</span>
-                  <span className="text-white">{scoring.pressure_index || 0}%</span>
+                  <span className="text-[var(--bionic-text-secondary)]">{t('hunting_pressure')} (P)</span>
+                  <span className="text-[var(--bionic-text-primary)]">{scoring.pressure_index || 0}%</span>
                 </div>
-                <Progress value={scoring.pressure_index || 0} className="h-2 [&>div]:bg-orange-500" />
+                <Progress value={scoring.pressure_index || 0} className="h-2 [&>div]:bg-[var(--bionic-gold-primary)]" />
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-400">Succès (S)</span>
-                  <span className="text-white">{scoring.success_index || 0}%</span>
+                  <span className="text-[var(--bionic-text-secondary)]">{t('territory_success_rate')} (S)</span>
+                  <span className="text-[var(--bionic-text-primary)]">{scoring.success_index || 0}%</span>
                 </div>
-                <Progress value={scoring.success_index || 0} className="h-2 [&>div]:bg-green-500" />
+                <Progress value={scoring.success_index || 0} className="h-2 [&>div]:bg-[var(--bionic-green-primary)]" />
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-400">Accessibilité (A)</span>
-                  <span className="text-white">{scoring.accessibility_index || 0}%</span>
+                  <span className="text-[var(--bionic-text-secondary)]">{t('accessibility')} (A)</span>
+                  <span className="text-[var(--bionic-text-primary)]">{scoring.accessibility_index || 0}%</span>
                 </div>
-                <Progress value={scoring.accessibility_index || 0} className="h-2 [&>div]:bg-blue-500" />
+                <Progress value={scoring.accessibility_index || 0} className="h-2 [&>div]:bg-[var(--bionic-blue-light)]" />
               </div>
             </div>
           </div>
@@ -288,30 +290,34 @@ const TerritoryDetailModal = ({ territory, open, onClose }) => {
           {/* Description */}
           {territory.description && (
             <div>
-              <h4 className="text-white font-semibold mb-2">Description</h4>
-              <p className="text-gray-400">{territory.description}</p>
+              <h4 className="text-[var(--bionic-text-primary)] font-semibold mb-2">Description</h4>
+              <p className="text-[var(--bionic-text-secondary)]">{territory.description}</p>
             </div>
           )}
           
           {/* Species */}
           <div>
-            <h4 className="text-white font-semibold mb-2">Espèces disponibles</h4>
+            <h4 className="text-[var(--bionic-text-primary)] font-semibold mb-2">{t('territory_species')}</h4>
             <div className="flex flex-wrap gap-2">
-              {(territory.species || []).map(species => (
-                <Badge key={species} variant="outline" className="text-white border-border">
-                  {SPECIES_CONFIG[species]?.icon} {SPECIES_CONFIG[species]?.label || species}
-                </Badge>
-              ))}
+              {(territory.species || []).map(species => {
+                const speciesConfig = SPECIES_CONFIG[species];
+                const SpeciesIcon = speciesConfig?.icon || CircleDot;
+                return (
+                  <Badge key={species} variant="outline" className="text-[var(--bionic-text-primary)] border-[var(--bionic-border-primary)] flex items-center gap-1">
+                    <SpeciesIcon className="h-3 w-3" /> {speciesConfig?.label || species}
+                  </Badge>
+                );
+              })}
             </div>
           </div>
           
           {/* Hunting Zones */}
           {territory.hunting_zones && territory.hunting_zones.length > 0 && (
             <div>
-              <h4 className="text-white font-semibold mb-2">Zones de chasse</h4>
+              <h4 className="text-[var(--bionic-text-primary)] font-semibold mb-2">{t('territory_hunting_zones')}</h4>
               <div className="flex flex-wrap gap-2">
                 {territory.hunting_zones.map((zone, idx) => (
-                  <Badge key={idx} className="bg-[#f5a623]/20 text-[#f5a623]">
+                  <Badge key={idx} className="bg-[var(--bionic-gold-muted)] text-[var(--bionic-gold-primary)]">
                     {zone}
                   </Badge>
                 ))}
@@ -322,31 +328,31 @@ const TerritoryDetailModal = ({ territory, open, onClose }) => {
           {/* Services */}
           {territory.services && Object.values(territory.services).some(v => v) && (
             <div>
-              <h4 className="text-white font-semibold mb-2">Services</h4>
+              <h4 className="text-[var(--bionic-text-primary)] font-semibold mb-2">{t('territory_services')}</h4>
               <div className="grid grid-cols-2 gap-2">
                 {territory.services.accommodation && (
-                  <div className="flex items-center gap-2 text-gray-300 text-sm">
-                    <Tent className="h-4 w-4 text-green-400" /> Hébergement
+                  <div className="flex items-center gap-2 text-[var(--bionic-text-secondary)] text-sm">
+                    <Tent className="h-4 w-4 text-[var(--bionic-green-primary)]" /> {t('lands_features') || 'Hébergement'}
                   </div>
                 )}
                 {territory.services.guided_hunts && (
-                  <div className="flex items-center gap-2 text-gray-300 text-sm">
-                    <Users className="h-4 w-4 text-green-400" /> Chasse guidée
+                  <div className="flex items-center gap-2 text-[var(--bionic-text-secondary)] text-sm">
+                    <Users className="h-4 w-4 text-[var(--bionic-green-primary)]" /> {t('services_guided') || 'Chasse guidée'}
                   </div>
                 )}
                 {territory.services.meals_included && (
-                  <div className="flex items-center gap-2 text-gray-300 text-sm">
-                    <CheckCircle className="h-4 w-4 text-green-400" /> Repas inclus
+                  <div className="flex items-center gap-2 text-[var(--bionic-text-secondary)] text-sm">
+                    <CheckCircle className="h-4 w-4 text-[var(--bionic-green-primary)]" /> {t('services_meals') || 'Repas inclus'}
                   </div>
                 )}
                 {territory.services.meat_processing && (
-                  <div className="flex items-center gap-2 text-gray-300 text-sm">
-                    <CheckCircle className="h-4 w-4 text-green-400" /> Traitement gibier
+                  <div className="flex items-center gap-2 text-[var(--bionic-text-secondary)] text-sm">
+                    <CheckCircle className="h-4 w-4 text-[var(--bionic-green-primary)]" /> {t('services_processing') || 'Traitement gibier'}
                   </div>
                 )}
                 {territory.services.transportation && (
-                  <div className="flex items-center gap-2 text-gray-300 text-sm">
-                    <Navigation className="h-4 w-4 text-green-400" /> Transport
+                  <div className="flex items-center gap-2 text-[var(--bionic-text-secondary)] text-sm">
+                    <Navigation className="h-4 w-4 text-[var(--bionic-green-primary)]" /> Transport
                   </div>
                 )}
               </div>
@@ -354,15 +360,15 @@ const TerritoryDetailModal = ({ territory, open, onClose }) => {
           )}
           
           {/* Contact Info */}
-          <div className="bg-background p-4 rounded-lg border border-border">
-            <h4 className="text-white font-semibold mb-3">Contact</h4>
+          <div className="bg-[var(--bionic-bg-primary)] p-4 rounded-lg border border-[var(--bionic-border-secondary)]">
+            <h4 className="text-[var(--bionic-text-primary)] font-semibold mb-3">{t('territory_contact')}</h4>
             <div className="space-y-2">
               {territory.website && (
                 <a 
                   href={territory.website} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-[#f5a623] hover:underline"
+                  className="flex items-center gap-2 text-[var(--bionic-gold-primary)] hover:underline"
                 >
                   <Globe className="h-4 w-4" />
                   {territory.website}
@@ -372,7 +378,7 @@ const TerritoryDetailModal = ({ territory, open, onClose }) => {
               {territory.email && (
                 <a 
                   href={`mailto:${territory.email}`}
-                  className="flex items-center gap-2 text-gray-300 hover:text-white"
+                  className="flex items-center gap-2 text-[var(--bionic-text-secondary)] hover:text-[var(--bionic-text-primary)]"
                 >
                   <Mail className="h-4 w-4" />
                   {territory.email}
@@ -381,7 +387,7 @@ const TerritoryDetailModal = ({ territory, open, onClose }) => {
               {territory.phone && (
                 <a 
                   href={`tel:${territory.phone}`}
-                  className="flex items-center gap-2 text-gray-300 hover:text-white"
+                  className="flex items-center gap-2 text-[var(--bionic-text-secondary)] hover:text-[var(--bionic-text-primary)]"
                 >
                   <Phone className="h-4 w-4" />
                   {territory.phone}
@@ -391,7 +397,7 @@ const TerritoryDetailModal = ({ territory, open, onClose }) => {
           </div>
           
           {/* Internal ID */}
-          <div className="text-xs text-gray-500 text-center">
+          <div className="text-xs text-[var(--bionic-text-muted)] text-center">
             ID: {territory.internal_id}
           </div>
         </div>
