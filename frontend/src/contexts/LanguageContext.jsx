@@ -1284,6 +1284,89 @@ export const TRANSLATIONS = {
     business_sales_week: "Sales This Week",
     business_sales_month: "Sales This Month",
     
+    // Place Types (Design System)
+    place_zec: "ZEC",
+    place_pourvoirie: "Outfitter",
+    place_private: "Private Territory",
+    place_reserve: "Wildlife Reserve (Sépaq)",
+    place_stand: "Hunting Stand",
+    place_salt_lick: "Salt Lick",
+    place_observation: "Observation Point",
+    place_parking: "Parking",
+    place_camp: "Hunting Camp",
+    place_other: "Other Location",
+    
+    // Waypoint Types (Design System)
+    waypoint_hunting: "Hunting Spot",
+    waypoint_camera: "Trail Camera",
+    waypoint_feeding: "Feeding Zone",
+    waypoint_observation: "Observation Point",
+    waypoint_blind: "Hunting Blind",
+    waypoint_custom: "Custom",
+    
+    // Zone Types (Design System)
+    zone_rutting: "Rutting Zone",
+    zone_bedding: "Bedding Zone",
+    zone_feeding: "Feeding Zone",
+    zone_water: "Water Source",
+    zone_observation: "Observation Post",
+    zone_blind: "Blind Location",
+    zone_trail: "Trail",
+    zone_scrape: "Scrape",
+    zone_rub: "Rub",
+    zone_crossing: "Crossing",
+    zone_funnel: "Funnel",
+    zone_staging: "Staging Area",
+    zone_thermal: "Thermal Corridor",
+    zone_sanctuary: "Sanctuary",
+    
+    // Animal Species (Design System)
+    animal_deer: "Whitetail Deer",
+    animal_moose: "Moose",
+    animal_bear: "Black Bear",
+    animal_wild_boar: "Wild Boar",
+    animal_turkey: "Wild Turkey",
+    animal_duck: "Duck",
+    animal_coyote: "Coyote",
+    animal_fox: "Fox",
+    
+    // Weather Conditions (Design System)
+    weather_clear: "Clear",
+    weather_cloudy: "Cloudy",
+    weather_partly_cloudy: "Partly Cloudy",
+    weather_rain: "Rain",
+    weather_snow: "Snow",
+    weather_fog: "Fog",
+    weather_wind: "Windy",
+    weather_temperature: "Temperature",
+    weather_humidity: "Humidity",
+    weather_pressure: "Pressure",
+    weather_wind_speed: "Wind Speed",
+    
+    // Seasons (Design System)
+    season_pre_rut: "Pre-rut",
+    season_rut: "Rut",
+    season_post_rut: "Post-rut",
+    season_spring: "Spring",
+    season_summer: "Summer",
+    season_fall: "Fall",
+    season_winter: "Winter",
+    
+    // Product Categories (Design System)
+    category_urine: "Urines",
+    category_gel: "Gels",
+    category_granules: "Granules",
+    category_block: "Blocks",
+    category_liquid: "Liquids",
+    category_powder: "Powders",
+    category_spray: "Sprays",
+    
+    // AI Insights (Design System)
+    insight_tip: "Tip",
+    insight_trend: "Trend",
+    insight_warning: "Warning",
+    insight_recommendation: "Recommendation",
+    
     // Footer & Partner
     footer_rights: "All rights reserved",
     footer_privacy: "Privacy",
