@@ -79,18 +79,18 @@ const SEASONS = [
   { id: "summer", nameKey: "filter_summer" },
   { id: "fall", nameKey: "filter_fall" },
   { id: "winter", nameKey: "filter_winter" },
-  { id: "year_round", name: "Toute l'année" }
+  { id: "year_round", nameKey: "filter_all_seasons" }
 ];
 
 const SORT_OPTIONS = [
-  { id: "rank_asc", name: "Classement (meilleur)", field: "rank", order: "asc" },
-  { id: "rank_desc", name: "Classement (bas)", field: "rank", order: "desc" },
-  { id: "score_desc", name: "Score (haut)", field: "score", order: "desc" },
-  { id: "score_asc", name: "Score (bas)", field: "score", order: "asc" },
-  { id: "price_asc", name: "Prix (croissant)", field: "price", order: "asc" },
-  { id: "price_desc", name: "Prix (décroissant)", field: "price", order: "desc" },
-  { id: "name_asc", name: "Nom (A-Z)", field: "name", order: "asc" },
-  { id: "name_desc", name: "Nom (Z-A)", field: "name", order: "desc" }
+  { id: "rank_asc", nameKey: "sort_rank_best", field: "rank", order: "asc" },
+  { id: "rank_desc", nameKey: "sort_rank_low", field: "rank", order: "desc" },
+  { id: "score_desc", nameKey: "sort_score_high", field: "score", order: "desc" },
+  { id: "score_asc", nameKey: "sort_score_low", field: "score", order: "asc" },
+  { id: "price_asc", nameKey: "shop_sort_price_asc", field: "price", order: "asc" },
+  { id: "price_desc", nameKey: "shop_sort_price_desc", field: "price", order: "desc" },
+  { id: "name_asc", nameKey: "sort_name_az", field: "name", order: "asc" },
+  { id: "name_desc", nameKey: "sort_name_za", field: "name", order: "desc" }
 ];
 
 // Filter chip component
@@ -113,6 +113,7 @@ const AdvancedFilters = ({
   showSearch = true,
   compact = false 
 }) => {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [filters, setFilters] = useState({
     search: "",
