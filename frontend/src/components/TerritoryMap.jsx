@@ -401,6 +401,31 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
     geoform: true
   });
   
+  // BIONIC TACTICAL Advanced Layer Panel State
+  const [showBionicLayerPanel, setShowBionicLayerPanel] = useState(false);
+  const [bionicLayerPanelMinimized, setBionicLayerPanelMinimized] = useState(false);
+  const [advancedZoneVisibility, setAdvancedZoneVisibility] = useState({
+    rut: false,
+    repos: false,
+    alimentation: false,
+    corridor: false,
+    affut: false,
+    habitat: false,
+    soleil: false,
+    pente: false,
+    hydro: false,
+    foret: false,
+    thermique: false,
+    hotspot: false,
+    pression: false,
+    acces: false,
+    wms_foret: false,
+    wms_hydro: false,
+    wms_topo: false,
+    wms_routes: false,
+  });
+  const [advancedZoneOpacity, setAdvancedZoneOpacity] = useState(75);
+  
   // Configuration des modules BIONIC avec couleurs
   const BIONIC_MODULE_CONFIG = {
     thermal: { name: 'ThermalScore', label: 'Zone Thermique', color: '#ef4444', icon: '🌡️' },
