@@ -93,7 +93,7 @@ const createCustomIcon = (type) => {
       border: 2px solid white;
       box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     ">
-      <span style="transform: rotate(45deg); font-size: 18px;">${typeInfo.icon}</span>
+      <span style="transform: rotate(45deg); display: flex; align-items: center; justify-content: center;">${svgIcon}</span>
     </div>`,
     iconSize: [36, 36],
     iconAnchor: [18, 36],
