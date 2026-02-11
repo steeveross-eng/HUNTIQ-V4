@@ -27,6 +27,10 @@ import logging
 from models.geo_entity import GeoEntityResponse, GeoStatsResponse, HabitatType
 from database import Database
 
+# Import role-based authentication
+from modules.roles_engine.v1.dependencies import require_admin
+from modules.roles_engine.v1.models import UserWithRole
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/admin/geo", tags=["Admin Geo (ADMIN ONLY - Confidential)"])
@@ -45,6 +49,7 @@ async def get_db():
 
 @router.get("/all", response_model=List[GeoEntityResponse])
 async def get_all_entities(
+    admin: UserWithRole = Depends(require_admin),
     entity_type: Optional[str] = None,
     habitat: Optional[str] = None,
     min_density: Optional[float] = Query(None, ge=0, le=1),
@@ -56,9 +61,7 @@ async def get_all_entities(
     group_id: Optional[str] = None,
     active: Optional[bool] = None,
     skip: int = Query(0, ge=0),
-    limit: int = Query(100, ge=1, le=1000),
-    # Admin auth
-    admin_token: str = Query(None)  # Simplified auth for now
+    limit: int = Query(100, ge=1, le=1000)
 ):
     """
     Get ALL geo entities across all users (admin only).
@@ -107,6 +110,7 @@ async def get_all_entities(
 
 @router.get("/hotspots")
 async def get_admin_hotspots(
+    admin: UserWithRole = Depends(require_admin),
     category: Optional[str] = Query(None, description="standard|premium|land_rental|environmental|chalet|user_personal|inactive"),
     user_id: Optional[str] = Query(None, description="Filter by specific user"),
     min_confidence: Optional[float] = Query(None, ge=0, le=1),
@@ -289,6 +293,7 @@ def _get_hotspot_status(hotspot: dict) -> str:
 
 @router.get("/corridors")
 async def get_all_corridors(
+    admin: UserWithRole = Depends(require_admin),
     min_traffic: Optional[float] = Query(None, ge=0, le=100),
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=500)
@@ -317,7 +322,9 @@ async def get_all_corridors(
 # ===========================================
 
 @router.get("/analytics/overview")
-async def get_analytics_overview():
+async def get_analytics_overview(
+    admin: UserWithRole = Depends(require_admin)
+):
     """
     Get comprehensive analytics overview for all geo data.
     """
@@ -433,6 +440,7 @@ async def get_analytics_overview():
 
 @router.get("/analytics/heatmap")
 async def get_heatmap_data(
+    admin: UserWithRole = Depends(require_admin),
     entity_type: Optional[str] = None,
     resolution: int = Query(20, ge=5, le=100, description="Grid resolution")
 ):
@@ -492,6 +500,7 @@ async def get_heatmap_data(
 
 @router.get("/analytics/density-map")
 async def get_density_map(
+    admin: UserWithRole = Depends(require_admin),
     bbox_sw_lat: float = Query(...),
     bbox_sw_lng: float = Query(...),
     bbox_ne_lat: float = Query(...),
@@ -544,6 +553,7 @@ async def get_density_map(
 
 @router.get("/monetization/available-hotspots")
 async def get_available_hotspots(
+    admin: UserWithRole = Depends(require_admin),
     min_confidence: float = Query(0.5, ge=0, le=1),
     limit: int = Query(50, ge=1, le=200)
 ):
@@ -591,7 +601,11 @@ async def get_available_hotspots(
 
 
 @router.post("/monetization/claim-hotspot/{hotspot_id}")
-async def claim_hotspot(hotspot_id: str, user_id: str = Query(...)):
+async def claim_hotspot(
+    hotspot_id: str,
+    admin: UserWithRole = Depends(require_admin),
+    user_id: str = Query(...)
+):
     """
     Claim a premium hotspot for a user.
     """
@@ -644,6 +658,7 @@ def _calculate_hotspot_value(metadata: dict) -> float:
 
 @router.get("/export/geojson")
 async def export_geojson(
+    admin: UserWithRole = Depends(require_admin),
     entity_type: Optional[str] = None,
     user_id: Optional[str] = None,
     limit: int = Query(1000, ge=1, le=10000)
