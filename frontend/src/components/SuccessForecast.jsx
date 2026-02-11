@@ -109,7 +109,7 @@ export const SuccessForecast = () => {
       <Card className="bg-gradient-to-br from-[#f5a623]/20 to-slate-900 border-[#f5a623]/50">
         <CardHeader className="pb-2">
           <CardTitle className="text-xl text-white flex items-center gap-3">
-            <span className="text-3xl">🎯</span>
+            <Target className="h-8 w-8 text-[#f5a623]" />
             Success Forecast
             <Badge className="bg-[#f5a623] text-black ml-auto">
               {forecast?.confidence === 'high' ? 'Confiance élevée' : 
@@ -150,7 +150,7 @@ export const SuccessForecast = () => {
                       : 'border-slate-600'}
                     onClick={() => setSelectedSpecies(species.id)}
                   >
-                    {species.icon}
+                    <species.Icon className="h-4 w-4" style={{ color: selectedSpecies === species.id ? 'inherit' : species.color }} />
                   </Button>
                 ))}
               </div>
