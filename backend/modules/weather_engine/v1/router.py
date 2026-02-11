@@ -219,3 +219,104 @@ def _get_phase_name(phase: str) -> str:
         "waning_crescent": "Dernier croissant"
     }
     return names.get(phase, phase)
+
+
+# === NEW ENDPOINTS - OPENWEATHERMAP INTEGRATION ===
+
+@router.get("/current", response_model=CurrentWeather)
+async def get_current_weather(
+    lat: float = Query(..., ge=-90, le=90, description="Latitude"),
+    lng: float = Query(..., ge=-180, le=180, description="Longitude")
+):
+    """
+    Get current weather for a specific location.
+    
+    Returns real-time weather data including:
+    - Temperature and feels-like
+    - Humidity, pressure, wind
+    - UV index, visibility
+    - Weather condition with icon
+    - Sunrise/sunset times
+    """
+    try:
+        return await _external_service.get_current(lat, lng)
+    except ValueError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Weather service error: {str(e)}")
+
+
+@router.get("/hourly", response_model=List[HourlyForecast])
+async def get_hourly_forecast(
+    lat: float = Query(..., ge=-90, le=90, description="Latitude"),
+    lng: float = Query(..., ge=-180, le=180, description="Longitude"),
+    hours: int = Query(48, ge=1, le=48, description="Number of hours (max 48)")
+):
+    """
+    Get hourly weather forecast.
+    
+    Returns forecast for up to 48 hours including:
+    - Temperature and feels-like
+    - Humidity and wind speed
+    - Weather condition with icon
+    - Precipitation probability
+    """
+    try:
+        return await _external_service.get_hourly(lat, lng, hours)
+    except ValueError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Weather service error: {str(e)}")
+
+
+@router.get("/daily", response_model=List[DailyForecast])
+async def get_daily_forecast(
+    lat: float = Query(..., ge=-90, le=90, description="Latitude"),
+    lng: float = Query(..., ge=-180, le=180, description="Longitude"),
+    days: int = Query(7, ge=1, le=7, description="Number of days (max 7)")
+):
+    """
+    Get daily weather forecast.
+    
+    Returns forecast for up to 7 days including:
+    - Min/max temperatures
+    - Morning/day/evening/night breakdown
+    - Humidity, pressure, wind
+    - Weather condition with icon
+    - Precipitation probability
+    - UV index
+    - Sunrise/sunset times
+    """
+    try:
+        return await _external_service.get_daily(lat, lng, days)
+    except ValueError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Weather service error: {str(e)}")
+
+
+@router.get("/full", response_model=FullWeatherResponse)
+async def get_full_weather(
+    lat: float = Query(..., ge=-90, le=90, description="Latitude"),
+    lng: float = Query(..., ge=-180, le=180, description="Longitude")
+):
+    """
+    Get complete weather data with hunting analysis.
+    
+    Returns comprehensive weather package including:
+    - Current conditions
+    - 48-hour hourly forecast
+    - 7-day daily forecast
+    - Hunting score and activity level
+    - Moon phase and impact
+    - Best hunting times
+    - Recommendations
+    
+    Data is cached for 30 minutes to optimize API usage.
+    """
+    try:
+        return await _external_service.get_full_weather(lat, lng)
+    except ValueError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Weather service error: {str(e)}")
