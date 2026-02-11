@@ -862,29 +862,33 @@ const BionicAnalyzer = ({ territory, onClose, onAnalysisComplete }) => {
 
                 {dynamicScores && (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-                    {Object.entries(dynamicScores).map(([species, data]) => (
-                      <Card key={species} className="bg-background border-border">
-                        <CardContent className="p-3">
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="text-xl">{SPECIES_ICONS[species]?.emoji}</span>
-                            <span className="text-white text-sm capitalize">{species}</span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-400 text-xs">Base</span>
-                            <span className="text-gray-300">{Math.round(data.base_score)}</span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-400 text-xs">Ajusté</span>
-                            <span className={`font-bold ${getScoreColor(data.adjusted_score)}`}>
-                              {Math.round(data.adjusted_score)}
-                            </span>
-                          </div>
-                          <Badge className={`mt-2 text-xs ${getRatingColor(data.activity_level)}`}>
-                            {data.activity_level}
-                          </Badge>
-                        </CardContent>
-                      </Card>
-                    ))}
+                    {Object.entries(dynamicScores).map(([species, data]) => {
+                      const speciesConfig = SPECIES_ICONS[species];
+                      const SpeciesIcon = speciesConfig?.Icon || CircleDot;
+                      return (
+                        <Card key={species} className="bg-background border-border">
+                          <CardContent className="p-3">
+                            <div className="flex items-center gap-2 mb-2">
+                              <SpeciesIcon className="h-5 w-5" style={{ color: speciesConfig?.color || '#f5a623' }} />
+                              <span className="text-white text-sm capitalize">{species}</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-gray-400 text-xs">Base</span>
+                              <span className="text-gray-300">{Math.round(data.base_score)}</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-gray-400 text-xs">Ajusté</span>
+                              <span className={`font-bold ${getScoreColor(data.adjusted_score)}`}>
+                                {Math.round(data.adjusted_score)}
+                              </span>
+                            </div>
+                            <Badge className={`mt-2 text-xs ${getRatingColor(data.activity_level)}`}>
+                              {data.activity_level}
+                            </Badge>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
                   </div>
                 )}
               </CardContent>
