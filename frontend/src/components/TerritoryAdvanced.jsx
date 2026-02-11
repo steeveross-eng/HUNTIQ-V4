@@ -909,17 +909,25 @@ export const TerritoryMapView = () => {
                           
                           {props.species && props.species.length > 0 && (
                             <div className="flex flex-wrap gap-1 mt-2">
-                              {props.species.slice(0, 4).map((s, i) => (
-                                <span key={i} className="text-lg" title={s}>
-                                  {SPECIES_OPTIONS.find(sp => sp.id === s)?.icon || '🎯'}
-                                </span>
-                              ))}
+                              {props.species.slice(0, 4).map((s, i) => {
+                                const speciesConfig = SPECIES_OPTIONS.find(sp => sp.id === s);
+                                return (
+                                  <CircleDot 
+                                    key={i} 
+                                    className="h-5 w-5" 
+                                    style={{ color: speciesConfig?.color || '#f5a623' }}
+                                    title={speciesConfig?.label || s}
+                                  />
+                                );
+                              })}
                             </div>
                           )}
                           
                           <div className="flex gap-1 mt-2">
                             {props.is_verified && (
-                              <Badge className="bg-green-100 text-green-800 text-xs">✓ Vérifié</Badge>
+                              <Badge className="bg-green-100 text-green-800 text-xs flex items-center gap-1">
+                                <CheckCircle className="h-3 w-3" /> Vérifié
+                              </Badge>
                             )}
                             {props.is_partner && (
                               <Badge className="bg-purple-100 text-purple-800 text-xs">Partenaire</Badge>
