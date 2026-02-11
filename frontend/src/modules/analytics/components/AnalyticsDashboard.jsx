@@ -95,10 +95,10 @@ export const AnalyticsDashboard = () => {
     return (
       <Card className="bg-slate-800 border-slate-700">
         <CardContent className="p-8 text-center">
-          <span className="text-4xl">📊</span>
+          <BarChart3 className="h-12 w-12 text-[#f5a623] mx-auto" />
           <p className="text-slate-400 mt-4">Erreur lors du chargement des données</p>
           <Button onClick={loadDashboard} className="mt-4 bg-[#f5a623]">
-            Réessayer
+            <RefreshCw className="h-4 w-4 mr-2" /> Réessayer
           </Button>
         </CardContent>
       </Card>
@@ -144,7 +144,7 @@ export const AnalyticsDashboard = () => {
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-            <span className="text-3xl">📊</span>
+            <BarChart3 className="h-8 w-8 text-[#f5a623]" />
             Dashboard Analytics
           </h1>
           <p className="text-slate-400 text-sm mt-1">
