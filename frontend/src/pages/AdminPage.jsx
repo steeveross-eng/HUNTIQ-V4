@@ -1068,7 +1068,7 @@ const AdminPage = ({ onProductsUpdate }) => {
             <div className="border-t border-slate-700 pt-6">
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                 <Trees className="h-5 w-5" />
-                Tarification des Terres à louer
+                {t('admin_lands_pricing')}
               </h3>
             </div>
             
