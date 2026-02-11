@@ -78,8 +78,37 @@ import {
   Loader2,
   RotateCcw,
   Brain,
-  Zap
+  Zap,
+  Droplet,
+  Leaf,
+  Users,
+  Compass,
+  Shield,
+  Tent,
+  Globe,
+  Satellite,
+  Star,
+  Car,
+  Lightbulb,
+  Search
 } from 'lucide-react';
+
+// ============================================
+// BIONIC DESIGN SYSTEM IMPORTS
+// ============================================
+import { 
+  BIONIC_COLORS, 
+  TERRITORY_COLORS, 
+  WAYPOINT_COLORS, 
+  ZONE_COLORS,
+  getScoreColor 
+} from '@/config/bionic-colors';
+import { 
+  TERRITORY_ICONS, 
+  WEATHER_ICONS, 
+  AI_ICONS,
+  BIONIC_ICONS 
+} from '@/config/bionic-icons';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
