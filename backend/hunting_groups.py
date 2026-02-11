@@ -33,7 +33,7 @@ group_invites_collection = db['group_invites']
 notifications_collection = db['notifications']
 users_collection = db['users']
 marketing_emails_collection = db['marketing_emails']
-waypoints_collection = db['user_waypoints']
+# NOTE: Waypoints are now managed via geo_entities collection (geo_engine)
 
 
 # ============================================
