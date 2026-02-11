@@ -1,15 +1,20 @@
 """Products Engine Router - PHASE 7 EXTRACTION
 API endpoints extracted from server.py monolith.
 
-Version: 1.0.0
+Version: 1.0.1
+Security: @require_business_or_admin on write endpoints (P0 - 11 Feb 2026)
 """
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Depends
 from typing import Optional, List
 from pydantic import BaseModel
 
 from .models import Product, ProductCreate, ProductUpdate, ProductSearchRequest
 from .service import get_products_service
+
+# Role-based access control
+from modules.roles_engine.v1.dependencies import require_business_or_admin
+from modules.roles_engine.v1.models import UserWithRole
 
 
 router = APIRouter(
