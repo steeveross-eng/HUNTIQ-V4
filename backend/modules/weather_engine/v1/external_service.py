@@ -26,9 +26,9 @@ logger = logging.getLogger(__name__)
 class OpenWeatherMapService:
     """Service for fetching and normalizing OpenWeatherMap data"""
     
-    # API Configuration
+    # API Configuration - Using 2.5 API (free tier)
     BASE_URL = "https://api.openweathermap.org/data/2.5"
-    ONECALL_URL = "https://api.openweathermap.org/data/3.0/onecall"
+    FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast"
     ICON_BASE_URL = "https://openweathermap.org/img/wn"
     
     # Cache configuration
