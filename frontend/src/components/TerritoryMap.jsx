@@ -4327,7 +4327,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
 
               {/* Overlay Layers */}
               <div className="p-3 border-b border-gray-700">
-                <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-2">Superpositions</div>
+                <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-2">{t('overlays')}</div>
                 <div className="space-y-1">
                   <label className="flex items-center gap-2 p-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 cursor-pointer">
                     <input 
@@ -4336,8 +4336,8 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                       onChange={(e) => setShowHeatmap(e.target.checked)}
                       className="rounded border-gray-600 text-[#f5a623] focus:ring-[#f5a623]"
                     />
-                    <span className="text-lg">🔥</span>
-                    <span className="text-white text-sm">Heatmap activité</span>
+                    <Activity className="h-5 w-5 text-orange-500" />
+                    <span className="text-white text-sm">{t('heatmap_activity')}</span>
                   </label>
                   <label className="flex items-center gap-2 p-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 cursor-pointer">
                     <input 
@@ -4346,8 +4346,8 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                       onChange={(e) => setShowCameras(e.target.checked)}
                       className="rounded border-gray-600 text-[#f5a623] focus:ring-[#f5a623]"
                     />
-                    <span className="text-lg">📷</span>
-                    <span className="text-white text-sm">Caméras</span>
+                    <Camera className="h-5 w-5 text-blue-500" />
+                    <span className="text-white text-sm">{t('cameras')}</span>
                   </label>
                   <label className="flex items-center gap-2 p-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 cursor-pointer">
                     <input 
@@ -4356,8 +4356,8 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                       onChange={(e) => setShowForestTrails(e.target.checked)}
                       className="rounded border-gray-600 text-white focus:ring-white"
                     />
-                    <span className="text-lg">🛤️</span>
-                    <span className="text-white text-sm">Chemins forestiers</span>
+                    <Route className="h-5 w-5 text-amber-600" />
+                    <span className="text-white text-sm">{t('forest_trails')}</span>
                   </label>
                   <label className="flex items-center gap-2 p-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 cursor-pointer">
                     <input 
@@ -4366,8 +4366,8 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                       onChange={(e) => setShowHuntingMarkers(e.target.checked)}
                       className="rounded border-gray-600 text-green-500 focus:ring-green-500"
                     />
-                    <span className="text-lg">🏕️</span>
-                    <span className="text-white text-sm">Territoires de chasse</span>
+                    <Tent className="h-5 w-5 text-green-500" />
+                    <span className="text-white text-sm">{t('hunting_territories')}</span>
                   </label>
                   <label className="flex items-center gap-2 p-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 cursor-pointer">
                     <input 
@@ -4382,15 +4382,15 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                       }}
                       className="rounded border-gray-600 text-[#f5a623] focus:ring-[#f5a623]"
                     />
-                    <span className="text-lg">🎯</span>
-                    <span className="text-white text-sm">Zones de probabilité</span>
+                    <Target className="h-5 w-5 text-[#f5a623]" />
+                    <span className="text-white text-sm">{t('probability_zones')}</span>
                   </label>
                 </div>
               </div>
 
               {/* WMS Layers */}
               <div className="p-3">
-                <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-2">Couches Québec (WMS)</div>
+                <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-2">{t('quebec_layers_wms')}</div>
                 <div className="space-y-1">
                   <label className="flex items-center gap-2 p-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 cursor-pointer">
                     <input 
@@ -4399,8 +4399,8 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                       onChange={(e) => setShowForestLayer(e.target.checked)}
                       className="rounded border-gray-600 text-green-500 focus:ring-green-500"
                     />
-                    <span className="text-lg">🌲</span>
-                    <span className="text-white text-sm">Couverture forestière</span>
+                    <TreePine className="h-5 w-5 text-green-500" />
+                    <span className="text-white text-sm">{t('forest_cover')}</span>
                   </label>
                   <label className="flex items-center gap-2 p-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 cursor-pointer">
                     <input 
@@ -4409,8 +4409,8 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                       onChange={(e) => setShowWaterLayer(e.target.checked)}
                       className="rounded border-gray-600 text-blue-500 focus:ring-blue-500"
                     />
-                    <span className="text-lg">💧</span>
-                    <span className="text-white text-sm">Hydrographie</span>
+                    <Waves className="h-5 w-5 text-blue-500" />
+                    <span className="text-white text-sm">{t('hydrography')}</span>
                   </label>
                   <label className="flex items-center gap-2 p-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 cursor-pointer">
                     <input 
