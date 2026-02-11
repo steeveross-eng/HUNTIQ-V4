@@ -2,12 +2,18 @@
  * PlanMaitreDashboard - Central dashboard for Plan Maître modules
  * Phase 10 - Plan Maître Integration
  * Updated: Phase 8 - Added Legal Time Engine integration
+ * Version: 1.1.0 - BIONIC Design System Compliance
  */
 import React, { useState, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
 import { Badge } from '../../components/ui/badge';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { 
+  Rocket, BarChart3, Clock, Sparkles, CircleDot, Map, Users,
+  MapPin, FileText, AlertTriangle, Calendar, Eye, Edit, Megaphone
+} from 'lucide-react';
 
 // Plan Maître Module Imports
 import { RecommendationPanel } from '../recommendation';
@@ -24,6 +30,7 @@ const DEFAULT_COORDS = { lat: 46.8139, lng: -71.2082 }; // Quebec City
 export const PlanMaitreDashboard = ({ 
   coordinates = DEFAULT_COORDS
 }) => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedSpecies, setSelectedSpecies] = useState('deer');
   const [selectedSeason, setSelectedSeason] = useState('rut');
@@ -37,30 +44,30 @@ export const PlanMaitreDashboard = ({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-            <span className="text-3xl">🚀</span>
-            Plan Maître BIONIC™
+          <h1 className="text-2xl font-bold text-[var(--bionic-text-primary)] flex items-center gap-3">
+            <Rocket className="h-7 w-7 text-[var(--bionic-gold-primary)]" />
+            {t('plan_maitre_title') || 'Plan Maître BIONIC™'}
           </h1>
-          <p className="text-slate-400 text-sm mt-1">
-            Modules Avancés • Phase 10
+          <p className="text-[var(--bionic-text-secondary)] text-sm mt-1">
+            {t('plan_maitre_subtitle') || 'Modules Avancés'} • Phase 10
           </p>
         </div>
         
         {/* Module Status */}
         <div className="flex items-center gap-2">
-          <Badge className="bg-orange-900/50 text-orange-400">legal-time</Badge>
-          <Badge className="bg-amber-900/50 text-amber-400">recommendation</Badge>
-          <Badge className="bg-green-900/50 text-green-400">wildlife</Badge>
-          <Badge className="bg-blue-900/50 text-blue-400">predictive</Badge>
-          <Badge className="bg-purple-900/50 text-purple-400">collaborative</Badge>
+          <Badge className="bg-[var(--bionic-gold-muted)] text-[var(--bionic-gold-primary)]">legal-time</Badge>
+          <Badge className="bg-[var(--bionic-gold-muted)] text-[var(--bionic-gold-light)]">recommendation</Badge>
+          <Badge className="bg-[var(--bionic-green-muted)] text-[var(--bionic-green-primary)]">wildlife</Badge>
+          <Badge className="bg-[var(--bionic-blue-muted)] text-[var(--bionic-blue-light)]">predictive</Badge>
+          <Badge className="bg-[var(--bionic-purple-muted)] text-[var(--bionic-purple-primary)]">collaborative</Badge>
         </div>
       </div>
 
       {/* Species Selector */}
-      <Card className="bg-slate-800/50 border-slate-700">
+      <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
         <CardContent className="p-4">
           <div className="flex items-center gap-4 flex-wrap">
-            <span className="text-slate-400 text-sm">Espèce cible:</span>
+            <span className="text-[var(--bionic-text-secondary)] text-sm">{t('common_target_species') || 'Espèce cible'}:</span>
             <SpeciesSelector 
               selected={selectedSpecies}
               onSelect={handleSpeciesChange}
@@ -75,24 +82,24 @@ export const PlanMaitreDashboard = ({
 
       {/* Tab Navigation */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="bg-slate-800 border border-slate-700 w-full justify-start flex-wrap">
-          <TabsTrigger value="overview" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            📊 Vue d'ensemble
+        <TabsList className="bg-[var(--bionic-bg-card)] border border-[var(--bionic-border-secondary)] w-full justify-start flex-wrap">
+          <TabsTrigger value="overview" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <BarChart3 className="h-4 w-4" /> {t('common_overview') || "Vue d'ensemble"}
           </TabsTrigger>
-          <TabsTrigger value="legal-times" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            ⏰ Heures Légales
+          <TabsTrigger value="legal-times" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <Clock className="h-4 w-4" /> {t('legal_times') || 'Heures Légales'}
           </TabsTrigger>
-          <TabsTrigger value="prediction" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            🔮 Prédiction
+          <TabsTrigger value="prediction" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <Sparkles className="h-4 w-4" /> {t('common_prediction') || 'Prédiction'}
           </TabsTrigger>
-          <TabsTrigger value="wildlife" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            🦌 Faune
+          <TabsTrigger value="wildlife" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <CircleDot className="h-4 w-4" /> {t('common_wildlife') || 'Faune'}
           </TabsTrigger>
-          <TabsTrigger value="territory" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            🗺️ Territoire
+          <TabsTrigger value="territory" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <Map className="h-4 w-4" /> {t('common_territory') || 'Territoire'}
           </TabsTrigger>
-          <TabsTrigger value="community" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            👥 Communauté
+          <TabsTrigger value="community" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <Users className="h-4 w-4" /> {t('common_community') || 'Communauté'}
           </TabsTrigger>
         </TabsList>
 
