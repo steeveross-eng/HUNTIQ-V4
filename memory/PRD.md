@@ -587,16 +587,39 @@ Tous les modules opérationnels avec APIs documentées.
 - ⏳ **Clé API OpenWeatherMap**: En cours d'activation (retourne 401)
   - Fallback fonctionnel avec données simulées réalistes
 
-### P2 - Normalisation Géospatiale 📋 EN COURS (11 Février 2026)
+### P2 - Normalisation Géospatiale ✅ LIVRÉ (11 Février 2026)
 - ✅ **Rapport d'Analyse P2 VALIDÉ**: `/app/memory/P2_GEOSPATIAL_NORMALIZATION_ANALYSIS.md`
   - 5 modules géospatiaux analysés
   - 8 collections MongoDB cartographiées
   - Modèle unifié `geo_entities` confirmé comme source de vérité
-- ⏳ **Plan d'Implémentation P2**: En préparation
-  - Migration `territory_events` → `geo_entities` (P2.1)
-  - Migration `territory_tracks` → `geo_entities` (P2.2)
-  - Script de migration réversible
-  - Mise à jour endpoints `territory.py`
+- ✅ **Plan d'Implémentation P2 VALIDÉ**: `/app/memory/P2_IMPLEMENTATION_PLAN.md`
+  - Schéma unifié final défini
+  - Phases P2.1 → P2.6 séquencées
+- ✅ **Dry-Run Validé**: `/app/memory/P2_DRYRUN_REPORT.md`
+  - 8/8 documents migrés (100%)
+  - 0 erreurs
+- ✅ **Migration P2 EXÉCUTÉE**:
+  - 5 observations migrées de `territory_events` → `geo_entities`
+  - 3 tracks migrés de `territory_tracks` → `geo_entities`
+  - Backups créés (`_backup_territory_events`, `_backup_territory_tracks`)
+  - Index 2dsphere créés
+- ✅ **Endpoints territory.py NORMALISÉS**:
+  - GET /api/territory/events/recent → `geo_entities`
+  - POST /api/territory/events → `geo_entities`
+  - DELETE /api/territory/events/{id} → `geo_entities`
+  - GET /api/territory/layers/heatmap_activite → `geo_entities`
+- ✅ **Routes Legacy Désactivées**:
+  - `server_monolith_backup.py` POST /territory/events commenté
+- ✅ **Bug Fix**: DB_NAME corrigé de `test_database` → `huntiq` dans .env
+
+### Audit UI/UX Complet 📋 EN COURS (11 Février 2026)
+- ✅ **Rapport d'Audit UI/UX**: `/app/memory/AUDIT_UIUX_COMPLET.md`
+- ✅ **Design Guidelines JSON**: `/app/design_guidelines.json`
+- 📋 **Prochaines étapes**:
+  - Navigation unifiée (7 onglets)
+  - Design System BIONIC TACTICAL
+  - Structure i18n centralisée
+  - Images gibier réalistes
 
 ### Backlog
 - 🔲 Notifications push de groupe
@@ -613,4 +636,4 @@ Tous les modules opérationnels avec APIs documentées.
 
 *HUNTIQ V3 - Powered by GPT-5.2 & Emergent Platform*
 *Architecture Modulaire v2.0 - 48 Backend + 24 Frontend - CONNECTÉS*
-*Phase P2 Géospatiale - Analyse Validée (11 Fév 2026)*
+*Phase P2 Géospatiale - LIVRÉ (11 Fév 2026)*
