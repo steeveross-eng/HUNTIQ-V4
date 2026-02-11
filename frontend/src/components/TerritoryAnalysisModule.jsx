@@ -159,8 +159,9 @@ const SPECIES_INFO = {
   },
   ours: {
     name: "Ours noir",
-    icon: "🐻",
-    color: "bg-gray-700",
+    Icon: CircleDot,
+    color: "#2F4F4F",
+    bgClass: "bg-gray-700",
     rules: [
       "Zones à baies/fruits",
       "Éloignement humain (> 500m)",
@@ -172,32 +173,39 @@ const SPECIES_INFO = {
 };
 
 // ============================================
-// CATEGORY CARD COMPONENT
+// CATEGORY CARD COMPONENT - BIONIC Design System
 // ============================================
 
-const CategoryCard = ({ category, categoryKey, onSelect, isSelected }) => (
-  <Card 
-    className={`cursor-pointer transition-all duration-300 hover:scale-[1.02] ${
-      isSelected 
-        ? "border-[#f5a623] bg-[#f5a623]/10 shadow-lg shadow-[#f5a623]/20" 
-        : "border-border hover:border-[#f5a623]/50"
-    }`}
-    onClick={() => onSelect(categoryKey)}
-  >
-    <CardContent className="p-4">
-      <div className="flex items-center gap-3 mb-3">
-        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center text-2xl`}>
-          {category.icon}
+const CategoryCard = ({ category, categoryKey, onSelect, isSelected }) => {
+  const CategoryIcon = category.Icon || Target;
+  return (
+    <Card 
+      className={`cursor-pointer transition-all duration-300 hover:scale-[1.02] ${
+        isSelected 
+          ? "border-[#f5a623] bg-[#f5a623]/10 shadow-lg shadow-[#f5a623]/20" 
+          : "border-border hover:border-[#f5a623]/50"
+      }`}
+      onClick={() => onSelect(categoryKey)}
+    >
+      <CardContent className="p-4">
+        <div className="flex items-center gap-3 mb-3">
+          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center`}>
+            <CategoryIcon className="h-6 w-6 text-white" />
+          </div>
+          <div>
+            <h3 className="text-white font-semibold">{category.name}</h3>
+            <p className="text-gray-400 text-sm">{category.description}</p>
+          </div>
         </div>
-        <div>
-          <h3 className="text-white font-semibold">{category.name}</h3>
-          <p className="text-gray-400 text-sm">{category.description}</p>
-        </div>
-      </div>
-      <div className="flex flex-wrap gap-1">
-        {category.subcategories.slice(0, 3).map(sub => (
-          <Badge key={sub.id} variant="outline" className="text-xs">
-            {sub.icon} {sub.name}
+        <div className="flex flex-wrap gap-1">
+          {category.subcategories.slice(0, 3).map(sub => {
+            const SubIcon = sub.Icon || Target;
+            return (
+              <Badge key={sub.id} variant="outline" className="text-xs flex items-center gap-1">
+                <SubIcon className="h-3 w-3" style={{ color: sub.color || '#f5a623' }} /> {sub.name}
+              </Badge>
+            );
+          })}
           </Badge>
         ))}
         {category.subcategories.length > 3 && (
