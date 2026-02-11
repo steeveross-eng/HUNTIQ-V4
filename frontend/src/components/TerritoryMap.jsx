@@ -3174,13 +3174,15 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                   territory.type === 'ZEC' ? '#22c55e' : 
                   territory.type === 'Réserve faunique' ? '#3b82f6' : 
                   '#f59e0b',
-                  territory.icon || (territory.type === 'ZEC' ? '🏕️' : territory.type === 'Réserve faunique' ? '🦌' : '🏠')
+                  territory.type === 'ZEC' ? 'tent' : territory.type === 'Réserve faunique' ? 'shield' : 'home'
                 )}
               >
                 <Popup>
                   <div className="text-sm min-w-52">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-2xl">{territory.icon || '🏕️'}</span>
+                      <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center">
+                        <CircleDot className="h-4 w-4 text-slate-600" />
+                      </div>
                       <div>
                         <p className="font-bold text-gray-800">{territory.name}</p>
                         <p className="text-xs text-gray-500">{territory.type}</p>
@@ -3195,7 +3197,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                       <div className="flex flex-wrap gap-1">
                         {territory.species?.map(sp => (
                           <span key={sp} className="px-1.5 py-0.5 bg-green-100 text-green-700 rounded text-[10px]">
-                            {sp === 'orignal' ? '🫎' : sp === 'chevreuil' ? '🦌' : sp === 'ours' ? '🐻' : sp === 'caribou' ? '🦌' : '🎯'} {sp}
+                            {sp}
                           </span>
                         ))}
                       </div>
@@ -3207,7 +3209,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                         rel="noopener noreferrer"
                         className="block mt-2 text-center bg-blue-500 hover:bg-blue-600 text-white text-xs py-1.5 px-3 rounded transition-colors"
                       >
-                        🌐 Visiter le site
+                        Visiter le site
                       </a>
                     )}
                   </div>
