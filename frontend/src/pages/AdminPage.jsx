@@ -791,9 +791,9 @@ const AdminPage = ({ onProductsUpdate }) => {
           <TabsContent value="suppliers" className="space-y-6">
             <Card className="bg-card border-border">
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="text-white">Magasins Partenaires</CardTitle>
+                <CardTitle className="text-white">{t('admin_partner_stores')}</CardTitle>
                 <Button className="btn-golden text-black" onClick={() => setShowAddSupplierDialog(true)}>
-                  <Plus className="h-4 w-4 mr-2" />Ajouter
+                  <Plus className="h-4 w-4 mr-2" />{t('common_add')}
                 </Button>
               </CardHeader>
               <CardContent>
