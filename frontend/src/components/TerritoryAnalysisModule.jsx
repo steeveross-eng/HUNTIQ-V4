@@ -92,49 +92,50 @@ const ANALYSIS_CATEGORIES = {
     subcategories: [
       { id: "attractants", name: "Attractants & Leurres", Icon: Droplet, description: "Urines, gels, blocs, appâts" },
       { id: "cameras", name: "Caméras de chasse", Icon: Camera, description: "Trail cameras, détection" },
-      { id: "equipement", name: "Équipement", icon: "🎒", description: "Bottes, vêtements" },
-      { id: "optiques", name: "Optiques & Viseurs", icon: "🔭", description: "Jumelles, lunettes" },
-      { id: "appels", name: "Appels & Sons", icon: "📢", description: "Appels originaux" }
+      { id: "equipement", name: "Équipement", Icon: Shirt, description: "Bottes, vêtements" },
+      { id: "optiques", name: "Optiques & Viseurs", Icon: Binoculars, description: "Jumelles, lunettes" },
+      { id: "appels", name: "Appels & Sons", Icon: CircleDot, description: "Appels originaux" }
     ]
   },
   territoire: {
     name: "Analyse de territoire",
-    icon: "🗺️",
+    Icon: Map,
     description: "Analysez votre territoire avec l'IA",
     color: "from-blue-600 to-blue-800",
     subcategories: [
-      { id: "cartographie", name: "Cartographie IA", icon: "📍", description: "Zones de probabilité" },
-      { id: "cameras_territoire", name: "Réseau de caméras", icon: "📸", description: "Connectez vos caméras" },
-      { id: "evenements", name: "Événements", icon: "👁️", description: "Observations, tirs" },
-      { id: "plan_action", name: "Plan d'action", icon: "📋", description: "Plan personnalisé" }
+      { id: "cartographie", name: "Cartographie IA", Icon: MapPin, description: "Zones de probabilité" },
+      { id: "cameras_territoire", name: "Réseau de caméras", Icon: Camera, description: "Connectez vos caméras" },
+      { id: "evenements", name: "Événements", Icon: Eye, description: "Observations, tirs" },
+      { id: "plan_action", name: "Plan d'action", Icon: FileText, description: "Plan personnalisé" }
     ]
   },
   especes: {
     name: "Espèces cibles",
-    icon: "🦌",
+    Icon: CircleDot,
     description: "Analyse par espèce",
     color: "from-purple-600 to-purple-800",
     subcategories: [
-      { id: "orignal", name: "Orignal", icon: "🫎", description: "Proximité eau, forêt mature" },
-      { id: "chevreuil", name: "Chevreuil", icon: "🦌", description: "Lisières, friches" },
-      { id: "ours", name: "Ours noir", icon: "🐻", description: "Zones isolées, nourriture" }
+      { id: "orignal", name: "Orignal", Icon: CircleDot, color: "#8B4513", description: "Proximité eau, forêt mature" },
+      { id: "chevreuil", name: "Chevreuil", Icon: CircleDot, color: "#D2691E", description: "Lisières, friches" },
+      { id: "ours", name: "Ours noir", Icon: CircleDot, color: "#2F4F4F", description: "Zones isolées, nourriture" }
     ]
   }
 };
 
 const TIME_PERIODS = [
-  { id: "tous", name: "Toute la journée", icon: Clock },
-  { id: "matin", name: "Matin (5h-10h)", icon: Sunrise },
-  { id: "jour", name: "Jour (10h-16h)", icon: Sun },
-  { id: "soir", name: "Soir (16h-21h)", icon: Sunset },
-  { id: "nuit", name: "Nuit (21h-5h)", icon: Moon }
+  { id: "tous", name: "Toute la journée", Icon: Clock },
+  { id: "matin", name: "Matin (5h-10h)", Icon: Sunrise },
+  { id: "jour", name: "Jour (10h-16h)", Icon: Sun },
+  { id: "soir", name: "Soir (16h-21h)", Icon: Sunset },
+  { id: "nuit", name: "Nuit (21h-5h)", Icon: Moon }
 ];
 
 const SPECIES_INFO = {
   orignal: {
     name: "Orignal",
-    icon: "🫎",
-    color: "bg-amber-600",
+    Icon: CircleDot,
+    color: "#8B4513",
+    bgClass: "bg-amber-600",
     rules: [
       "Proximité eau (< 300m optimal)",
       "Forêt mature ou mixte",
@@ -145,8 +146,9 @@ const SPECIES_INFO = {
   },
   chevreuil: {
     name: "Chevreuil",
-    icon: "🦌",
-    color: "bg-orange-600",
+    Icon: CircleDot,
+    color: "#D2691E",
+    bgClass: "bg-orange-600",
     rules: [
       "Lisières (< 150m)",
       "Friches et régénération",
