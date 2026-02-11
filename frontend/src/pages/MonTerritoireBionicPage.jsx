@@ -73,8 +73,15 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-// Custom icons
+// Custom icons - BIONIC Design System compliant (SVG icons)
 const createCustomIcon = (color, iconType = 'default') => {
+  // Using SVG path for professional look instead of emojis
+  const svgIcon = iconType === 'user' 
+    ? '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'
+    : iconType === 'waypoint'
+    ? '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>'
+    : '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+  
   const iconHtml = `
     <div style="
       background-color: ${color};
@@ -88,8 +95,8 @@ const createCustomIcon = (color, iconType = 'default') => {
       align-items: center;
       justify-content: center;
     ">
-      <div style="transform: rotate(45deg); color: white; font-size: 14px;">
-        ${iconType === 'user' ? '👤' : iconType === 'waypoint' ? '📍' : '⭐'}
+      <div style="transform: rotate(45deg); color: white; font-size: 14px; display: flex; align-items: center; justify-content: center;">
+        ${svgIcon}
       </div>
     </div>
   `;
