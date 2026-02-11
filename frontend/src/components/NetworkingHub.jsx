@@ -1021,6 +1021,7 @@ const GroupsTab = ({ userId, userName }) => {
                     <div>
                       <p className="font-medium text-[var(--bionic-text-primary)]">{group.name}</p>
                       <p className="text-sm text-[var(--bionic-text-secondary)]">{group.member_count} {t('common_members') || 'membre(s)'}</p>
+                    </div>
                   </div>
                   <Badge variant={group.privacy === 'public' ? 'default' : 'outline'}>
                     {group.privacy === 'public' ? t('common_public') || 'Public' : group.privacy === 'private' ? t('common_private') || 'Privé' : t('common_invite_only') || 'Sur invitation'}
@@ -1048,7 +1049,7 @@ const GroupsTab = ({ userId, userName }) => {
                 </div>
               </CardContent>
             </Card>
-          );
+            );
           })}
         </div>
       )}
