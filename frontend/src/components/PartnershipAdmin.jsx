@@ -941,16 +941,20 @@ const PartnershipAdmin = () => {
                 >
                   Tous ({territoryStats?.total || 0})
                 </Badge>
-                {Object.entries(territoryStats?.by_type || {}).map(([type, count]) => (
-                  <Badge 
-                    key={type}
-                    variant="outline" 
-                    className={`cursor-pointer ${typeFilter === type ? 'bg-[#f5a623] text-black' : ''}`}
-                    onClick={() => setTypeFilter(type)}
-                  >
-                    {TYPE_ICONS[type] || '📋'} {type} ({count})
-                  </Badge>
-                ))}
+                {Object.entries(territoryStats?.by_type || {}).map(([type, count]) => {
+                  const typeConfig = TYPE_ICONS[type];
+                  const IconComponent = typeConfig?.Icon || FileText;
+                  return (
+                    <Badge 
+                      key={type}
+                      variant="outline" 
+                      className={`cursor-pointer ${typeFilter === type ? 'bg-[#f5a623] text-black' : ''}`}
+                      onClick={() => setTypeFilter(type)}
+                    >
+                      <IconComponent className="h-3 w-3 mr-1" style={{ color: typeConfig?.color || '#9ca3af' }} /> {type} ({count})
+                    </Badge>
+                  );
+                })}
               </div>
             </CardContent>
           </Card>
