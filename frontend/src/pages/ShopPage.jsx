@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import AdvancedFilters from "@/components/filters/AdvancedFilters";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   ShoppingCart,
   ExternalLink,
@@ -16,10 +17,11 @@ import {
 
 // Sale Mode Badge
 const SaleModeBadge = ({ mode }) => {
+  const { t } = useLanguage();
   const config = {
-    dropshipping: { label: "Direct", color: "bg-blue-600" },
-    affiliation: { label: "Partenaire", color: "bg-purple-600" },
-    hybrid: { label: "Mixte", color: "bg-[#f5a623]" }
+    dropshipping: { label: t('admin_dropshipping'), color: "bg-blue-600" },
+    affiliation: { label: t('common_partners'), color: "bg-purple-600" },
+    hybrid: { label: t('admin_hybrid'), color: "bg-[#f5a623]" }
   };
   const { label, color } = config[mode] || config.dropshipping;
   return <Badge className={`${color} text-xs`}>{label}</Badge>;
