@@ -1,8 +1,8 @@
 # HUNTIQ V3 - Product Requirements Document
 
 ## Date de création: 2026-02-03
-## Dernière mise à jour: 11 Février 2026 (v12)
-## Version: 6.12 (BIONIC Design System - Lot 2 UI Complet)
+## Dernière mise à jour: 11 Février 2026 (v13)
+## Version: 6.13 (BIONIC Design System - Lot 3 UI Complet)
 
 ---
 
@@ -11,7 +11,7 @@
 Fusionner HUNTIQ V1 et V2 + Intégrer l'IA GPT-5.2 pour l'analyse d'attractants.
 Refactorisation majeure vers une architecture modulaire stricte ("PLAN MAÎTRE BIONIC").
 
-**NOUVELLE DIRECTIVE v12:** Conformité totale au Design System BIONIC - Aucun emoji, couleurs centralisées, icônes Lucide professionnelles.
+**NOUVELLE DIRECTIVE v13:** Conformité totale au Design System BIONIC - Aucun emoji, couleurs centralisées, icônes Lucide professionnelles.
 
 ---
 
@@ -24,18 +24,26 @@ Refactorisation majeure vers une architecture modulaire stricte ("PLAN MAÎTRE B
 - **IA**: GPT-5.2 via Emergent LLM Key (planifié)
 - **Architecture**: Modulaire v2.0 (Backend 100% + Frontend 100% Connecté)
 
-### BIONIC Design System (v12 - LOT 2 COMPLET)
+### BIONIC Design System (v13 - LOT 3 COMPLET)
 ```
-Composants Refactorisés:
-├── TerritoryMap.jsx              ✅ 5100+ lignes, 100+ emojis → Lucide
-├── MonTerritoireBionicPage.jsx   ✅ PLACE_TYPES avec Icon components
-├── PartnershipAdmin.jsx          ✅ 36 emojis → Lucide
-├── BionicAnalyzer.jsx            ✅ 33 emojis → Lucide
-├── AnalyticsDashboard.jsx        ✅ 20 emojis → Lucide
-├── WeatherWidget.jsx             ✅ WeatherIcon component
-├── HuntingConditions.jsx         ✅ Lucide icons complet
-├── AIInsights.jsx                ✅ InsightIcon component
-└── LanguageContext.jsx           ✅ 120+ nouvelles clés i18n
+Composants Refactorisés (13 fichiers):
+├── Lot 1:
+│   ├── TerritoryMap.jsx              ✅ 5100+ lignes, 100+ emojis
+│   └── MonTerritoireBionicPage.jsx   ✅ PLACE_TYPES, createCustomIcon
+├── Lot 2:
+│   ├── PartnershipAdmin.jsx          ✅ 36 emojis, TYPE_ICONS
+│   ├── BionicAnalyzer.jsx            ✅ 33 emojis, SPECIES_ICONS
+│   ├── AnalyticsDashboard.jsx        ✅ 20 emojis
+│   ├── WeatherWidget.jsx             ✅ WeatherIcon component
+│   ├── HuntingConditions.jsx         ✅ Lucide icons complet
+│   └── AIInsights.jsx                ✅ InsightIcon component
+├── Lot 3:
+│   ├── TerritoryAdvanced.jsx         ✅ 28 emojis, createMarkerIcon SVG
+│   ├── SuccessForecast.jsx           ✅ 26 emojis, SPECIES/WEATHER_OPTIONS
+│   ├── TerritoryAnalysisModule.jsx   ✅ 25 emojis, ANALYSIS_CATEGORIES
+│   ├── ActiveTripPanel.jsx           ✅ 22 emojis, SPECIES_CONFIG
+│   └── WaypointMap.jsx               ✅ 18 emojis, WAYPOINT_TYPES
+└── LanguageContext.jsx               ✅ 120+ nouvelles clés i18n
 ```
 
 ### Connexion Frontend-Backend
