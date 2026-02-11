@@ -748,10 +748,13 @@ Tous les modules opérationnels avec APIs documentées.
 - 🔲 **Édition/suppression** - CRUD complet sur la carte
 - 🔲 **Partage groupe** - Chemins partagés entre membres
 
-### P1 - i18n Centralisée
-- 🔲 **Connecter i18next** - Provider dans App.js
-- 🔲 **Sélecteur de langue** - FR/EN avec persistance
-- 🔲 **Remplacement textes** - Utiliser clés de traduction
+### P1 - i18n Centralisée ✅ LIVRÉ (11 Février 2026)
+- ✅ **Connecter i18next** - LanguageProvider dans App.js avec useLanguage hook
+- ✅ **Sélecteur de langue** - FR/EN toggle avec persistance localStorage
+- ✅ **Remplacement textes** - Navigation et Admin 100% traduits (700+ clés)
+- ✅ **18 onglets Admin** - Traduction instantanée FR/EN
+- ✅ **Contenu Admin** - Stats, Ventes, Produits, etc. tous traduits
+- ✅ **Cookie Consent** - Traduction FR/EN
 
 ### P1 - Refactorisation Admin
 - 🔲 **Alignement BIONIC TACTICAL** - Toutes les interfaces admin
