@@ -987,8 +987,13 @@ const PartnershipAdmin = () => {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge variant="outline" className="text-xs">
-                          {TYPE_ICONS[partner.establishment_type] || '📋'} {partner.establishment_type}
+                        <Badge variant="outline" className="text-xs flex items-center gap-1">
+                          {(() => {
+                            const typeConfig = TYPE_ICONS[partner.establishment_type];
+                            const IconComponent = typeConfig?.Icon || FileText;
+                            return <IconComponent className="h-3 w-3" style={{ color: typeConfig?.color || '#9ca3af' }} />;
+                          })()}
+                          {partner.establishment_type}
                         </Badge>
                       </TableCell>
                       <TableCell className="text-gray-300 text-sm">{partner.province}</TableCell>
