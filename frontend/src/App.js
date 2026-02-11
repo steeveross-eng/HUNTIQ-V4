@@ -310,7 +310,7 @@ const Navigation = ({ cartCount, onCartOpen }) => {
               <Crosshair className="h-4 w-4" /> {t('nav_territory')}
             </Link>
             <Link to="/trips" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
-              <Route className="h-4 w-4" /> {language === 'fr' ? 'Sorties' : 'Trips'}
+              <RouteIcon className="h-4 w-4" /> {language === 'fr' ? 'Sorties' : 'Trips'}
             </Link>
             <Link to="/analyze" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
               <FlaskConical className="h-4 w-4" /> {t('nav_analyze')}
