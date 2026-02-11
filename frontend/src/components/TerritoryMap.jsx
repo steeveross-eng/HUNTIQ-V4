@@ -18,6 +18,8 @@ import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 // Import BIONIC Analyzer
 import BionicAnalyzer from './BionicAnalyzer';
+// Import BIONIC Layer Panel from Design System
+import { BionicLayerPanel, LAYER_GROUPS, ZONE_COLORS } from '@/design-system';
 // Import extracted sub-components
 import { 
   TerritoryHeader, 
