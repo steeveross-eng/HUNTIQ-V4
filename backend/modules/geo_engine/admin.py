@@ -255,7 +255,7 @@ async def get_admin_hotspots(
         "hotspots": formatted_hotspots,
         "total": len(formatted_hotspots),
         "by_category": category_counts,
-        "note": "Hotspots personnels des utilisateurs exclus (confidentialité)"
+        "note": "🔒 ADMIN: Tous les hotspots de tous les membres sont visibles ici pour gestion et modération. Ces données ne sont jamais partagées aux utilisateurs."
     }
 
 
@@ -270,6 +270,11 @@ def _get_hotspot_status(hotspot: dict) -> str:
         if meta.get("is_claimed"):
             return "Terre louée"
         return "Terre disponible"
+    
+    if meta.get("hotspot_category") == "chalet":
+        if meta.get("is_claimed"):
+            return "Chalet réservé"
+        return "Chalet disponible"
     
     if meta.get("is_premium"):
         if meta.get("is_claimed"):
