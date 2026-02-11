@@ -231,7 +231,7 @@ const BionicMapSelector = ({
           {/* Description de la carte sélectionnée */}
           <div className="flex items-center gap-2 px-2 py-1.5 bg-[#F5A623]/10 rounded border border-[#F5A623]/20">
             <div className="flex-shrink-0">
-              {MAP_ICONS[currentMapType] && <MAP_ICONS[currentMapType]() />}
+              {MAP_ICONS[currentMapType] && React.createElement(MAP_ICONS[currentMapType])}
             </div>
             <div className="flex-1 min-w-0">
               <div className="text-white text-xs font-medium">{currentConfig?.name}</div>
