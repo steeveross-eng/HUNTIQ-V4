@@ -201,22 +201,22 @@ export const BusinessDashboard = () => {
             {/* Left Column - Stats Cards */}
             <div className="space-y-4">
               {/* Orders Summary */}
-              <Card className="bg-slate-800 border-slate-700">
+              <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-lg text-white flex items-center gap-2">
-                    <span>📋</span>
-                    Commandes
+                  <CardTitle className="text-lg text-[var(--bionic-text-primary)] flex items-center gap-2">
+                    <ClipboardList className="h-5 w-5 text-[var(--bionic-gold-primary)]" />
+                    {t('common_orders')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-slate-700/50 rounded-lg p-3 text-center">
-                      <div className="text-2xl font-bold text-blue-400">{stats.orders.total}</div>
-                      <div className="text-xs text-slate-400">Total</div>
+                    <div className="bg-[var(--bionic-bg-secondary)] rounded-lg p-3 text-center">
+                      <div className="text-2xl font-bold text-[var(--bionic-blue-light)]">{stats.orders.total}</div>
+                      <div className="text-xs text-[var(--bionic-text-secondary)]">Total</div>
                     </div>
-                    <div className="bg-slate-700/50 rounded-lg p-3 text-center">
-                      <div className="text-2xl font-bold text-amber-400">{stats.orders.pending}</div>
-                      <div className="text-xs text-slate-400">En attente</div>
+                    <div className="bg-[var(--bionic-bg-secondary)] rounded-lg p-3 text-center">
+                      <div className="text-2xl font-bold text-[var(--bionic-gold-primary)]">{stats.orders.pending}</div>
+                      <div className="text-xs text-[var(--bionic-text-secondary)]">{t('admin_pending')}</div>
                     </div>
                   </div>
                 </CardContent>
@@ -239,14 +239,14 @@ export const BusinessDashboard = () => {
 
             {/* Center Column - Recent Orders */}
             <div className="space-y-4">
-              <Card className="bg-slate-800 border-slate-700">
+              <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-lg text-white flex items-center justify-between">
+                  <CardTitle className="text-lg text-[var(--bionic-text-primary)] flex items-center justify-between">
                     <span className="flex items-center gap-2">
-                      <span>📋</span>
-                      Commandes Récentes
+                      <ClipboardList className="h-5 w-5 text-[var(--bionic-gold-primary)]" />
+                      {t('business_orders_pending') || 'Commandes Récentes'}
                     </span>
-                    <Badge className="bg-slate-700">{orders.length}</Badge>
+                    <Badge className="bg-[var(--bionic-bg-secondary)]">{orders.length}</Badge>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -257,20 +257,20 @@ export const BusinessDashboard = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-6 text-slate-400">
-                      <span className="text-3xl">📋</span>
-                      <p className="text-sm mt-2">Aucune commande</p>
+                    <div className="text-center py-6 text-[var(--bionic-text-secondary)]">
+                      <ClipboardList className="h-8 w-8 mx-auto mb-2 text-[var(--bionic-gray-500)]" />
+                      <p className="text-sm">{t('msg_no_results') || 'Aucune commande'}</p>
                     </div>
                   )}
                 </CardContent>
               </Card>
 
               {/* Top Customers */}
-              <Card className="bg-slate-800 border-slate-700">
+              <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-lg text-white flex items-center gap-2">
-                    <span>👥</span>
-                    Clients Récents
+                  <CardTitle className="text-lg text-[var(--bionic-text-primary)] flex items-center gap-2">
+                    <Users className="h-5 w-5 text-[var(--bionic-gold-primary)]" />
+                    {t('common_customers')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -281,8 +281,8 @@ export const BusinessDashboard = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-4 text-slate-400">
-                      <p className="text-sm">Aucun client</p>
+                    <div className="text-center py-4 text-[var(--bionic-text-secondary)]">
+                      <p className="text-sm">{t('msg_no_results') || 'Aucun client'}</p>
                     </div>
                   )}
                 </CardContent>
@@ -291,14 +291,14 @@ export const BusinessDashboard = () => {
 
             {/* Right Column - Top Products */}
             <div className="space-y-4">
-              <Card className="bg-slate-800 border-slate-700">
+              <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-lg text-white flex items-center justify-between">
+                  <CardTitle className="text-lg text-[var(--bionic-text-primary)] flex items-center justify-between">
                     <span className="flex items-center gap-2">
-                      <span>📦</span>
-                      Top Produits
+                      <Package className="h-5 w-5 text-[var(--bionic-gold-primary)]" />
+                      {t('common_products')}
                     </span>
-                    <Badge className="bg-[#f5a623] text-black">{products.length}</Badge>
+                    <Badge className="bg-[var(--bionic-gold-primary)] text-black">{products.length}</Badge>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -314,20 +314,20 @@ export const BusinessDashboard = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-6 text-slate-400">
-                      <span className="text-3xl">📦</span>
-                      <p className="text-sm mt-2">Aucun produit</p>
+                    <div className="text-center py-6 text-[var(--bionic-text-secondary)]">
+                      <Package className="h-8 w-8 mx-auto mb-2 text-[var(--bionic-gray-500)]" />
+                      <p className="text-sm">{t('msg_no_results') || 'Aucun produit'}</p>
                     </div>
                   )}
                 </CardContent>
               </Card>
 
               {/* Suppliers Quick List */}
-              <Card className="bg-slate-800 border-slate-700">
+              <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-lg text-white flex items-center gap-2">
-                    <span>🏭</span>
-                    Fournisseurs
+                  <CardTitle className="text-lg text-[var(--bionic-text-primary)] flex items-center gap-2">
+                    <Factory className="h-5 w-5 text-[var(--bionic-gold-primary)]" />
+                    {t('common_suppliers')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -338,8 +338,8 @@ export const BusinessDashboard = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-center py-4 text-slate-400">
-                      <p className="text-sm">Aucun fournisseur</p>
+                    <div className="text-center py-4 text-[var(--bionic-text-secondary)]">
+                      <p className="text-sm">{t('msg_no_results') || 'Aucun fournisseur'}</p>
                     </div>
                   )}
                 </CardContent>
@@ -354,7 +354,7 @@ export const BusinessDashboard = () => {
             products={products}
             onAddToCart={handleAddToCart}
             columns={4}
-            emptyMessage="Aucun produit disponible"
+            emptyMessage={t('msg_no_results')}
           />
         </TabsContent>
 
@@ -364,7 +364,7 @@ export const BusinessDashboard = () => {
             <div className="lg:col-span-2">
               <OrdersList 
                 orders={orders}
-                emptyMessage="Aucune commande enregistrée"
+                emptyMessage={t('msg_no_results')}
               />
             </div>
             <div>
@@ -384,8 +384,8 @@ export const BusinessDashboard = () => {
               ))
             ) : (
               <div className="col-span-full text-center py-12">
-                <span className="text-5xl">👥</span>
-                <p className="text-slate-400 mt-4">Aucun client enregistré</p>
+                <Users className="h-12 w-12 text-[var(--bionic-gray-500)] mx-auto mb-4" />
+                <p className="text-[var(--bionic-text-secondary)]">{t('msg_no_results')}</p>
               </div>
             )}
           </div>
@@ -400,8 +400,8 @@ export const BusinessDashboard = () => {
               ))
             ) : (
               <div className="col-span-full text-center py-12">
-                <span className="text-5xl">🏭</span>
-                <p className="text-slate-400 mt-4">Aucun fournisseur enregistré</p>
+                <Factory className="h-12 w-12 text-[var(--bionic-gray-500)] mx-auto mb-4" />
+                <p className="text-[var(--bionic-text-secondary)]">{t('msg_no_results')}</p>
               </div>
             )}
           </div>
