@@ -1,6 +1,7 @@
 /**
  * BusinessDashboard - Central dashboard for business modules
  * Phase 9 - Business Modules Integration
+ * Version: 1.1.0 - Added AdvancedWeatherWidget
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card';
@@ -16,6 +17,9 @@ import { CartWidget } from '../cart';
 import { AffiliateStats } from '../affiliate';
 import { SupplierCard } from '../suppliers';
 import { CustomerCard } from '../customers';
+
+// Weather Module Import
+import { AdvancedWeatherWidget } from '../weather';
 
 // Services
 import { UserService } from '../user/UserService';
