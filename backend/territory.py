@@ -35,7 +35,7 @@ db = None
 
 # Configuration
 MONGO_URL = os.environ.get('MONGO_URL')
-DB_NAME = os.environ.get('DB_NAME', 'test_database')
+DB_NAME = os.environ.get('DB_NAME', 'huntiq')
 EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY', '')
 UPLOAD_DIR = Path("/app/backend/uploads/photos")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
