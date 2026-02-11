@@ -524,8 +524,8 @@ const AdminPage = ({ onProductsUpdate }) => {
           <TabsContent value="sales" className="space-y-6">
             <Card className="bg-card border-border">
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="text-white">Suivi des Ventes</CardTitle>
-                <Badge className="bg-[#f5a623] text-black">{orders.length} commandes</Badge>
+                <CardTitle className="text-white">{t('admin_sales_tracking')}</CardTitle>
+                <Badge className="bg-[#f5a623] text-black">{orders.length} {t('common_orders').toLowerCase()}</Badge>
               </CardHeader>
               <CardContent>
                 <Table>
