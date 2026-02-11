@@ -1,4 +1,5 @@
 // TerritoryAnalysisModule.jsx - Module d'analyse de territoire avec IA
+// BIONIC Design System compliant
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
@@ -58,7 +59,20 @@ import {
   Sunset,
   BarChart3,
   Layers,
-  Navigation
+  Navigation,
+  CircleDot,
+  Shirt,
+  Binoculars,
+  Building,
+  Users,
+  Car,
+  ThumbsUp,
+  Info,
+  Tent,
+  Flag,
+  Leaf,
+  TrendingUp,
+  Brain
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -66,18 +80,18 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 // ============================================
-// ANALYSIS CATEGORIES DATA
+// ANALYSIS CATEGORIES DATA - BIONIC Design System
 // ============================================
 
 const ANALYSIS_CATEGORIES = {
   produits: {
     name: "Produits de chasse",
-    icon: "🎯",
+    Icon: Target,
     description: "Analysez et comparez les produits de chasse",
     color: "from-[#f5a623] to-[#d4850e]",
     subcategories: [
-      { id: "attractants", name: "Attractants & Leurres", icon: "💧", description: "Urines, gels, blocs, appâts" },
-      { id: "cameras", name: "Caméras de chasse", icon: "📷", description: "Trail cameras, détection" },
+      { id: "attractants", name: "Attractants & Leurres", Icon: Droplet, description: "Urines, gels, blocs, appâts" },
+      { id: "cameras", name: "Caméras de chasse", Icon: Camera, description: "Trail cameras, détection" },
       { id: "equipement", name: "Équipement", icon: "🎒", description: "Bottes, vêtements" },
       { id: "optiques", name: "Optiques & Viseurs", icon: "🔭", description: "Jumelles, lunettes" },
       { id: "appels", name: "Appels & Sons", icon: "📢", description: "Appels originaux" }
