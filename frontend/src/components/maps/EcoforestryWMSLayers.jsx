@@ -1,18 +1,35 @@
 /**
  * EcoforestryWMSLayers.jsx
  * 
- * Couches WMS écoforestières du Québec (MFFP/MERN)
+ * Couches WMS écoforestières MULTI-RÉGIONS (Canada + USA)
  * Intégration modulaire avec le système de cartes premium BIONIC
  * 
- * Sources:
- * - MERN (Ministère de l'Énergie et des Ressources naturelles)
- * - NFIS (National Forest Information System)
- * - SCANFI (Spatialized Canadian NFI 2020)
+ * Régions supportées:
+ * - Québec (MFFP, MERN)
+ * - Canada National (NFIS, SCANFI)
+ * - Ontario, Colombie-Britannique, Nouveau-Brunswick
+ * - USA National (USFS, LANDFIRE, NLCD)
+ * - USA Nord-Est
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { WMSTileLayer, TileLayer, LayerGroup, useMap } from 'react-leaflet';
 import { toast } from 'sonner';
+
+// Import du registry multi-régions
+import {
+  REGIONS,
+  ECOFORESTRY_SOURCES,
+  SOURCE_TYPES,
+  AVAILABILITY_STATUS,
+  detectRegion,
+  getRegionSources,
+  getDefaultSource,
+  getFallbackSource
+} from '@/config/ecoforestryRegistry';
+
+// Import du hook multi-régions
+import useEcoforestryRegion from '@/hooks/useEcoforestryRegion';
 
 // Configuration des services WMS du Québec
 const WMS_SERVICES = {
