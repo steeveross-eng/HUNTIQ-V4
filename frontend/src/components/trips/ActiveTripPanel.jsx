@@ -338,11 +338,17 @@ const AddObservationModal = ({ open, onClose, tripId, targetSpecies, onObservati
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-slate-800 border-slate-600">
-                {OBSERVATION_TYPES.map((type) => (
-                  <SelectItem key={type.value} value={type.value} className="text-white">
-                    {type.label}
-                  </SelectItem>
-                ))}
+                {OBSERVATION_TYPES.map((type) => {
+                  const TypeIcon = type.Icon;
+                  return (
+                    <SelectItem key={type.value} value={type.value} className="text-white">
+                      <span className="flex items-center gap-2">
+                        <TypeIcon className="h-4 w-4" style={{ color: type.color }} />
+                        {type.label}
+                      </span>
+                    </SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
           </div>
