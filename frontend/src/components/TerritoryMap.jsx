@@ -2906,16 +2906,24 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
             </CardHeader>
             <CardContent className="space-y-3">
               <div>
-                <Label className="text-gray-400 text-xs">Type de couvert forestier</Label>
+                <Label className="text-gray-400 text-xs">{t('forest_cover_type')}</Label>
                 <Select value={selectedForestType} onValueChange={setSelectedForestType}>
                   <SelectTrigger className="bg-card border-border mt-1">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="mixte">🌲🌳 Forêt mixte</SelectItem>
-                    <SelectItem value="feuillus">🌳 Feuillus</SelectItem>
-                    <SelectItem value="coniferes">🌲 Conifères</SelectItem>
-                    <SelectItem value="regeneration">🌱 Régénération</SelectItem>
+                    <SelectItem value="mixte">
+                      <span className="flex items-center gap-2"><TreePine className="h-4 w-4 text-green-500" /><Trees className="h-4 w-4 text-green-600" /> {t('forest_mixed')}</span>
+                    </SelectItem>
+                    <SelectItem value="feuillus">
+                      <span className="flex items-center gap-2"><Trees className="h-4 w-4 text-green-600" /> {t('forest_deciduous')}</span>
+                    </SelectItem>
+                    <SelectItem value="coniferes">
+                      <span className="flex items-center gap-2"><TreePine className="h-4 w-4 text-green-500" /> {t('forest_conifers')}</span>
+                    </SelectItem>
+                    <SelectItem value="regeneration">
+                      <span className="flex items-center gap-2"><Leaf className="h-4 w-4 text-green-400" /> {t('forest_regeneration')}</span>
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
