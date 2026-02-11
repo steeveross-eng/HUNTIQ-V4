@@ -891,7 +891,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       
       if (inWater) {
         const waterName = feature?.name || 'une surface d\'eau';
-        toast.error(`⚠️ Impossible de créer un waypoint dans ${waterName}`, {
+        toast.error(`Impossible de créer un waypoint dans ${waterName}`, {
           description: 'Veuillez sélectionner un emplacement sur la terre ferme.'
         });
         return;
