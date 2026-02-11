@@ -1,9 +1,10 @@
 /**
  * AdminHotspotsPanel - Hotspots Administration Panel
- * Phase P6.5 - Integrated in Admin "Terres à louer" tab
+ * Phase P6.5 - Integrated in Admin "Hotspots" tab
  * 
- * ⚠️ ADMIN ONLY - Cette section n'est jamais visible par les utilisateurs réguliers
- * ⚠️ CONFIDENTIALITÉ: Les hotspots personnels des utilisateurs sont EXCLUS
+ * 🔒 ADMIN SEULEMENT - Cette section affiche TOUS les hotspots de TOUS les membres
+ * pour la gestion, modération et supervision globale.
+ * Ces données ne sont jamais partagées ni accessibles aux utilisateurs.
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +12,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card'
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { toast } from 'sonner';
-import { MapPin, ExternalLink, Filter, RefreshCw, ChevronDown, ChevronUp } from 'lucide-react';
+import { MapPin, ExternalLink, Filter, RefreshCw, ChevronDown, ChevronUp, Shield } from 'lucide-react';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -20,17 +21,21 @@ const CATEGORY_COLORS = {
   standard: 'bg-gray-500',
   premium: 'bg-amber-500',
   land_rental: 'bg-emerald-500',
+  chalet: 'bg-orange-500',
   environmental: 'bg-blue-500',
+  user_personal: 'bg-purple-500',
   inactive: 'bg-red-500'
 };
 
 // Category labels in French
 const CATEGORY_LABELS = {
-  standard: 'Hotspot standard',
-  premium: 'Hotspot premium',
-  land_rental: 'Hotspot Terre à louer',
-  environmental: 'Hotspot environnemental',
-  inactive: 'Hotspot inactif'
+  standard: 'Standard',
+  premium: 'Premium',
+  land_rental: 'Terre à louer',
+  chalet: 'Chalet',
+  environmental: 'Environnemental',
+  user_personal: 'Personnel (membre)',
+  inactive: 'Inactif'
 };
 
 // Category icons
@@ -38,7 +43,9 @@ const CATEGORY_ICONS = {
   standard: '📍',
   premium: '⭐',
   land_rental: '🏠',
+  chalet: '🏡',
   environmental: '🌲',
+  user_personal: '👤',
   inactive: '⏸️'
 };
 
@@ -50,11 +57,11 @@ const AdminHotspotsPanel = () => {
   const [categoryFilter, setCategoryFilter] = useState('');
   const [expanded, setExpanded] = useState(true);
 
-  // Load hotspots (admin only - excludes user personal hotspots)
+  // Load hotspots (ALL hotspots for admin)
   const loadHotspots = useCallback(async () => {
     try {
       setLoading(true);
-      let url = `${API_URL}/api/admin/geo/hotspots?limit=100`;
+      let url = `${API_URL}/api/admin/geo/hotspots?limit=200`;
       if (categoryFilter) {
         url += `&category=${categoryFilter}`;
       }
@@ -90,15 +97,22 @@ const AdminHotspotsPanel = () => {
     navigate('/admin/geo');
   };
 
+  // Calculate total
+  const totalHotspots = Object.values(hotspotStats).reduce((a, b) => a + b, 0);
+
   return (
     <div className="space-y-6">
-      {/* Header with toggle */}
+      {/* Header with admin warning */}
       <Card className="bg-slate-800/50 border-slate-700">
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
             <CardTitle className="text-white flex items-center gap-2">
               <span className="text-2xl">🔥</span>
               Gestion des Hotspots
+              <Badge className="bg-red-600 ml-2">
+                <Shield className="h-3 w-3 mr-1" />
+                ADMIN
+              </Badge>
             </CardTitle>
             <div className="flex items-center gap-2">
               <Button 
@@ -119,18 +133,31 @@ const AdminHotspotsPanel = () => {
               </Button>
             </div>
           </div>
-          <p className="text-amber-400 text-sm mt-1">
-            ⚠️ Les hotspots personnels des utilisateurs sont exclus (confidentialité)
-          </p>
+          
+          {/* Admin Warning Banner */}
+          <div className="mt-3 p-3 bg-amber-900/30 border border-amber-500/50 rounded-lg">
+            <p className="text-amber-300 text-sm flex items-start gap-2">
+              <Shield className="h-4 w-4 mt-0.5 flex-shrink-0" />
+              <span>
+                <strong>Section strictement réservée aux administrateurs.</strong><br />
+                Tous les hotspots de tous les membres y sont visibles pour gestion, modération et supervision globale.<br />
+                Ces données ne sont jamais partagées ni accessibles aux utilisateurs.
+              </span>
+            </p>
+          </div>
         </CardHeader>
       </Card>
 
       {expanded && (
         <>
-          {/* Quick Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          {/* Quick Stats - All categories */}
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
             {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
-              <Card key={key} className="bg-slate-800/50 border-slate-700">
+              <Card 
+                key={key} 
+                className={`bg-slate-800/50 border-slate-700 cursor-pointer hover:border-slate-500 transition-colors ${categoryFilter === key ? 'ring-2 ring-blue-500' : ''}`}
+                onClick={() => setCategoryFilter(categoryFilter === key ? '' : key)}
+              >
                 <CardContent className="p-3">
                   <div className="flex items-center justify-between">
                     <div>
@@ -149,7 +176,12 @@ const AdminHotspotsPanel = () => {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="text-white text-lg">
-                  Hotspots Administratifs ({hotspots.length})
+                  Tous les Hotspots ({totalHotspots})
+                  {categoryFilter && (
+                    <Badge className={`ml-2 ${CATEGORY_COLORS[categoryFilter]}`}>
+                      Filtre: {CATEGORY_LABELS[categoryFilter]}
+                    </Badge>
+                  )}
                 </CardTitle>
                 <div className="flex items-center gap-2">
                   <Filter className="h-4 w-4 text-slate-400" />
@@ -158,11 +190,13 @@ const AdminHotspotsPanel = () => {
                     value={categoryFilter}
                     onChange={(e) => setCategoryFilter(e.target.value)}
                   >
-                    <option value="">Toutes</option>
+                    <option value="">Toutes catégories</option>
                     <option value="standard">Standard</option>
                     <option value="premium">Premium</option>
                     <option value="land_rental">Terre à louer</option>
+                    <option value="chalet">Chalet</option>
                     <option value="environmental">Environnemental</option>
+                    <option value="user_personal">Personnel (membres)</option>
                     <option value="inactive">Inactif</option>
                   </select>
                   <Button 
@@ -181,7 +215,7 @@ const AdminHotspotsPanel = () => {
                 <div className="text-center py-8 text-slate-400">Chargement...</div>
               ) : hotspots.length === 0 ? (
                 <div className="text-center py-8 text-slate-500">
-                  Aucun hotspot administratif trouvé.
+                  Aucun hotspot trouvé pour ce filtre.
                 </div>
               ) : (
                 <div className="overflow-x-auto">
@@ -190,6 +224,7 @@ const AdminHotspotsPanel = () => {
                       <tr className="border-b border-slate-700">
                         <th className="text-slate-400 pb-2 font-medium">Nom</th>
                         <th className="text-slate-400 pb-2 font-medium">Catégorie</th>
+                        <th className="text-slate-400 pb-2 font-medium">Propriétaire</th>
                         <th className="text-slate-400 pb-2 font-medium">GPS</th>
                         <th className="text-slate-400 pb-2 font-medium">Statut</th>
                         <th className="text-slate-400 pb-2 font-medium">Confiance</th>
@@ -197,7 +232,7 @@ const AdminHotspotsPanel = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {hotspots.slice(0, 10).map((hotspot) => (
+                      {hotspots.slice(0, 15).map((hotspot) => (
                         <tr key={hotspot.id} className="border-b border-slate-700/50 hover:bg-slate-700/30">
                           <td className="py-3">
                             <div className="flex items-center gap-2">
@@ -210,11 +245,18 @@ const AdminHotspotsPanel = () => {
                               {hotspot.category_label}
                             </Badge>
                           </td>
+                          <td className="py-3 text-slate-400 text-xs">
+                            {hotspot.user_id === 'system' ? (
+                              <span className="text-blue-400">Système</span>
+                            ) : (
+                              <span>{hotspot.user_id?.substring(0, 15)}...</span>
+                            )}
+                          </td>
                           <td className="py-3 text-slate-400 font-mono text-xs">
                             {hotspot.latitude?.toFixed(4)}, {hotspot.longitude?.toFixed(4)}
                           </td>
                           <td className="py-3">
-                            <span className={hotspot.active ? 'text-emerald-400' : 'text-red-400'}>
+                            <span className={hotspot.active !== false ? 'text-emerald-400' : 'text-red-400'}>
                               {hotspot.status}
                             </span>
                           </td>
@@ -241,14 +283,14 @@ const AdminHotspotsPanel = () => {
                     </tbody>
                   </table>
                   
-                  {hotspots.length > 10 && (
+                  {hotspots.length > 15 && (
                     <div className="mt-4 text-center">
                       <Button 
                         variant="outline" 
                         size="sm"
                         onClick={openFullAdmin}
                       >
-                        Voir les {hotspots.length - 10} autres hotspots
+                        Voir les {hotspots.length - 15} autres hotspots
                       </Button>
                     </div>
                   )}
