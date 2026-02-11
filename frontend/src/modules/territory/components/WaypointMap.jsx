@@ -445,7 +445,11 @@ export const WaypointMap = ({
                       <Popup>
                         <div className="p-2 min-w-[220px]">
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="text-xl">{getTypeInfo(waypoint.type).icon}</span>
+                            {(() => {
+                              const typeInfo = getTypeInfo(waypoint.type);
+                              const TypeIcon = typeInfo.Icon || MapPin;
+                              return <TypeIcon className="h-5 w-5" style={{ color: typeInfo.color }} />;
+                            })()}
                             <strong>{waypoint.name}</strong>
                           </div>
                           
