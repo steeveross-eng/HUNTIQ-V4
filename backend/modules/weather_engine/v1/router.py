@@ -2,20 +2,25 @@
 
 FastAPI router for weather-based hunting analysis.
 
-Version: 1.0.0
+Version: 1.1.0 - Extended with OpenWeatherMap integration
 API Prefix: /api/v1/weather
 """
 
 from fastapi import APIRouter, HTTPException, Query
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime, timezone
 from .service import WeatherService
-from .models import WeatherCondition, WeatherRequest
+from .models import (
+    WeatherCondition, WeatherRequest, 
+    CurrentWeather, HourlyForecast, DailyForecast, FullWeatherResponse
+)
+from .external_service import get_openweathermap_service
 
 router = APIRouter(prefix="/api/v1/weather", tags=["Weather Engine"])
 
-# Initialize service
+# Initialize services
 _service = WeatherService()
+_external_service = get_openweathermap_service()
 
 
 @router.get("/")
@@ -23,15 +28,24 @@ async def weather_engine_info():
     """Get weather engine information"""
     return {
         "module": "weather_engine",
-        "version": "1.0.0",
-        "description": "Weather-based hunting condition analysis",
+        "version": "1.1.0",
+        "description": "Weather-based hunting condition analysis with real-time data",
         "features": [
+            "Real-time weather data (OpenWeatherMap)",
+            "Hourly forecast (48h)",
+            "Daily forecast (7 days)",
             "Hunting score calculation",
             "Deer activity prediction",
             "Best hunting times",
             "Moon phase analysis",
             "Wind strategy advice"
         ],
+        "endpoints": {
+            "current": "/api/v1/weather/current?lat=&lng=",
+            "hourly": "/api/v1/weather/hourly?lat=&lng=",
+            "daily": "/api/v1/weather/daily?lat=&lng=",
+            "full": "/api/v1/weather/full?lat=&lng="
+        },
         "optimal_conditions": _service.OPTIMAL_CONDITIONS
     }
 
