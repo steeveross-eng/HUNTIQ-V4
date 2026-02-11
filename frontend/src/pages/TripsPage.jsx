@@ -87,7 +87,7 @@ const TripsPage = () => {
       <div className="min-h-screen bg-slate-900 pt-20 pb-12 px-4 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-12 w-12 text-[#f5a623] animate-spin mx-auto mb-4" />
-          <p className="text-gray-400">Chargement des sorties...</p>
+          <p className="text-gray-400">{t('common_loading')}</p>
         </div>
       </div>
     );
@@ -100,11 +100,11 @@ const TripsPage = () => {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-              <span className="text-3xl">🎯</span>
-              Mes Sorties de Chasse
+              <Target className="h-7 w-7 text-[#f5a623]" />
+              {t('trips_title')}
             </h1>
             <p className="text-slate-400 text-sm mt-1">
-              Gérez vos sorties, observations et statistiques • Phase P4+
+              {t('trips_stats')} • Phase P4+
             </p>
           </div>
           
@@ -115,7 +115,7 @@ const TripsPage = () => {
               data-testid="create-trip-btn"
             >
               <Plus className="h-4 w-4 mr-2" />
-              Nouvelle Sortie
+              {t('trips_start_new')}
             </Button>
           )}
         </div>
@@ -126,7 +126,7 @@ const TripsPage = () => {
             <div className="flex items-center gap-3">
               <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse" />
               <div>
-                <p className="text-emerald-400 font-medium">Sortie en cours</p>
+                <p className="text-emerald-400 font-medium">{t('trips_active')}</p>
                 <p className="text-gray-400 text-sm">{activeTrip.title} - {activeTrip.target_species}</p>
               </div>
             </div>
@@ -136,7 +136,7 @@ const TripsPage = () => {
               onClick={() => setActiveTab('active')}
               className="border-emerald-600 text-emerald-400 hover:bg-emerald-900/50"
             >
-              Voir la sortie
+              {t('common_view')}
               <ChevronRight className="h-4 w-4 ml-1" />
             </Button>
           </div>
@@ -153,7 +153,7 @@ const TripsPage = () => {
                   </div>
                   <div>
                     <p className="text-2xl font-bold text-white">{statistics.total_trips}</p>
-                    <p className="text-xs text-gray-400">Sorties totales</p>
+                    <p className="text-xs text-gray-400">{t('trips_total_trips')}</p>
                   </div>
                 </div>
               </CardContent>
