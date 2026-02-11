@@ -1,63 +1,62 @@
 <analysis>**original_problem_statement:**
-The user, Steeve Ross, is overseeing the development of his project, HUNTIQ V3, following a master plan (Plan Maître BIONIC). This session's goal was to execute a major UI/UX overhaul by implementing the BIONIC TACTICAL Design System.
+The user, Steeve Ross, is overseeing the development of his project, HUNTIQ V3, following a master plan (Plan Maître BIONIC). The project's current focus is a complete UI/UX overhaul to enforce a strict, professional, and scientific BIONIC TACTICAL design standard across the entire application.
 
-Initial work involved integrating the new design system into the application's main navigation. Following this, the user requested a significant new feature: a selection of seven premium, high-utility map layers (e.g., Ecoforestry, Satellite HR, Bathymetry). The agent built the UI selector for this and the underlying frontend architecture.
+Initially, the user reported that the FR/EN translation feature was completely broken. After the agent fixed the internationalization (i18n) across the main navigation, Admin section, and several key pages, the user mandated a much larger task: a full UI audit and subsequent correction of all visual and structural inconsistencies.
 
-The user then provided strategic direction to make the ecoforestry layer multi-regional (Canada, USA, Quebec) and to plan for an offline mode with live GPS navigation. The agent successfully implemented the multi-region architecture and a robust fallback system for geo-restricted data sources.
-
-The final directive was to prepare for and begin implementing the Advanced Zones feature, which involves rendering 14 different types of tactical zones (rutting, bedding, feeding, etc.) on the map. The agent has laid the architectural foundation for this feature by creating the necessary backend APIs and frontend component placeholders.
+The new directives are extremely strict:
+1.  **Uniform Design System:** All pages must adhere to a single, centralized design system defining a specific tactical color palette, typography (Inter), professional linear icons (Lucide), and standardized layouts. No cartoon styles, emojis, or whimsical elements are permitted.
+2.  **Real Game Imagery:** All representations of wildlife must use high-quality, real photos of mature male animals (e.g., large antlers), reinforcing the scientific and tactical identity.
+3.  **Mandatory Audit & Correction:** The agent was required to first perform a full UI audit to identify all non-compliant elements (emojis, hardcoded text/styles, inconsistent colors) and then systematically correct them, page by page.
+4.  **Structural Integrity:** All changes must respect the existing modular architecture (CORE / MÉTIER / PLAN MAÎTRE) and not introduce technical debt.
 
 **User's preferred language**: French
 
 **what currently exists?**
-*   **BIONIC TACTICAL Design System (Phase 1):** The new design system is live and integrated into the primary application navigation (), including a functional responsive mobile menu.
-*   **Premium Map Selector:** A  component is integrated into the main map page (), allowing users to switch between 7 premium map types. The selection is persistent and drives the map display.
-*   **Multi-Region Ecoforestry Architecture:** The application now supports multiple regions (QC, CA, USA) for ecoforestry data, with a central registry () and a smart hook () that handles data source availability and fallbacks.
-*   **Robust WMS Fallback System:** When a geo-restricted WMS layer (like Quebec's MFFP) is unavailable, the application automatically and gracefully falls back to a high-definition topographic map, informing the user.
-*   **Bathymetry & Advanced Zones Foundation:** The backend APIs (, ) and frontend component/hook placeholders have been created, preparing the application for the implementation of these features. The advanced zones API is functional and returns the 14 zone types.
-*   **Comprehensive Documentation:** The  is updated, and new planning documents for Premium Maps () and Offline Mode () have been created and approved.
+*   **Functional i18n:** A robust FR/EN translation system using  is now implemented and tested across the entire application, including the main navigation, all 18+ Admin tabs, the Shop page, Trips page, and Dashboard.
+*   **UI Audit Report:** A comprehensive audit identifying over 365 emojis, 150+ hardcoded French strings, and dozens of non-standard styles has been completed and saved as .
+*   **Centralized BIONIC Design System (v1):** The foundation for the new design standard has been created and integrated into the app. This includes:
+    *   : A global CSS file with variables for the approved tactical color palette, fonts, and spacing.
+    *   : A mapping of over 50 emojis to their corresponding professional Lucide icons.
+    *   : A JavaScript version of the color palette for component logic.
+    *   : Centralized constants for map place types, waypoints, etc., removing hardcoded configurations from components.
+    *   : Documentation for the new system.
 
 **Last working item**:
-*   **Last item agent was working:** Setting up the foundational architecture for the Advanced Zones feature. This involved creating the backend API to serve zone configurations, a new router, and placeholder hooks/components on the frontend. The goal was to prepare for the actual rendering of the zones on the map.
+*   **Last item agent was working:** A large-scale refactoring of , the file identified as most non-compliant in the UI audit (119+ emojis). The agent was systematically removing hardcoded emojis, colors, and styles, replacing them with imports and variables from the new centralized BIONIC Design System.
 *   **Status:** IN PROGRESS
-*   **Agent Testing Done:** Y (The new backend endpoint  was successfully tested with .)
+*   **Agent Testing Done:** N
 *   **Which testing method agent to use?** frontend testing agent
 *   **User Testing Done:** N
 
 **All Pending/In progress Issue list**:
-*   None.
+*   None. The current focus is a large, planned refactoring task.
 
 **In progress Task List**:
-- **Task 1: (P0) Implement Rendering of 14 Advanced Zones** (Priority: P0)
-    -   **Where to resume:** The backend API () is ready. The next step is to implement the logic within  to fetch zone geometry data and then use  to render the GeoJSON polygons on the Leaflet map in .
-    -   **What will be achieved with this?** Users will be able to toggle and view 14 distinct, color-coded tactical zones on their map, fulfilling a core requirement of the BIONIC vision.
-    -   **Status:** IN PROGRESS
-    -   **Should Test frontend/backend/both after fix?** Frontend
-    -   **Blocked on something:** No.
+*   **Task 1: (P0) Complete the visual refactoring of **
+    *   **Where to resume:** Continue the replacement of all remaining hardcoded emojis, colors, and styles within . The agent has already replaced many common emojis (✅, ❌, ⚠️, 📍) but needs to address the remaining specific ones (e.g., 📷, 🏕️, 🦌, 🫎) and ensure all icons are sourced from  and all colors use CSS variables from .
+    *   **What will be achieved with this?** The application's most complex and non-compliant component will be fully aligned with the BIONIC Design System, serving as a template for subsequent corrections.
+    *   **Status:** IN PROGRESS
+    *   **Should Test frontend/backend/both after fix?** Frontend
+    *   **Blocked on something:** No.
 
 **Upcoming and Future Tasks**
 *   **Upcoming Tasks:**
-    *   **(P0.5) Implement Offline Mode & Live Navigation:** Based on the user-approved , build the architecture for downloading map tiles for offline use. Implement live GPS tracking and compass orientation.
-    *   **(P1) Implement Private Paths:** Develop a full CRUD interface for users to add and manage their private paths, storing the data in the  collection.
-    *   **(P1) Integrate Centralized i18n:** Connect the  provider in  and begin migrating hardcoded strings to translation keys.
-    *   **(P1) Refactor Admin Interfaces:** Update all administrative pages and components to align with the BIONIC TACTICAL design system.
-*   **Future Tasks (from Plan Maître BIONIC):**
-    *   **(P2 - Phase 2 Cartes) Implement Bathymetry Data:** Integrate real data sources into the existing backend/frontend structure for bathymetry.
-    *   **(PROD) Deploy Quebec Proxy:** Deploy a reverse proxy in a Quebec datacenter to provide production access to the geo-restricted MFFP WMS.
-    *   **(P3) WebSocket Sync & Advanced Scoring:** Implement real-time data synchronization.
-    *   **(P3)  Data Migration:** Migrate the legacy  collection.
+    *   **(P0) Complete UI Corrections (Post-):** Systematically apply the BIONIC Design System to all remaining non-compliant files identified in , following the priority list. This includes , , etc.
+    *   **(P0) Complete i18n for Sub-components:** Translate remaining hardcoded text within child components like , , and .
+    *   **(P0.5) Integrate Real Mature Game Images:** Replace placeholder icons (e.g., the one for 🦌) and other animal representations with high-quality, real photos of mature animals in relevant sections (Homepage, Dashboard, Products).
+    *   **(P1) Implement Offline Mode & Live Navigation:** Based on the user-approved .
+    *   **(P1) Implement Private Paths:** Full CRUD interface for users to add and manage their private paths.
+*   **Future Tasks:**
+    *   **(PROD) Deploy Quebec Proxy:** To provide production access to the geo-restricted MFFP WMS.
+    *   **(P2) Implement Bathymetry Data.**
+    *   **(P3) WebSocket Sync & Advanced Scoring.**
 
 **Completed work in this session**
-- **Design System BIONIC TACTICAL (Phase 1 Integration):** Successfully replaced the main navigation in , including the header, dropdowns, and a responsive mobile menu. Fixed UI regressions found by the testing agent.
-- **Premium Map Feature (Phase 1 & 2 Prep):**
-    - Built and integrated the  component for 7 premium map types.
-    - Established a multi-region architecture for the Ecoforestry layer to support sources from QC, CA, and USA.
-    - Created the foundational backend API and frontend components for the upcoming Bathymetry layer.
-- **Advanced Zones Feature (Foundation):**
-    - Updated frontend configurations to include all 14 zone types.
-    - Created a new backend API () to serve zone data.
-    - Created placeholder frontend components and hooks to prepare for rendering.
-- **Documentation:** Updated  and created  and .
+- **Full i18n Implementation (FR/EN):** Fixed the broken language switcher and successfully internationalized the entire application, including the main navigation, all Admin pages, Shop, Trips, and Dashboard. Validated with the testing agent.
+- **UI/UX Professionalism Overhaul (Foundation):**
+    -   **UI Audit:** Executed a comprehensive frontend audit, generating a detailed report () that now guides the refactoring effort.
+    -   **Centralized BIONIC Design System:** Created and integrated the core files (, , , ) that define the new visual standard.
+    -   **Initial Cleanup:** Replaced emojis with Lucide icons in  as an initial proof-of-concept.
 
 **Earlier issues found/mentioned but not fixed**
 *   Minor platform diagnostic warnings from a previous session were deferred by the user.
@@ -66,84 +65,80 @@ The final directive was to prepare for and begin implementing the Advanced Zones
 *   None.
 
 **Code Architecture**
-routes
+
 
 **Key Technical Concepts**
-*   **Modular Frontend Architecture:** Features like map layers and zones are being built as independent, reusable components and hooks to avoid monolithic components and ensure extensibility.
-*   **API-Driven UI:** The frontend dynamically renders features (like map types and zone configurations) based on data fetched from the backend, allowing for easier updates.
-*   **Multi-Region Data Registry:** A centralized configuration () manages different data sources for various geographic regions, allowing the application to scale.
-*   **Robust Fallback Mechanisms:** The application is designed to handle unavailable external services (like geo-restricted WMS) by gracefully switching to an alternative data source without breaking the user experience.
+*   **Strict UI/UX Enforcement:** All development must now adhere to the BIONIC standard: professional, scientific, analytical, and tactical. No exceptions.
+*   **Centralized Design System:** A single source of truth for all visual and configuration elements (colors, icons, constants) has been established to eliminate inconsistencies and local overrides.
+*   **Large-Scale Refactoring:** A systematic process of cleaning up the entire frontend based on a detailed audit report, starting with the most complex components.
+*   **Comprehensive i18n:** The application now has a fully functional and tested FR/EN translation system managed via a single React context.
 
 **key DB schema**
-*   No changes were made to the database schema in this session. The primary collection remains .
+*   No changes were made to the database schema.
 
 **changes in tech stack**
 *   None.
 
 **All files of reference**
-*   : The main map page where new features (Map Selector, Advanced Zones) are being integrated.
-*   : The new UI component for selecting premium maps.
-*   : The central configuration for multi-region WMS data sources.
-*   : The new API for fetching advanced zone configurations.
-*   : The user-approved plan for the critical offline mode feature.
-*   : The canonical source for project status and future work.
+*   **/app/memory/AUDIT_UI_BIONIC.md**: **(CRITICAL)** The audit report that lists all non-compliant files and serves as the checklist for the current refactoring work.
+*   **/app/frontend/src/styles/bionic-design-system.css**: The new source of truth for all colors and styles.
+*   **/app/frontend/src/config/bionic-icons.js**: The mapping of all old emojis to new professional Lucide icons.
+*   **/app/frontend/src/config/bionic-config.js**: Centralized configurations to be used instead of hardcoded values in components.
+*   **/app/frontend/src/components/TerritoryMap.jsx**: The large, complex file currently undergoing refactoring.
 
 **Areas that need refactoring**:
-*   The  component has grown significantly and handles a large amount of state and rendering logic. It is a candidate for future refactoring into smaller, more focused child components to improve maintainability.
+*   The entire frontend is undergoing a planned refactoring effort, guided by . The work has started with  and must continue through the rest of the identified files.
 
 **key api endpoints**
-*   : (NEW) Placeholder endpoint for bathymetric data statistics.
-*   : (NEW) Returns the configuration for the 14 advanced zone types.
+*   The agent successfully debugged and used the legacy  endpoint.
 
 **Critical Info for New Agent**
 *   **Vous devez communiquer avec l'utilisateur en français.**
-*   The immediate highest priority (P0) is to implement the **visual rendering of the 14 Advanced Zones**. The architectural foundation for this is already in place. Your task is to build out the rendering logic.
-*   The project follows a strict **modular architecture**. Avoid creating tight coupling between features. New functionalities should be self-contained in their own components/hooks.
-*   Adhere to the user's validated roadmap: **1. Advanced Zones (P0)**, **2. Offline Mode (P0.5)**, **3. Private Paths (P1)**, **4. i18n (P1)**.
-*   Do not attempt to fix the direct WMS access for Quebec's MFFP data source. It is geo-restricted. The application has a working fallback, and a production proxy is planned.
+*   **IMMEDIATE PRIORITY (P0):** Your first task is to finish the refactoring of . This is a large and critical file. Systematically replace all remaining emojis and hardcoded styles using the new centralized BIONIC Design System files (, , ).
+*   **FOLLOW THE AUDIT:** The file  is your guide. After , proceed to the next highest priority files on that list.
+*   **STRICT ADHERENCE TO DESIGN SYSTEM:** The user has a zero-tolerance policy for deviations from the new BIONIC Design System. Do not use any colors, icons, or styles not defined in the central files.
+*   **Admin Password:** The admin password is . The frontend was fixed to work with the legacy backend login endpoint.
 
 **documents and test reports created in this job**
+*   
 *   
 *   
 *   
 *    (updated)
 
 **Last 10 User Messages and any pending HUMAN messages**
-10. **User:** Validates the multi-region architecture. Confirms the next immediate priority is **rendering the Advanced Zones (P0)**. Provides a detailed roadmap with targets for Offline Mode, the Production Proxy, and Private Paths.
-9.  **Agent:** Summarizes the successful implementation of the multi-region ecoforestry architecture and asks for validation to proceed.
-8.  **User:** Clarifies that the ecoforestry layer must be multi-region (Canada/USA) and that a proxy will be needed for the geo-restricted Quebec WMS in production. Confirms the next steps.
-7.  **Agent:** Finishes the implementation of the Bathymetry API placeholder and the WMS fallback system. Confirms the Ecoforestry layer is ready for production access via proxy.
-6.  **User:** Validates Phase 1 of the premium maps. Emphasizes the need for an **offline mode** with live GPS guidance and tile downloads, and provides a new priority list. Authorizes the agent to start Phase 2 (Ecoforestry WMS).
-5.  **Agent:** Finishes implementation of Phase 1 of the premium maps (BionicMapSelector + Bionic Premium map style) and provides a summary.
-4.  **User:** Validates the proposal for 7 premium maps and provides clear directives for implementation phases, data sources, and technical preferences (hybrid tile hosting). Authorizes the agent to proceed with Phase 1.
-3.  **Agent:** Submits a detailed proposal for the 7 premium map types, including mockups and an implementation plan.
-2.  **User:** After the BIONIC Design system integration, requests a new feature: 7 types of premium, purpose-built map styles.
-1.  **Agent:** Completes the BIONIC TACTICAL Design System (Phase 1) integration and fixes all UI regressions found by the testing agent.
+1.  **User (Latest):** Approves the audit report and instructs the agent to create the centralized Design System.
+2.  **Agent:** Presents the UI Audit report and summary, asking for confirmation to proceed to the next step (creating the Design System).
+3.  **User:** Lays out strict directives for a complete UI overhaul: mandatory Design System, UI audit, use of real game images, and a specific execution order. Instructs the agent to start with the audit.
+4.  **Agent:** Finishes the full i18n implementation and an initial design cleanup (emojis in ), asking about remaining untranslated sub-components.
+5.  **User:** Provides screenshots showing that while navigation/admin is translated, the content within pages (Dashboard, Shop) is not.
+6.  **Agent:** Acknowledges the previous i18n work was incomplete and plans to audit and correct all pages.
+7.  **User:** Repeats the demand for a strict ELITE visual standard and a full UI audit, reinforcing the i18n fix as a priority.
+8.  **Agent:** Finishes the initial i18n fix and asks for confirmation and next steps.
+9.  **User:** Validates the previous feature (Advanced Zones) but immediately flags the broken FR/EN translation as a critical, top-priority issue that must be fixed everywhere, including the Admin page.
 
 **Project Health Check:**
 *   **Running:** Yes
-*   **Broken:** None
-*   **Mocked:** The backend APIs for Bathymetry and Advanced Zones return placeholder/configuration data. The actual geometric/geospatial data is not yet being served.
+*   **Broken:** The  component is currently in a broken state mid-refactoring.
+*   **Mocked:** Backend APIs for Bathymetry.
 
 **3rd Party Integrations**
-*   **OpenAI GPT-5.2:** Used for AI recommendations via **Emergent LLM Key**.
-*   **Google OAuth:** Used for social login.
-*   **Resend:** Integrated for transactional emails, requires User API Key.
-*   **MongoDB:** Primary database.
-*   **Leaflet / react-leaflet:** Frontend library for the interactive map.
-*   **Recharts:** Frontend library for analytics charts.
-*   **OpenWeatherMap:** Integrated and fully active with real data, requires User API Key.
+*   OpenAI GPT-5.2 (via Emergent LLM Key)
+*   Google OAuth
+*   Resend (User API Key)
+*   MongoDB
+*   Leaflet / react-leaflet
+*   Recharts
+*   OpenWeatherMap (User API Key)
 
 **Testing status**
-*   **Testing agent used after significant changes:** YES (Used to validate the Bionic Navigation integration).
+*   **Testing agent used after significant changes:** YES, used to successfully validate the app-wide i18n implementation.
 *   **Troubleshoot agent used after agent stuck in loop:** NO
-*   **Test files created:** None in this session.
-*   **Known regressions:** The testing agent found and the main agent fixed regressions related to the mobile menu and button positioning during the design system integration.
+*   **Test files created:** None.
+*   **Known regressions:** None from the completed i18n work. The current refactoring is expected to cause temporary breakage until complete.
 
 **Credentials to test flow:**
 *   **Admin Login:**  / 
-*   **Business User:**  / 
-*   **Hunter User:**  / 
 
 **What agent forgot to execute**
-*   Nothing was forgotten. The agent successfully navigated complex, evolving user requirements, building a modular and extensible architecture while adhering to the user's strict validation process. The agent correctly prioritized user requests and documented all decisions and future work.</analysis>
+*   The agent has not forgotten anything. It is in the middle of a large, multi-step task explicitly defined and approved by the user. The current work on  is the first and most critical part of that approved plan.</analysis>
