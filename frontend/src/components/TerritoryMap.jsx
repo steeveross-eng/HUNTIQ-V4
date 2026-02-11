@@ -3915,8 +3915,8 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
               {/* Score Global */}
               <div className="p-3 border-b border-green-500/20">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-400 text-xs">Score global de qualité</span>
-                  <span className="text-2xl font-bold" style={{ color: territoryAnalysis.qualityScore >= 80 ? '#22c55e' : territoryAnalysis.qualityScore >= 60 ? '#f59e0b' : '#ef4444' }}>
+                  <span className="text-gray-400 text-xs">{t('global_quality_score')}</span>
+                  <span className="text-2xl font-bold" style={{ color: getScoreColor(territoryAnalysis.qualityScore) }}>
                     {territoryAnalysis.qualityScore}/100
                   </span>
                 </div>
@@ -3925,7 +3925,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                     className="h-full rounded-full transition-all"
                     style={{ 
                       width: `${territoryAnalysis.qualityScore}%`,
-                      backgroundColor: territoryAnalysis.qualityScore >= 80 ? '#22c55e' : territoryAnalysis.qualityScore >= 60 ? '#f59e0b' : '#ef4444'
+                      backgroundColor: getScoreColor(territoryAnalysis.qualityScore)
                     }}
                   />
                 </div>
@@ -3933,17 +3933,17 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
 
               {/* Indices */}
               <div className="p-3 border-b border-green-500/20">
-                <div className="text-xs text-gray-500 uppercase mb-2">Indices d'analyse</div>
+                <div className="text-xs text-gray-500 uppercase mb-2">{t('analysis_indices')}</div>
                 <div className="grid grid-cols-2 gap-2">
                   {[
-                    { label: 'Pression chasse', value: territoryAnalysis.indices.pression, icon: '🎯' },
-                    { label: 'Accessibilité', value: territoryAnalysis.indices.accessibilite, icon: '🚗' },
-                    { label: 'Qualité habitat', value: territoryAnalysis.indices.habitat, icon: '🌲' },
-                    { label: 'Score global', value: territoryAnalysis.indices.qualite, icon: '⭐' }
+                    { label: t('hunting_pressure'), value: territoryAnalysis.indices.pression, Icon: Target },
+                    { label: t('accessibility'), value: territoryAnalysis.indices.accessibilite, Icon: Car },
+                    { label: t('habitat_quality'), value: territoryAnalysis.indices.habitat, Icon: TreePine },
+                    { label: t('global_score'), value: territoryAnalysis.indices.qualite, Icon: Star }
                   ].map((indice, idx) => (
                     <div key={idx} className="bg-card/50 p-2 rounded-lg">
                       <div className="flex items-center gap-1 text-[10px] text-gray-400 mb-1">
-                        <span>{indice.icon}</span>
+                        <indice.Icon className="h-3 w-3" />
                         <span>{indice.label}</span>
                       </div>
                       <div className="flex items-center gap-2">
@@ -3952,7 +3952,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                             className="h-full rounded-full"
                             style={{ 
                               width: `${indice.value}%`,
-                              backgroundColor: indice.value >= 75 ? '#22c55e' : indice.value >= 50 ? '#f59e0b' : '#ef4444'
+                              backgroundColor: getScoreColor(indice.value)
                             }}
                           />
                         </div>
