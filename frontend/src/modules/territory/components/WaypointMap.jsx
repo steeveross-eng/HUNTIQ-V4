@@ -587,7 +587,10 @@ export const WaypointMap = ({
                       onClick={() => centerOnWaypoint(waypoint)}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="text-xl">{typeInfo.icon}</span>
+                        {(() => {
+                          const TypeIcon = typeInfo.Icon || MapPin;
+                          return <TypeIcon className="h-5 w-5" style={{ color: typeInfo.color }} />;
+                        })()}
                         <div className="flex-1 min-w-0">
                           <p className="text-white font-medium truncate">{waypoint.name}</p>
                           <p className="text-slate-400 text-xs">
@@ -600,7 +603,7 @@ export const WaypointMap = ({
                 })
               ) : (
                 <div className="text-center py-8">
-                  <span className="text-3xl">🗺️</span>
+                  <MapPin className="h-8 w-8 text-[#f5a623] mx-auto" />
                   <p className="text-slate-400 mt-2 text-sm">Aucun waypoint</p>
                   <p className="text-slate-500 text-xs">Utilisez la carte pour en ajouter</p>
                 </div>
