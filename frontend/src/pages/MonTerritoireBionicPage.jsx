@@ -1966,7 +1966,10 @@ const MonTerritoireBionicPage = () => {
                       <Popup>
                         <div className="text-center">
                           <div className="font-bold">{wp.name}</div>
-                          <div className="text-xs">{typeInfo?.icon} {typeInfo?.name}</div>
+                          <div className="text-xs flex items-center gap-1 justify-center">
+                            {typeInfo?.Icon && <typeInfo.Icon className="h-3 w-3" style={{ color: typeInfo?.color }} />}
+                            {typeInfo?.name}
+                          </div>
                           <Badge className={wp.active ? 'bg-green-500' : 'bg-gray-500'}>{wp.active ? 'Actif' : 'Inactif'}</Badge>
                         </div>
                       </Popup>
