@@ -710,11 +710,29 @@ Tous les modules opérationnels avec APIs documentées.
 | USA National | USFS, LANDFIRE, NLCD | NLCD |
 | USA Nord-Est | USFS Northeast | LANDFIRE |
 
-### P0 - Zones Avancées (14 types)
-- 🔲 **Zones comportementales** - Rut, Repos, Alimentation
-- 🔲 **Zones environnementales** - Soleil, Pente, Hydro, Forêt, Thermique
-- 🔲 **Zones stratégiques** - Corridor, Affût, Habitat, Hotspot, Pression, Accès
-- 🔲 **Affichage polygones colorés** avec opacité adaptative par type de carte
+### P0 - Zones Avancées (14 types) ✅ LIVRÉ
+- ✅ **BionicAdvancedZones.jsx** - Composant de rendu des 14 types de zones
+  - ZonePolygon, ZoneCircle, ZoneCorridor
+  - Opacité adaptative par type de carte (sombre = +opacity)
+  - Tooltips avec score et description
+  - Tri par priorité d'affichage
+- ✅ **useAdvancedZones hook** - Gestion des zones avec filtres
+  - Visibilité par type, presets (chasse/analyse/minimal)
+  - Opacité globale configurable
+  - Filtre par score minimum
+- ✅ **API Advanced Zones** (`/api/territory/zones/*`)
+  - GET / - Liste avec filtres (type, category, bounds, score)
+  - GET /types - 14 types avec métadonnées
+  - POST / - Créer une zone
+  - PUT /{id}, DELETE /{id}
+  - GET /stats/summary - Statistiques par catégorie
+
+#### Les 14 Types de Zones
+| Catégorie | Types | Couleurs |
+|-----------|-------|----------|
+| **Comportementales** | rut, repos, alimentation, corridor | #FF4D6D, #8B5CF6, #22C55E, #06B6D4 |
+| **Environnementales** | habitat, soleil, pente, hydro, foret, thermique | #10B981, #FCD34D, #A78BFA, #3B82F6, #15803D, #EF4444 |
+| **Stratégiques** | affut, hotspot, pression, acces | #F5A623, #FF6B6B, #F97316, #8B5CF6 |
 
 ### P0.5 - Mode Hors-Ligne & Navigation Terrain
 - 🔲 **Téléchargement tuiles** - Zone délimitée, multi-cartes, progression
