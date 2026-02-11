@@ -852,34 +852,40 @@ async def get_photo_image(photo_id: str):
 
 @territory_router.get("/layers/heatmap_activite")
 async def get_heatmap_activite(user_id: str, species: Optional[str] = None, hours: int = 72):
-    """Get activity heatmap data"""
+    """Get activity heatmap data (P2 NORMALIZED - reads from geo_entities)"""
     database = await get_db()
     
     cutoff_time = datetime.now(timezone.utc) - timedelta(hours=hours)
     
+    # Query geo_entities with entity_type: observation
     query = {
         "user_id": user_id,
-        "captured_at": {"$gte": cutoff_time}
+        "entity_type": "observation",
+        "created_at": {"$gte": cutoff_time}
     }
     
     if species:
-        query["species"] = species
+        query["metadata.species"] = species
     
-    events = await database.territory_events.find(query).to_list(1000)
+    events = await database.geo_entities.find(query).to_list(1000)
     
     # Group by approximate grid cell (0.001 degree ~ 100m)
     grid_data = {}
     for event in events:
-        lat = round(event['latitude'], 3)
-        lon = round(event['longitude'], 3)
-        key = f"{lat},{lon}"
+        location = event.get('location', {})
+        coords = location.get('coordinates', [0, 0])
+        lng, lat = coords[0], coords[1]
+        
+        lat_rounded = round(lat, 3)
+        lon_rounded = round(lng, 3)
+        key = f"{lat_rounded},{lon_rounded}"
         
         if key not in grid_data:
             grid_data[key] = {
-                "lat": lat,
-                "lon": lon,
+                "lat": lat_rounded,
+                "lon": lon_rounded,
                 "intensity": 0,
-                "species": event.get('species')
+                "species": event.get('metadata', {}).get('species')
             }
         grid_data[key]["intensity"] += 1
     
