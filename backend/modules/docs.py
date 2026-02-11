@@ -266,7 +266,7 @@ Les endpoints admin utilisent l'authentification existante.
         },
         "servers": [
             {
-                "url": "https://geo-unity.preview.emergentagent.com",
+                "url": "https://geomap-tactical.preview.emergentagent.com",
                 "description": "Preview Server"
             }
         ],

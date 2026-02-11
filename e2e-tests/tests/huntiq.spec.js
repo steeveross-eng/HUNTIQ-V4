@@ -4,7 +4,7 @@
  */
 const { test, expect } = require('@playwright/test');
 
-const BASE_URL = process.env.BASE_URL || 'https://geo-unity.preview.emergentagent.com';
+const BASE_URL = process.env.BASE_URL || 'https://geomap-tactical.preview.emergentagent.com';
 const API_URL = BASE_URL;
 
 test.describe('Homepage', () => {
