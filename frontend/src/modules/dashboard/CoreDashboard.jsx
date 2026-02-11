@@ -216,28 +216,28 @@ export const CoreDashboard = ({
                   title={t('dashboard_proteins')}
                   value="24.5"
                   unit="g"
-                  icon="🥩"
+                  IconComponent={Beef}
                   color="emerald"
                 />
                 <NutritionCard 
                   title={t('dashboard_minerals')}
                   value="8.2"
                   unit="g"
-                  icon="💎"
+                  IconComponent={Gem}
                   color="blue"
                 />
                 <NutritionCard 
                   title={t('dashboard_attractiveness')}
                   value="92"
                   unit="%"
-                  icon="🦌"
+                  IconComponent={CircleDot}
                   color="amber"
                 />
                 <NutritionCard 
                   title={t('dashboard_effect_duration')}
                   value="48"
                   unit="h"
-                  icon="⏱️"
+                  IconComponent={Timer}
                   color="purple"
                 />
               </div>
