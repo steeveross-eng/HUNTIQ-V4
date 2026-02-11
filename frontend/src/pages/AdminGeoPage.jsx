@@ -22,7 +22,10 @@ import { Badge } from '../components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { toast } from 'sonner';
 import { useLanguage } from '../contexts/LanguageContext';
-import { MapPin, ExternalLink, Filter, RefreshCw } from 'lucide-react';
+import { 
+  MapPin, ExternalLink, Filter, RefreshCw, Loader2, Star, 
+  Home, Trees, EyeOff, BarChart3 
+} from 'lucide-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
