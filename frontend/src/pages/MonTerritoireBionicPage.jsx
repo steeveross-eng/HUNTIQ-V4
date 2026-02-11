@@ -1324,6 +1324,25 @@ const MonTerritoireBionicPage = () => {
               
               {showLayersPanel && (
                 <div className="flex-1 overflow-y-auto p-2 space-y-2">
+                  {/* Sélecteur de type de carte BIONIC Premium */}
+                  <BionicMapSelector
+                    currentMapType={mapType}
+                    onMapTypeChange={setMapType}
+                    mapOptions={mapOptions}
+                    onOptionsChange={setMapOptions}
+                    variant="panel"
+                    showOptions={true}
+                    className="mb-3"
+                  />
+                  
+                  {/* Séparateur */}
+                  <div className="border-t border-gray-700 pt-2">
+                    <div className="text-[10px] text-[#f5a623] uppercase mb-2 flex items-center gap-1">
+                      <Layers className="h-3 w-3" />
+                      Couches BIONIC
+                    </div>
+                  </div>
+                  
                   <div className="flex gap-1">
                     <Button size="sm" variant="outline" onClick={showAllLayers} className="flex-1 text-[10px] h-7 border-gray-700">Tout</Button>
                     <Button size="sm" variant="outline" onClick={hideAllLayers} className="flex-1 text-[10px] h-7 border-gray-700">Aucun</Button>
