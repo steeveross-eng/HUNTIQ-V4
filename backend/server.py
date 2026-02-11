@@ -240,14 +240,10 @@ try:
 except ImportError as e:
     logger.warning(f"Legacy router not available: {e}")
 
-# 4. Register user waypoints router
-try:
-    from user_waypoints import router as waypoints_router, user_router as user_simple_router
-    app.include_router(waypoints_router)
-    app.include_router(user_simple_router)
-    logger.info("✓ Loaded: User Waypoints router [/api/user-data/*, /api/user/*]")
-except ImportError as e:
-    logger.warning(f"User Waypoints router not available: {e}")
+# 4. [REMOVED - P6.2] user_waypoints.py has been deleted
+# All waypoint functionality is now handled by the unified geo_engine (/api/v1/geo/*)
+# Migration: user_waypoints → geo_entities (unified collection)
+logger.info("✓ Legacy user_waypoints REMOVED - Use /api/v1/geo/* instead")
 
 # 5. Register site access control router
 try:
