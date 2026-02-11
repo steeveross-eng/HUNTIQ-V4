@@ -645,10 +645,10 @@ const BionicAnalyzer = ({ territory, onClose, onAnalysisComplete }) => {
                                 )}
                               </p>
                             </div>
-                            <p className="text-[10px] text-gray-500 mt-1">
+                            <p className="text-[10px] text-gray-500 mt-1 flex items-center gap-1">
                               {analysis.real_conditions.vegetation.source?.includes('AppEEARS') 
-                                ? '🛰️ Données satellite NASA' 
-                                : '📊 Estimation saisonnière'}
+                                ? <><Satellite className="h-3 w-3" /> Données satellite NASA</>
+                                : <><BarChart3 className="h-3 w-3" /> Estimation saisonnière</>}
                             </p>
                           </div>
                         )}
