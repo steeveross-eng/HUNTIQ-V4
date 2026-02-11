@@ -928,7 +928,7 @@ const AdminPage = ({ onProductsUpdate }) => {
           <TabsContent value="commissions" className="space-y-6">
             <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle className="text-white">Suivi des Commissions</CardTitle>
+                <CardTitle className="text-white">{t('admin_commission_tracking')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <Table>
