@@ -52,19 +52,26 @@ const CATEGORY_ICONS = {
 
 const AdminHotspotsPanel = () => {
   const navigate = useNavigate();
-  const { token } = useAuth();
+  const { token: authToken } = useAuth();
   const [loading, setLoading] = useState(true);
   const [hotspots, setHotspots] = useState([]);
   const [hotspotStats, setHotspotStats] = useState({});
   const [categoryFilter, setCategoryFilter] = useState('');
   const [expanded, setExpanded] = useState(true);
+  const [authError, setAuthError] = useState(null);
+
+  // Get token from auth context or localStorage
+  const token = authToken || localStorage.getItem('auth_token');
 
   // Load hotspots (ALL hotspots for admin)
   const loadHotspots = useCallback(async () => {
     if (!token) {
-      toast.error('Authentification requise');
+      setAuthError('Veuillez vous connecter à votre compte BIONIC™ pour accéder aux données des hotspots.');
+      setLoading(false);
       return;
     }
+    
+    setAuthError(null);
     
     try {
       setLoading(true);
@@ -81,12 +88,12 @@ const AdminHotspotsPanel = () => {
       });
       
       if (response.status === 401) {
-        toast.error('Session expirée. Veuillez vous reconnecter.');
+        setAuthError('Session expirée. Veuillez vous reconnecter à votre compte BIONIC™.');
         return;
       }
       
       if (response.status === 403) {
-        toast.error('Accès réservé aux administrateurs');
+        setAuthError('Accès réservé aux administrateurs avec compte BIONIC™ admin.');
         return;
       }
       
