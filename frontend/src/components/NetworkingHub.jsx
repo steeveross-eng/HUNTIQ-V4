@@ -231,77 +231,77 @@ const FeedTab = ({ userId, userName }) => {
 
       {/* New Post Dialog */}
       <Dialog open={showNewPost} onOpenChange={setShowNewPost}>
-        <DialogContent className="bg-card border-border max-w-lg">
+        <DialogContent className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)] max-w-lg">
           <DialogHeader>
-            <DialogTitle className="text-white">Nouvelle publication</DialogTitle>
-            <DialogDescription>Partagez votre expérience avec la communauté</DialogDescription>
+            <DialogTitle className="text-[var(--bionic-text-primary)]">{t('feed_new_post') || 'Nouvelle publication'}</DialogTitle>
+            <DialogDescription>{t('feed_share_desc') || 'Partagez votre expérience avec la communauté'}</DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label>Titre (optionnel)</Label>
+              <Label>{t('common_title')} ({t('common_optional') || 'optionnel'})</Label>
               <Input
                 value={newPost.title}
                 onChange={(e) => setNewPost(p => ({ ...p, title: e.target.value }))}
-                placeholder="Mon récit de chasse..."
-                className="bg-gray-900 border-gray-700"
+                placeholder={t('feed_title_placeholder') || 'Mon récit de chasse...'}
+                className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)]"
               />
             </div>
             <div>
-              <Label>Contenu *</Label>
+              <Label>{t('common_content')} *</Label>
               <Textarea
                 value={newPost.body}
                 onChange={(e) => setNewPost(p => ({ ...p, body: e.target.value }))}
-                placeholder="Décrivez votre expérience..."
+                placeholder={t('feed_content_placeholder') || 'Décrivez votre expérience...'}
                 rows={5}
-                className="bg-gray-900 border-gray-700"
+                className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)]"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label>Emplacement</Label>
+                <Label>{t('common_location') || 'Emplacement'}</Label>
                 <Input
                   value={newPost.location}
                   onChange={(e) => setNewPost(p => ({ ...p, location: e.target.value }))}
-                  placeholder="Région, Zone..."
-                  className="bg-gray-900 border-gray-700"
+                  placeholder={t('location_placeholder') || 'Région, Zone...'}
+                  className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)]"
                 />
               </div>
               <div>
-                <Label>Espèce</Label>
+                <Label>{t('common_species') || 'Espèce'}</Label>
                 <Select value={newPost.species} onValueChange={(v) => setNewPost(p => ({ ...p, species: v }))}>
-                  <SelectTrigger className="bg-gray-900 border-gray-700">
-                    <SelectValue placeholder="Sélectionner" />
+                  <SelectTrigger className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)]">
+                    <SelectValue placeholder={t('common_select') || 'Sélectionner'} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="orignal">Orignal</SelectItem>
-                    <SelectItem value="chevreuil">Chevreuil</SelectItem>
-                    <SelectItem value="ours">Ours noir</SelectItem>
-                    <SelectItem value="dindon">Dindon</SelectItem>
-                    <SelectItem value="petit-gibier">Petit gibier</SelectItem>
-                    <SelectItem value="autre">Autre</SelectItem>
+                    <SelectItem value="orignal">{t('species_moose') || 'Orignal'}</SelectItem>
+                    <SelectItem value="chevreuil">{t('species_deer') || 'Chevreuil'}</SelectItem>
+                    <SelectItem value="ours">{t('species_bear') || 'Ours noir'}</SelectItem>
+                    <SelectItem value="dindon">{t('species_turkey') || 'Dindon'}</SelectItem>
+                    <SelectItem value="petit-gibier">{t('species_small_game') || 'Petit gibier'}</SelectItem>
+                    <SelectItem value="autre">{t('common_other') || 'Autre'}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
             <div>
-              <Label>Tags (séparés par virgule)</Label>
+              <Label>{t('common_tags') || 'Tags'} ({t('common_comma_separated') || 'séparés par virgule'})</Label>
               <Input
                 value={newPost.tags}
                 onChange={(e) => setNewPost(p => ({ ...p, tags: e.target.value }))}
                 placeholder="chasse, orignal, laurentides..."
-                className="bg-gray-900 border-gray-700"
+                className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)]"
               />
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowNewPost(false)}>Annuler</Button>
+            <Button variant="outline" onClick={() => setShowNewPost(false)} className="border-[var(--bionic-border-secondary)]">{t('common_cancel')}</Button>
             <Button 
               onClick={handleCreatePost}
               disabled={submitting || !newPost.body.trim()}
-              className="bg-[#f5a623] hover:bg-[#d4891c] text-black"
+              className="bg-[var(--bionic-gold-primary)] hover:bg-[var(--bionic-gold-light)] text-black"
             >
               {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4 mr-2" />}
-              Publier
+              {t('common_publish') || 'Publier'}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -315,6 +315,7 @@ const FeedTab = ({ userId, userName }) => {
 // ============================================
 
 const LeadsTab = ({ userId }) => {
+  const { t } = useLanguage();
   const [leads, setLeads] = useState([]);
   const [stats, setStats] = useState({});
   const [loading, setLoading] = useState(true);
