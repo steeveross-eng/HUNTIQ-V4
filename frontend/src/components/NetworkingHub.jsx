@@ -1020,84 +1020,84 @@ const GroupsTab = ({ userId, userName }) => {
                     <div>
                       <p className="font-medium text-[var(--bionic-text-primary)]">{group.name}</p>
                       <p className="text-sm text-[var(--bionic-text-secondary)]">{group.member_count} {t('common_members') || 'membre(s)'}</p>
-                    </div>
                   </div>
                   <Badge variant={group.privacy === 'public' ? 'default' : 'outline'}>
-                    {group.privacy === 'public' ? 'Public' : group.privacy === 'private' ? 'Privé' : 'Sur invitation'}
+                    {group.privacy === 'public' ? t('common_public') || 'Public' : group.privacy === 'private' ? t('common_private') || 'Privé' : t('common_invite_only') || 'Sur invitation'}
                   </Badge>
                 </div>
                 {group.description && (
-                  <p className="text-sm text-gray-400 mt-3 line-clamp-2">{group.description}</p>
+                  <p className="text-sm text-[var(--bionic-text-secondary)] mt-3 line-clamp-2">{group.description}</p>
                 )}
                 <div className="mt-4 flex gap-2">
                   {group.member_ids?.includes(userId) ? (
-                    <Button size="sm" variant="outline" className="flex-1">
-                      <CheckCircle className="h-4 w-4 mr-1 text-green-400" />
-                      Membre
+                    <Button size="sm" variant="outline" className="flex-1 border-[var(--bionic-border-secondary)]">
+                      <CheckCircle className="h-4 w-4 mr-1 text-[var(--bionic-green-primary)]" />
+                      {t('common_member') || 'Membre'}
                     </Button>
                   ) : (
                     <Button 
                       size="sm" 
-                      className="flex-1 bg-[#f5a623] hover:bg-[#d4891c] text-black"
+                      className="flex-1 bg-[var(--bionic-gold-primary)] hover:bg-[var(--bionic-gold-light)] text-black"
                       onClick={() => handleJoinGroup(group.id)}
                     >
                       <UserPlus className="h-4 w-4 mr-1" />
-                      Rejoindre
+                      {t('network_join') || 'Rejoindre'}
                     </Button>
                   )}
                 </div>
               </CardContent>
             </Card>
-          ))}
+          );
+          })}
         </div>
       )}
 
       {/* New Group Dialog */}
       <Dialog open={showNewGroup} onOpenChange={setShowNewGroup}>
-        <DialogContent className="bg-card border-border max-w-lg">
+        <DialogContent className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)] max-w-lg">
           <DialogHeader>
-            <DialogTitle className="text-white">Créer un groupe</DialogTitle>
+            <DialogTitle className="text-[var(--bionic-text-primary)]">{t('network_create_group') || 'Créer un groupe'}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label>Nom du groupe *</Label>
+              <Label>{t('common_group_name') || 'Nom du groupe'} *</Label>
               <Input
                 value={newGroup.name}
                 onChange={(e) => setNewGroup(g => ({ ...g, name: e.target.value }))}
-                placeholder="Club de chasse des Laurentides"
-                className="bg-gray-900 border-gray-700"
+                placeholder={t('group_name_placeholder') || 'Club de chasse des Laurentides'}
+                className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)]"
               />
             </div>
             <div>
-              <Label>Description</Label>
+              <Label>{t('common_description') || 'Description'}</Label>
               <Textarea
                 value={newGroup.description}
                 onChange={(e) => setNewGroup(g => ({ ...g, description: e.target.value }))}
-                placeholder="Décrivez votre groupe..."
+                placeholder={t('group_desc_placeholder') || 'Décrivez votre groupe...'}
                 rows={3}
-                className="bg-gray-900 border-gray-700"
+                className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)]"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label>Type</Label>
+                <Label>{t('common_type') || 'Type'}</Label>
                 <Select value={newGroup.group_type} onValueChange={(v) => setNewGroup(g => ({ ...g, group_type: v }))}>
-                  <SelectTrigger className="bg-gray-900 border-gray-700">
+                  <SelectTrigger className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="hunting_club">🎯 Club de chasse</SelectItem>
-                    <SelectItem value="family">👨‍👩‍👧‍👦 Famille</SelectItem>
-                    <SelectItem value="business">💼 Affaires</SelectItem>
-                    <SelectItem value="friends">👥 Amis</SelectItem>
-                    <SelectItem value="custom">📋 Personnalisé</SelectItem>
+                    <SelectItem value="hunting_club"><Target className="h-4 w-4 inline mr-2" />{t('group_type_hunting_club') || 'Club de chasse'}</SelectItem>
+                    <SelectItem value="family"><UsersRound className="h-4 w-4 inline mr-2" />{t('group_type_family') || 'Famille'}</SelectItem>
+                    <SelectItem value="business"><Building2 className="h-4 w-4 inline mr-2" />{t('group_type_business') || 'Affaires'}</SelectItem>
+                    <SelectItem value="friends"><Users className="h-4 w-4 inline mr-2" />{t('group_type_friends') || 'Amis'}</SelectItem>
+                    <SelectItem value="custom"><Tag className="h-4 w-4 inline mr-2" />{t('group_type_custom') || 'Personnalisé'}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div>
-                <Label>Confidentialité</Label>
+                <Label>{t('common_privacy') || 'Confidentialité'}</Label>
                 <Select value={newGroup.privacy} onValueChange={(v) => setNewGroup(g => ({ ...g, privacy: v }))}>
-                  <SelectTrigger className="bg-gray-900 border-gray-700">
+                  <SelectTrigger className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
