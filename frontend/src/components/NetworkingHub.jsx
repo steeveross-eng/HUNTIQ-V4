@@ -1296,6 +1296,7 @@ const ReferralTab = ({ userId }) => {
 // ============================================
 
 const WalletTab = ({ userId }) => {
+  const { t } = useLanguage();
   const [wallet, setWallet] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -1317,25 +1318,25 @@ const WalletTab = ({ userId }) => {
   }, [userId, loadWalletData]);
 
   if (loading) {
-    return <div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-[#f5a623]" /></div>;
+    return <div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-[var(--bionic-gold-primary)]" /></div>;
   }
 
   return (
     <div className="space-y-6">
       {/* Balance Card */}
-      <Card className="bg-gradient-to-br from-[#f5a623]/30 via-[#f5a623]/10 to-transparent border-[#f5a623]/30">
+      <Card className="bg-gradient-to-br from-[var(--bionic-gold-primary)]/30 via-[var(--bionic-gold-primary)]/10 to-transparent border-[var(--bionic-gold-primary)]/30">
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-[#f5a623]/20 flex items-center justify-center">
-                <Wallet className="h-6 w-6 text-[#f5a623]" />
+              <div className="w-12 h-12 rounded-full bg-[var(--bionic-gold-muted)] flex items-center justify-center">
+                <Wallet className="h-6 w-6 text-[var(--bionic-gold-primary)]" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white">Mon Portefeuille</h3>
-                <p className="text-sm text-gray-400">Crédits & Récompenses</p>
+                <h3 className="text-lg font-semibold text-[var(--bionic-text-primary)]">{t('wallet_title') || 'Mon Portefeuille'}</h3>
+                <p className="text-sm text-[var(--bionic-text-secondary)]">{t('wallet_credits_rewards') || 'Crédits & Récompenses'}</p>
               </div>
             </div>
-            <Button variant="outline" size="sm" onClick={loadWalletData}>
+            <Button variant="outline" size="sm" onClick={loadWalletData} className="border-[var(--bionic-border-secondary)]">
               <RefreshCw className="h-4 w-4 mr-1" />
               {t('common_refresh')}
             </Button>
@@ -1343,21 +1344,21 @@ const WalletTab = ({ userId }) => {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-black/40 rounded-xl p-4">
-              <p className="text-sm text-gray-400 mb-1">Crédits disponibles</p>
-              <p className="text-3xl font-bold text-[#f5a623]">{wallet?.balance_credits?.toFixed(0) || 0}</p>
-              <p className="text-xs text-gray-500">crédits</p>
+              <p className="text-sm text-[var(--bionic-text-secondary)] mb-1">{t('wallet_available_credits') || 'Crédits disponibles'}</p>
+              <p className="text-3xl font-bold text-[var(--bionic-gold-primary)]">{wallet?.balance_credits?.toFixed(0) || 0}</p>
+              <p className="text-xs text-[var(--bionic-text-muted)]">{t('common_credits') || 'crédits'}</p>
             </div>
             <div className="bg-black/40 rounded-xl p-4">
-              <p className="text-sm text-gray-400 mb-1">Solde CAD</p>
-              <p className="text-3xl font-bold text-green-400">${wallet?.balance_cad?.toFixed(2) || '0.00'}</p>
-              <p className="text-xs text-gray-500">dollars canadiens</p>
+              <p className="text-sm text-[var(--bionic-text-secondary)] mb-1">{t('wallet_balance_cad') || 'Solde CAD'}</p>
+              <p className="text-3xl font-bold text-[var(--bionic-green-primary)]">${wallet?.balance_cad?.toFixed(2) || '0.00'}</p>
+              <p className="text-xs text-[var(--bionic-text-muted)]">{t('common_cad_dollars') || 'dollars canadiens'}</p>
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-4 mt-4 text-center">
             <div>
-              <p className="text-lg font-semibold text-white">{wallet?.total_earned?.toFixed(0) || 0}</p>
-              <p className="text-xs text-gray-400">Total gagné</p>
+              <p className="text-lg font-semibold text-[var(--bionic-text-primary)]">{wallet?.total_earned?.toFixed(0) || 0}</p>
+              <p className="text-xs text-[var(--bionic-text-secondary)]">{t('wallet_total_earned') || 'Total gagné'}</p>
             </div>
             <div>
               <p className="text-lg font-semibold text-white">{wallet?.total_spent?.toFixed(0) || 0}</p>
