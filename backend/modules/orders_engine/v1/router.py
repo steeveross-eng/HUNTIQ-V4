@@ -1,13 +1,18 @@
 """Orders Engine Router - PHASE 7 EXTRACTION
-Version: 1.0.0
+Version: 1.0.1
+Security: @require_business_or_admin on sensitive endpoints (P0 - 11 Feb 2026)
 """
 
-from fastapi import APIRouter, HTTPException, Query, BackgroundTasks
+from fastapi import APIRouter, HTTPException, Query, BackgroundTasks, Depends
 from typing import Optional, List
 from pydantic import BaseModel
 
 from .models import Order, OrderCreate, OrderUpdate, OrderCancellation, Commission
 from .service import get_orders_service
+
+# Role-based access control
+from modules.roles_engine.v1.dependencies import require_business_or_admin
+from modules.roles_engine.v1.models import UserWithRole
 
 
 router = APIRouter(
