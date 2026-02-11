@@ -3079,7 +3079,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                 <Marker
                   key={camera.id}
                   position={[camera.latitude, camera.longitude]}
-                  icon={createCustomIcon('#3b82f6', '📷')}
+                  icon={createCustomIcon('#3b82f6', 'camera')}
                 >
                   <Popup>
                     <div className="text-sm min-w-48">
