@@ -464,19 +464,35 @@ Tous les modules opérationnels avec APIs documentées.
 
 ## 5. Tâches En Cours / À Venir
 
+### P0 - Sécurisation Admin ✅ (11 Février 2026)
+- ✅ **Endpoints Admin Sécurisés**: Tous les endpoints /api/admin/geo/* protégés
+  - @require_admin appliqué sur tous les 10 endpoints
+  - Authentification JWT requise (401 sans token)
+  - Rôle admin requis (403 pour non-admin)
+  - Test validé avec token admin (steeve.ross@gmail.com)
+- ✅ **Frontend AdminHotspotsPanel**: Authentification JWT intégrée
+  - Import useAuth() pour récupérer le token
+  - Headers Authorization ajoutés aux requêtes fetch
+  - Messages d'erreur explicites pour 401/403
+  - Fallback vers localStorage si contexte non disponible
+
+### P1 - Nettoyage Legacy ✅ (11 Février 2026)
+- ✅ **user_waypoints.py SUPPRIMÉ**: Module legacy complètement effacé
+  - Routeur retiré de server.py (lignes 244-250)
+  - Référence supprimée dans server_monolith_backup.py
+  - Référence supprimée dans hunting_groups.py
+  - Routes /api/user-data/waypoints et /api/user/waypoints retournent 404
+- ✅ **Source de vérité unique**: geo_entities collection via geo_engine
+
 ### P0 - Finalisations
 - ⏳ **Resend Domain Verification**: Attente propagation DNS par l'utilisateur
 - ⏳ **Corrections P2/P3**: Warnings mineurs du checkup précédent
-
-### P7 - Nettoyage (Planifié)
-- 🔲 Suppression complète de user_waypoints.py
-- 🔲 Archivage collection user_waypoints (optionnel)
-- 🔲 UI admin pour gestion des rôles
 
 ### Backlog
 - 🔲 Dashboard profil `business`
 - 🔲 Notifications push de groupe
 - ✅ Synchronisation temps réel (WebSocket) - LIVRÉ P6.4
+- ✅ **Suppression user_waypoints.py** - LIVRÉ P1 (11 Février 2026)
 
 ---
 
