@@ -119,7 +119,7 @@ const BionicMapSelector = ({
           className="flex items-center gap-2 px-3 py-2 bg-black/80 backdrop-blur-xl border border-white/10 rounded-lg hover:border-[#F5A623]/30 transition-colors"
           data-testid="map-selector-dropdown"
         >
-          {MAP_ICONS[currentMapType] && <MAP_ICONS[currentMapType]() />}
+          {MAP_ICONS[currentMapType] && React.createElement(MAP_ICONS[currentMapType])}
           <span className="text-white text-sm font-medium">{currentConfig?.shortName}</span>
           <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
         </button>
