@@ -16,6 +16,7 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
+import { useLanguage } from '@/contexts/LanguageContext';
 // Import BIONIC Analyzer
 import BionicAnalyzer from './BionicAnalyzer';
 // Import BIONIC Layer Panel from Design System
