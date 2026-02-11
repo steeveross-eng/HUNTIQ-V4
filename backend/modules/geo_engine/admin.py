@@ -711,8 +711,10 @@ async def export_geojson(
 # ===========================================
 
 @router.get("/")
-async def admin_module_info():
-    """Get admin module information"""
+async def admin_module_info(
+    admin: UserWithRole = Depends(require_admin)
+):
+    """Get admin module information (ADMIN ONLY)"""
     return {
         "module": "admin_geo_engine",
         "version": "1.0.0",
