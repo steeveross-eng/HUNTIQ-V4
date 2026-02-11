@@ -65,16 +65,20 @@ async def get_engine_stats():
 async def get_orders(
     status: Optional[str] = None,
     sale_mode: Optional[str] = None,
-    limit: int = Query(500, le=1000)
+    limit: int = Query(500, le=1000),
+    user: UserWithRole = Depends(require_business_or_admin)
 ):
-    """Get all orders with optional filters"""
+    """Get all orders with optional filters (Business/Admin only)"""
     service = get_orders_service()
     return await service.get_all(status, sale_mode, limit)
 
 
 @router.get("/{order_id}", response_model=Order)
-async def get_order(order_id: str):
-    """Get order by ID"""
+async def get_order(
+    order_id: str,
+    user: UserWithRole = Depends(require_business_or_admin)
+):
+    """Get order by ID (Business/Admin only)"""
     service = get_orders_service()
     order = await service.get_by_id(order_id)
     
@@ -86,7 +90,7 @@ async def get_order(order_id: str):
 
 @router.post("/", response_model=Order)
 async def create_order(order_input: OrderCreate):
-    """Create a new order"""
+    """Create a new order (Public - customers can order)"""
     service = get_orders_service()
     
     try:
@@ -96,8 +100,12 @@ async def create_order(order_input: OrderCreate):
 
 
 @router.put("/{order_id}", response_model=Order)
-async def update_order_status(order_id: str, update: OrderUpdate):
-    """Update order status"""
+async def update_order_status(
+    order_id: str,
+    update: OrderUpdate,
+    user: UserWithRole = Depends(require_business_or_admin)
+):
+    """Update order status (Business/Admin only)"""
     service = get_orders_service()
     order = await service.update_status(order_id, update)
     
@@ -108,8 +116,13 @@ async def update_order_status(order_id: str, update: OrderUpdate):
 
 
 @router.post("/{order_id}/cancel")
-async def cancel_order(order_id: str, cancellation: OrderCancellation, background_tasks: BackgroundTasks):
-    """Cancel an order and send notification email"""
+async def cancel_order(
+    order_id: str,
+    cancellation: OrderCancellation,
+    background_tasks: BackgroundTasks,
+    user: UserWithRole = Depends(require_business_or_admin)
+):
+    """Cancel an order and send notification email (Business/Admin only)"""
     service = get_orders_service()
     
     try:
