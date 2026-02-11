@@ -55,6 +55,11 @@ import {
 import L from 'leaflet';
 import { toast } from 'sonner';
 
+// Import BIONIC Map Selector
+import BionicMapSelector from '@/components/maps/BionicMapSelector';
+import useMapType from '@/hooks/useMapType';
+import { MAP_TYPES, getMapConfig } from '@/config/mapSources';
+
 // Fix for default markers
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
