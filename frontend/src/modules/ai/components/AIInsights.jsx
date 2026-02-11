@@ -1,29 +1,34 @@
 /**
  * AIInsights - AI-generated insights display
+ * BIONIC Design System compliant
  */
 import React from 'react';
+import { AlertTriangle, CheckCircle, Info, Lightbulb, TrendingUp, AlertCircle, Brain } from 'lucide-react';
+
+// Insight icons - BIONIC Design System (Lucide components)
+const InsightIcon = ({ type, className = "h-5 w-5" }) => {
+  const iconMap = {
+    warning: { Icon: AlertTriangle, color: '#f59e0b' },
+    success: { Icon: CheckCircle, color: '#10b981' },
+    info: { Icon: Info, color: '#3b82f6' },
+    tip: { Icon: Lightbulb, color: '#8b5cf6' },
+    trend: { Icon: TrendingUp, color: '#06b6d4' },
+    alert: { Icon: AlertCircle, color: '#ef4444' }
+  };
+  
+  const { Icon, color } = iconMap[type] || { Icon: Lightbulb, color: '#8b5cf6' };
+  return <Icon className={className} style={{ color }} />;
+};
 
 export const AIInsights = ({ insights = [], title = 'Insights IA' }) => {
   if (!insights.length) {
     return (
       <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700 text-center">
-        <span className="text-3xl">🔮</span>
+        <Brain className="h-8 w-8 text-[#f5a623] mx-auto" />
         <p className="text-slate-400 text-sm mt-2">Aucun insight disponible</p>
       </div>
     );
   }
-
-  const getInsightIcon = (type) => {
-    const icons = {
-      warning: '⚠️',
-      success: '✅',
-      info: 'ℹ️',
-      tip: '💡',
-      trend: '📈',
-      alert: '🚨'
-    };
-    return icons[type] || '💡';
-  };
 
   const getInsightColor = (type) => {
     const colors = {
@@ -40,7 +45,7 @@ export const AIInsights = ({ insights = [], title = 'Insights IA' }) => {
   return (
     <div className="space-y-3">
       <h3 className="text-white font-medium flex items-center gap-2">
-        <span>🤖</span>
+        <Brain className="h-5 w-5 text-[#f5a623]" />
         {title}
       </h3>
       
@@ -50,9 +55,7 @@ export const AIInsights = ({ insights = [], title = 'Insights IA' }) => {
           className={`rounded-lg border p-3 ${getInsightColor(insight.type)}`}
         >
           <div className="flex items-start gap-3">
-            <span className="text-xl flex-shrink-0">
-              {getInsightIcon(insight.type)}
-            </span>
+            <InsightIcon type={insight.type} className="h-5 w-5 flex-shrink-0" />
             <div className="flex-1">
               {insight.title && (
                 <h4 className="text-white font-medium text-sm mb-1">
