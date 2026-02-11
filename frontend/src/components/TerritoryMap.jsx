@@ -978,7 +978,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       // DÉCLENCHEMENT AUTOMATIQUE DE L'ANALYSE
       if (autoAnalyzeOnConfirm) {
         setTimeout(() => {
-          toast.info('🔍 Analyse automatique du territoire en cours...');
+          toast.info(t('analysis_auto_starting'));
           handleAnalyzeGPS();
         }, 600);
       }
@@ -999,8 +999,8 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       await axios.delete(`${API}/territory/waypoints/${waypointId}`, { params: { user_id: userId } });
       
       // Show success confirmation
-      toast.success('🗑️ Waypoint supprimé définitivement!', {
-        description: 'Le waypoint a été retiré de la carte et de la base de données.',
+      toast.success(t('waypoint_deleted'), {
+        description: t('waypoint_deleted_desc'),
         duration: 3000
       });
       
@@ -1027,14 +1027,14 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       
       await axios.delete(`${API}/territory/events/${eventId}`, { params: { user_id: userId } });
       
-      toast.success('🗑️ Observation supprimée définitivement!', {
-        description: 'L\'observation a été retirée de la carte.',
+      toast.success(t('observation_deleted'), {
+        description: t('observation_deleted_desc'),
         duration: 3000
       });
     } catch (error) {
       // Keep removed from local state even if API fails
-      toast.success('🗑️ Observation supprimée', {
-        description: 'Retirée de l\'affichage actuel.'
+      toast.success(t('observation_deleted'), {
+        description: t('observation_removed_display')
       });
     }
   };
@@ -1072,9 +1072,9 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       setDmsLonMin('');
       setDmsLonSec('');
       
-      toast.success('🗑️ Tous les waypoints effacés - Recherche réinitialisée');
+      toast.success(t('all_waypoints_cleared'));
     } catch (error) {
-      toast.error('Erreur lors de la suppression des waypoints');
+      toast.error(t('error_deleting_waypoints'));
     }
   };
 
@@ -1102,7 +1102,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
     setWaypointToolActive(true);
     setActiveTool('waypoint');
     setGpsFlowMode(true);
-    toast.info('🛰️ Mode flux GPS activé - Déplacez la souris sur la carte');
+    toast.info(t('gps_flow_mode_active'));
   };
 
   // Deactivate GPS flow mode
