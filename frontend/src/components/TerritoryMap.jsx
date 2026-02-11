@@ -90,8 +90,23 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
 });
 
-// Custom icons for different marker types
-const createCustomIcon = (color, emoji) => {
+// Custom icons for different marker types - Uses SVG instead of emoji
+const createCustomIcon = (color, iconType = 'default') => {
+  // SVG icons for map markers (professional, no emoji)
+  const svgIcons = {
+    target: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`,
+    eye: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+    camera: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
+    home: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+    droplet: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
+    leaf: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`,
+    circle: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>`,
+    pin: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+    default: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="4"/></svg>`
+  };
+  
+  const svg = svgIcons[iconType] || svgIcons.default;
+  
   return L.divIcon({
     className: 'custom-marker',
     html: `<div style="
@@ -102,30 +117,31 @@ const createCustomIcon = (color, emoji) => {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
       border: 3px solid white;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    ">${emoji}</div>`,
+    ">${svg}</div>`,
     iconSize: [36, 36],
     iconAnchor: [18, 18],
     popupAnchor: [0, -18]
   });
 };
 
+// Species configuration - BIONIC Design System compliant (no emoji)
 const SPECIES_CONFIG = {
-  orignal: { color: '#8B4513', emoji: '🫎', label: 'Orignal', heatColor: 'brown' },
-  chevreuil: { color: '#D2691E', emoji: '🦌', label: 'Chevreuil', heatColor: 'orange' },
-  ours: { color: '#2F4F4F', emoji: '🐻', label: 'Ours', heatColor: 'darkslategray' },
-  autre: { color: '#808080', emoji: '❓', label: 'Autre', heatColor: 'gray' }
+  orignal: { color: '#8B4513', iconType: 'circle', labelKey: 'animal_moose', heatColor: 'brown' },
+  chevreuil: { color: '#D2691E', iconType: 'circle', labelKey: 'animal_deer', heatColor: 'orange' },
+  ours: { color: '#2F4F4F', iconType: 'circle', labelKey: 'animal_bear', heatColor: 'darkslategray' },
+  autre: { color: '#808080', iconType: 'default', labelKey: 'common_other', heatColor: 'gray' }
 };
 
+// Event type configuration - BIONIC Design System compliant (no emoji)
 const EVENT_TYPE_CONFIG = {
-  observation: { color: '#22c55e', emoji: '👁️', label: 'Observation' },
-  camera_photo: { color: '#3b82f6', emoji: '📷', label: 'Photo caméra' },
-  tir: { color: '#ef4444', emoji: '🎯', label: 'Tir' },
-  cache: { color: '#a855f7', emoji: '🏠', label: 'Cache' },
-  saline: { color: '#06b6d4', emoji: '🧂', label: 'Saline' },
-  feeding_station: { color: '#f59e0b', emoji: '🌾', label: 'Station nourriture' }
+  observation: { color: '#22c55e', iconType: 'eye', labelKey: 'waypoint_observation' },
+  camera_photo: { color: '#3b82f6', iconType: 'camera', labelKey: 'waypoint_camera' },
+  tir: { color: '#ef4444', iconType: 'target', labelKey: 'event_shot' },
+  cache: { color: '#a855f7', iconType: 'home', labelKey: 'place_camp' },
+  saline: { color: '#06b6d4', iconType: 'droplet', labelKey: 'place_salt_lick' },
+  feeding_station: { color: '#f59e0b', iconType: 'leaf', labelKey: 'waypoint_feeding' }
 };
 
 // Heatmap Layer Component
