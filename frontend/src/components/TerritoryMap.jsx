@@ -2218,7 +2218,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
     const warnings = [];
     
     if (zone.huntingPressure === 'élevé') {
-      warnings.push('⚠️ Forte pression de chasse - Planifiez à l\'avance');
+      warnings.push('Forte pression de chasse - Planifiez à l\'avance');
     }
     if (type === 'prive') {
       warnings.push('Autorisation du propriétaire obligatoire');
@@ -3103,7 +3103,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                         </button>
                       </div>
                       <p className={`text-sm ${camera.connected ? 'text-green-600' : 'text-red-600'}`}>
-                        {camera.connected ? 'Connectée' : '⚠️ Non connectée'}
+                        {camera.connected ? 'Connectée' : 'Non connectée'}
                       </p>
                     </div>
                   </Popup>
@@ -3296,7 +3296,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                       </div>
                       <button
                         onClick={() => {
-                          if (window.confirm(`⚠️ SUPPRESSION DÉFINITIVE\n\nÊtes-vous sûr de vouloir supprimer le waypoint "${wp.name}" ?\n\nCette action est irréversible.`)) {
+                          if (window.confirm(`SUPPRESSION DÉFINITIVE\n\nÊtes-vous sûr de vouloir supprimer le waypoint "${wp.name}" ?\n\nCette action est irréversible.`)) {
                             deleteWaypoint(wp.id);
                           }
                         }}
