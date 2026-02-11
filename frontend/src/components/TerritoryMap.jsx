@@ -3266,7 +3266,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
               <Marker
                 key={`waypoint-${wp.id}`}
                 position={[wp.latitude, wp.longitude]}
-                icon={createCustomIcon('#f59e0b', '🚩')}
+                icon={createCustomIcon('#f59e0b', 'pin')}
                 draggable={true}
                 eventHandlers={{
                   dragstart: () => {
