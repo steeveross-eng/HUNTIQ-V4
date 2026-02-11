@@ -17,7 +17,7 @@ import {
   Cloud, Sun, CloudRain, Wind, Droplets, Thermometer, Eye, 
   Moon, RefreshCw, MapPin, Clock, Calendar, Target, ChevronLeft, ChevronRight
 } from 'lucide-react';
-import WeatherService from './WeatherService';
+import WeatherService from '../WeatherService';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
