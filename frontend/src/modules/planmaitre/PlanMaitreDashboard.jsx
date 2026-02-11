@@ -155,64 +155,64 @@ export const PlanMaitreDashboard = ({
             />
             
             <div className="space-y-4">
-              <Card className="bg-gradient-to-br from-blue-900/20 to-slate-900 border-blue-700/50">
+              <Card className="bg-gradient-to-br from-[var(--bionic-blue-muted)] to-[var(--bionic-bg-card)] border-[var(--bionic-blue-light)]/50">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-lg text-white flex items-center gap-2">
-                    <span>📍</span>
-                    Position de calcul
+                  <CardTitle className="text-lg text-[var(--bionic-text-primary)] flex items-center gap-2">
+                    <MapPin className="h-5 w-5 text-[var(--bionic-blue-light)]" />
+                    {t('legal_position_calc') || 'Position de calcul'}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-slate-800/50 rounded-lg p-3">
-                        <p className="text-slate-400 text-xs">Latitude</p>
-                        <p className="text-white font-medium">{coordinates.lat.toFixed(4)}</p>
+                      <div className="bg-[var(--bionic-bg-secondary)] rounded-lg p-3">
+                        <p className="text-[var(--bionic-text-muted)] text-xs">{t('common_latitude') || 'Latitude'}</p>
+                        <p className="text-[var(--bionic-text-primary)] font-medium">{coordinates.lat.toFixed(4)}</p>
                       </div>
-                      <div className="bg-slate-800/50 rounded-lg p-3">
-                        <p className="text-slate-400 text-xs">Longitude</p>
-                        <p className="text-white font-medium">{coordinates.lng.toFixed(4)}</p>
+                      <div className="bg-[var(--bionic-bg-secondary)] rounded-lg p-3">
+                        <p className="text-[var(--bionic-text-muted)] text-xs">{t('common_longitude') || 'Longitude'}</p>
+                        <p className="text-[var(--bionic-text-primary)] font-medium">{coordinates.lng.toFixed(4)}</p>
                       </div>
                     </div>
-                    <div className="bg-slate-800/50 rounded-lg p-3">
-                      <p className="text-slate-400 text-xs mb-1">Région</p>
-                      <p className="text-white font-medium">Québec, QC, Canada</p>
+                    <div className="bg-[var(--bionic-bg-secondary)] rounded-lg p-3">
+                      <p className="text-[var(--bionic-text-muted)] text-xs mb-1">{t('common_region') || 'Région'}</p>
+                      <p className="text-[var(--bionic-text-primary)] font-medium">Québec, QC, Canada</p>
                     </div>
-                    <div className="bg-amber-900/20 border border-amber-700/50 rounded-lg p-3">
-                      <p className="text-amber-400 text-sm flex items-center gap-2">
-                        <span>⚠️</span>
-                        Les heures légales varient selon votre position exacte
+                    <div className="bg-[var(--bionic-gold-muted)] border border-[var(--bionic-gold-primary)]/50 rounded-lg p-3">
+                      <p className="text-[var(--bionic-gold-primary)] text-sm flex items-center gap-2">
+                        <AlertTriangle className="h-4 w-4" />
+                        {t('legal_times_vary') || 'Les heures légales varient selon votre position exacte'}
                       </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
               
-              <Card className="bg-gradient-to-br from-purple-900/20 to-slate-900 border-purple-700/50">
+              <Card className="bg-gradient-to-br from-[var(--bionic-purple-muted)] to-[var(--bionic-bg-card)] border-[var(--bionic-purple-primary)]/50">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-lg text-white flex items-center gap-2">
-                    <span>📜</span>
-                    Règlementation
+                  <CardTitle className="text-lg text-[var(--bionic-text-primary)] flex items-center gap-2">
+                    <FileText className="h-5 w-5 text-[var(--bionic-purple-primary)]" />
+                    {t('legal_regulations') || 'Règlementation'}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3 text-sm">
-                    <div className="bg-slate-800/50 rounded-lg p-3">
-                      <p className="text-purple-400 font-medium mb-1">Période de chasse légale</p>
-                      <p className="text-slate-300">
-                        30 minutes avant le lever du soleil jusqu'à 30 minutes après le coucher du soleil
+                    <div className="bg-[var(--bionic-bg-secondary)] rounded-lg p-3">
+                      <p className="text-[var(--bionic-purple-primary)] font-medium mb-1">{t('legal_period') || 'Période de chasse légale'}</p>
+                      <p className="text-[var(--bionic-text-secondary)]">
+                        {t('legal_period_desc') || '30 minutes avant le lever du soleil jusqu\'à 30 minutes après le coucher du soleil'}
                       </p>
                     </div>
-                    <div className="bg-slate-800/50 rounded-lg p-3">
-                      <p className="text-purple-400 font-medium mb-1">Source</p>
-                      <p className="text-slate-300">
-                        Règlement sur la chasse du Québec - MFFP
+                    <div className="bg-[var(--bionic-bg-secondary)] rounded-lg p-3">
+                      <p className="text-[var(--bionic-purple-primary)] font-medium mb-1">{t('common_source') || 'Source'}</p>
+                      <p className="text-[var(--bionic-text-secondary)]">
+                        {t('legal_source_mffp') || 'Règlement sur la chasse du Québec - MFFP'}
                       </p>
                     </div>
-                    <div className="bg-red-900/20 border border-red-700/50 rounded-lg p-3">
-                      <p className="text-red-400 text-xs flex items-center gap-2">
-                        <span>⚠️</span>
-                        La chasse en dehors des heures légales est une infraction grave
+                    <div className="bg-[var(--bionic-red-muted)] border border-[var(--bionic-red-primary)]/50 rounded-lg p-3">
+                      <p className="text-[var(--bionic-red-primary)] text-xs flex items-center gap-2">
+                        <AlertTriangle className="h-4 w-4" />
+                        {t('legal_warning') || 'La chasse en dehors des heures légales est une infraction grave'}
                       </p>
                     </div>
                   </div>
@@ -265,11 +265,11 @@ export const PlanMaitreDashboard = ({
                 species={selectedSpecies}
               />
               
-              <Card className="bg-slate-800 border-slate-700">
+              <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-lg text-white flex items-center gap-2">
-                    <span>📅</span>
-                    Comportement Saisonnier
+                  <CardTitle className="text-lg text-[var(--bionic-text-primary)] flex items-center gap-2">
+                    <Calendar className="h-5 w-5 text-[var(--bionic-gold-primary)]" />
+                    {t('wildlife_seasonal_behavior') || 'Comportement Saisonnier'}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -280,8 +280,8 @@ export const PlanMaitreDashboard = ({
                         onClick={() => setSelectedSeason(season.toLowerCase().replace('-', '_'))}
                         className={`p-3 rounded-lg text-center transition-all ${
                           selectedSeason === season.toLowerCase().replace('-', '_')
-                            ? 'bg-[#f5a623] text-black'
-                            : 'bg-slate-700/50 text-slate-300 hover:bg-slate-600/50'
+                            ? 'bg-[var(--bionic-gold-primary)] text-black'
+                            : 'bg-[var(--bionic-bg-secondary)] text-[var(--bionic-text-secondary)] hover:bg-[var(--bionic-bg-tertiary)]'
                         }`}
                       >
                         <div className="font-medium">{season}</div>
@@ -313,20 +313,20 @@ export const PlanMaitreDashboard = ({
                 species={selectedSpecies}
               />
               
-              <Card className="bg-gradient-to-br from-blue-900/20 to-slate-900 border-blue-700/50">
+              <Card className="bg-gradient-to-br from-[var(--bionic-blue-muted)] to-[var(--bionic-bg-card)] border-[var(--bionic-blue-light)]/50">
                 <CardContent className="p-4">
-                  <h4 className="text-white font-medium mb-3 flex items-center gap-2">
-                    <span>📍</span>
-                    Position actuelle
+                  <h4 className="text-[var(--bionic-text-primary)] font-medium mb-3 flex items-center gap-2">
+                    <MapPin className="h-5 w-5 text-[var(--bionic-blue-light)]" />
+                    {t('common_current_position') || 'Position actuelle'}
                   </h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Latitude</span>
-                      <span className="text-white">{coordinates.lat.toFixed(4)}</span>
+                      <span className="text-[var(--bionic-text-secondary)]">{t('common_latitude') || 'Latitude'}</span>
+                      <span className="text-[var(--bionic-text-primary)]">{coordinates.lat.toFixed(4)}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Longitude</span>
-                      <span className="text-white">{coordinates.lng.toFixed(4)}</span>
+                      <span className="text-[var(--bionic-text-secondary)]">{t('common_longitude') || 'Longitude'}</span>
+                      <span className="text-[var(--bionic-text-primary)]">{coordinates.lng.toFixed(4)}</span>
                     </div>
                   </div>
                 </CardContent>
@@ -350,18 +350,18 @@ export const PlanMaitreDashboard = ({
                 season={selectedSeason}
               />
               
-              <Card className="bg-gradient-to-br from-emerald-900/20 to-slate-900 border-emerald-700/50">
+              <Card className="bg-gradient-to-br from-[var(--bionic-green-muted)] to-[var(--bionic-bg-card)] border-[var(--bionic-green-primary)]/50">
                 <CardContent className="p-4">
-                  <h4 className="text-emerald-400 font-medium mb-3 flex items-center gap-2">
-                    <span>📢</span>
-                    Contribuer
+                  <h4 className="text-[var(--bionic-green-primary)] font-medium mb-3 flex items-center gap-2">
+                    <Megaphone className="h-5 w-5" />
+                    {t('community_contribute') || 'Contribuer'}
                   </h4>
                   <div className="space-y-2">
-                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700">
-                      👁️ Signaler une observation
+                    <Button className="w-full bg-[var(--bionic-green-primary)] hover:bg-[var(--bionic-green-light)]">
+                      <Eye className="h-4 w-4 mr-2" /> {t('community_report_sighting') || 'Signaler une observation'}
                     </Button>
-                    <Button variant="outline" className="w-full border-emerald-700 text-emerald-400">
-                      📝 Soumettre un rapport
+                    <Button variant="outline" className="w-full border-[var(--bionic-green-primary)] text-[var(--bionic-green-primary)]">
+                      <Edit className="h-4 w-4 mr-2" /> {t('community_submit_report') || 'Soumettre un rapport'}
                     </Button>
                   </div>
                 </CardContent>
