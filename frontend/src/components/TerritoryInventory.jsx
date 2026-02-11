@@ -503,20 +503,20 @@ const TerritoryInventory = () => {
     <div className="space-y-4">
       {/* Main Tabs - Inventory vs Advanced */}
       <Tabs defaultValue="inventory" className="w-full">
-        <TabsList className="grid w-full max-w-md grid-cols-2 mb-4 bg-card border border-border">
+        <TabsList className="grid w-full max-w-md grid-cols-2 mb-4 bg-[var(--bionic-bg-card)] border border-[var(--bionic-border-secondary)]">
           <TabsTrigger 
             value="inventory" 
-            className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black"
+            className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2"
           >
-            <Map className="h-4 w-4 mr-2" />
-            Inventaire
+            <Map className="h-4 w-4" />
+            {t('territory_inventory') || 'Inventaire'}
           </TabsTrigger>
           <TabsTrigger 
             value="advanced" 
-            className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black"
+            className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2"
           >
-            <Sparkles className="h-4 w-4 mr-2" />
-            IA & Scraping
+            <Sparkles className="h-4 w-4" />
+            {t('territory_ai_scraping') || 'IA & Scraping'}
           </TabsTrigger>
         </TabsList>
 
@@ -524,71 +524,74 @@ const TerritoryInventory = () => {
           {/* Stats Overview - Compact */}
           {stats && (
             <div className="grid grid-cols-4 gap-2">
-              <Card className="bg-card border-border">
+              <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
                 <CardContent className="p-2 text-center">
-                  <div className="text-xl font-bold text-[#f5a623]">{stats.total}</div>
-                  <div className="text-gray-400 text-xs">Territoires</div>
+                  <div className="text-xl font-bold text-[var(--bionic-gold-primary)]">{stats.total}</div>
+                  <div className="text-[var(--bionic-text-secondary)] text-xs">{t('common_territories')}</div>
                 </CardContent>
               </Card>
-              <Card className="bg-card border-border">
+              <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
                 <CardContent className="p-2 text-center">
-                  <div className="text-xl font-bold text-green-400">{stats.verified}</div>
-                  <div className="text-gray-400 text-xs">Vérifiés</div>
+                  <div className="text-xl font-bold text-[var(--bionic-green-primary)]">{stats.verified}</div>
+                  <div className="text-[var(--bionic-text-secondary)] text-xs">{t('territory_verified')}</div>
                 </CardContent>
               </Card>
-              <Card className="bg-card border-border">
+              <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
                 <CardContent className="p-2 text-center">
-                  <div className="text-xl font-bold text-blue-400">{Object.keys(stats.by_province || {}).length}</div>
-                  <div className="text-gray-400 text-xs">Provinces</div>
+                  <div className="text-xl font-bold text-[var(--bionic-blue-light)]">{Object.keys(stats.by_province || {}).length}</div>
+                  <div className="text-[var(--bionic-text-secondary)] text-xs">{t('common_provinces')}</div>
                 </CardContent>
               </Card>
-              <Card className="bg-card border-border">
+              <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
                 <CardContent className="p-2 text-center">
-                  <div className="text-xl font-bold text-purple-400">{stats.avg_score}</div>
-                  <div className="text-gray-400 text-xs">Score moyen</div>
+                  <div className="text-xl font-bold text-[var(--bionic-purple-primary)]">{stats.avg_score}</div>
+                  <div className="text-[var(--bionic-text-secondary)] text-xs">{t('territory_avg_score')}</div>
                 </CardContent>
               </Card>
             </div>
           )}
 
       {/* Search & Filters - Compact */}
-      <Card className="bg-card border-border">
+      <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
         <CardContent className="p-3">
           <div className="flex flex-col md:flex-row gap-2">
             {/* Search */}
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--bionic-text-muted)]" />
               <Input
-                placeholder="Rechercher un territoire, une région..."
+                placeholder={t('territory_search_placeholder') || 'Rechercher un territoire, une région...'}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={handleSearch}
-                className="pl-10 bg-background h-9 text-sm"
+                className="pl-10 bg-[var(--bionic-bg-primary)] h-9 text-sm border-[var(--bionic-border-secondary)]"
                 data-testid="territory-search"
               />
             </div>
             
             {/* Quick Filters - Compact */}
             <Select value={filterType} onValueChange={(v) => { setFilterType(v); setPage(1); }}>
-              <SelectTrigger className="w-[130px] bg-background h-9 text-sm">
+              <SelectTrigger className="w-[130px] bg-[var(--bionic-bg-primary)] h-9 text-sm border-[var(--bionic-border-secondary)]">
                 <SelectValue placeholder="Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tous types</SelectItem>
-                {Object.entries(TYPE_CONFIG).map(([key, config]) => (
-                  <SelectItem key={key} value={key}>
-                    {config.icon} {config.label}
-                  </SelectItem>
-                ))}
+                <SelectItem value="all">{t('filter_all_types') || 'Tous types'}</SelectItem>
+                {Object.entries(TYPE_CONFIG).map(([key, config]) => {
+                  const IconComponent = config.icon;
+                  return (
+                    <SelectItem key={key} value={key}>
+                      <span className="flex items-center gap-2"><IconComponent className="h-3 w-3" /> {config.label}</span>
+                    </SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
             
             <Select value={filterProvince} onValueChange={(v) => { setFilterProvince(v); setPage(1); }}>
-              <SelectTrigger className="w-[130px] bg-background h-9 text-sm">
-                <SelectValue placeholder="Province" />
+              <SelectTrigger className="w-[130px] bg-[var(--bionic-bg-primary)] h-9 text-sm border-[var(--bionic-border-secondary)]">
+                <SelectValue placeholder={t('common_province') || 'Province'} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Toutes provinces</SelectItem>
+                <SelectItem value="all">{t('filter_all_provinces') || 'Toutes provinces'}</SelectItem>
                 {Object.entries(PROVINCE_NAMES).map(([code, name]) => (
                   <SelectItem key={code} value={code}>{name}</SelectItem>
                 ))}
@@ -596,32 +599,35 @@ const TerritoryInventory = () => {
             </Select>
             
             <Select value={filterSpecies} onValueChange={(v) => { setFilterSpecies(v); setPage(1); }}>
-              <SelectTrigger className="w-[130px] bg-background h-9 text-sm">
-                <SelectValue placeholder="Espèce" />
+              <SelectTrigger className="w-[130px] bg-[var(--bionic-bg-primary)] h-9 text-sm border-[var(--bionic-border-secondary)]">
+                <SelectValue placeholder={t('common_species') || 'Espèce'} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Toutes espèces</SelectItem>
-                {Object.entries(SPECIES_CONFIG).map(([key, config]) => (
-                  <SelectItem key={key} value={key}>
-                    {config.icon} {config.label}
-                  </SelectItem>
-                ))}
+                <SelectItem value="all">{t('filter_all_species') || 'Toutes espèces'}</SelectItem>
+                {Object.entries(SPECIES_CONFIG).map(([key, config]) => {
+                  const IconComponent = config.icon;
+                  return (
+                    <SelectItem key={key} value={key}>
+                      <span className="flex items-center gap-2"><IconComponent className="h-3 w-3" /> {config.label}</span>
+                    </SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
             
             <Select value={sortBy} onValueChange={(v) => { setSortBy(v); setPage(1); }}>
-              <SelectTrigger className="w-[120px] bg-background h-9 text-sm">
-                <SelectValue placeholder="Trier" />
+              <SelectTrigger className="w-[120px] bg-[var(--bionic-bg-primary)] h-9 text-sm border-[var(--bionic-border-secondary)]">
+                <SelectValue placeholder={t('common_sort') || 'Trier'} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="global_score">Score ↓</SelectItem>
-                <SelectItem value="name">Nom A-Z</SelectItem>
-                <SelectItem value="success_rate">Succès ↓</SelectItem>
-                <SelectItem value="created_at">Récent</SelectItem>
+                <SelectItem value="global_score">{t('sort_score') || 'Score'} ↓</SelectItem>
+                <SelectItem value="name">{t('sort_name') || 'Nom'} A-Z</SelectItem>
+                <SelectItem value="success_rate">{t('sort_success') || 'Succès'} ↓</SelectItem>
+                <SelectItem value="created_at">{t('sort_recent') || 'Récent'}</SelectItem>
               </SelectContent>
             </Select>
             
-            <Button variant="outline" size="sm" onClick={resetFilters} className="h-9" title="Réinitialiser les filtres">
+            <Button variant="outline" size="sm" onClick={resetFilters} className="h-9 border-[var(--bionic-border-secondary)]" title={t('filter_reset') || 'Réinitialiser'}>
               <RefreshCw className="h-4 w-4 mr-1" />
               {t('common_refresh')}
             </Button>
@@ -631,22 +637,22 @@ const TerritoryInventory = () => {
 
       {/* Results - Compact */}
       <div className="flex items-center justify-between">
-        <p className="text-gray-400 text-xs">
-          {total} territoire{total !== 1 ? 's' : ''} trouvé{total !== 1 ? 's' : ''}
+        <p className="text-[var(--bionic-text-secondary)] text-xs">
+          {total} {t('territory_found_count') || 'territoire'}{total !== 1 ? 's' : ''} {t('territory_found') || 'trouvé'}{total !== 1 ? 's' : ''}
         </p>
       </div>
 
       {/* Territory Grid - Compact 5 columns */}
       {loading ? (
         <div className="flex items-center justify-center py-12">
-          <Loader2 className="h-6 w-6 animate-spin text-[#f5a623]" />
+          <Loader2 className="h-6 w-6 animate-spin text-[var(--bionic-gold-primary)]" />
         </div>
       ) : territories.length === 0 ? (
-        <Card className="bg-card border-border">
+        <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
           <CardContent className="p-8 text-center">
-            <Map className="h-12 w-12 text-gray-600 mx-auto mb-3" />
-            <h3 className="text-white text-base font-semibold mb-1">Aucun territoire trouvé</h3>
-            <p className="text-gray-400 text-sm">Modifiez vos filtres ou essayez une autre recherche</p>
+            <Map className="h-12 w-12 text-[var(--bionic-gray-500)] mx-auto mb-3" />
+            <h3 className="text-[var(--bionic-text-primary)] text-base font-semibold mb-1">{t('msg_no_results') || 'Aucun territoire trouvé'}</h3>
+            <p className="text-[var(--bionic-text-secondary)] text-sm">{t('filter_hint') || 'Modifiez vos filtres ou essayez une autre recherche'}</p>
           </CardContent>
         </Card>
       ) : (
@@ -669,10 +675,11 @@ const TerritoryInventory = () => {
             size="sm"
             onClick={() => setPage(p => Math.max(1, p - 1))}
             disabled={page === 1}
+            className="border-[var(--bionic-border-secondary)]"
           >
-            ← Préc
+            ← {t('pagination_prev') || 'Préc'}
           </Button>
-          <span className="text-gray-400 text-sm px-2">
+          <span className="text-[var(--bionic-text-secondary)] text-sm px-2">
             {page}/{totalPages}
           </span>
           <Button
@@ -680,8 +687,9 @@ const TerritoryInventory = () => {
             size="sm"
             onClick={() => setPage(p => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
+            className="border-[var(--bionic-border-secondary)]"
           >
-            Suiv →
+            {t('pagination_next') || 'Suiv'} →
           </Button>
         </div>
       )}
