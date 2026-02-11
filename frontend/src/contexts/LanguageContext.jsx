@@ -387,6 +387,49 @@ export const TRANSLATIONS = {
     territory_bathymetry: "Bathymétrie",
     territory_hybrid: "Hybride",
     
+    // Filters - Categories
+    filter_all_categories: "Toutes catégories",
+    filter_urine: "Urines",
+    filter_gel: "Gels",
+    filter_granules: "Granulés",
+    filter_blocks: "Blocs",
+    filter_liquids: "Liquides",
+    filter_powders: "Poudres",
+    filter_sprays: "Sprays",
+    
+    // Filters - Animals
+    filter_all_animals: "Tous animaux",
+    filter_deer: "Cerf / Chevreuil",
+    filter_moose: "Orignal",
+    filter_bear: "Ours",
+    filter_wild_boar: "Sanglier",
+    filter_coyote: "Coyote",
+    filter_fox: "Renard",
+    
+    // Filters - Seasons
+    filter_all_seasons: "Toutes saisons",
+    filter_pre_rut: "Pré-rut",
+    filter_rut: "Rut",
+    filter_post_rut: "Post-rut",
+    filter_spring: "Printemps",
+    filter_summer: "Été",
+    filter_fall: "Automne",
+    filter_winter: "Hiver",
+    
+    // Filters - Features
+    filter_features: "Caractéristiques",
+    filter_rainproof: "Imperméable",
+    filter_pheromones: "Avec phéromones",
+    filter_certified: "Certifié alimentaire",
+    filter_price_range: "Fourchette de prix",
+    filter_min_score: "Score minimum",
+    filter_brand: "Marque",
+    filter_all_brands: "Toutes marques",
+    filter_sort: "Trier par",
+    filter_reset: "Réinitialiser",
+    filter_apply: "Appliquer",
+    filter_active: "filtres actifs",
+    
     // Forecast Page  
     forecast_title: "Prévisions de Chasse",
     forecast_success_probability: "Probabilité de succès",
