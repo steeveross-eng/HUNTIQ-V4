@@ -188,7 +188,10 @@ const AdminPage = ({ onProductsUpdate }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post(`${API}/admin/login`, { password });
+      await axios.post(`${API}/admin/login`, { 
+        email: "admin@bionic.com",
+        password 
+      });
       localStorage.setItem('admin_authenticated', 'true');
       setIsAuthenticated(true);
       toast.success("Connexion réussie!");
