@@ -36,6 +36,7 @@ export const CoreDashboard = ({
   species = 'deer',
   season = 'rut'
 }) => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('overview');
   const [moduleStatus, setModuleStatus] = useState({});
   const [weather, setWeather] = useState(null);
