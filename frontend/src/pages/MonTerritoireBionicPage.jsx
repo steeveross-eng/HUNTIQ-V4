@@ -2098,10 +2098,10 @@ const MonTerritoireBionicPage = () => {
                         <div className="flex items-start justify-between">
                           <div className="flex items-start gap-3">
                             <div 
-                              className="w-10 h-10 rounded-lg flex items-center justify-center text-xl"
+                              className="w-10 h-10 rounded-lg flex items-center justify-center"
                               style={{ backgroundColor: `${typeInfo?.color}20` }}
                             >
-                              {typeInfo?.icon || '📌'}
+                              {typeInfo?.Icon ? <typeInfo.Icon className="h-5 w-5" style={{ color: typeInfo?.color }} /> : <Pin className="h-5 w-5 text-gray-400" />}
                             </div>
                             <div className="flex-1">
                               <div className="text-white font-medium">{place.name}</div>
