@@ -170,7 +170,7 @@ export const SuccessForecast = () => {
                       : 'border-slate-600'}
                     onClick={() => setSelectedWeather(weather.id)}
                   >
-                    {weather.icon}
+                    <weather.Icon className="h-4 w-4" style={{ color: selectedWeather === weather.id ? 'inherit' : weather.color }} />
                   </Button>
                 ))}
               </div>
@@ -201,7 +201,7 @@ export const SuccessForecast = () => {
           {forecast?.best_waypoint && (
             <div className="bg-slate-800/50 rounded-lg p-4 mb-4">
               <h4 className="text-white font-medium mb-2 flex items-center gap-2">
-                <span>📍</span>
+                <MapPin className="h-5 w-5 text-[#f5a623]" />
                 Meilleur waypoint recommandé
               </h4>
               <div className="flex items-center justify-between">
@@ -213,8 +213,11 @@ export const SuccessForecast = () => {
                     WQS: {forecast.best_waypoint.total_score}% • {forecast.best_waypoint.total_visits} visites
                   </p>
                 </div>
-                <Badge className={getClassificationColor(forecast.best_waypoint.classification)}>
-                  {getClassificationLabel(forecast.best_waypoint.classification)}
+                <Badge className={`${getClassificationColor(forecast.best_waypoint.classification)} flex items-center gap-1`}>
+                  {(() => {
+                    const { Icon, label } = getClassificationIcon(forecast.best_waypoint.classification);
+                    return <><Icon className="h-3 w-3" /> {label}</>;
+                  })()}
                 </Badge>
               </div>
             </div>
@@ -225,7 +228,9 @@ export const SuccessForecast = () => {
             {/* Favorable */}
             {forecast?.favorable_conditions?.length > 0 && (
               <div className="bg-green-900/20 rounded-lg p-3 border border-green-700/50">
-                <h5 className="text-green-400 font-medium mb-2">✅ Conditions favorables</h5>
+                <h5 className="text-green-400 font-medium mb-2 flex items-center gap-1">
+                  <ThumbsUp className="h-4 w-4" /> Conditions favorables
+                </h5>
                 <ul className="text-sm text-slate-300 space-y-1">
                   {forecast.favorable_conditions.map((cond, i) => (
                     <li key={i}>• {cond}</li>
