@@ -96,7 +96,7 @@ const Logo = ({ size = "default" }) => {
 
 // Navigation Component - BIONIC TACTICAL Design System
 const Navigation = ({ cartCount, onCartOpen }) => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const { user } = useAuth();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
@@ -126,7 +126,7 @@ const Navigation = ({ cartCount, onCartOpen }) => {
               data-testid="nav-home"
             >
               <Home className="h-4 w-4" />
-              {t('nav_home')}
+              {t('common_home')}
             </Link>
             
             {/* Dashboard */}
@@ -136,7 +136,7 @@ const Navigation = ({ cartCount, onCartOpen }) => {
               data-testid="nav-dashboard"
             >
               <BarChart3 className="h-4 w-4" />
-              {language === 'fr' ? 'Tableau de bord' : 'Dashboard'}
+              {t('common_dashboard')}
             </Link>
             
             {/* Intelligence Dropdown (Analytics + Forecast + Plan Maître) */}
@@ -146,29 +146,29 @@ const Navigation = ({ cartCount, onCartOpen }) => {
                 data-testid="nav-intelligence"
               >
                 <Brain className="h-4 w-4" />
-                {language === 'fr' ? 'Intelligence' : 'Intelligence'}
+                {t('common_intelligence')}
                 <ChevronRight className="h-3 w-3 rotate-90 group-hover:rotate-180 transition-transform" />
               </button>
               <div className="absolute top-full left-0 mt-1 min-w-[220px] bg-black/95 backdrop-blur-xl border border-white/10 rounded-md shadow-xl py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <Link to="/analytics" className="flex items-start gap-3 px-4 py-2 hover:bg-white/5 group/item">
                   <TrendingUp className="h-4 w-4 mt-0.5 text-gray-400 group-hover/item:text-[#F5A623]" />
                   <div>
-                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{language === 'fr' ? 'Analytics' : 'Analytics'}</div>
-                    <div className="text-xs text-gray-500">{language === 'fr' ? 'Statistiques et graphiques' : 'Stats & charts'}</div>
+                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{t('common_analytics')}</div>
+                    <div className="text-xs text-gray-500">{t('common_stats_charts')}</div>
                   </div>
                 </Link>
                 <Link to="/forecast" className="flex items-start gap-3 px-4 py-2 hover:bg-white/5 group/item">
                   <Target className="h-4 w-4 mt-0.5 text-gray-400 group-hover/item:text-[#F5A623]" />
                   <div>
-                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{language === 'fr' ? 'Prévisions' : 'Forecast'}</div>
-                    <div className="text-xs text-gray-500">{language === 'fr' ? 'Prédictions météo-faune' : 'Weather-wildlife predictions'}</div>
+                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{t('common_forecast')}</div>
+                    <div className="text-xs text-gray-500">{t('common_weather_wildlife')}</div>
                   </div>
                 </Link>
                 <Link to="/plan-maitre" className="flex items-start gap-3 px-4 py-2 hover:bg-white/5 group/item">
                   <Radar className="h-4 w-4 mt-0.5 text-gray-400 group-hover/item:text-[#F5A623]" />
                   <div>
-                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{language === 'fr' ? 'Plan Maître' : 'Master Plan'}</div>
-                    <div className="text-xs text-gray-500">{language === 'fr' ? 'Stratégie complète' : 'Full strategy'}</div>
+                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{t('common_plan_master')}</div>
+                    <div className="text-xs text-gray-500">{t('common_full_strategy')}</div>
                   </div>
                 </Link>
               </div>
@@ -181,22 +181,22 @@ const Navigation = ({ cartCount, onCartOpen }) => {
                 data-testid="nav-carte"
               >
                 <Map className="h-4 w-4" />
-                {language === 'fr' ? 'Carte' : 'Map'}
+                {t('common_map')}
                 <ChevronRight className="h-3 w-3 rotate-90 group-hover:rotate-180 transition-transform" />
               </button>
               <div className="absolute top-full left-0 mt-1 min-w-[220px] bg-black/95 backdrop-blur-xl border border-white/10 rounded-md shadow-xl py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <Link to="/map" className="flex items-start gap-3 px-4 py-2 hover:bg-white/5 group/item">
                   <Globe className="h-4 w-4 mt-0.5 text-gray-400 group-hover/item:text-[#F5A623]" />
                   <div>
-                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{language === 'fr' ? 'Carte Interactive' : 'Interactive Map'}</div>
-                    <div className="text-xs text-gray-500">{language === 'fr' ? 'GPS et waypoints' : 'GPS & waypoints'}</div>
+                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{t('common_interactive_map')}</div>
+                    <div className="text-xs text-gray-500">{t('common_gps_waypoints')}</div>
                   </div>
                 </Link>
                 <Link to="/territoire" className="flex items-start gap-3 px-4 py-2 hover:bg-white/5 group/item">
                   <Crosshair className="h-4 w-4 mt-0.5 text-gray-400 group-hover/item:text-[#F5A623]" />
                   <div>
-                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{language === 'fr' ? 'Mon Territoire' : 'My Territory'}</div>
-                    <div className="text-xs text-gray-500">{language === 'fr' ? 'Analyse BIONIC' : 'BIONIC Analysis'}</div>
+                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{t('common_my_territory')}</div>
+                    <div className="text-xs text-gray-500">{t('common_bionic_analysis')}</div>
                   </div>
                 </Link>
               </div>
@@ -209,7 +209,7 @@ const Navigation = ({ cartCount, onCartOpen }) => {
               data-testid="nav-trips"
             >
               <RouteIcon className="h-4 w-4" />
-              {language === 'fr' ? 'Sorties' : 'Trips'}
+              {t('common_trips')}
             </Link>
             
             {/* Analysez */}
@@ -296,28 +296,28 @@ const Navigation = ({ cartCount, onCartOpen }) => {
         <div className="lg:hidden border-t border-white/10 bg-black/95 backdrop-blur-xl">
           <div className="px-4 py-4 space-y-2">
             <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
-              <Home className="h-4 w-4" /> {t('nav_home')}
+              <Home className="h-4 w-4" /> {t('common_home')}
             </Link>
             <Link to="/dashboard" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
-              <BarChart3 className="h-4 w-4" /> {language === 'fr' ? 'Tableau de bord' : 'Dashboard'}
+              <BarChart3 className="h-4 w-4" /> {t('common_dashboard')}
             </Link>
             <Link to="/analytics" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
-              <TrendingUp className="h-4 w-4" /> Analytics
+              <TrendingUp className="h-4 w-4" /> {t('common_analytics')}
             </Link>
             <Link to="/forecast" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
-              <Target className="h-4 w-4" /> {language === 'fr' ? 'Prévisions' : 'Forecast'}
+              <Target className="h-4 w-4" /> {t('common_forecast')}
             </Link>
             <Link to="/plan-maitre" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
-              <Radar className="h-4 w-4" /> Plan Maître
+              <Radar className="h-4 w-4" /> {t('common_plan_master')}
             </Link>
             <Link to="/map" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
-              <Globe className="h-4 w-4" /> {language === 'fr' ? 'Carte' : 'Map'}
+              <Globe className="h-4 w-4" /> {t('common_map')}
             </Link>
             <Link to="/territoire" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
               <Crosshair className="h-4 w-4" /> {t('nav_territory')}
             </Link>
             <Link to="/trips" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
-              <RouteIcon className="h-4 w-4" /> {language === 'fr' ? 'Sorties' : 'Trips'}
+              <RouteIcon className="h-4 w-4" /> {t('common_trips')}
             </Link>
             <Link to="/analyze" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
               <FlaskConical className="h-4 w-4" /> {t('nav_analyze')}
@@ -336,7 +336,7 @@ const Navigation = ({ cartCount, onCartOpen }) => {
             
             {/* Admin link on mobile */}
             <Link to="/admin" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
-              <Lock className="h-4 w-4" /> {isAdmin ? 'Admin' : 'Connexion'}
+              <Lock className="h-4 w-4" /> {isAdmin ? 'Admin' : t('common_login')}
             </Link>
             
             {/* Language Switcher on mobile */}
