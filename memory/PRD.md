@@ -751,10 +751,14 @@ Tous les modules opérationnels avec APIs documentées.
 ### P1 - i18n Centralisée ✅ LIVRÉ (11 Février 2026)
 - ✅ **Connecter i18next** - LanguageProvider dans App.js avec useLanguage hook
 - ✅ **Sélecteur de langue** - FR/EN toggle avec persistance localStorage
-- ✅ **Remplacement textes** - Navigation et Admin 100% traduits (700+ clés)
+- ✅ **Navigation (8 éléments)** - Traduction instantanée FR/EN
+- ✅ **Dashboard (5 onglets)** - Vue d'ensemble, Météo, Analyse, Stratégie, Assistant IA
 - ✅ **18 onglets Admin** - Traduction instantanée FR/EN
-- ✅ **Contenu Admin** - Stats, Ventes, Produits, etc. tous traduits
+- ✅ **Page Shop** - Titre, sous-titre, messages traduits
+- ✅ **Page Trips** - Titre et statistiques traduits
+- ✅ **Design Professionnel** - Émojis remplacés par icônes Lucide
 - ✅ **Cookie Consent** - Traduction FR/EN
+- ✅ **1500+ clés de traduction** ajoutées
 
 ### P1 - Refactorisation Admin
 - 🔲 **Alignement BIONIC TACTICAL** - Toutes les interfaces admin
