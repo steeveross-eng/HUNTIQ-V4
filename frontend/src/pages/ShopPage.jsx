@@ -28,7 +28,7 @@ const SaleModeBadge = ({ mode }) => {
 };
 
 // Product Card Component
-const ProductCard = ({ product, onAddToCart, onAffiliateClick }) => {
+const ProductCard = ({ product, onAddToCart, onAffiliateClick, t }) => {
   const pastilleColor = product.score >= 75 ? "bg-[#f5a623]" : 
                         product.score >= 50 ? "bg-yellow-500" : "bg-red-500";
   
