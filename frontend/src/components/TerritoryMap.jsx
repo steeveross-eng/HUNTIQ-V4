@@ -4592,35 +4592,35 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
             <div className={`absolute top-4 left-1/2 transform -translate-x-1/2 z-[600] text-sm px-4 py-2 rounded-lg font-medium shadow-lg ${
               activeTool === 'waypoint' ? 'bg-green-500 text-white' : 'bg-[#f5a623] text-black'
             }`} style={{marginLeft: '140px'}}>
-              {activeTool === 'pin' && 'Cliquez sur la carte pour ajouter une observation'}
-              {activeTool === 'waypoint' && '🚩 Cliquez sur la carte pour placer un waypoint GPS'}
-              {activeTool === 'route' && '🛤️ Cliquez pour tracer un chemin'}
-              {activeTool === 'measure' && '📏 Cliquez pour mesurer une distance'}
+              {activeTool === 'pin' && t('click_add_observation')}
+              {activeTool === 'waypoint' && <span className="flex items-center gap-1"><Flag className="h-4 w-4" /> {t('click_place_waypoint')}</span>}
+              {activeTool === 'route' && <span className="flex items-center gap-1"><Route className="h-4 w-4" /> {t('click_trace_path')}</span>}
+              {activeTool === 'measure' && <span className="flex items-center gap-1"><Ruler className="h-4 w-4" /> {t('click_measure_distance')}</span>}
             </div>
           )}
 
           {/* Map Legend - Always visible, positioned bottom-left */}
           <div className="absolute bottom-8 left-4 bg-black/90 backdrop-blur-md p-3 rounded-xl border-2 border-[#f5a623]/50 z-[800] shadow-xl">
             <p className="text-[#f5a623] text-xs font-bold mb-2 flex items-center gap-2">
-              <span>📍</span> Légende
+              <MapPin className="h-4 w-4" /> {t('legend')}
             </p>
             <div className="space-y-1.5">
               {Object.entries(SPECIES_CONFIG).filter(([k]) => k !== 'autre').map(([key, config]) => (
                 <div key={key} className="flex items-center gap-2 text-xs">
-                  <span>{config.emoji}</span>
-                  <span className="text-white">{config.label}</span>
+                  <CircleDot className="h-4 w-4" style={{ color: config.color }} />
+                  <span className="text-white">{t(config.labelKey)}</span>
                 </div>
               ))}
               <div className="flex items-center gap-2 text-xs">
-                <span>📷</span>
-                <span className="text-white">Caméra</span>
+                <Camera className="h-4 w-4 text-blue-500" />
+                <span className="text-white">{t('cameras')}</span>
               </div>
               <div className="flex items-center gap-2 text-xs">
-                <span>🚩</span>
-                <span className="text-white">Waypoint</span>
+                <Flag className="h-4 w-4 text-green-500" />
+                <span className="text-white">{t('waypoint')}</span>
               </div>
               <div className="border-t border-gray-700 pt-1.5 mt-1.5">
-                <p className="text-gray-400 text-[9px] mb-1">Probabilité:</p>
+                <p className="text-gray-400 text-[9px] mb-1">{t('probability')}:</p>
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-0.5">
                     <div className="w-2 h-2 rounded-full bg-green-500"></div>
