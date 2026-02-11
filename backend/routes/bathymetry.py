@@ -239,7 +239,7 @@ async def add_sounding_points(lake_id: str, points: List[DepthPoint]):
     # Ajouter les nouveaux points
     new_points = [p.dict() for p in points]
     
-    result = await bathymetry_lakes.update_one(
+    await bathymetry_lakes.update_one(
         {"lake_id": lake_id},
         {
             "$push": {"points": {"$each": new_points}},
