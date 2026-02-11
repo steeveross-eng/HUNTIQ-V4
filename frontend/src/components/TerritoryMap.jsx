@@ -3131,20 +3131,20 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                         </div>
                         <button
                           onClick={() => {
-                            if (window.confirm(`🗑️ Supprimer la caméra "${camera.label}" ?`)) {
+                            if (window.confirm(`${t('confirm_delete_camera')} "${camera.label}" ?`)) {
                               // Remove camera from local state
                               setCameras(prev => prev.filter(c => c.id !== camera.id));
-                              toast.success('Caméra supprimée');
+                              toast.success(t('camera_deleted'));
                             }
                           }}
                           className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors flex-shrink-0"
-                          title="Supprimer cette caméra"
+                          title={t('delete_camera')}
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
                       </div>
                       <p className={`text-sm ${camera.connected ? 'text-green-600' : 'text-red-600'}`}>
-                        {camera.connected ? 'Connectée' : 'Non connectée'}
+                        {camera.connected ? t('connected') : t('not_connected')}
                       </p>
                     </div>
                   </Popup>
@@ -3156,31 +3156,32 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
             {showEvents && filteredEvents.map((event) => {
               const speciesConfig = SPECIES_CONFIG[event.species] || SPECIES_CONFIG.autre;
               const eventConfig = EVENT_TYPE_CONFIG[event.event_type] || {};
+              const SpeciesIcon = speciesConfig.Icon || CircleDot;
               
               return (
                 <Marker
                   key={event.id}
                   position={[event.latitude, event.longitude]}
-                  icon={createCustomIcon(speciesConfig.color, speciesConfig.emoji)}
+                  icon={createCustomIcon(speciesConfig.color, speciesConfig.iconType)}
                 >
                   <Popup>
                     <div className="text-sm min-w-52">
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <div className="flex items-center gap-2">
-                          <span className="text-2xl">{speciesConfig.emoji}</span>
+                          <SpeciesIcon className="h-6 w-6" style={{ color: speciesConfig.color }} />
                           <div>
-                            <p className="font-bold text-gray-800">{speciesConfig.label}</p>
-                            <p className="text-gray-500 text-xs">{eventConfig.label}</p>
+                            <p className="font-bold text-gray-800">{t(speciesConfig.labelKey)}</p>
+                            <p className="text-gray-500 text-xs">{t(eventConfig.labelKey)}</p>
                           </div>
                         </div>
                         <button
                           onClick={() => {
-                            if (window.confirm(`🗑️ Supprimer cette observation de ${speciesConfig.label} ?`)) {
+                            if (window.confirm(`${t('confirm_delete_observation')} ${t(speciesConfig.labelKey)} ?`)) {
                               deleteEvent(event.id);
                             }
                           }}
                           className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors flex-shrink-0"
-                          title="Supprimer cette observation"
+                          title={t('delete_observation')}
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
