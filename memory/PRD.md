@@ -571,7 +571,32 @@ Tous les modules opérationnels avec APIs documentées.
   - SENDER_EMAIL=noreply@bionichunt.com configuré
   - Domaine bionichunt.com vérifié
   - Emails transactionnels fonctionnels
-- ⏳ **Corrections P2/P3**: Warnings mineurs du checkup précédent
+
+### Weather Widget Avancé - OpenWeatherMap ✅ (11 Février 2026)
+- ✅ **Backend weather_engine v1.1.0**:
+  - `external_service.py`: Service OpenWeatherMap API 2.5 avec cache 30min
+  - 4 endpoints: `/current`, `/hourly`, `/daily`, `/full`
+  - 12 modèles Pydantic pour données météo complètes
+  - Fallback données simulées si API indisponible
+- ✅ **Frontend AdvancedWeatherWidget.jsx**:
+  - Conditions actuelles (temp, vent, humidité, pression)
+  - Prévisions horaires 48h scrollables
+  - Prévisions 7 jours
+  - Score de chasse avec recommandations
+  - Phase lunaire avec impact chasse
+- ⏳ **Clé API OpenWeatherMap**: En cours d'activation (retourne 401)
+  - Fallback fonctionnel avec données simulées réalistes
+
+### P2 - Normalisation Géospatiale 📋 EN COURS (11 Février 2026)
+- ✅ **Rapport d'Analyse P2 VALIDÉ**: `/app/memory/P2_GEOSPATIAL_NORMALIZATION_ANALYSIS.md`
+  - 5 modules géospatiaux analysés
+  - 8 collections MongoDB cartographiées
+  - Modèle unifié `geo_entities` confirmé comme source de vérité
+- ⏳ **Plan d'Implémentation P2**: En préparation
+  - Migration `territory_events` → `geo_entities` (P2.1)
+  - Migration `territory_tracks` → `geo_entities` (P2.2)
+  - Script de migration réversible
+  - Mise à jour endpoints `territory.py`
 
 ### Backlog
 - 🔲 Notifications push de groupe
@@ -579,8 +604,13 @@ Tous les modules opérationnels avec APIs documentées.
 - ✅ **Dashboard Business** - LIVRÉ (11 Février 2026)
 - ✅ **Suppression user_waypoints.py** - LIVRÉ P1 (11 Février 2026)
 
+### P3 - Prochaines Phases (Planifié)
+- 🔲 **WebSocket Sync & Scoring Avancé**: Sync temps réel tous types d'entités
+- 🔲 **Scoring Météo-Faune**: Intégration données météo dans calculs de probabilité
+- 🔲 **Dashboard Admin Global**: Vue unifiée de toutes les entités géospatiales
+
 ---
 
 *HUNTIQ V3 - Powered by GPT-5.2 & Emergent Platform*
 *Architecture Modulaire v2.0 - 48 Backend + 24 Frontend - CONNECTÉS*
-*Phase Business Dashboard - Sécurisation Complète - LIVRÉ (11 Fév 2026)*
+*Phase P2 Géospatiale - Analyse Validée (11 Fév 2026)*
