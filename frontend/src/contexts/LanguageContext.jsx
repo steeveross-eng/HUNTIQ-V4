@@ -1057,6 +1057,14 @@ export const TRANSLATIONS = {
     shop_filter: "Filter",
     shop_clear_filters: "Clear Filters",
     
+    // Sort Options
+    sort_rank_best: "Rank (Best)",
+    sort_rank_low: "Rank (Low)",
+    sort_score_high: "Score (High)",
+    sort_score_low: "Score (Low)",
+    sort_name_az: "Name (A-Z)",
+    sort_name_za: "Name (Z-A)",
+    
     // Trips Page
     trips_title: "Hunting Trips",
     trips_active: "Active Trip",
