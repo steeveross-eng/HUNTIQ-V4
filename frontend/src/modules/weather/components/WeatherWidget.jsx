@@ -1,20 +1,30 @@
 /**
  * WeatherWidget - Compact weather display
+ * BIONIC Design System compliant
  */
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '../../../components/ui/card';
 import { WeatherService } from '../WeatherService';
+import { Sun, Cloud, CloudRain, Snowflake, CloudLightning, CloudFog, Wind, CloudSun } from 'lucide-react';
 
-const weatherIcons = {
-  clear: '☀️',
-  sunny: '☀️',
-  cloudy: '☁️',
-  partly_cloudy: '⛅',
-  rain: '🌧️',
-  snow: '❄️',
-  storm: '⛈️',
-  fog: '🌫️',
-  wind: '💨'
+// Weather icons - BIONIC Design System (Lucide components)
+const WeatherIcon = ({ condition, className = "h-8 w-8" }) => {
+  const conditionLower = condition?.toLowerCase() || '';
+  
+  const iconMap = {
+    clear: { Icon: Sun, color: '#f5a623' },
+    sunny: { Icon: Sun, color: '#f5a623' },
+    cloudy: { Icon: Cloud, color: '#9ca3af' },
+    partly_cloudy: { Icon: CloudSun, color: '#f59e0b' },
+    rain: { Icon: CloudRain, color: '#3b82f6' },
+    snow: { Icon: Snowflake, color: '#06b6d4' },
+    storm: { Icon: CloudLightning, color: '#8b5cf6' },
+    fog: { Icon: CloudFog, color: '#6b7280' },
+    wind: { Icon: Wind, color: '#64748b' }
+  };
+  
+  const { Icon, color } = iconMap[conditionLower] || { Icon: CloudSun, color: '#f59e0b' };
+  return <Icon className={className} style={{ color }} />;
 };
 
 export const WeatherWidget = ({ 
