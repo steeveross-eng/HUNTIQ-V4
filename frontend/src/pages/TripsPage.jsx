@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
+import { useLanguage } from '@/contexts/LanguageContext';
 import {
   Plus, Play, Square, CheckCircle, XCircle, Clock, MapPin,
   Eye, Footprints, Volume2, Leaf, Target, Calendar, Thermometer,
@@ -21,6 +22,7 @@ import TripStatsDashboard from '@/components/trips/TripStatsDashboard';
 import TripHistory from '@/components/trips/TripHistory';
 
 const TripsPage = () => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('active');
   const [activeTrip, setActiveTrip] = useState(null);
   const [trips, setTrips] = useState([]);
