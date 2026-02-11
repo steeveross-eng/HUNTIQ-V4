@@ -64,7 +64,13 @@ import {
   ArrowLeft,
   Home,
   ArrowUpDown,
-  Database
+  Database,
+  TreePine,
+  Target,
+  MapPin,
+  Tent,
+  Lock,
+  CircleDot
 } from 'lucide-react';
 
 const API = process.env.REACT_APP_BACKEND_URL;
