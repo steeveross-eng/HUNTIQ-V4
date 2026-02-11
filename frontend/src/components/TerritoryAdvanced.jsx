@@ -649,22 +649,22 @@ export const TerritoryMapView = () => {
 
   const TYPES = [
     { value: 'all', label: 'Tous types' },
-    { value: 'zec', label: '🏕️ ZEC' },
-    { value: 'sepaq', label: '🦌 Sépaq' },
-    { value: 'pourvoirie', label: '🏠 Pourvoirie' },
-    { value: 'club', label: '🎯 Club' },
-    { value: 'outfitter', label: '🦬 Outfitter' },
-    { value: 'anticosti', label: '🏝️ Anticosti' }
+    { value: 'zec', label: 'ZEC' },
+    { value: 'sepaq', label: 'Sépaq' },
+    { value: 'pourvoirie', label: 'Pourvoirie' },
+    { value: 'club', label: 'Club' },
+    { value: 'outfitter', label: 'Outfitter' },
+    { value: 'anticosti', label: 'Anticosti' }
   ];
 
   const SPECIES_LIST = [
     { value: 'all', label: 'Toutes espèces' },
-    { value: 'orignal', label: '🫎 Orignal' },
-    { value: 'chevreuil', label: '🦌 Chevreuil' },
-    { value: 'ours', label: '🐻 Ours' },
-    { value: 'caribou', label: '🦌 Caribou' },
-    { value: 'dindon', label: '🦃 Dindon' },
-    { value: 'petit_gibier', label: '🐰 Petit gibier' }
+    { value: 'orignal', label: 'Orignal' },
+    { value: 'chevreuil', label: 'Chevreuil' },
+    { value: 'ours', label: 'Ours' },
+    { value: 'caribou', label: 'Caribou' },
+    { value: 'dindon', label: 'Dindon' },
+    { value: 'petit_gibier', label: 'Petit gibier' }
   ];
 
   const loadGeoJSON = useCallback(async () => {
