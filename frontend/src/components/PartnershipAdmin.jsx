@@ -502,17 +502,39 @@ const PartnershipAdmin = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Tous les types</SelectItem>
-                  <SelectItem value="marques">🏷️ Marques</SelectItem>
-                  <SelectItem value="pourvoiries">🏕️ Pourvoiries</SelectItem>
-                  <SelectItem value="proprietaires">🌲 Propriétaires</SelectItem>
-                  <SelectItem value="guides">🎯 Guides</SelectItem>
-                  <SelectItem value="boutiques">🏪 Boutiques</SelectItem>
-                  <SelectItem value="services">🔧 Services</SelectItem>
-                  <SelectItem value="fabricants">🏭 Fabricants</SelectItem>
-                  <SelectItem value="zec">🦌 ZEC</SelectItem>
-                  <SelectItem value="clubs">🎣 Clubs privés</SelectItem>
-                  <SelectItem value="particuliers">👤 Particuliers</SelectItem>
-                  <SelectItem value="autres">📋 Autres</SelectItem>
+                  <SelectItem value="marques">
+                    <span className="flex items-center gap-2"><Building2 className="h-4 w-4" style={{ color: '#f5a623' }} /> Marques</span>
+                  </SelectItem>
+                  <SelectItem value="pourvoiries">
+                    <span className="flex items-center gap-2"><Home className="h-4 w-4" style={{ color: '#22c55e' }} /> Pourvoiries</span>
+                  </SelectItem>
+                  <SelectItem value="proprietaires">
+                    <span className="flex items-center gap-2"><TreePine className="h-4 w-4" style={{ color: '#10b981' }} /> Propriétaires</span>
+                  </SelectItem>
+                  <SelectItem value="guides">
+                    <span className="flex items-center gap-2"><Target className="h-4 w-4" style={{ color: '#ef4444' }} /> Guides</span>
+                  </SelectItem>
+                  <SelectItem value="boutiques">
+                    <span className="flex items-center gap-2"><Building2 className="h-4 w-4" style={{ color: '#8b5cf6' }} /> Boutiques</span>
+                  </SelectItem>
+                  <SelectItem value="services">
+                    <span className="flex items-center gap-2"><Settings className="h-4 w-4" style={{ color: '#6b7280' }} /> Services</span>
+                  </SelectItem>
+                  <SelectItem value="fabricants">
+                    <span className="flex items-center gap-2"><Building2 className="h-4 w-4" style={{ color: '#64748b' }} /> Fabricants</span>
+                  </SelectItem>
+                  <SelectItem value="zec">
+                    <span className="flex items-center gap-2"><MapPin className="h-4 w-4" style={{ color: '#3b82f6' }} /> ZEC</span>
+                  </SelectItem>
+                  <SelectItem value="clubs">
+                    <span className="flex items-center gap-2"><Users className="h-4 w-4" style={{ color: '#06b6d4' }} /> Clubs privés</span>
+                  </SelectItem>
+                  <SelectItem value="particuliers">
+                    <span className="flex items-center gap-2"><UserCheck className="h-4 w-4" style={{ color: '#a855f7' }} /> Particuliers</span>
+                  </SelectItem>
+                  <SelectItem value="autres">
+                    <span className="flex items-center gap-2"><FileText className="h-4 w-4" style={{ color: '#9ca3af' }} /> Autres</span>
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
