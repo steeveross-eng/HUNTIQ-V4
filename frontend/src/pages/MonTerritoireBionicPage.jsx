@@ -2021,7 +2021,10 @@ const MonTerritoireBionicPage = () => {
                             <SelectContent className="bg-gray-800 border-gray-700">
                               {PLACE_TYPES.map(type => (
                                 <SelectItem key={type.id} value={type.id} className="text-white">
-                                  <span className="flex items-center gap-2">{type.icon} {type.name}</span>
+                                  <span className="flex items-center gap-2">
+                                    {type.Icon && <type.Icon className="h-4 w-4" style={{ color: type.color }} />}
+                                    {type.name}
+                                  </span>
                                 </SelectItem>
                               ))}
                             </SelectContent>
@@ -2074,9 +2077,10 @@ const MonTerritoireBionicPage = () => {
                     <button
                       key={type.id}
                       onClick={() => { setNewPlace({ name: '', type: type.id, lat: '', lng: '', notes: '' }); setShowAddPlaceDialog(true); }}
-                      className="px-2 py-1 rounded text-[10px] bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors"
+                      className="px-2 py-1 rounded text-[10px] bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors flex items-center gap-1"
                     >
-                      {type.icon} {type.name}
+                      {type.Icon && <type.Icon className="h-3 w-3" style={{ color: type.color }} />}
+                      {type.name}
                     </button>
                   ))}
                 </div>
