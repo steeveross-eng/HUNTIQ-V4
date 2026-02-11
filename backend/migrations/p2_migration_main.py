@@ -259,8 +259,8 @@ class P2MigrationManager:
         lng = event.get('longitude', 0)
         
         # Generate name from event type and species
-        event_type = event.get('event_type', 'observation')
-        species = event.get('species', 'inconnu')
+        event_type = event.get('event_type', 'observation') or 'observation'
+        species = event.get('species') or 'inconnu'
         name = f"{event_type.replace('_', ' ').title()} - {species.title()}"
         
         return {
