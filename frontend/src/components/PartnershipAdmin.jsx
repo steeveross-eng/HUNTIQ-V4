@@ -1008,8 +1008,10 @@ const PartnershipAdmin = () => {
                       <TableCell>
                         <div className="flex gap-0.5">
                           {(partner.species || []).slice(0, 3).map(s => (
-                            <span key={s} className="text-sm" title={s}>
-                              {s === 'orignal' ? '🫎' : s === 'ours' ? '🐻' : s === 'chevreuil' ? '🦌' : '🎯'}
+                            <span key={s} className="text-sm flex items-center" title={s}>
+                              <CircleDot className="h-4 w-4" style={{ 
+                                color: s === 'orignal' ? '#8B4513' : s === 'ours' ? '#2F4F4F' : s === 'chevreuil' ? '#D2691E' : '#ef4444' 
+                              }} />
                             </span>
                           ))}
                           {(partner.species?.length || 0) > 3 && (
