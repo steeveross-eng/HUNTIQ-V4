@@ -16,7 +16,7 @@ module.exports = defineConfig({
     ['json', { outputFile: 'test-results.json' }]
   ],
   use: {
-    baseURL: process.env.BASE_URL || 'https://huntiq-refactor-1.preview.emergentagent.com',
+    baseURL: process.env.BASE_URL || 'https://mapquest-v3.preview.emergentagent.com',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
