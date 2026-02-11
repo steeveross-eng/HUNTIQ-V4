@@ -762,27 +762,55 @@ async def process_photo_ai(photo_id: str, image_bytes: bytes, user_id: str, exif
             }}
         )
         
-        # Create corresponding event if GPS available and species detected
+        # Create corresponding event in geo_entities (P2 NORMALIZED)
         if exif_data.get('gps_lat') and exif_data.get('gps_lon') and result.species != 'autre':
             captured_at = exif_data.get('datetime') or datetime.now(timezone.utc)
+            now = datetime.now(timezone.utc)
             
             event_id = str(uuid.uuid4())
-            event_doc = {
+            species = result.species or 'inconnu'
+            name = f"Camera Photo - {species.title()}"
+            
+            # Create geo_entity document (P2 normalized format)
+            geo_entity_doc = {
                 "_id": event_id,
                 "user_id": user_id,
-                "event_type": "camera_photo",
-                "species": result.species,
-                "species_confidence": result.confidence,
-                "count_estimate": result.count_estimate,
-                "latitude": exif_data['gps_lat'],
-                "longitude": exif_data['gps_lon'],
-                "captured_at": captured_at,
-                "source": "camera",
-                "metadata": {"photo_id": photo_id, "reasoning": result.reasoning},
-                "created_at": datetime.now(timezone.utc)
+                "group_id": None,
+                "name": name,
+                "entity_type": "observation",
+                "subtype": "camera_photo",
+                
+                # GeoJSON location
+                "location": {
+                    "type": "Point",
+                    "coordinates": [exif_data['gps_lon'], exif_data['gps_lat']]
+                },
+                
+                "geometry": None,
+                "radius": None,
+                "active": True,
+                "visible": True,
+                "color": "#FF6B6B",
+                "icon": "camera",
+                
+                # Enriched metadata
+                "metadata": {
+                    "event_type": "camera_photo",
+                    "species": result.species,
+                    "species_confidence": result.confidence,
+                    "count_estimate": result.count_estimate,
+                    "captured_at": captured_at,
+                    "source": "camera",
+                    "photo_id": photo_id,
+                    "reasoning": result.reasoning
+                },
+                
+                "description": None,
+                "created_at": now,
+                "updated_at": now
             }
             
-            await database.territory_events.insert_one(event_doc)
+            await database.geo_entities.insert_one(geo_entity_doc)
             
             # Link photo to event
             await database.territory_photos.update_one(
