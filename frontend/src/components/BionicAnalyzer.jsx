@@ -71,12 +71,12 @@ const MODULE_ICONS = {
 };
 
 const SPECIES_ICONS = {
-  moose: { emoji: '🦌', name: 'Orignal', color: 'text-amber-400' },
-  deer: { emoji: '🦌', name: 'Cerf de Virginie', color: 'text-orange-400' },
-  bear: { emoji: '🐻', name: 'Ours noir', color: 'text-stone-400' },
-  caribou: { emoji: '🦌', name: 'Caribou', color: 'text-blue-400' },
-  wolf: { emoji: '🐺', name: 'Loup gris', color: 'text-gray-400' },
-  turkey: { emoji: '🦃', name: 'Dindon sauvage', color: 'text-red-400' }
+  moose: { Icon: CircleDot, nameKey: 'animal_moose', name: 'Orignal', color: '#8B4513' },
+  deer: { Icon: CircleDot, nameKey: 'animal_deer', name: 'Cerf de Virginie', color: '#D2691E' },
+  bear: { Icon: CircleDot, nameKey: 'animal_bear', name: 'Ours noir', color: '#2F4F4F' },
+  caribou: { Icon: CircleDot, nameKey: 'animal_caribou', name: 'Caribou', color: '#3b82f6' },
+  wolf: { Icon: CircleDot, nameKey: 'animal_wolf', name: 'Loup gris', color: '#6b7280' },
+  turkey: { Icon: CircleDot, nameKey: 'animal_turkey', name: 'Dindon sauvage', color: '#ef4444' }
 };
 
 const getRatingColor = (rating) => {
