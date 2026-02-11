@@ -190,20 +190,20 @@ export const CoreDashboard = ({
               <Card className="bg-slate-800 border-slate-700">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg text-white flex items-center gap-2">
-                    <span>📈</span>
-                    Scores Rapides
+                    <BarChart3 className="h-5 w-5 text-[#f5a623]" />
+                    {t('dashboard_quick_scores')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-4">
                     <ScoreDisplay 
                       score={huntingConditions?.overall_score || 72}
-                      label="Conditions"
+                      label={t('dashboard_conditions')}
                       size="md"
                     />
                     <ScoreGauge 
                       value={weather?.hunting_index || 65}
-                      label="Index Chasse"
+                      label={t('dashboard_hunting_index')}
                       color="#f5a623"
                     />
                   </div>
@@ -213,28 +213,28 @@ export const CoreDashboard = ({
               {/* Quick Nutrition Cards */}
               <div className="grid grid-cols-2 gap-3">
                 <NutritionCard 
-                  title="Protéines"
+                  title={t('dashboard_proteins')}
                   value="24.5"
                   unit="g"
                   icon="🥩"
                   color="emerald"
                 />
                 <NutritionCard 
-                  title="Minéraux"
+                  title={t('dashboard_minerals')}
                   value="8.2"
                   unit="g"
                   icon="💎"
                   color="blue"
                 />
                 <NutritionCard 
-                  title="Attractivité"
+                  title={t('dashboard_attractiveness')}
                   value="92"
                   unit="%"
                   icon="🦌"
                   color="amber"
                 />
                 <NutritionCard 
-                  title="Durée effet"
+                  title={t('dashboard_effect_duration')}
                   value="48"
                   unit="h"
                   icon="⏱️"
@@ -250,9 +250,9 @@ export const CoreDashboard = ({
               
               <AIInsights 
                 insights={aiInsights.length > 0 ? aiInsights : [
-                  { type: 'tip', title: 'Période optimale', message: 'Le rut est à son pic. Privilégiez les zones de frottage.' },
-                  { type: 'trend', title: 'Activité accrue', message: 'Mouvement prévu entre 6h-9h et 16h-19h.' },
-                  { type: 'warning', title: 'Vent défavorable', message: 'Vent du sud - ajustez votre position.' }
+                  { type: 'tip', title: t('dashboard_optimal_period'), message: t('dashboard_rut_peak') },
+                  { type: 'trend', title: t('dashboard_increased_activity'), message: t('dashboard_movement_forecast') },
+                  { type: 'warning', title: t('dashboard_unfavorable_wind'), message: t('dashboard_south_wind') }
                 ]}
               />
               
