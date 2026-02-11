@@ -686,14 +686,29 @@ Tous les modules opérationnels avec APIs documentées.
 ## 🎯 SÉQUENCE DE PRIORITÉS ACTUELLE
 
 ### P0 - Phase 2 Cartes (EN COURS)
-- ✅ **Écoforestière WMS** - Système de fallback intelligent vers Topo HD si WMS indisponible
-- ✅ **BathymetryLayers.jsx** - Composant frontend prêt (légende, zones, contours)
+- ✅ **Architecture Multi-Régions Écoforestière** - Extensible Canada + USA
+  - Registry centralisé (`/config/ecoforestryRegistry.js`)
+  - 8 régions: QC, ON, BC, NB, NS, CA_NATIONAL, USA_NATIONAL, USA_NORTHEAST
+  - 15+ sources WMS/WMTS configurées
+  - Détection automatique de région par coordonnées
+  - Système de fallback intelligent
+- ✅ **Hook useEcoforestryRegion** - Gestion multi-régions avec fallback
+- ✅ **EcoforestryRegionSelector** - UI de sélection de région/source
+- ✅ **Système de Fallback WMS** - Topo HD si MFFP indisponible
 - ✅ **API Bathymetry** - Endpoints créés (`/api/bathymetry/*`)
-  - GET /lakes - Liste des lacs avec données
-  - GET /{lake_id} - Données complètes d'un lac
-  - POST /upload - Upload de sondages utilisateur
-  - GET /search/nearby - Recherche géospatiale
+- 🔲 **Proxy Québec** - À configurer pour accès MFFP en production
 - 🔲 **Données bathymétriques MFFP** - En attente des sources utilisateur
+
+#### Sources WMS Configurées par Région
+| Région | Sources | Fallback |
+|--------|---------|----------|
+| Québec | MFFP, MERN, NFIS QC | SCANFI |
+| Canada National | SCANFI, NFI | SCANFI |
+| Ontario | ON Forest Inventory | SCANFI |
+| Colombie-Britannique | BC VRI | SCANFI |
+| Nouveau-Brunswick | GeoNB Forests | SCANFI |
+| USA National | USFS, LANDFIRE, NLCD | NLCD |
+| USA Nord-Est | USFS Northeast | LANDFIRE |
 
 ### P0 - Zones Avancées (14 types)
 - 🔲 **Zones comportementales** - Rut, Repos, Alimentation
