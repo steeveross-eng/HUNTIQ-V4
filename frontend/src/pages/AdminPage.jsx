@@ -591,9 +591,9 @@ const AdminPage = ({ onProductsUpdate }) => {
           <TabsContent value="products" className="space-y-6">
             <Card className="bg-card border-border">
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="text-white">Gestion des Produits</CardTitle>
+                <CardTitle className="text-white">{t('admin_product_management')}</CardTitle>
                 <Button className="btn-golden text-black" onClick={() => setShowAddDialog(true)}>
-                  <Plus className="h-4 w-4 mr-2" />Ajouter
+                  <Plus className="h-4 w-4 mr-2" />{t('common_add')}
                 </Button>
               </CardHeader>
               <CardContent>
