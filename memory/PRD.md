@@ -1,8 +1,8 @@
 # HUNTIQ V3 - Product Requirements Document
 
 ## Date de création: 2026-02-03
-## Dernière mise à jour: 11 Février 2026 (v8)
-## Version: 6.8 (Phase Weather Widget - OpenWeatherMap Integration LIVRÉ)
+## Dernière mise à jour: 11 Février 2026 (v9)
+## Version: 6.9 (i18n FR/EN Traduction Instantanée - LIVRÉ)
 
 ---
 
