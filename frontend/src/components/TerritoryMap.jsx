@@ -2821,9 +2821,13 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="balanced">⚖️ Équilibré (distance + probabilité)</SelectItem>
-                            <SelectItem value="probability">Maximiser probabilité</SelectItem>
-                            <SelectItem value="distance">📏 Distance minimale</SelectItem>
+                            <SelectItem value="balanced">
+                              <span className="flex items-center gap-1"><TrendingUp className="h-3 w-3" /> {t('optimization_balanced')}</span>
+                            </SelectItem>
+                            <SelectItem value="probability">{t('optimization_probability')}</SelectItem>
+                            <SelectItem value="distance">
+                              <span className="flex items-center gap-1"><Ruler className="h-3 w-3" /> {t('optimization_distance')}</span>
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
