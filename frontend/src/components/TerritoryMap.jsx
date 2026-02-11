@@ -2527,9 +2527,9 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="orignal">🫎 Orignal</SelectItem>
-                    <SelectItem value="chevreuil">🦌 Chevreuil</SelectItem>
-                    <SelectItem value="ours">🐻 Ours</SelectItem>
+                    <SelectItem value="orignal"><CircleDot className="h-4 w-4 inline mr-2" />Orignal</SelectItem>
+                    <SelectItem value="chevreuil"><CircleDot className="h-4 w-4 inline mr-2" />Chevreuil</SelectItem>
+                    <SelectItem value="ours"><CircleDot className="h-4 w-4 inline mr-2" />Ours</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
