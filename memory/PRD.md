@@ -686,8 +686,14 @@ Tous les modules opérationnels avec APIs documentées.
 ## 🎯 SÉQUENCE DE PRIORITÉS ACTUELLE
 
 ### P0 - Phase 2 Cartes (EN COURS)
-- 🔲 **Écoforestière améliorée** - Coupes, peuplements, essences via WMS MFFP
-- 🔲 **Bathymétrie** - Intégration des données de profondeur des lacs du Québec
+- ✅ **Écoforestière WMS** - Système de fallback intelligent vers Topo HD si WMS indisponible
+- ✅ **BathymetryLayers.jsx** - Composant frontend prêt (légende, zones, contours)
+- ✅ **API Bathymetry** - Endpoints créés (`/api/bathymetry/*`)
+  - GET /lakes - Liste des lacs avec données
+  - GET /{lake_id} - Données complètes d'un lac
+  - POST /upload - Upload de sondages utilisateur
+  - GET /search/nearby - Recherche géospatiale
+- 🔲 **Données bathymétriques MFFP** - En attente des sources utilisateur
 
 ### P0 - Zones Avancées (14 types)
 - 🔲 **Zones comportementales** - Rut, Repos, Alimentation
