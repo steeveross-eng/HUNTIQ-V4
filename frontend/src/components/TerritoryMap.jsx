@@ -2384,7 +2384,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       setDmsLonMin(Math.floor(lonMinFloat).toString());
       setDmsLonSec(((lonMinFloat - Math.floor(lonMinFloat)) * 60).toFixed(2));
       
-      toast.success(`🎯 Navigation vers: ${lat.toFixed(4)}, ${lng.toFixed(4)}`, {
+      toast.success(`Navigation vers: ${lat.toFixed(4)}, ${lng.toFixed(4)}`, {
         description: 'Coordonnées injectées dans Analyse GPS'
       });
       
