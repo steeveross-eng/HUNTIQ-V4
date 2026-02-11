@@ -23,7 +23,7 @@ import { Badge } from '@/components/ui/badge';
 
 // Configuration des modules thématiques - Style "Dany Lavoie"
 // Couleurs vives et saturées pour contraste optimal sur carte topo
-// 14 TYPES DE ZONES BIONIC TACTICAL
+// 14 TYPES DE ZONES BIONIC TACTICAL - DESIGN SYSTEM COMPLIANT
 export const BIONIC_MODULES = {
   // ============================================
   // ZONES COMPORTEMENTALES (4)
@@ -31,28 +31,28 @@ export const BIONIC_MODULES = {
   rut: { 
     color: '#FF4D6D', // Rose/magenta vif
     label: 'Zone de rut', 
-    icon: '💕',
+    iconName: 'heart',
     category: 'behavioral',
     interpretation: { high: 'Activité intense', medium: 'Zone de reproduction', low: 'Passage occasionnel' }
   },
   repos: { 
     color: '#8B5CF6', // Violet
     label: 'Zone de repos', 
-    icon: '💤',
+    iconName: 'moon',
     category: 'behavioral',
     interpretation: { high: 'Remise principale', medium: 'Zone de couche', low: 'Repos temporaire' }
   },
   alimentation: { 
     color: '#22C55E', // Vert lime
     label: 'Zone d\'alimentation', 
-    icon: '🌿',
+    iconName: 'leaf',
     category: 'behavioral',
     interpretation: { high: 'Gagnage optimal', medium: 'Zone de nourrissage', low: 'Ressource limitée' }
   },
   corridors: { 
     color: '#06B6D4', // Cyan
     label: 'Corridor faunique', 
-    icon: '🦌',
+    iconName: 'route',
     category: 'behavioral',
     interpretation: { high: 'Passage principal', medium: 'Route fréquente', low: 'Itinéraire secondaire' }
   },
@@ -63,42 +63,42 @@ export const BIONIC_MODULES = {
   habitats: { 
     color: '#10B981', // Vert émeraude
     label: 'Habitat optimal', 
-    icon: '🌲',
+    iconName: 'trees',
     category: 'environmental',
     interpretation: { high: 'Zone de refuge idéale', medium: 'Habitat favorable', low: 'Habitat secondaire' }
   },
   soleil: { 
     color: '#FCD34D', // Jaune soleil
     label: 'Ensoleillement', 
-    icon: '☀️',
+    iconName: 'sun',
     category: 'environmental',
     interpretation: { high: 'Exposition maximale', medium: 'Mi-ombre', low: 'Zone ombragée' }
   },
   pente: { 
     color: '#A78BFA', // Violet clair
     label: 'Orientation/Pentes', 
-    icon: '⛰️',
+    iconName: 'mountain',
     category: 'environmental',
     interpretation: { high: 'Pente abrupte', medium: 'Pente modérée', low: 'Terrain plat' }
   },
   hydro: { 
     color: '#3B82F6', // Bleu
     label: 'Hydrographie', 
-    icon: '💧',
+    iconName: 'droplet',
     category: 'environmental',
     interpretation: { high: 'Point d\'eau vital', medium: 'Zone humide', low: 'Proximité eau' }
   },
   foret: { 
     color: '#15803D', // Vert foncé
     label: 'Couvert forestier', 
-    icon: '🌳',
+    iconName: 'tree-pine',
     category: 'environmental',
     interpretation: { high: 'Forêt dense', medium: 'Couvert mixte', low: 'Clairière' }
   },
   thermique: { 
     color: '#EF4444', // Rouge
     label: 'Zone thermique', 
-    icon: '🌡️',
+    iconName: 'thermometer',
     category: 'environmental',
     interpretation: { high: 'Zone de chaleur', medium: 'Température modérée', low: 'Zone fraîche' }
   },
@@ -109,28 +109,28 @@ export const BIONIC_MODULES = {
   affuts: { 
     color: '#F5A623', // Or BIONIC
     label: 'Affût potentiel', 
-    icon: '🎯',
+    iconName: 'target',
     category: 'strategic',
     interpretation: { high: 'Position stratégique', medium: 'Bon potentiel', low: 'Point d\'observation' }
   },
   hotspot: { 
     color: '#FF6B6B', // Rouge corail
     label: 'Point chaud', 
-    icon: '🔥',
+    iconName: 'flame',
     category: 'strategic',
     interpretation: { high: 'Activité très élevée', medium: 'Zone active', low: 'Activité modérée' }
   },
   pression: { 
     color: '#F97316', // Orange
     label: 'Zone de pression', 
-    icon: '⚠️',
+    iconName: 'alert-triangle',
     category: 'strategic',
     interpretation: { high: 'Pression forte', medium: 'Pression modérée', low: 'Zone tranquille' }
   },
   acces: { 
     color: '#8B5CF6', // Violet
     label: 'Point d\'accès', 
-    icon: '🚶',
+    iconName: 'footprints',
     category: 'strategic',
     interpretation: { high: 'Accès principal', medium: 'Accès secondaire', low: 'Accès difficile' }
   },
@@ -141,21 +141,21 @@ export const BIONIC_MODULES = {
   fraicheur: { 
     color: '#00CCFF', // Cyan vif (alias de hydro)
     label: 'Zone de fraîcheur', 
-    icon: '💧',
+    iconName: 'droplet',
     category: 'environmental',
     interpretation: { high: 'Point d\'eau vital', medium: 'Zone humide', low: 'Fraîcheur relative' }
   },
   salines: { 
     color: '#FFFF00', // Jaune vif
     label: 'Saline potentielle', 
-    icon: '🧂',
+    iconName: 'sparkles',
     category: 'environmental',
     interpretation: { high: 'Saline active', medium: 'Zone minérale', low: 'Présence possible' }
   },
   transition: { 
     color: '#9CA3AF', // Gris
     label: 'Zone tampon', 
-    icon: '↔️',
+    iconName: 'move-horizontal',
     category: 'strategic',
     interpretation: { high: 'Transition clé', medium: 'Zone intermédiaire', low: 'Bordure de territoire' }
   }
