@@ -909,9 +909,9 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
         waypoint_type: waypointType
       }, { params: { user_id: userId } });
 
-      toast.success('✅ Waypoint confirmé et enregistré!');
+      toast.success('Waypoint confirmé et enregistré!');
       
-      // ✅ INTÉGRATION AUTOMATIQUE dans le module Analyse GPS
+      // Intégration automatique dans le module Analyse GPS
       if (gpsFormat === 'decimal') {
         setGpsLatitude(pendingWaypoint.lat.toFixed(6));
         setGpsLongitude(pendingWaypoint.lng.toFixed(6));
