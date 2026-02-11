@@ -594,7 +594,7 @@ const MonTerritoireBionicPage = () => {
   // ============================================
   const [showEcoforestryPanel, setShowEcoforestryPanel] = useState(false);
   const [activeEcoLayers, setActiveEcoLayers] = useState({
-    baseMap: 'terrain', // Fond de carte terrain (topographique HD) par défaut
+    baseMap: 'bionic-premium', // Fond de carte BIONIC Premium par défaut
     peuplements: false,
     essences: false,
     perturbations: false,
@@ -606,6 +606,23 @@ const MonTerritoireBionicPage = () => {
     courbes_niveau: false
   });
   const [ecoLayerOpacities, setEcoLayerOpacities] = useState({});
+  
+  // Synchroniser le type de carte avec activeEcoLayers.baseMap
+  useEffect(() => {
+    // Mapper les types de carte BIONIC aux baseMap du système existant
+    const mapTypeToBaseMap = {
+      'bionic-premium': 'bionic-premium',
+      'ecoforestry': 'ecoforestry',
+      'satellite': 'satellite_hd',
+      'iqho': 'terrain',
+      'bathymetry': 'bionic-premium',
+      'forest-roads': 'topo_hd',
+      'topo-advanced': 'topo_hd'
+    };
+    
+    const newBaseMap = mapTypeToBaseMap[mapType] || 'terrain';
+    setActiveEcoLayers(prev => ({ ...prev, baseMap: newBaseMap }));
+  }, [mapType]);
   
   // ============================================
   // SYSTÈME DE FALLBACK - Carte écoforestière
