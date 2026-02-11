@@ -1,4 +1,52 @@
 /* ============================================
+   BIONIC TACTICAL Design System Variables
+   ============================================ */
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* BIONIC TACTICAL Theme Variables */
+:root {
+    /* Backgrounds */
+    --bionic-bg: #0A0A0A;
+    --bionic-bg-secondary: #121212;
+    --bionic-bg-card: rgba(0, 0, 0, 0.6);
+    
+    /* Borders */
+    --bionic-border: #262626;
+    --bionic-border-subtle: rgba(255, 255, 255, 0.1);
+    
+    /* Accents */
+    --bionic-gold: #F5A623;
+    --bionic-gold-hover: #FFB84D;
+    --bionic-tactical: #10B981;
+    
+    /* Status */
+    --bionic-success: #22C55E;
+    --bionic-warning: #F59E0B;
+    --bionic-danger: #EF4444;
+    --bionic-info: #3B82F6;
+    
+    /* Text */
+    --bionic-text: #FAFAFA;
+    --bionic-text-muted: #A3A3A3;
+    
+    /* Zones (Map Layers) */
+    --zone-rut: #FF4D6D;
+    --zone-repos: #8B5CF6;
+    --zone-alimentation: #22C55E;
+    --zone-corridor: #06B6D4;
+    --zone-affut: #F5A623;
+    --zone-habitat: #10B981;
+    --zone-hotspot: #FF6B6B;
+    
+    /* Typography - BIONIC */
+    --font-heading: 'Barlow Condensed', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-data: 'JetBrains Mono', monospace;
+}
+
+/* ============================================
    RESPONSIVE TYPOGRAPHY SYSTEM
    PC (1920px+), Tablet (768px-1919px), Mobile (<768px)
    ============================================ */
