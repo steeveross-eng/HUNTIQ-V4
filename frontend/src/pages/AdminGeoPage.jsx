@@ -54,13 +54,13 @@ const CATEGORY_LABELS = {
   inactive: 'Hotspot inactif'
 };
 
-// Category icons
+// Category icons - BIONIC Design System Lucide Icons
 const CATEGORY_ICONS = {
-  standard: '📍',
-  premium: '⭐',
-  land_rental: '🏠',
-  environmental: '🌲',
-  inactive: '⏸️'
+  standard: MapPin,
+  premium: Star,
+  land_rental: Home,
+  environmental: Trees,
+  inactive: EyeOff
 };
 
 // Habitat labels
