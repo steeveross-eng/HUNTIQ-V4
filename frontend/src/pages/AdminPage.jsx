@@ -974,14 +974,14 @@ const AdminPage = ({ onProductsUpdate }) => {
               <Card className="bg-card border-border">
                 <CardHeader>
                   <CardTitle className="text-white flex items-center gap-2">
-                    <Eye className="h-5 w-5 text-blue-500" /> Plus vus
+                    <Eye className="h-5 w-5 text-blue-500" /> {t('admin_most_viewed')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {productsReport.most_viewed?.slice(0, 5).map((product, index) => (
                     <div key={product.id} className="flex items-center justify-between py-2 border-b border-border last:border-0">
                       <span className="text-white">{index + 1}. {product.name}</span>
-                      <span className="text-gray-400">{product.views} vues</span>
+                      <span className="text-gray-400">{product.views} {t('admin_views')}</span>
                     </div>
                   ))}
                 </CardContent>
@@ -989,14 +989,14 @@ const AdminPage = ({ onProductsUpdate }) => {
               <Card className="bg-card border-border">
                 <CardHeader>
                   <CardTitle className="text-white flex items-center gap-2">
-                    <ShoppingCart className="h-5 w-5 text-green-500" /> Plus commandés
+                    <ShoppingCart className="h-5 w-5 text-green-500" /> {t('admin_most_ordered')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {productsReport.most_ordered?.slice(0, 5).map((product, index) => (
                     <div key={product.id} className="flex items-center justify-between py-2 border-b border-border last:border-0">
                       <span className="text-white">{index + 1}. {product.name}</span>
-                      <span className="text-gray-400">{product.orders} commandes</span>
+                      <span className="text-gray-400">{product.orders} {t('common_orders').toLowerCase()}</span>
                     </div>
                   ))}
                 </CardContent>
@@ -1004,7 +1004,7 @@ const AdminPage = ({ onProductsUpdate }) => {
               <Card className="bg-card border-border">
                 <CardHeader>
                   <CardTitle className="text-white flex items-center gap-2">
-                    <TrendingUp className="h-5 w-5 text-[#f5a623]" /> Meilleure conversion
+                    <TrendingUp className="h-5 w-5 text-[#f5a623]" /> {t('admin_best_conversion')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -1019,14 +1019,14 @@ const AdminPage = ({ onProductsUpdate }) => {
               <Card className="bg-card border-border">
                 <CardHeader>
                   <CardTitle className="text-white flex items-center gap-2">
-                    <MousePointer className="h-5 w-5 text-purple-500" /> Plus cliqués
+                    <MousePointer className="h-5 w-5 text-purple-500" /> {t('admin_most_clicked')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {productsReport.most_clicked?.slice(0, 5).map((product, index) => (
                     <div key={product.id} className="flex items-center justify-between py-2 border-b border-border last:border-0">
                       <span className="text-white">{index + 1}. {product.name}</span>
-                      <span className="text-gray-400">{product.clicks} clics</span>
+                      <span className="text-gray-400">{product.clicks} {t('admin_clicks')}</span>
                     </div>
                   ))}
                 </CardContent>
