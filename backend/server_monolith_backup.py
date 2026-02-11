@@ -4588,13 +4588,10 @@ try:
 except ImportError as e:
     print(f"BIONIC™ Engine not available: {e}")
 
-# Include User Waypoints & Places API
-try:
-    from user_waypoints import router as waypoints_router
-    app.include_router(waypoints_router)
-    print("User Waypoints & Places API loaded")
-except ImportError as e:
-    print(f"User Waypoints API not available: {e}")
+# [REMOVED - P6.2] User Waypoints migrated to unified geo_engine
+# Legacy: user_waypoints.py has been deleted
+# All waypoint functionality is now at /api/v1/geo/*
+print("User Waypoints API REMOVED - migrated to /api/v1/geo/*")
 
 # Include Waypoint Sharing API
 try:
