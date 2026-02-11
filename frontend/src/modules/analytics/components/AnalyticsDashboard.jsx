@@ -515,7 +515,7 @@ export const AnalyticsDashboard = () => {
             <Card className="bg-slate-800 border-slate-700">
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg text-white flex items-center gap-2">
-                  <span>🎯</span>
+                  <Target className="h-5 w-5 text-[#f5a623]" />
                   Heures optimales
                 </CardTitle>
               </CardHeader>
@@ -550,7 +550,7 @@ export const AnalyticsDashboard = () => {
             <Card className="bg-slate-800 border-slate-700">
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg text-white flex items-center gap-2">
-                  <span>⏰</span>
+                  <Clock className="h-5 w-5 text-[#f5a623]" />
                   Activité par créneau
                 </CardTitle>
               </CardHeader>
