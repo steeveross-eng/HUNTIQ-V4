@@ -78,26 +78,26 @@ const STATUS_STYLES = {
   converted: { bg: 'bg-purple-500/20', text: 'text-purple-500', label: 'Converti' }
 };
 
-// Partner type icons
+// Partner type icons - BIONIC Design System (Lucide icons)
 const PARTNER_TYPE_ICONS = {
-  marques: '🏷️',
-  pourvoiries: '🏕️',
-  proprietaires: '🌲',
-  guides: '🎯',
-  boutiques: '🏪',
-  services: '🔧',
-  fabricants: '🏭',
-  zec: '🦌',
-  clubs: '🎣',
-  particuliers: '👤',
-  autres: '📋'
+  marques: { Icon: Building2, color: '#f5a623' },
+  pourvoiries: { Icon: Home, color: '#22c55e' },
+  proprietaires: { Icon: TreePine, color: '#10b981' },
+  guides: { Icon: Target, color: '#ef4444' },
+  boutiques: { Icon: Building2, color: '#8b5cf6' },
+  services: { Icon: Settings, color: '#6b7280' },
+  fabricants: { Icon: Building2, color: '#64748b' },
+  zec: { Icon: MapPin, color: '#3b82f6' },
+  clubs: { Icon: Users, color: '#06b6d4' },
+  particuliers: { Icon: UserCheck, color: '#a855f7' },
+  autres: { Icon: FileText, color: '#9ca3af' }
 };
 
-// Type icons for territories
+// Type icons for territories - BIONIC Design System (Lucide icons)
 const TYPE_ICONS = {
-  pourvoirie: '🏠',
-  pourvoiries: '🏠',
-  sepaq: '🌲',
+  pourvoirie: { Icon: Home, color: '#3b82f6' },
+  pourvoiries: { Icon: Home, color: '#3b82f6' },
+  sepaq: { Icon: TreePine, color: '#22c55e' },
   zec: '🏕️',
   club: '🎯',
   clubs: '🎯',
