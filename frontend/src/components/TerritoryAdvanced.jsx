@@ -42,22 +42,23 @@ import {
   Map,
   Layers,
   Filter,
-  Eye
+  Eye,
+  CircleDot
 } from 'lucide-react';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 // ============================================
-// SPECIES CONFIG
+// SPECIES CONFIG - BIONIC Design System
 // ============================================
 
 const SPECIES_OPTIONS = [
-  { id: 'orignal', icon: '🫎', label: 'Orignal' },
-  { id: 'chevreuil', icon: '🦌', label: 'Chevreuil' },
-  { id: 'ours', icon: '🐻', label: 'Ours noir' },
-  { id: 'caribou', icon: '🦌', label: 'Caribou' },
-  { id: 'dindon', icon: '🦃', label: 'Dindon sauvage' },
-  { id: 'petit_gibier', icon: '🐰', label: 'Petit gibier' }
+  { id: 'orignal', Icon: CircleDot, labelKey: 'animal_moose', label: 'Orignal', color: '#8B4513' },
+  { id: 'chevreuil', Icon: CircleDot, labelKey: 'animal_deer', label: 'Chevreuil', color: '#D2691E' },
+  { id: 'ours', Icon: CircleDot, labelKey: 'animal_bear', label: 'Ours noir', color: '#2F4F4F' },
+  { id: 'caribou', Icon: CircleDot, labelKey: 'animal_caribou', label: 'Caribou', color: '#3b82f6' },
+  { id: 'dindon', Icon: CircleDot, labelKey: 'animal_turkey', label: 'Dindon sauvage', color: '#ef4444' },
+  { id: 'petit_gibier', Icon: CircleDot, labelKey: 'animal_small_game', label: 'Petit gibier', color: '#6b7280' }
 ];
 
 const MONTHS = [
