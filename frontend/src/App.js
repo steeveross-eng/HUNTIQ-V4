@@ -94,59 +94,238 @@ const Logo = ({ size = "default" }) => {
   );
 };
 
-// Navigation Component
+// Navigation Component - BIONIC TACTICAL Design System
 const Navigation = ({ cartCount, onCartOpen }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { user } = useAuth();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
   // Role-based navigation visibility
   const isBusinessOrAdmin = user && ['business', 'admin'].includes(user.role);
+  const isAdmin = user && user.role === 'admin';
+
+  // Check if route is active
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-sm border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <Logo />
-        </Link>
-        <nav className="hidden md:flex items-center gap-4">
-          <Link to="/" className="text-gray-400 hover:text-white transition-colors">{t('nav_home')}</Link>
-          <Link to="/dashboard" className="text-[#f5a623] hover:text-[#d4890e] transition-colors font-medium" data-testid="nav-dashboard">Dashboard</Link>
-          {isBusinessOrAdmin && (
-            <Link to="/business" className="text-purple-400 hover:text-purple-300 transition-colors font-medium" data-testid="nav-business">Business</Link>
-          )}
-          <Link to="/plan-maitre" className="text-emerald-400 hover:text-emerald-300 transition-colors font-medium" data-testid="nav-plan-maitre">Plan Maître</Link>
-          <Link to="/analytics" className="text-cyan-400 hover:text-cyan-300 transition-colors font-medium" data-testid="nav-analytics">📊 Analytics</Link>
-          <Link to="/forecast" className="text-amber-400 hover:text-amber-300 transition-colors font-medium" data-testid="nav-forecast">🎯 Forecast</Link>
-          <Link to="/trips" className="text-rose-400 hover:text-rose-300 transition-colors font-medium" data-testid="nav-trips">🦌 Sorties</Link>
-          <Link to="/map" className="text-teal-400 hover:text-teal-300 transition-colors font-medium" data-testid="nav-map">🗺️ Carte</Link>
-          <Link to="/analyze" className="text-gray-400 hover:text-white transition-colors">{t('nav_analyze')}</Link>
-          <Link to="/shop" className="text-gray-400 hover:text-white transition-colors">{t('nav_shop')}</Link>
-          <Link to="/territoire" className="text-gray-400 hover:text-white transition-colors">{t('nav_territory')}</Link>
-        </nav>
-        <div className="flex items-center gap-4">
-          <LanguageSwitcher />
-          {/* Admin Link */}
-          <Link to="/admin">
-            <Button variant="ghost" size="sm" className="text-gray-400 hover:text-[#f5a623]" data-testid="admin-link">
-              <Lock className="h-4 w-4" />
-            </Button>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2">
+            <Logo />
           </Link>
-          <UserMenu />
-          <Button variant="outline" onClick={onCartOpen} className="relative" data-testid="cart-button">
-            <ShoppingCart className="h-5 w-5" />
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-[#f5a623] text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-                {cartCount}
-              </span>
+          
+          {/* Desktop Navigation - BIONIC TACTICAL Style */}
+          <nav className="hidden lg:flex items-center gap-1">
+            {/* Home */}
+            <Link 
+              to="/" 
+              className={`flex items-center gap-2 px-3 py-2 text-sm font-medium uppercase tracking-wider rounded-sm transition-all duration-200 hover:bg-white/5 ${isActive('/') ? 'text-[#F5A623] bg-[#F5A623]/10' : 'text-gray-400 hover:text-white'}`}
+              data-testid="nav-home"
+            >
+              <Home className="h-4 w-4" />
+              {t('nav_home')}
+            </Link>
+            
+            {/* Dashboard */}
+            <Link 
+              to="/dashboard" 
+              className={`flex items-center gap-2 px-3 py-2 text-sm font-medium uppercase tracking-wider rounded-sm transition-all duration-200 hover:bg-white/5 ${isActive('/dashboard') ? 'text-[#F5A623] bg-[#F5A623]/10' : 'text-gray-400 hover:text-white'}`}
+              data-testid="nav-dashboard"
+            >
+              <BarChart3 className="h-4 w-4" />
+              {language === 'fr' ? 'Tableau de bord' : 'Dashboard'}
+            </Link>
+            
+            {/* Intelligence Dropdown (Analytics + Forecast + Plan Maître) */}
+            <div className="relative group">
+              <button 
+                className={`flex items-center gap-2 px-3 py-2 text-sm font-medium uppercase tracking-wider rounded-sm transition-all duration-200 hover:bg-white/5 ${['/analytics', '/forecast', '/plan-maitre'].includes(location.pathname) ? 'text-[#F5A623] bg-[#F5A623]/10' : 'text-gray-400 hover:text-white'}`}
+                data-testid="nav-intelligence"
+              >
+                <Brain className="h-4 w-4" />
+                {language === 'fr' ? 'Intelligence' : 'Intelligence'}
+                <ChevronRight className="h-3 w-3 rotate-90 group-hover:rotate-180 transition-transform" />
+              </button>
+              <div className="absolute top-full left-0 mt-1 min-w-[220px] bg-black/95 backdrop-blur-xl border border-white/10 rounded-md shadow-xl py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <Link to="/analytics" className="flex items-start gap-3 px-4 py-2 hover:bg-white/5 group/item">
+                  <TrendingUp className="h-4 w-4 mt-0.5 text-gray-400 group-hover/item:text-[#F5A623]" />
+                  <div>
+                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{language === 'fr' ? 'Analytics' : 'Analytics'}</div>
+                    <div className="text-xs text-gray-500">{language === 'fr' ? 'Statistiques et graphiques' : 'Stats & charts'}</div>
+                  </div>
+                </Link>
+                <Link to="/forecast" className="flex items-start gap-3 px-4 py-2 hover:bg-white/5 group/item">
+                  <Target className="h-4 w-4 mt-0.5 text-gray-400 group-hover/item:text-[#F5A623]" />
+                  <div>
+                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{language === 'fr' ? 'Prévisions' : 'Forecast'}</div>
+                    <div className="text-xs text-gray-500">{language === 'fr' ? 'Prédictions météo-faune' : 'Weather-wildlife predictions'}</div>
+                  </div>
+                </Link>
+                <Link to="/plan-maitre" className="flex items-start gap-3 px-4 py-2 hover:bg-white/5 group/item">
+                  <Radar className="h-4 w-4 mt-0.5 text-gray-400 group-hover/item:text-[#F5A623]" />
+                  <div>
+                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{language === 'fr' ? 'Plan Maître' : 'Master Plan'}</div>
+                    <div className="text-xs text-gray-500">{language === 'fr' ? 'Stratégie complète' : 'Full strategy'}</div>
+                  </div>
+                </Link>
+              </div>
+            </div>
+            
+            {/* Carte & Territoire Dropdown */}
+            <div className="relative group">
+              <button 
+                className={`flex items-center gap-2 px-3 py-2 text-sm font-medium uppercase tracking-wider rounded-sm transition-all duration-200 hover:bg-white/5 ${['/map', '/territoire'].includes(location.pathname) ? 'text-[#F5A623] bg-[#F5A623]/10' : 'text-gray-400 hover:text-white'}`}
+                data-testid="nav-carte"
+              >
+                <Map className="h-4 w-4" />
+                {language === 'fr' ? 'Carte' : 'Map'}
+                <ChevronRight className="h-3 w-3 rotate-90 group-hover:rotate-180 transition-transform" />
+              </button>
+              <div className="absolute top-full left-0 mt-1 min-w-[220px] bg-black/95 backdrop-blur-xl border border-white/10 rounded-md shadow-xl py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <Link to="/map" className="flex items-start gap-3 px-4 py-2 hover:bg-white/5 group/item">
+                  <Globe className="h-4 w-4 mt-0.5 text-gray-400 group-hover/item:text-[#F5A623]" />
+                  <div>
+                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{language === 'fr' ? 'Carte Interactive' : 'Interactive Map'}</div>
+                    <div className="text-xs text-gray-500">{language === 'fr' ? 'GPS et waypoints' : 'GPS & waypoints'}</div>
+                  </div>
+                </Link>
+                <Link to="/territoire" className="flex items-start gap-3 px-4 py-2 hover:bg-white/5 group/item">
+                  <Crosshair className="h-4 w-4 mt-0.5 text-gray-400 group-hover/item:text-[#F5A623]" />
+                  <div>
+                    <div className="text-sm font-medium text-white group-hover/item:text-[#F5A623]">{language === 'fr' ? 'Mon Territoire' : 'My Territory'}</div>
+                    <div className="text-xs text-gray-500">{language === 'fr' ? 'Analyse BIONIC' : 'BIONIC Analysis'}</div>
+                  </div>
+                </Link>
+              </div>
+            </div>
+            
+            {/* Sorties */}
+            <Link 
+              to="/trips" 
+              className={`flex items-center gap-2 px-3 py-2 text-sm font-medium uppercase tracking-wider rounded-sm transition-all duration-200 hover:bg-white/5 ${isActive('/trips') ? 'text-[#F5A623] bg-[#F5A623]/10' : 'text-gray-400 hover:text-white'}`}
+              data-testid="nav-trips"
+            >
+              <Route className="h-4 w-4" />
+              {language === 'fr' ? 'Sorties' : 'Trips'}
+            </Link>
+            
+            {/* Analysez */}
+            <Link 
+              to="/analyze" 
+              className={`flex items-center gap-2 px-3 py-2 text-sm font-medium uppercase tracking-wider rounded-sm transition-all duration-200 hover:bg-white/5 ${isActive('/analyze') ? 'text-[#F5A623] bg-[#F5A623]/10' : 'text-gray-400 hover:text-white'}`}
+              data-testid="nav-analyze"
+            >
+              <FlaskConical className="h-4 w-4" />
+              {t('nav_analyze')}
+            </Link>
+            
+            {/* Magasin */}
+            <Link 
+              to="/shop" 
+              className={`flex items-center gap-2 px-3 py-2 text-sm font-medium uppercase tracking-wider rounded-sm transition-all duration-200 hover:bg-white/5 ${isActive('/shop') ? 'text-[#F5A623] bg-[#F5A623]/10' : 'text-gray-400 hover:text-white'}`}
+              data-testid="nav-shop"
+            >
+              <Store className="h-4 w-4" />
+              {t('nav_shop')}
+            </Link>
+            
+            {/* Business (Conditionnel) */}
+            {isBusinessOrAdmin && (
+              <Link 
+                to="/business" 
+                className={`flex items-center gap-2 px-3 py-2 text-sm font-medium uppercase tracking-wider rounded-sm transition-all duration-200 hover:bg-white/5 ${isActive('/business') ? 'text-[#10B981] bg-[#10B981]/10' : 'text-[#10B981]/70 hover:text-[#10B981]'}`}
+                data-testid="nav-business"
+              >
+                <Briefcase className="h-4 w-4" />
+                Business
+              </Link>
             )}
-          </Button>
-          <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          </nav>
+          
+          {/* Right Content */}
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            
+            {/* Admin Link */}
+            <Link to="/admin">
+              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-[#F5A623] hover:bg-white/5" data-testid="admin-link">
+                <Lock className="h-4 w-4" />
+              </Button>
+            </Link>
+            
+            <UserMenu />
+            
+            {/* Cart Button - BIONIC Style */}
+            <Button 
+              variant="outline" 
+              onClick={onCartOpen} 
+              className="relative border-white/20 hover:border-[#F5A623]/50 hover:bg-[#F5A623]/10 transition-all" 
+              data-testid="cart-button"
+            >
+              <ShoppingCart className="h-5 w-5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-[#F5A623] text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold shadow-[0_0_10px_rgba(245,166,35,0.4)]">
+                  {cartCount}
+                </span>
+              )}
+            </Button>
+            
+            {/* Mobile Menu Button */}
+            <button 
+              className="lg:hidden p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-sm transition-colors" 
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
       </div>
+      
+      {/* Mobile Navigation */}
+      {isOpen && (
+        <div className="lg:hidden border-t border-white/10 bg-black/95 backdrop-blur-xl">
+          <div className="px-4 py-4 space-y-2">
+            <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
+              <Home className="h-4 w-4" /> {t('nav_home')}
+            </Link>
+            <Link to="/dashboard" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
+              <BarChart3 className="h-4 w-4" /> {language === 'fr' ? 'Tableau de bord' : 'Dashboard'}
+            </Link>
+            <Link to="/analytics" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
+              <TrendingUp className="h-4 w-4" /> Analytics
+            </Link>
+            <Link to="/forecast" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
+              <Target className="h-4 w-4" /> {language === 'fr' ? 'Prévisions' : 'Forecast'}
+            </Link>
+            <Link to="/plan-maitre" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
+              <Radar className="h-4 w-4" /> Plan Maître
+            </Link>
+            <Link to="/map" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
+              <Globe className="h-4 w-4" /> {language === 'fr' ? 'Carte' : 'Map'}
+            </Link>
+            <Link to="/territoire" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
+              <Crosshair className="h-4 w-4" /> {t('nav_territory')}
+            </Link>
+            <Link to="/trips" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
+              <Route className="h-4 w-4" /> {language === 'fr' ? 'Sorties' : 'Trips'}
+            </Link>
+            <Link to="/analyze" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
+              <FlaskConical className="h-4 w-4" /> {t('nav_analyze')}
+            </Link>
+            <Link to="/shop" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-gray-400 hover:text-white">
+              <Store className="h-4 w-4" /> {t('nav_shop')}
+            </Link>
+            {isBusinessOrAdmin && (
+              <Link to="/business" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-sm hover:bg-white/5 text-[#10B981]">
+                <Briefcase className="h-4 w-4" /> Business
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 };
