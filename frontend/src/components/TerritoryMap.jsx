@@ -2037,7 +2037,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       if (response.data.highest_probability_zone) {
         const zone = response.data.highest_probability_zone;
         toast.info(
-          `🎯 Meilleure zone: ${zone.name} - ${zone.probability}% de probabilité`,
+          `Meilleure zone: ${zone.name} - ${zone.probability}% de probabilité`,
           { duration: 6000 }
         );
       }
