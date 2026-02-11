@@ -92,13 +92,16 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 // BackButton Component
-const BackButton = ({ to = "/", label = "Retour" }) => (
-  <Link to={to}>
-    <Button variant="ghost" className="text-gray-400 hover:text-white">
-      <ArrowLeft className="h-4 w-4 mr-2" />{label}
-    </Button>
-  </Link>
-);
+const BackButton = ({ to = "/" }) => {
+  const { t } = useLanguage();
+  return (
+    <Link to={to}>
+      <Button variant="ghost" className="text-gray-400 hover:text-white">
+        <ArrowLeft className="h-4 w-4 mr-2" />{t('common_home')}
+      </Button>
+    </Link>
+  );
+};
 
 const AdminPage = ({ onProductsUpdate }) => {
   const { t } = useLanguage();
