@@ -556,10 +556,13 @@ async def get_recent_events(
     cutoff_time = datetime.now(timezone.utc) - timedelta(hours=hours)
     
     # Query geo_entities with entity_type: observation
+    # Note: Remove timezone info for comparison with naive datetimes in DB
+    cutoff_naive = cutoff_time.replace(tzinfo=None)
+    
     query = {
         "user_id": user_id,
         "entity_type": "observation",
-        "created_at": {"$gte": cutoff_time}
+        "created_at": {"$gte": cutoff_naive}
     }
     
     if species:
