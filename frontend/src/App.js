@@ -208,7 +208,7 @@ const Navigation = ({ cartCount, onCartOpen }) => {
               className={`flex items-center gap-2 px-3 py-2 text-sm font-medium uppercase tracking-wider rounded-sm transition-all duration-200 hover:bg-white/5 ${isActive('/trips') ? 'text-[#F5A623] bg-[#F5A623]/10' : 'text-gray-400 hover:text-white'}`}
               data-testid="nav-trips"
             >
-              <Route className="h-4 w-4" />
+              <RouteIcon className="h-4 w-4" />
               {language === 'fr' ? 'Sorties' : 'Trips'}
             </Link>
             
