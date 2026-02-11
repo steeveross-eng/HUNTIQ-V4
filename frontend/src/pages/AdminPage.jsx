@@ -893,7 +893,7 @@ const AdminPage = ({ onProductsUpdate }) => {
           <TabsContent value="customers" className="space-y-6">
             <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle className="text-white">Suivi des Clients</CardTitle>
+                <CardTitle className="text-white">{t('admin_customer_tracking')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <Table>
