@@ -481,6 +481,89 @@ export const TRANSLATIONS = {
     business_sales_week: "Ventes semaine",
     business_sales_month: "Ventes mois",
     
+    // Place Types (Design System)
+    place_zec: "ZEC",
+    place_pourvoirie: "Pourvoirie",
+    place_private: "Territoire privé",
+    place_reserve: "Réserve faunique (Sépaq)",
+    place_stand: "Affût / Cache",
+    place_salt_lick: "Saline",
+    place_observation: "Point d'observation",
+    place_parking: "Stationnement",
+    place_camp: "Camp de chasse",
+    place_other: "Autre lieu",
+    
+    // Waypoint Types (Design System)
+    waypoint_hunting: "Spot de chasse",
+    waypoint_camera: "Caméra de chasse",
+    waypoint_feeding: "Zone d'alimentation",
+    waypoint_observation: "Point d'observation",
+    waypoint_blind: "Affût",
+    waypoint_custom: "Personnalisé",
+    
+    // Zone Types (Design System)
+    zone_rutting: "Zone de rut",
+    zone_bedding: "Zone de repos",
+    zone_feeding: "Zone d'alimentation",
+    zone_water: "Source d'eau",
+    zone_observation: "Poste d'observation",
+    zone_blind: "Emplacement affût",
+    zone_trail: "Sentier",
+    zone_scrape: "Grattage",
+    zone_rub: "Frottoir",
+    zone_crossing: "Passage",
+    zone_funnel: "Entonnoir",
+    zone_staging: "Zone de rassemblement",
+    zone_thermal: "Corridor thermique",
+    zone_sanctuary: "Sanctuaire",
+    
+    // Animal Species (Design System)
+    animal_deer: "Cerf de Virginie",
+    animal_moose: "Orignal",
+    animal_bear: "Ours noir",
+    animal_wild_boar: "Sanglier",
+    animal_turkey: "Dindon sauvage",
+    animal_duck: "Canard",
+    animal_coyote: "Coyote",
+    animal_fox: "Renard",
+    
+    // Weather Conditions (Design System)
+    weather_clear: "Ensoleillé",
+    weather_cloudy: "Nuageux",
+    weather_partly_cloudy: "Partiellement nuageux",
+    weather_rain: "Pluie",
+    weather_snow: "Neige",
+    weather_fog: "Brouillard",
+    weather_wind: "Venteux",
+    weather_temperature: "Température",
+    weather_humidity: "Humidité",
+    weather_pressure: "Pression",
+    weather_wind_speed: "Vitesse du vent",
+    
+    // Seasons (Design System)
+    season_pre_rut: "Pré-rut",
+    season_rut: "Rut",
+    season_post_rut: "Post-rut",
+    season_spring: "Printemps",
+    season_summer: "Été",
+    season_fall: "Automne",
+    season_winter: "Hiver",
+    
+    // Product Categories (Design System)
+    category_urine: "Urines",
+    category_gel: "Gels",
+    category_granules: "Granulés",
+    category_block: "Blocs",
+    category_liquid: "Liquides",
+    category_powder: "Poudres",
+    category_spray: "Sprays",
+    
+    // AI Insights (Design System)
+    insight_tip: "Conseil",
+    insight_trend: "Tendance",
+    insight_warning: "Alerte",
+    insight_recommendation: "Recommandation",
+    
     // Messages
     msg_welcome: "Bienvenue",
     msg_goodbye: "À bientôt",
