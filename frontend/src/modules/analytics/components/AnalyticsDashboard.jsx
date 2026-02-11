@@ -202,7 +202,7 @@ export const AnalyticsDashboard = () => {
                 <p className="text-slate-400 text-sm">Sorties totales</p>
                 <p className="text-3xl font-bold text-white">{overview.total_trips}</p>
               </div>
-              <span className="text-4xl">🎯</span>
+              <Target className="h-10 w-10 text-[#f5a623]" />
             </div>
             <p className="text-[#f5a623] text-sm mt-2">
               {overview.avg_trip_duration}h en moyenne
@@ -217,7 +217,7 @@ export const AnalyticsDashboard = () => {
                 <p className="text-slate-400 text-sm">Taux de succès</p>
                 <p className="text-3xl font-bold text-green-400">{overview.success_rate}%</p>
               </div>
-              <span className="text-4xl">✅</span>
+              <TrendingUp className="h-10 w-10 text-green-400" />
             </div>
             <p className="text-green-400 text-sm mt-2">
               {overview.successful_trips} réussites
