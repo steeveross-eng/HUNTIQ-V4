@@ -251,6 +251,7 @@ const ShopPage = ({ products = [], onAddToCart, onAffiliateClick }) => {
                 product={product} 
                 onAddToCart={onAddToCart}
                 onAffiliateClick={onAffiliateClick}
+                t={t}
               />
             ))}
           </div>
@@ -259,9 +260,9 @@ const ShopPage = ({ products = [], onAddToCart, onAffiliateClick }) => {
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-800 flex items-center justify-center">
               <ShoppingCart className="h-8 w-8 text-gray-500" />
             </div>
-            <h3 className="text-white font-semibold mb-2">Aucun produit trouvé</h3>
+            <h3 className="text-white font-semibold mb-2">{t('msg_no_results')}</h3>
             <p className="text-gray-400 text-sm">
-              Essayez de modifier vos filtres ou effectuez une nouvelle recherche.
+              {t('shop_clear_filters')}
             </p>
           </div>
         )}
