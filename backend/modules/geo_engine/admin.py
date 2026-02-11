@@ -187,14 +187,21 @@ async def get_admin_hotspots(
     # Déterminer la catégorie de chaque hotspot
     def get_hotspot_category(h):
         meta = h.get("metadata", {})
+        user_id = h.get("user_id", "")
+        
         if not h.get("active", True):
             return "inactive"
         if meta.get("hotspot_category") == "land_rental":
             return "land_rental"
+        if meta.get("hotspot_category") == "chalet":
+            return "chalet"
         if meta.get("is_auto_generated"):
             return "environmental"
         if meta.get("is_premium"):
             return "premium"
+        # Hotspot personnel d'un utilisateur (pas système, pas auto-généré)
+        if user_id and user_id != "system" and not meta.get("is_auto_generated"):
+            return "user_personal"
         return "standard"
     
     # Compter par catégorie
@@ -202,7 +209,9 @@ async def get_admin_hotspots(
         "standard": 0,
         "premium": 0,
         "land_rental": 0,
+        "chalet": 0,
         "environmental": 0,
+        "user_personal": 0,
         "inactive": 0
     }
     
@@ -218,13 +227,16 @@ async def get_admin_hotspots(
         formatted_hotspots.append({
             "id": str(h["_id"]),
             "name": h.get("name", "Hotspot sans nom"),
+            "user_id": h.get("user_id", ""),
             "category": cat,
             "category_label": {
                 "standard": "Hotspot standard",
                 "premium": "Hotspot premium",
-                "land_rental": "Hotspot Terre à louer",
-                "environmental": "Hotspot environnemental",
-                "inactive": "Hotspot inactif"
+                "land_rental": "Terre à louer",
+                "chalet": "Chalet",
+                "environmental": "Environnemental",
+                "user_personal": "Personnel (membre)",
+                "inactive": "Inactif"
             }.get(cat, cat),
             "latitude": coords[1] if len(coords) > 1 else None,
             "longitude": coords[0] if len(coords) > 0 else None,
