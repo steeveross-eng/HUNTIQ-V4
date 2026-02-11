@@ -4290,19 +4290,19 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
               <div className="overflow-y-auto flex-1">
               {/* Base Layers */}
               <div className="p-3 border-b border-gray-700">
-                <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-2">Fond de carte</div>
+                <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-2">{t('base_map')}</div>
                 <div className="space-y-1">
                   {[
-                    { id: 'carte', name: 'Carte + Labels', icon: '🗺️', desc: 'OpenStreetMap' },
-                    { id: 'satellite', name: 'Satellite', icon: '🛰️', desc: 'Esri World Imagery' },
-                    { id: 'google-earth', name: 'Satellite et Routes', icon: '🌍', desc: 'Esri Clarity HD' },
-                    { id: 'topographie', name: 'Topographie', icon: '⛰️', desc: 'OpenTopoMap' },
+                    { id: 'carte', nameKey: 'map_carte', Icon: Map, descKey: 'openstreetmap' },
+                    { id: 'satellite', nameKey: 'map_satellite', Icon: Satellite, descKey: 'esri_imagery' },
+                    { id: 'google-earth', nameKey: 'map_satellite_roads', Icon: Globe, descKey: 'esri_clarity' },
+                    { id: 'topographie', nameKey: 'map_topo', Icon: Mountain, descKey: 'opentopomap' },
                   ].map((layer) => (
                     <button
                       key={layer.id}
                       onClick={() => {
                         setSelectedBaseLayer(layer.id);
-                        toast.success(`🗺️ Fond de carte: ${layer.name}`);
+                        toast.success(`${t('base_map_changed')}: ${t(layer.nameKey)}`);
                       }}
                       className={`w-full flex items-center gap-2 p-2 rounded-lg transition-all ${
                         selectedBaseLayer === layer.id 
@@ -4310,12 +4310,12 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                           : 'bg-gray-800/50 hover:bg-gray-700/50'
                       }`}
                     >
-                      <span className="text-lg">{layer.icon}</span>
+                      <layer.Icon className="h-5 w-5" style={{ color: selectedBaseLayer === layer.id ? BIONIC_COLORS.gold.primary : BIONIC_COLORS.gray[400] }} />
                       <div className="flex-1 text-left">
                         <div className={`text-sm ${selectedBaseLayer === layer.id ? 'text-[#f5a623]' : 'text-white'}`}>
-                          {layer.name}
+                          {t(layer.nameKey)}
                         </div>
-                        <div className="text-[10px] text-gray-500">{layer.desc}</div>
+                        <div className="text-[10px] text-gray-500">{t(layer.descKey)}</div>
                       </div>
                       {selectedBaseLayer === layer.id && (
                         <Check className="h-4 w-4 text-[#f5a623]" />
