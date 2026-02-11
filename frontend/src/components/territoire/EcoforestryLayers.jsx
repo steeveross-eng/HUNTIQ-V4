@@ -415,19 +415,55 @@ export const useEcoMapFallback = (ecoMapEnabled = false) => {
  * Note: "Sombre (BIONIC)" et "OpenStreetMap" ont été retirés
  */
 export const BASE_MAPS = {
+  // BIONIC Premium - Style tactique sombre (NOUVEAU)
+  'bionic-premium': {
+    id: 'bionic-premium',
+    name: 'BIONIC Premium',
+    url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+    attribution: '© BIONIC™ | © OpenStreetMap | © CARTO',
+    icon: '🔶',
+    isDark: true
+  },
   satellite: {
     id: 'satellite',
     name: 'Satellite',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attribution: '&copy; Esri, Maxar, Earthstar Geographics',
-    icon: '🛰️'
+    icon: '🛰️',
+    isDark: false
+  },
+  satellite_hd: {
+    id: 'satellite_hd',
+    name: 'Satellite HD',
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    attribution: '&copy; Esri, Maxar, Earthstar Geographics',
+    icon: '🛰️',
+    isDark: false
   },
   terrain: {
     id: 'terrain',
     name: 'Terrain',
     url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
     attribution: '&copy; OpenTopoMap',
-    icon: '🏔️'
+    icon: '🏔️',
+    isDark: false
+  },
+  topo_hd: {
+    id: 'topo_hd',
+    name: 'Topo HD',
+    url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+    attribution: '&copy; OpenTopoMap',
+    icon: '📐',
+    isDark: false
+  },
+  // IQHO - Hydro + Relief + Ombrage (utilise Stamen Terrain)
+  iqho: {
+    id: 'iqho',
+    name: 'IQHO',
+    url: 'https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png',
+    attribution: '© Stadia Maps | © Stamen Design | © OpenStreetMap',
+    icon: '💧',
+    isDark: true
   }
   // Note: Option 'Écoforestier (Québec)' retirée - Service WMS inaccessible depuis l'environnement cloud
 };
