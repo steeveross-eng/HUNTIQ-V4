@@ -165,25 +165,26 @@ const TripHistory = ({ trips, onTripStarted, onRefresh }) => {
 };
 
 // Trip Card Component
-const TripCard = ({ trip, onStartClick }) => {
+const TripCard = ({ trip, t, onStartClick }) => {
   const statusConfig = STATUS_CONFIG[trip.status] || STATUS_CONFIG.planned;
   const StatusIcon = statusConfig.icon;
   const plannedDate = trip.planned_date ? new Date(trip.planned_date) : null;
+  const SpeciesIcon = SPECIES_ICONS[trip.target_species] || Target;
 
   return (
-    <div className="flex items-center gap-4 p-4 bg-slate-700/30 rounded-lg hover:bg-slate-700/50 transition-colors">
-      <div className="text-3xl">
-        {SPECIES_EMOJIS[trip.target_species] || '🎯'}
+    <div className="flex items-center gap-4 p-4 bg-[var(--bionic-bg-secondary)] rounded-lg hover:bg-[var(--bionic-bg-tertiary)] transition-colors">
+      <div className="w-10 h-10 rounded-full bg-[var(--bionic-gold-muted)] flex items-center justify-center">
+        <SpeciesIcon className="h-5 w-5 text-[var(--bionic-gold-primary)]" />
       </div>
       
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
-          <h4 className="text-white font-medium truncate">{trip.title}</h4>
+          <h4 className="text-[var(--bionic-text-primary)] font-medium truncate">{trip.title}</h4>
           <Badge className={`${statusConfig.color} text-xs`}>
-            {statusConfig.label}
+            {t(`status_${trip.status}`) || statusConfig.label}
           </Badge>
         </div>
-        <div className="flex items-center gap-4 text-sm text-gray-400">
+        <div className="flex items-center gap-4 text-sm text-[var(--bionic-text-secondary)]">
           {plannedDate && (
             <span className="flex items-center gap-1">
               <Calendar className="h-3 w-3" />
@@ -204,14 +205,14 @@ const TripCard = ({ trip, onStartClick }) => {
           )}
           {trip.status === 'completed' && (
             trip.success ? (
-              <span className="flex items-center gap-1 text-emerald-400">
+              <span className="flex items-center gap-1 text-[var(--bionic-green-primary)]">
                 <CheckCircle className="h-3 w-3" />
-                Succès
+                {t('common_success') || 'Succès'}
               </span>
             ) : (
-              <span className="flex items-center gap-1 text-gray-500">
+              <span className="flex items-center gap-1 text-[var(--bionic-text-muted)]">
                 <XCircle className="h-3 w-3" />
-                Sans succès
+                {t('trips_no_success') || 'Sans succès'}
               </span>
             )
           )}
@@ -222,10 +223,10 @@ const TripCard = ({ trip, onStartClick }) => {
         <Button
           size="sm"
           onClick={onStartClick}
-          className="bg-emerald-600 hover:bg-emerald-700"
+          className="bg-[var(--bionic-green-primary)] hover:bg-[var(--bionic-green-light)]"
         >
           <Play className="h-4 w-4 mr-1" />
-          Démarrer
+          {t('trips_start') || 'Démarrer'}
         </Button>
       )}
     </div>
