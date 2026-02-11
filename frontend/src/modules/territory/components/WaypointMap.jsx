@@ -540,7 +540,7 @@ export const WaypointMap = ({
                     >
                       {WAYPOINT_TYPES.map(type => (
                         <option key={type.id} value={type.id}>
-                          {type.icon} {type.label}
+                          {type.label}
                         </option>
                       ))}
                     </select>
@@ -550,7 +550,7 @@ export const WaypointMap = ({
                     className="bg-green-600 hover:bg-green-700"
                     data-testid="save-map-waypoint"
                   >
-                    💾 Enregistrer
+                    Enregistrer
                   </Button>
                 </div>
               </div>
