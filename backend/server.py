@@ -293,6 +293,14 @@ try:
 except ImportError as e:
     logger.warning(f"Bathymetry API not available: {e}")
 
+# 11. Register Advanced Zones routes (Phase P2 - 14 Zone Types)
+try:
+    from routes.advanced_zones import router as advanced_zones_router
+    app.include_router(advanced_zones_router)
+    logger.info("✓ Loaded: Advanced Zones API [/api/territory/zones/*]")
+except ImportError as e:
+    logger.warning(f"Advanced Zones API not available: {e}")
+
 # ==============================================
 # CUSTOM OPENAPI SCHEMA
 # ==============================================
