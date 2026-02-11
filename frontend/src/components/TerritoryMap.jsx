@@ -2230,13 +2230,13 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       recs.push('Zone à fort potentiel - Réservez tôt en saison');
     }
     if (zone.huntingPressure === 'faible' || zone.huntingPressure === 'très faible') {
-      recs.push('🌲 Pression de chasse faible - Conditions idéales');
+      recs.push('Pression de chasse faible - Conditions idéales');
     }
     if (type === 'sepaq' && zone.tirage) {
-      recs.push('📋 Tirage au sort requis - Inscrivez-vous sur Sépaq');
+      recs.push('Tirage au sort requis - Inscrivez-vous sur Sépaq');
     }
     if (type === 'pourvoirie' && zone.services) {
-      recs.push(`✨ Services: ${zone.services.join(', ')}`);
+      recs.push(`Services: ${zone.services.join(', ')}`);
     }
     
     return recs;
@@ -2256,7 +2256,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       warnings.push('Restrictions spéciales - Vérifiez les règlements');
     }
     if (zone.accessibility === 'moyenne' || zone.accessibility === 'difficile') {
-      warnings.push('🚗 Accès difficile - Véhicule 4x4 recommandé');
+      warnings.push('Accès difficile - Véhicule 4x4 recommandé');
     }
     
     return warnings;
