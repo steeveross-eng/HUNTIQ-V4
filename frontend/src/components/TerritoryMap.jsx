@@ -4479,7 +4479,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
 
           {/* BIONIC TACTICAL Advanced Layer Panel */}
           {showBionicLayerPanel && (
-            <div className="absolute top-36 left-4 z-[750]">
+            <div className="absolute top-20 right-4 z-[800]">
               <BionicLayerPanel
                 visibility={advancedZoneVisibility}
                 onVisibilityChange={setAdvancedZoneVisibility}
@@ -4493,18 +4493,18 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
             </div>
           )}
           
-          {/* Toggle BIONIC Layer Panel Button */}
+          {/* Toggle BIONIC Layer Panel Button - Positioned in right side */}
           {!showBionicLayerPanel && (
             <button
               onClick={() => setShowBionicLayerPanel(true)}
-              className="absolute top-36 left-4 z-[700] bg-black/80 backdrop-blur-xl border border-white/10 rounded-md p-3 shadow-xl hover:border-[#F5A623]/30 transition-colors group"
+              className="absolute top-20 right-4 z-[700] bg-black/90 backdrop-blur-xl border border-[#F5A623]/30 rounded-lg p-3 shadow-xl hover:border-[#F5A623] hover:shadow-[0_0_15px_rgba(245,166,35,0.3)] transition-all group"
               data-testid="bionic-layer-panel-toggle"
-              title="Panneau Couches BIONIC"
+              title="Panneau Zones Avancées BIONIC"
             >
               <div className="flex items-center gap-2">
                 <Target className="h-5 w-5 text-[#F5A623]" />
-                <span className="text-white text-xs font-semibold uppercase tracking-wider hidden group-hover:inline">
-                  Zones Avancées
+                <span className="text-white text-xs font-bold uppercase tracking-wider">
+                  Zones
                 </span>
               </div>
             </button>
