@@ -413,6 +413,7 @@ export const useEcoMapFallback = (ecoMapEnabled = false) => {
 /**
  * Fonds de carte disponibles pour "Mon Territoire BIONIC™"
  * Note: "Sombre (BIONIC)" et "OpenStreetMap" ont été retirés
+ * BIONIC Design System Compliant - Lucide icons via iconName property
  */
 export const BASE_MAPS = {
   // BIONIC Premium - Style tactique sombre (NOUVEAU)
@@ -421,7 +422,7 @@ export const BASE_MAPS = {
     name: 'BIONIC Premium',
     url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
     attribution: '© BIONIC™ | © OpenStreetMap | © CARTO',
-    icon: '🔶',
+    iconName: 'hexagon',
     isDark: true
   },
   satellite: {
@@ -429,7 +430,7 @@ export const BASE_MAPS = {
     name: 'Satellite',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attribution: '&copy; Esri, Maxar, Earthstar Geographics',
-    icon: '🛰️',
+    iconName: 'satellite',
     isDark: false
   },
   satellite_hd: {
@@ -437,7 +438,7 @@ export const BASE_MAPS = {
     name: 'Satellite HD',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attribution: '&copy; Esri, Maxar, Earthstar Geographics',
-    icon: '🛰️',
+    iconName: 'satellite-dish',
     isDark: false
   },
   terrain: {
@@ -445,7 +446,7 @@ export const BASE_MAPS = {
     name: 'Terrain',
     url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
     attribution: '&copy; OpenTopoMap',
-    icon: '🏔️',
+    iconName: 'mountain',
     isDark: false
   },
   topo_hd: {
@@ -453,7 +454,7 @@ export const BASE_MAPS = {
     name: 'Topo HD',
     url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
     attribution: '&copy; OpenTopoMap',
-    icon: '📐',
+    iconName: 'ruler',
     isDark: false
   },
   // IQHO - Hydro + Relief + Ombrage (utilise Stamen Terrain)
@@ -462,7 +463,7 @@ export const BASE_MAPS = {
     name: 'IQHO',
     url: 'https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png',
     attribution: '© Stadia Maps | © Stamen Design | © OpenStreetMap',
-    icon: '💧',
+    iconName: 'droplet',
     isDark: true
   }
   // Note: Option 'Écoforestier (Québec)' retirée - Service WMS inaccessible depuis l'environnement cloud
@@ -470,13 +471,14 @@ export const BASE_MAPS = {
 
 /**
  * Couches écoforestières disponibles
+ * BIONIC Design System Compliant - Lucide icons via iconName property
  */
 export const ECOFORESTRY_LAYERS = {
   peuplements: {
     id: 'peuplements',
     name: 'Peuplements forestiers',
     description: 'Types de peuplements et structure (min. 4 ha)',
-    icon: '🌲',
+    iconName: 'tree-pine',
     color: '#00CC00',
     wmsLayer: 'peuplement_ecoforestier',
     defaultOpacity: 0.6,
@@ -491,7 +493,7 @@ export const ECOFORESTRY_LAYERS = {
     id: 'essences',
     name: 'Essences principales (AIPF)',
     description: 'Groupements d\'essences et proportions',
-    icon: '🍁',
+    iconName: 'leaf',
     color: '#FF9900',
     wmsLayer: 'essence_principale',
     defaultOpacity: 0.5,
@@ -507,7 +509,7 @@ export const ECOFORESTRY_LAYERS = {
     id: 'perturbations',
     name: 'Perturbations récentes',
     description: 'Feux, coupes, chablis (min. 0,1 ha)',
-    icon: '🔥',
+    iconName: 'flame',
     color: '#FF4444',
     wmsLayer: 'perturbation',
     defaultOpacity: 0.7,
@@ -522,7 +524,7 @@ export const ECOFORESTRY_LAYERS = {
     id: 'densite',
     name: 'Densité du couvert',
     description: 'Pourcentage de couverture forestière',
-    icon: '📊',
+    iconName: 'bar-chart-3',
     color: '#00CCFF',
     wmsLayer: 'densite_couvert',
     defaultOpacity: 0.5,
@@ -537,7 +539,7 @@ export const ECOFORESTRY_LAYERS = {
     id: 'hauteur',
     name: 'Hauteur des peuplements',
     description: 'Classes de hauteur dominante',
-    icon: '📏',
+    iconName: 'ruler',
     color: '#9900FF',
     wmsLayer: 'hauteur_peuplement',
     defaultOpacity: 0.5,
