@@ -2793,7 +2793,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="balanced">⚖️ Équilibré (distance + probabilité)</SelectItem>
-                            <SelectItem value="probability">🎯 Maximiser probabilité</SelectItem>
+                            <SelectItem value="probability">Maximiser probabilité</SelectItem>
                             <SelectItem value="distance">📏 Distance minimale</SelectItem>
                           </SelectContent>
                         </Select>
