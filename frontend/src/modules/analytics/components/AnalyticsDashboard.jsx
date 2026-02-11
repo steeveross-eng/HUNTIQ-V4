@@ -232,7 +232,7 @@ export const AnalyticsDashboard = () => {
                 <p className="text-slate-400 text-sm">Heures de chasse</p>
                 <p className="text-3xl font-bold text-blue-400">{overview.total_hours}h</p>
               </div>
-              <span className="text-4xl">⏱️</span>
+              <Clock className="h-10 w-10 text-blue-400" />
             </div>
             <p className="text-blue-400 text-sm mt-2">
               Temps investi
@@ -247,7 +247,7 @@ export const AnalyticsDashboard = () => {
                 <p className="text-slate-400 text-sm">Observations</p>
                 <p className="text-3xl font-bold text-purple-400">{overview.total_observations}</p>
               </div>
-              <span className="text-4xl">👁️</span>
+              <Eye className="h-10 w-10 text-purple-400" />
             </div>
             <p className="text-purple-400 text-sm mt-2">
               {overview.most_active_species && `Plus actif: ${SPECIES_LABELS[overview.most_active_species] || overview.most_active_species}`}
