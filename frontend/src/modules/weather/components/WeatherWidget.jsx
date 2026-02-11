@@ -78,19 +78,17 @@ export const WeatherWidget = ({
     return (
       <Card className="bg-slate-800 border-slate-700">
         <CardContent className="p-4 text-center text-slate-400">
-          <span className="text-2xl">🌤️</span>
+          <CloudSun className="h-8 w-8 text-[#f5a623] mx-auto" />
           <p className="text-sm mt-2">Météo indisponible</p>
         </CardContent>
       </Card>
     );
   }
 
-  const icon = weatherIcons[weather.condition?.toLowerCase()] || '🌤️';
-
   if (compact) {
     return (
       <div className="flex items-center gap-2 bg-slate-800/80 rounded-lg px-3 py-2">
-        <span className="text-2xl">{icon}</span>
+        <WeatherIcon condition={weather.condition} className="h-6 w-6" />
         <div>
           <span className="text-white font-bold">{weather.temperature || '--'}°C</span>
           <span className="text-slate-400 text-xs ml-2">{weather.condition}</span>
@@ -104,7 +102,7 @@ export const WeatherWidget = ({
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-4xl">{icon}</span>
+            <WeatherIcon condition={weather.condition} className="h-10 w-10" />
             <div>
               <div className="text-3xl font-bold text-white">
                 {weather.temperature || '--'}°C
