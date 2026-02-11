@@ -215,6 +215,51 @@ Tous les modules opérationnels avec APIs documentées.
 
 ## 8. Changelog
 
+### P0/P1 - Sécurisation Admin + Nettoyage Legacy (11 Février 2026)
+- ✅ **P0 - Sécurisation Admin**:
+  - 10 endpoints `/api/admin/geo/*` protégés avec `@require_admin`
+  - AdminHotspotsPanel.jsx avec authentification JWT
+  - Tests: 401 sans auth, 403 pour non-admin, 200 pour admin
+- ✅ **P1 - Nettoyage Legacy**:
+  - Suppression complète de `user_waypoints.py`
+  - Routes legacy retournent 404
+  - Source de vérité unique: `geo_entities`
+
+### Business Dashboard - Sécurisation Complète (11 Février 2026)
+- ✅ **20 Endpoints Sécurisés** avec `@require_business_or_admin`:
+  - Products Engine: 3 endpoints (POST/PUT/DELETE)
+  - Orders Engine: 6 endpoints (GET/PUT/POST sensibles)
+  - Suppliers Engine: 5 endpoints (tous CRUD)
+  - Customers Engine: 3 endpoints (GET liste/détail, PUT)
+  - Affiliate Engine: 3 endpoints (stats/clicks/confirm)
+- ✅ **Frontend BusinessPage.jsx Sécurisé**:
+  - Vérification rôle via useAuth()
+  - Affichage "Accès Refusé" pour rôles non-autorisés
+- ✅ **Tests**: 65/66 backend (98.5%), 100% frontend
+- ✅ **Lien Navigation Conditionnel**: Visible uniquement business/admin
+
+### Weather Widget Avancé - OpenWeatherMap Integration (11 Février 2026)
+- ✅ **Backend weather_engine v1.1.0**:
+  - `external_service.py`: Service OpenWeatherMap avec cache 30min
+  - 4 nouveaux endpoints: `/current`, `/hourly`, `/daily`, `/full`
+  - 12 nouveaux modèles Pydantic pour données météo complètes
+  - Fallback données simulées si API indisponible
+- ✅ **Frontend WeatherService.js**:
+  - 4 nouvelles méthodes: `getCurrentWeatherReal`, `getHourlyForecast`, `getDailyForecast`, `getFullWeather`
+- ✅ **AdvancedWeatherWidget.jsx**:
+  - Conditions actuelles détaillées (temp, vent, humidité, pression, visibilité)
+  - Prévisions horaires scrollables (48h)
+  - Prévisions 7 jours
+  - Score de chasse avec recommandations
+  - Phase lunaire avec impact
+  - Design BIONIC respecté
+- ⚠️ **Note**: Clé OpenWeatherMap en attente d'activation (données simulées temporairement)
+
+### Resend Email - Production Activée (11 Février 2026)
+- ✅ **Domaine vérifié**: bionichunt.com
+- ✅ **SENDER_EMAIL**: noreply@bionichunt.com
+- ✅ **Flux fonctionnels**: Password reset, notifications
+
 ### P3 - Dashboard Analytics & Export (10 Février 2026)
 - ✅ **P3.1 - Dashboard Analytics Avancé**:
   - Backend: analytics_engine avec 10 endpoints
