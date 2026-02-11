@@ -119,7 +119,7 @@ const ProductCard = ({ product, onAddToCart, onAffiliateClick }) => {
             onClick={() => onAddToCart && onAddToCart(product)}
           >
             <ShoppingCart className="h-4 w-4 mr-2" />
-            Ajouter au panier
+            {t('shop_add_to_cart')}
           </Button>
         )}
       </CardContent>
@@ -129,6 +129,7 @@ const ProductCard = ({ product, onAddToCart, onAffiliateClick }) => {
 
 // Main Shop Page Component
 const ShopPage = ({ products = [], onAddToCart, onAffiliateClick }) => {
+  const { t } = useLanguage();
   const [filters, setFilters] = useState({});
   
   // Apply filters to products
