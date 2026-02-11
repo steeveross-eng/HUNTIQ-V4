@@ -210,38 +210,38 @@ const ActiveTripPanel = ({ trip, onTripEnded, onRefresh }) => {
             </div>
           ) : (
             <div className="space-y-3">
-              {observations.map((obs, idx) => (
-                <div 
-                  key={obs.observation_id || idx}
-                  className="flex items-center gap-3 p-3 bg-slate-700/30 rounded-lg"
-                >
-                  <div className="p-2 bg-purple-500/20 rounded-lg">
-                    {OBSERVATION_TYPES.find(t => t.value === obs.observation_type)?.icon ? (
-                      React.createElement(
-                        OBSERVATION_TYPES.find(t => t.value === obs.observation_type).icon,
-                        { className: "h-5 w-5 text-purple-400" }
-                      )
-                    ) : (
-                      <Eye className="h-5 w-5 text-purple-400" />
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-white font-medium">
-                      {SPECIES_EMOJIS[obs.species] || '🎯'} {obs.species} x{obs.count}
-                    </p>
-                    <p className="text-xs text-gray-400">
-                      {OBSERVATION_TYPES.find(t => t.value === obs.observation_type)?.label || obs.observation_type}
-                      {obs.distance_meters && ` • ${obs.distance_meters}m`}
-                      {obs.behavior && ` • ${obs.behavior}`}
-                    </p>
-                  </div>
-                  <Badge 
-                    className={obs.observation_type === 'harvest' ? 'bg-amber-600' : 'bg-slate-600'}
+              {observations.map((obs, idx) => {
+                const obsTypeConfig = OBSERVATION_TYPES.find(t => t.value === obs.observation_type);
+                const ObsIcon = obsTypeConfig?.Icon || Eye;
+                const speciesConfig = SPECIES_CONFIG[obs.species] || SPECIES_CONFIG.other;
+                const SpeciesIcon = speciesConfig.Icon;
+                
+                return (
+                  <div 
+                    key={obs.observation_id || idx}
+                    className="flex items-center gap-3 p-3 bg-slate-700/30 rounded-lg"
                   >
-                    {obs.observation_type === 'harvest' ? 'Récolte!' : 'Obs'}
-                  </Badge>
-                </div>
-              ))}
+                    <div className="p-2 bg-purple-500/20 rounded-lg">
+                      <ObsIcon className="h-5 w-5" style={{ color: obsTypeConfig?.color || '#a78bfa' }} />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-white font-medium flex items-center gap-1">
+                        <SpeciesIcon className="h-4 w-4" style={{ color: speciesConfig.color }} /> {speciesConfig.label} x{obs.count}
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        {obsTypeConfig?.label || obs.observation_type}
+                        {obs.distance_meters && ` • ${obs.distance_meters}m`}
+                        {obs.behavior && ` • ${obs.behavior}`}
+                      </p>
+                    </div>
+                    <Badge 
+                      className={obs.observation_type === 'harvest' ? 'bg-amber-600' : 'bg-slate-600'}
+                    >
+                      {obs.observation_type === 'harvest' ? 'Récolte!' : 'Obs'}
+                    </Badge>
+                  </div>
+                );
+              })}
             </div>
           )}
         </CardContent>
