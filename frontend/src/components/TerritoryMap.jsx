@@ -3093,7 +3093,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                             if (window.confirm(`🗑️ Supprimer la caméra "${camera.label}" ?`)) {
                               // Remove camera from local state
                               setCameras(prev => prev.filter(c => c.id !== camera.id));
-                              toast.success('📷 Caméra supprimée');
+                              toast.success('Caméra supprimée');
                             }
                           }}
                           className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors flex-shrink-0"
