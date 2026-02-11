@@ -721,18 +721,22 @@ const BionicAnalyzer = ({ territory, onClose, onAnalysisComplete }) => {
                       {Object.entries(analysis.species || {})
                         .sort((a, b) => b[1].score - a[1].score)
                         .slice(0, 3)
-                        .map(([speciesId, result]) => (
-                          <div key={speciesId} className="flex items-center gap-3 p-2 rounded-lg bg-background">
-                            <span className="text-2xl">{SPECIES_ICONS[speciesId]?.emoji}</span>
-                            <div className="flex-1">
-                              <p className="text-white font-medium">{SPECIES_ICONS[speciesId]?.name}</p>
-                              <Progress value={result.score} className="h-2 mt-1" />
+                        .map(([speciesId, result]) => {
+                          const speciesConfig = SPECIES_ICONS[speciesId];
+                          const SpeciesIcon = speciesConfig?.Icon || CircleDot;
+                          return (
+                            <div key={speciesId} className="flex items-center gap-3 p-2 rounded-lg bg-background">
+                              <SpeciesIcon className="h-6 w-6" style={{ color: speciesConfig?.color || '#f5a623' }} />
+                              <div className="flex-1">
+                                <p className="text-white font-medium">{speciesConfig?.name}</p>
+                                <Progress value={result.score} className="h-2 mt-1" />
+                              </div>
+                              <span className={`text-lg font-bold ${getScoreColor(result.score)}`}>
+                                {Math.round(result.score)}
+                              </span>
                             </div>
-                            <span className={`text-lg font-bold ${getScoreColor(result.score)}`}>
-                              {Math.round(result.score)}
-                            </span>
-                          </div>
-                        ))}
+                          );
+                        })}
                     </div>
                   </CardContent>
                 </Card>
