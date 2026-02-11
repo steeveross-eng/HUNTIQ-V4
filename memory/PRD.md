@@ -501,14 +501,34 @@ Tous les modules opérationnels avec APIs documentées.
   - Routes /api/user-data/waypoints et /api/user/waypoints retournent 404
 - ✅ **Source de vérité unique**: geo_entities collection via geo_engine
 
+### Business Dashboard - Sécurisation Complète ✅ (11 Février 2026)
+- ✅ **20 Endpoints Backend Sécurisés** avec `@require_business_or_admin`
+  - Products Engine: 3 endpoints (POST/PUT/DELETE)
+  - Orders Engine: 6 endpoints (GET/PUT/POST sensibles)
+  - Suppliers Engine: 5 endpoints (tous CRUD)
+  - Customers Engine: 3 endpoints (GET liste/détail, PUT)
+  - Affiliate Engine: 3 endpoints (stats/clicks/confirm)
+- ✅ **Frontend BusinessPage.jsx Sécurisé**
+  - Vérification rôle via useAuth()
+  - Affichage "Accès Refusé" pour rôles non-autorisés
+  - Redirection vers connexion si non-authentifié
+- ✅ **Validation Complète**
+  - Non-auth → 401, Hunter → 403, Business/Admin → 200
+  - 65/66 tests backend passés (98.5%)
+  - 100% tests frontend passés
+  - UI/UX conforme au design system BIONIC
+
 ### P0 - Finalisations
-- ⏳ **Resend Domain Verification**: Attente propagation DNS par l'utilisateur
+- ✅ **Resend Production ACTIVÉ** (11 Février 2026)
+  - SENDER_EMAIL=noreply@bionichunt.com configuré
+  - Domaine bionichunt.com vérifié
+  - Emails transactionnels fonctionnels
 - ⏳ **Corrections P2/P3**: Warnings mineurs du checkup précédent
 
 ### Backlog
-- 🔲 Dashboard profil `business`
 - 🔲 Notifications push de groupe
 - ✅ Synchronisation temps réel (WebSocket) - LIVRÉ P6.4
+- ✅ **Dashboard Business** - LIVRÉ (11 Février 2026)
 - ✅ **Suppression user_waypoints.py** - LIVRÉ P1 (11 Février 2026)
 
 ---
