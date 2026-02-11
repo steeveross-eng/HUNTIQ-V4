@@ -391,7 +391,7 @@ const AdminPage = ({ onProductsUpdate }) => {
                       <Package className="h-5 w-5 text-[#f5a623]" />
                     </div>
                     <div>
-                      <p className="text-gray-400 text-xs">Produits</p>
+                      <p className="text-gray-400 text-xs">{t('common_products')}</p>
                       <p className="text-xl font-bold text-white">{stats.products_count || 0}</p>
                     </div>
                   </div>
@@ -404,7 +404,7 @@ const AdminPage = ({ onProductsUpdate }) => {
                       <ShoppingCart className="h-5 w-5 text-green-500" />
                     </div>
                     <div>
-                      <p className="text-gray-400 text-xs">Commandes</p>
+                      <p className="text-gray-400 text-xs">{t('common_orders')}</p>
                       <p className="text-xl font-bold text-white">{stats.orders_count || 0}</p>
                     </div>
                   </div>
@@ -417,7 +417,7 @@ const AdminPage = ({ onProductsUpdate }) => {
                       <DollarSign className="h-5 w-5 text-blue-500" />
                     </div>
                     <div>
-                      <p className="text-gray-400 text-xs">Ventes totales</p>
+                      <p className="text-gray-400 text-xs">{t('admin_total_sales')}</p>
                       <p className="text-xl font-bold text-white">${stats.total_sales || 0}</p>
                     </div>
                   </div>
@@ -430,7 +430,7 @@ const AdminPage = ({ onProductsUpdate }) => {
                       <TrendingUp className="h-5 w-5 text-purple-500" />
                     </div>
                     <div>
-                      <p className="text-gray-400 text-xs">Marges nettes</p>
+                      <p className="text-gray-400 text-xs">{t('admin_net_margins')}</p>
                       <p className="text-xl font-bold text-white">
                         ${stats.total_margins || 0}
                         <span className="text-sm text-purple-400 ml-1">
@@ -448,23 +448,23 @@ const AdminPage = ({ onProductsUpdate }) => {
               <Card className="bg-card border-border">
                 <CardHeader>
                   <CardTitle className="text-white flex items-center gap-2">
-                    <Truck className="h-5 w-5 text-blue-500" /> Dropshipping
+                    <Truck className="h-5 w-5 text-blue-500" /> {t('admin_dropshipping')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-3xl font-bold text-blue-500">${stats.dropshipping_sales || 0}</p>
-                  <p className="text-gray-400 text-sm mt-1">Ventes en dropshipping</p>
+                  <p className="text-gray-400 text-sm mt-1">{t('admin_dropshipping_sales')}</p>
                 </CardContent>
               </Card>
               <Card className="bg-card border-border">
                 <CardHeader>
                   <CardTitle className="text-white flex items-center gap-2">
-                    <LinkIcon className="h-5 w-5 text-purple-500" /> Affiliation
+                    <LinkIcon className="h-5 w-5 text-purple-500" /> {t('admin_affiliation')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-3xl font-bold text-purple-500">${stats.affiliate_sales || 0}</p>
-                  <p className="text-gray-400 text-sm mt-1">Ventes en affiliation</p>
+                  <p className="text-gray-400 text-sm mt-1">{t('admin_affiliate_sales')}</p>
                 </CardContent>
               </Card>
             </div>
@@ -472,24 +472,24 @@ const AdminPage = ({ onProductsUpdate }) => {
             {/* Commissions Overview */}
             <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle className="text-white">Commissions</CardTitle>
+                <CardTitle className="text-white">{t('admin_commissions')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-3 gap-4">
                   <div className="text-center p-4 bg-background rounded-lg">
                     <Clock className="h-6 w-6 text-yellow-500 mx-auto mb-2" />
                     <p className="text-2xl font-bold text-yellow-500">${stats.pending_commissions || 0}</p>
-                    <p className="text-gray-400 text-sm">En attente</p>
+                    <p className="text-gray-400 text-sm">{t('admin_pending')}</p>
                   </div>
                   <div className="text-center p-4 bg-background rounded-lg">
                     <CheckCircle className="h-6 w-6 text-green-500 mx-auto mb-2" />
                     <p className="text-2xl font-bold text-green-500">${stats.confirmed_commissions || 0}</p>
-                    <p className="text-gray-400 text-sm">Confirmées</p>
+                    <p className="text-gray-400 text-sm">{t('admin_confirmed')}</p>
                   </div>
                   <div className="text-center p-4 bg-background rounded-lg">
                     <DollarSign className="h-6 w-6 text-blue-500 mx-auto mb-2" />
                     <p className="text-2xl font-bold text-blue-500">${stats.paid_commissions || 0}</p>
-                    <p className="text-gray-400 text-sm">Payées</p>
+                    <p className="text-gray-400 text-sm">{t('admin_paid')}</p>
                   </div>
                 </div>
               </CardContent>
@@ -500,7 +500,7 @@ const AdminPage = ({ onProductsUpdate }) => {
               <Card className="bg-card border-border border-yellow-500/50">
                 <CardHeader>
                   <CardTitle className="text-white flex items-center gap-2">
-                    <Bell className="h-5 w-5 text-yellow-500" /> Alertes ({alerts.filter(a => !a.is_read).length})
+                    <Bell className="h-5 w-5 text-yellow-500" /> {t('admin_alerts')} ({alerts.filter(a => !a.is_read).length})
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
