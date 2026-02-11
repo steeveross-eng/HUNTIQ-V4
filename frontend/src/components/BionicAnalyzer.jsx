@@ -253,7 +253,7 @@ const SpeciesCard = ({ speciesId, result, onClick }) => {
       <CardContent className="p-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
-            <span className="text-3xl">{config?.emoji}</span>
+            {config?.Icon && <config.Icon className="h-8 w-8" style={{ color: config?.color || '#f5a623' }} />}
             <div>
               <h4 className="text-white font-medium">{config?.name}</h4>
               <p className="text-gray-500 text-xs">{result.species}</p>
