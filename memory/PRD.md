@@ -498,4 +498,4 @@ Tous les modules opérationnels avec APIs documentées.
 
 *HUNTIQ V3 - Powered by GPT-5.2 & Emergent Platform*
 *Architecture Modulaire v2.0 - 48 Backend + 24 Frontend - CONNECTÉS*
-*Phase P6.5 - Chantier Géospatial Intégré - LIVRÉ*
+*Phase P0/P1 - Sécurisation Admin + Nettoyage Legacy - LIVRÉ (11 Fév 2026)*
