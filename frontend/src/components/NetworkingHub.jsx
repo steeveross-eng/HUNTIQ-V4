@@ -751,13 +751,13 @@ const ContactsTab = ({ userId }) => {
   };
 
   const relationshipLabels = {
-    friend: '👥 Ami',
-    business: '💼 Affaires',
-    family: '👨‍👩‍👧‍👦 Famille',
-    hunting_partner: '🎯 Partenaire de chasse',
-    vendor: '🏪 Vendeur',
-    customer: '🛒 Client',
-    other: '📋 Autre'
+    friend: { icon: Users, label: t('relationship_friend') || 'Ami' },
+    business: { icon: Briefcase, label: t('relationship_business') || 'Affaires' },
+    family: { icon: UsersRound, label: t('relationship_family') || 'Famille' },
+    hunting_partner: { icon: Target, label: t('relationship_hunting_partner') || 'Partenaire de chasse' },
+    vendor: { icon: Building2, label: t('relationship_vendor') || 'Vendeur' },
+    customer: { icon: DollarSign, label: t('relationship_customer') || 'Client' },
+    other: { icon: Tag, label: t('common_other') || 'Autre' }
   };
 
   if (loading) {
