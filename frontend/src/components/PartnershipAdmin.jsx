@@ -98,14 +98,14 @@ const TYPE_ICONS = {
   pourvoirie: { Icon: Home, color: '#3b82f6' },
   pourvoiries: { Icon: Home, color: '#3b82f6' },
   sepaq: { Icon: TreePine, color: '#22c55e' },
-  zec: '🏕️',
-  club: '🎯',
-  clubs: '🎯',
-  outfitter: '🦬',
-  reserve: '🌲',
-  anticosti: '🏝️',
-  private: '🔒',
-  proprietaires: '👤'
+  zec: { Icon: Tent, color: '#22c55e' },
+  club: { Icon: Target, color: '#ef4444' },
+  clubs: { Icon: Target, color: '#ef4444' },
+  outfitter: { Icon: Home, color: '#3b82f6' },
+  reserve: { Icon: TreePine, color: '#10b981' },
+  anticosti: { Icon: Globe, color: '#06b6d4' },
+  private: { Icon: Lock, color: '#f59e0b' },
+  proprietaires: { Icon: UserCheck, color: '#a855f7' }
 };
 
 const PartnershipAdmin = () => {
