@@ -109,8 +109,8 @@ export const CoreDashboard = ({
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <div className="animate-spin text-4xl mb-4">🎯</div>
-          <p className="text-slate-400">Chargement du dashboard...</p>
+          <Loader2 className="h-10 w-10 animate-spin text-[#f5a623] mx-auto mb-4" />
+          <p className="text-slate-400">{t('dashboard_loading')}</p>
         </div>
       </div>
     );
@@ -122,11 +122,11 @@ export const CoreDashboard = ({
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-            <span className="text-3xl">🎯</span>
-            Dashboard BIONIC™
+            <Target className="h-7 w-7 text-[#f5a623]" />
+            {t('dashboard_title')}
           </h1>
           <p className="text-slate-400 text-sm mt-1">
-            Modules Core • Phase 8
+            {t('dashboard_modules_core')}
           </p>
         </div>
         
@@ -147,19 +147,24 @@ export const CoreDashboard = ({
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="bg-slate-800 border border-slate-700 w-full justify-start">
           <TabsTrigger value="overview" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            📊 Vue d'ensemble
+            <BarChart3 className="h-4 w-4 mr-2" />
+            {t('dashboard_tab_overview')}
           </TabsTrigger>
           <TabsTrigger value="weather" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            🌤️ Météo
+            <Cloud className="h-4 w-4 mr-2" />
+            {t('dashboard_tab_weather')}
           </TabsTrigger>
           <TabsTrigger value="analysis" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            🧪 Analyse
+            <FlaskConical className="h-4 w-4 mr-2" />
+            {t('dashboard_tab_analysis')}
           </TabsTrigger>
           <TabsTrigger value="strategy" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            🎯 Stratégie
+            <Target className="h-4 w-4 mr-2" />
+            {t('dashboard_tab_strategy')}
           </TabsTrigger>
           <TabsTrigger value="ai" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            🤖 Assistant IA
+            <Bot className="h-4 w-4 mr-2" />
+            {t('dashboard_tab_ai')}
           </TabsTrigger>
         </TabsList>
 
