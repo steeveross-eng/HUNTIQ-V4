@@ -2177,7 +2177,9 @@ const MonTerritoireBionicPage = () => {
                     >
                       <Popup>
                         <div className="text-center min-w-[150px]">
-                          <div className="text-lg mb-1">{typeInfo?.icon}</div>
+                          <div className="mb-1 flex justify-center">
+                            {typeInfo?.Icon && <typeInfo.Icon className="h-5 w-5" style={{ color: typeInfo?.color }} />}
+                          </div>
                           <div className="font-bold">{place.name}</div>
                           <div className="text-xs text-gray-500">{typeInfo?.name}</div>
                           {place.notes && <div className="text-xs mt-1 italic">"{place.notes}"</div>}
@@ -2195,7 +2197,10 @@ const MonTerritoireBionicPage = () => {
                   {PLACE_TYPES.slice(0, 6).map(type => (
                     <div key={type.id} className="flex items-center gap-2 text-xs">
                       <div className="w-2 h-2 rounded-full" style={{ backgroundColor: type.color }} />
-                      <span className="text-gray-300">{type.icon} {type.name}</span>
+                      <span className="text-gray-300 flex items-center gap-1">
+                        {type.Icon && <type.Icon className="h-3 w-3" style={{ color: type.color }} />}
+                        {type.name}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -2229,7 +2234,12 @@ const MonTerritoireBionicPage = () => {
                   </SelectTrigger>
                   <SelectContent className="bg-gray-800 border-gray-700">
                     {PLACE_TYPES.map(type => (
-                      <SelectItem key={type.id} value={type.id} className="text-white">{type.icon} {type.name}</SelectItem>
+                      <SelectItem key={type.id} value={type.id} className="text-white">
+                        <span className="flex items-center gap-2">
+                          {type.Icon && <type.Icon className="h-4 w-4" style={{ color: type.color }} />}
+                          {type.name}
+                        </span>
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
