@@ -4165,7 +4165,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                   setWaypointToolActive(!!newState);
                   setGpsFlowMode(!!newState); // Activer le mode flux GPS
                   if (newState) {
-                    toast.info('🛰️ Mode flux GPS activé - Déplacez la souris sur la carte');
+                    toast.info(t('gps_flow_mode_active'));
                   } else {
                     setMouseGpsPreview(null);
                     setLiveGpsCoords(null);
@@ -4177,11 +4177,11 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                     : 'hover:bg-gray-100 text-gray-600'
                 }`}
                 data-testid="tool-waypoint"
-                title="Ajouter un waypoint"
+                title={t('add_waypoint')}
               >
                 <Flag className="h-5 w-5" />
                 <span className="absolute right-12 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity">
-                  Waypoint GPS
+                  {t('waypoint_gps')}
                 </span>
               </button>
 
