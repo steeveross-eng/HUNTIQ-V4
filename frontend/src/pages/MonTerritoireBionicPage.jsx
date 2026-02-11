@@ -15,8 +15,10 @@ import {
   Play, Pause, BarChart3, PieChart, ArrowLeft, Plus, Trash2,
   Edit2, Save, X, LocateFixed, Building, Trees, Tent, Star,
   BookMarked, List, MapPinned, User, Navigation2, Cloud, Wifi, WifiOff,
-  Share2, Users, Bell, Lock, Unlock, Leaf, CheckCircle
+  Share2, Users, Bell, Lock, Unlock, Leaf, CheckCircle, Droplet,
+  CircleDot, Car, Pin, Binoculars, ParkingCircle
 } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -59,6 +61,9 @@ import { toast } from 'sonner';
 import BionicMapSelector from '@/components/maps/BionicMapSelector';
 import useMapType from '@/hooks/useMapType';
 import { MAP_TYPES, getMapConfig } from '@/config/mapSources';
+
+// Import BIONIC Design System
+import { BIONIC_COLORS } from '@/config/bionic-colors';
 
 // Fix for default markers
 delete L.Icon.Default.prototype._getIconUrl;
