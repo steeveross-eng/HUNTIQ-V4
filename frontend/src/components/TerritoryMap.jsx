@@ -3966,20 +3966,20 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
               {/* Taux de succès par espèce */}
               {territoryAnalysis.successRate && (
                 <div className="p-3 border-b border-green-500/20">
-                  <div className="text-xs text-gray-500 uppercase mb-2">Taux de succès historique</div>
+                  <div className="text-xs text-gray-500 uppercase mb-2">{t('historical_success_rate')}</div>
                   <div className="flex gap-2">
                     {Object.entries(territoryAnalysis.successRate).map(([species, rate]) => (
                       <div 
                         key={species} 
                         className={`flex-1 text-center p-2 rounded-lg ${rate > 0 ? 'bg-green-500/10 border border-green-500/30' : 'bg-gray-700/30'}`}
                       >
-                        <div className="text-lg mb-0.5">
-                          {species === 'orignal' ? '🦌' : species === 'chevreuil' ? '🦌' : '🐻'}
+                        <div className="text-lg mb-0.5 flex justify-center">
+                          <CircleDot className="h-5 w-5" style={{ color: SPECIES_CONFIG[species]?.color || BIONIC_COLORS.gray[500] }} />
                         </div>
                         <div className={`text-sm font-bold ${rate > 0 ? 'text-green-400' : 'text-gray-500'}`}>
                           {rate > 0 ? `${rate}%` : 'N/A'}
                         </div>
-                        <div className="text-[9px] text-gray-500 capitalize">{species}</div>
+                        <div className="text-[9px] text-gray-500 capitalize">{t(`animal_${species}`) || species}</div>
                       </div>
                     ))}
                   </div>
