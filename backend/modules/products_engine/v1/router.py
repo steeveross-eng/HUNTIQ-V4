@@ -103,15 +103,22 @@ async def get_product(product_id: str):
 
 
 @router.post("/", response_model=Product)
-async def create_product(product_input: ProductCreate):
-    """Create a new product"""
+async def create_product(
+    product_input: ProductCreate,
+    user: UserWithRole = Depends(require_business_or_admin)
+):
+    """Create a new product (Business/Admin only)"""
     service = get_products_service()
     return await service.create(product_input)
 
 
 @router.put("/{product_id}", response_model=Product)
-async def update_product(product_id: str, update_data: ProductUpdate):
-    """Update a product"""
+async def update_product(
+    product_id: str,
+    update_data: ProductUpdate,
+    user: UserWithRole = Depends(require_business_or_admin)
+):
+    """Update a product (Business/Admin only)"""
     service = get_products_service()
     product = await service.update(product_id, update_data)
     
@@ -122,8 +129,11 @@ async def update_product(product_id: str, update_data: ProductUpdate):
 
 
 @router.delete("/{product_id}")
-async def delete_product(product_id: str):
-    """Delete a product"""
+async def delete_product(
+    product_id: str,
+    user: UserWithRole = Depends(require_business_or_admin)
+):
+    """Delete a product (Business/Admin only)"""
     service = get_products_service()
     success = await service.delete(product_id)
     
