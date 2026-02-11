@@ -1631,8 +1631,8 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
     const stats = aggregateBionicStats(precisionZones);
     setBionicModuleStats(stats);
     
-    toast.success('🗺️ Zones BIONIC™ haute précision générées', {
-      description: `${precisionZones.length} micro-zones calculées • Exclusion eau active`
+    toast.success(t('bionic_zones_generated'), {
+      description: `${precisionZones.length} ${t('micro_zones_calculated')}`
     });
     
     // Activer toutes les couches par défaut
@@ -1750,7 +1750,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
     const lat = mouseGpsPreview.lat;
     const lng = mouseGpsPreview.lng;
     
-    toast.info(`🔍 Analyse rapide en cours: ${lat.toFixed(4)}, ${lng.toFixed(4)}...`);
+    toast.info(`${t('quick_analysis_progress')}: ${lat.toFixed(4)}, ${lng.toFixed(4)}...`);
     
     try {
       // Centrer la carte sur le point analysé
