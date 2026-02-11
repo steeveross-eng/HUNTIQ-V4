@@ -778,3 +778,4 @@ Tous les modules opérationnels avec APIs documentées.
 *HUNTIQ V3 - Powered by GPT-5.2 & Emergent Platform*
 *Architecture Modulaire v2.0 - 48 Backend + 24 Frontend - CONNECTÉS*
 *Design System BIONIC TACTICAL + Cartes Premium Phase 1 - LIVRÉ (11 Fév 2026)*
+*i18n FR/EN Traduction Instantanée - 100% Navigation + Admin - LIVRÉ (11 Fév 2026)*
