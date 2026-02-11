@@ -4041,7 +4041,9 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                     <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
                     <div className="absolute inset-0 w-3 h-3 rounded-full bg-green-500 animate-ping"></div>
                   </div>
-                  <span className="text-green-400 text-sm font-bold">🛰️ FLUX GPS EN DIRECT</span>
+                  <span className="text-green-400 text-sm font-bold flex items-center gap-1">
+                    <Satellite className="h-4 w-4" /> {t('gps_live_flow').toUpperCase()}
+                  </span>
                 </div>
                 <Badge className="bg-green-500/20 text-green-400 text-[10px] animate-pulse">
                   STREAMING
@@ -4051,7 +4053,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
               {/* Coordinates Grid */}
               <div className="grid grid-cols-2 gap-4 mb-3">
                 <div className="bg-gray-900/50 rounded-lg p-2">
-                  <div className="text-gray-500 text-[9px] uppercase tracking-wider mb-1">Format Décimal</div>
+                  <div className="text-gray-500 text-[9px] uppercase tracking-wider mb-1">{t('format_decimal')}</div>
                   <div className="text-green-400 text-base font-mono font-bold">
                     {mouseGpsPreview.lat.toFixed(6)}
                   </div>
@@ -4060,7 +4062,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                   </div>
                 </div>
                 <div className="bg-gray-900/50 rounded-lg p-2">
-                  <div className="text-gray-500 text-[9px] uppercase tracking-wider mb-1">Format DMS</div>
+                  <div className="text-gray-500 text-[9px] uppercase tracking-wider mb-1">{t('format_dms')}</div>
                   <div className="text-blue-400 text-sm font-mono">
                     {mouseGpsPreview.latDms}
                   </div>
@@ -4073,15 +4075,15 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
               {/* Additional GPS Data */}
               <div className="grid grid-cols-3 gap-2 mb-3">
                 <div className="bg-gray-800/50 rounded p-2 text-center">
-                  <div className="text-gray-500 text-[8px] uppercase">Altitude</div>
+                  <div className="text-gray-500 text-[8px] uppercase">{t('altitude')}</div>
                   <div className="text-yellow-400 text-sm font-bold">{mouseGpsPreview.altitude || '~'}m</div>
                 </div>
                 <div className="bg-gray-800/50 rounded p-2 text-center">
-                  <div className="text-gray-500 text-[8px] uppercase">Précision</div>
+                  <div className="text-gray-500 text-[8px] uppercase">{t('precision')}</div>
                   <div className="text-cyan-400 text-sm font-bold">±{mouseGpsPreview.precision || '~'}m</div>
                 </div>
                 <div className="bg-gray-800/50 rounded p-2 text-center">
-                  <div className="text-gray-500 text-[8px] uppercase">Zone</div>
+                  <div className="text-gray-500 text-[8px] uppercase">{t('zone')}</div>
                   <div className="text-purple-400 text-sm font-bold">UTM 19N</div>
                 </div>
               </div>
@@ -4091,7 +4093,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Activity className="h-4 w-4 text-green-400 animate-pulse" />
-                    <span className="text-gray-400 text-xs">Données injectées dans Analyse GPS</span>
+                    <span className="text-gray-400 text-xs">{t('data_injected_to_analysis')}</span>
                   </div>
                   <span className="text-green-400 text-[10px] font-mono">{new Date().toLocaleTimeString()}</span>
                 </div>
@@ -4104,7 +4106,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                     data-testid="analyze-point-btn"
                   >
                     <Target className="h-3.5 w-3.5 mr-1.5" />
-                    Analyser ce point
+                    {t('analyze_point')}
                   </Button>
                   <Button
                     onClick={() => {
@@ -4117,12 +4119,16 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                     data-testid="create-waypoint-quick-btn"
                   >
                     <Flag className="h-3.5 w-3.5 mr-1.5" />
-                    Créer waypoint
+                    {t('create_waypoint')}
                   </Button>
                 </div>
                 
-                <p className="text-center text-gray-400 text-[10px] mt-2">
-                  {draggingWaypoint ? '🎯 Relâchez pour confirmer la position' : '💡 Analysez rapidement ou créez un waypoint'}
+                <p className="text-center text-gray-400 text-[10px] mt-2 flex items-center justify-center gap-1">
+                  {draggingWaypoint ? (
+                    <><Target className="h-3 w-3" /> {t('release_to_confirm')}</>
+                  ) : (
+                    <><Lightbulb className="h-3 w-3" /> {t('quick_analyze_or_create')}</>
+                  )}
                 </p>
               </div>
             </div>
