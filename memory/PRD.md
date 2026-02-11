@@ -1,8 +1,8 @@
 # HUNTIQ V3 - Product Requirements Document
 
 ## Date de création: 2026-02-03
-## Dernière mise à jour: 11 Février 2026 (v11)
-## Version: 6.11 (BIONIC Design System - Refactoring UI Complet)
+## Dernière mise à jour: 11 Février 2026 (v12)
+## Version: 6.12 (BIONIC Design System - Lot 2 UI Complet)
 
 ---
 
@@ -11,7 +11,7 @@
 Fusionner HUNTIQ V1 et V2 + Intégrer l'IA GPT-5.2 pour l'analyse d'attractants.
 Refactorisation majeure vers une architecture modulaire stricte ("PLAN MAÎTRE BIONIC").
 
-**NOUVELLE DIRECTIVE v11:** Conformité totale au Design System BIONIC - Aucun emoji, couleurs centralisées, icônes Lucide professionnelles.
+**NOUVELLE DIRECTIVE v12:** Conformité totale au Design System BIONIC - Aucun emoji, couleurs centralisées, icônes Lucide professionnelles.
 
 ---
 
@@ -24,17 +24,18 @@ Refactorisation majeure vers une architecture modulaire stricte ("PLAN MAÎTRE B
 - **IA**: GPT-5.2 via Emergent LLM Key (planifié)
 - **Architecture**: Modulaire v2.0 (Backend 100% + Frontend 100% Connecté)
 
-### BIONIC Design System (NOUVEAU v11)
+### BIONIC Design System (v12 - LOT 2 COMPLET)
 ```
-/app/frontend/src/
-├── styles/
-│   └── bionic-design-system.css    # Variables CSS centralisées
-├── config/
-│   ├── bionic-colors.js            # Palette JS pour composants
-│   ├── bionic-icons.js             # Mapping emoji → Lucide
-│   └── bionic-config.js            # Configurations centralisées
-└── contexts/
-    └── LanguageContext.jsx         # i18n FR/EN complet
+Composants Refactorisés:
+├── TerritoryMap.jsx              ✅ 5100+ lignes, 100+ emojis → Lucide
+├── MonTerritoireBionicPage.jsx   ✅ PLACE_TYPES avec Icon components
+├── PartnershipAdmin.jsx          ✅ 36 emojis → Lucide
+├── BionicAnalyzer.jsx            ✅ 33 emojis → Lucide
+├── AnalyticsDashboard.jsx        ✅ 20 emojis → Lucide
+├── WeatherWidget.jsx             ✅ WeatherIcon component
+├── HuntingConditions.jsx         ✅ Lucide icons complet
+├── AIInsights.jsx                ✅ InsightIcon component
+└── LanguageContext.jsx           ✅ 120+ nouvelles clés i18n
 ```
 
 ### Connexion Frontend-Backend
