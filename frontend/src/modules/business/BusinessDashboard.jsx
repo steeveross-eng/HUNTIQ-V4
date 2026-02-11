@@ -1,13 +1,23 @@
 /**
  * BusinessDashboard - Central dashboard for business modules
  * Phase 9 - Business Modules Integration
- * Version: 1.1.0 - Added AdvancedWeatherWidget
+ * Version: 1.2.0 - BIONIC Design System Compliance
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
 import { Badge } from '../../components/ui/badge';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { 
+  Briefcase, 
+  Package, 
+  ClipboardList, 
+  Users, 
+  Factory, 
+  BarChart3,
+  Loader2
+} from 'lucide-react';
 
 // Business Module Imports
 import { UserProfile, UserActivity } from '../user';
@@ -31,6 +41,7 @@ import { SuppliersService } from '../suppliers/SuppliersService';
 import { CustomersService } from '../customers/CustomersService';
 
 export const BusinessDashboard = () => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('overview');
   const [loading, setLoading] = useState(true);
   
@@ -118,8 +129,8 @@ export const BusinessDashboard = () => {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <div className="animate-spin text-4xl mb-4">💼</div>
-          <p className="text-slate-400">Chargement du dashboard métier...</p>
+          <Loader2 className="h-10 w-10 animate-spin text-[var(--bionic-gold-primary)] mx-auto mb-4" />
+          <p className="text-[var(--bionic-text-secondary)]">{t('business_loading') || t('common_loading')}</p>
         </div>
       </div>
     );
@@ -130,46 +141,46 @@ export const BusinessDashboard = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-            <span className="text-3xl">💼</span>
-            Dashboard Métier
+          <h1 className="text-2xl font-bold text-[var(--bionic-text-primary)] flex items-center gap-3">
+            <Briefcase className="h-7 w-7 text-[var(--bionic-gold-primary)]" />
+            {t('business_title')}
           </h1>
-          <p className="text-slate-400 text-sm mt-1">
-            Modules Business • Phase 9
+          <p className="text-[var(--bionic-text-secondary)] text-sm mt-1">
+            {t('business_overview')} • Phase 9
           </p>
         </div>
         
         {/* Quick Stats */}
         <div className="flex items-center gap-3">
-          <Badge className="bg-blue-900/50 text-blue-400">
-            📦 {stats.products.total} produits
+          <Badge className="bg-[var(--bionic-blue-muted)] text-[var(--bionic-blue-light)] flex items-center gap-1">
+            <Package className="h-3 w-3" /> {stats.products.total} {t('common_products')}
           </Badge>
-          <Badge className="bg-amber-900/50 text-amber-400">
-            📋 {stats.orders.total} commandes
+          <Badge className="bg-[var(--bionic-gold-muted)] text-[var(--bionic-gold-primary)] flex items-center gap-1">
+            <ClipboardList className="h-3 w-3" /> {stats.orders.total} {t('common_orders')}
           </Badge>
-          <Badge className="bg-emerald-900/50 text-emerald-400">
-            👥 {stats.customers.total} clients
+          <Badge className="bg-[var(--bionic-green-muted)] text-[var(--bionic-green-primary)] flex items-center gap-1">
+            <Users className="h-3 w-3" /> {stats.customers.total} {t('common_customers')}
           </Badge>
         </div>
       </div>
 
       {/* Tab Navigation */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="bg-slate-800 border border-slate-700 w-full justify-start">
-          <TabsTrigger value="overview" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            📊 Vue d'ensemble
+        <TabsList className="bg-[var(--bionic-bg-card)] border border-[var(--bionic-border-secondary)] w-full justify-start">
+          <TabsTrigger value="overview" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <BarChart3 className="h-4 w-4" /> {t('business_overview')}
           </TabsTrigger>
-          <TabsTrigger value="products" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            📦 Produits
+          <TabsTrigger value="products" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <Package className="h-4 w-4" /> {t('common_products')}
           </TabsTrigger>
-          <TabsTrigger value="orders" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            📋 Commandes
+          <TabsTrigger value="orders" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <ClipboardList className="h-4 w-4" /> {t('common_orders')}
           </TabsTrigger>
-          <TabsTrigger value="customers" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            👥 Clients
+          <TabsTrigger value="customers" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <Users className="h-4 w-4" /> {t('common_customers')}
           </TabsTrigger>
-          <TabsTrigger value="suppliers" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            🏭 Fournisseurs
+          <TabsTrigger value="suppliers" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <Factory className="h-4 w-4" /> {t('common_suppliers')}
           </TabsTrigger>
         </TabsList>
 
