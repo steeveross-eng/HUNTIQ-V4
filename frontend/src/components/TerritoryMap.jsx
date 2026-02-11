@@ -946,7 +946,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       
       toast.info('📍 Coordonnées GPS intégrées automatiquement');
       
-      // ✅ DÉCLENCHEMENT AUTOMATIQUE DE L'ANALYSE
+      // DÉCLENCHEMENT AUTOMATIQUE DE L'ANALYSE
       if (autoAnalyzeOnConfirm) {
         setTimeout(() => {
           toast.info('🔍 Analyse automatique du territoire en cours...');
@@ -1187,7 +1187,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       // Générer les zones de probabilité
       generateProbabilityZones();
       
-      toast.success(`✅ Analyse complète: ${lat.toFixed(4)}, ${lng.toFixed(4)}`, {
+      toast.success(`Analyse complète: ${lat.toFixed(4)}, ${lng.toFixed(4)}`, {
         description: `${huntingRes.data?.total_count || 0} territoires de chasse trouvés à proximité`
       });
       
@@ -1860,7 +1860,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       }));
 
       downloadGPX(waypointsForExport, 'bionic-waypoints');
-      toast.success(`✅ ${waypoints.length} waypoints exportés en GPX!`, {
+      toast.success(`${waypoints.length} waypoints exportés en GPX!`, {
         description: 'Compatible Garmin, Avenza, GPS...'
       });
     } catch (error) {
@@ -3103,7 +3103,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                         </button>
                       </div>
                       <p className={`text-sm ${camera.connected ? 'text-green-600' : 'text-red-600'}`}>
-                        {camera.connected ? '✅ Connectée' : '⚠️ Non connectée'}
+                        {camera.connected ? 'Connectée' : '⚠️ Non connectée'}
                       </p>
                     </div>
                   </Popup>
