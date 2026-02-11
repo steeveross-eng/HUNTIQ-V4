@@ -81,7 +81,7 @@ export const ZONE_CONFIG = {
     nameEn: 'Optimal Habitat',
     category: 'environmental',
     color: '#10B981',
-    icon: '🌲',
+    iconName: 'trees',
     priority: 5,
     description: 'Zone de refuge idéale',
     descriptionEn: 'Ideal refuge area'
@@ -92,7 +92,7 @@ export const ZONE_CONFIG = {
     nameEn: 'Sun Exposure',
     category: 'environmental',
     color: '#FCD34D',
-    icon: '☀️',
+    iconName: 'sun',
     priority: 10,
     description: 'Zone d\'exposition solaire',
     descriptionEn: 'Solar exposure zone'
@@ -103,7 +103,7 @@ export const ZONE_CONFIG = {
     nameEn: 'Slope/Orientation',
     category: 'environmental',
     color: '#A78BFA',
-    icon: '⛰️',
+    iconName: 'mountain',
     priority: 11,
     description: 'Relief et orientation',
     descriptionEn: 'Terrain relief'
@@ -114,7 +114,7 @@ export const ZONE_CONFIG = {
     nameEn: 'Hydrography',
     category: 'environmental',
     color: '#3B82F6',
-    icon: '💧',
+    iconName: 'droplet',
     priority: 9,
     description: 'Points d\'eau',
     descriptionEn: 'Water sources'
@@ -125,7 +125,7 @@ export const ZONE_CONFIG = {
     nameEn: 'Forest Cover',
     category: 'environmental',
     color: '#15803D',
-    icon: '🌳',
+    iconName: 'tree-pine',
     priority: 12,
     description: 'Densité forestière',
     descriptionEn: 'Forest density'
@@ -136,7 +136,7 @@ export const ZONE_CONFIG = {
     nameEn: 'Thermal Zone',
     category: 'environmental',
     color: '#EF4444',
-    icon: '🌡️',
+    iconName: 'thermometer',
     priority: 8,
     description: 'Température favorable',
     descriptionEn: 'Favorable temperature'
@@ -151,7 +151,7 @@ export const ZONE_CONFIG = {
     nameEn: 'Potential Stand',
     category: 'strategic',
     color: '#F5A623',
-    icon: '🎯',
+    iconName: 'target',
     priority: 6,
     description: 'Position stratégique',
     descriptionEn: 'Strategic position'
@@ -162,7 +162,7 @@ export const ZONE_CONFIG = {
     nameEn: 'Hotspot',
     category: 'strategic',
     color: '#FF6B6B',
-    icon: '🔥',
+    iconName: 'flame',
     priority: 7,
     description: 'Activité très élevée',
     descriptionEn: 'Very high activity'
@@ -173,7 +173,7 @@ export const ZONE_CONFIG = {
     nameEn: 'Pressure Zone',
     category: 'strategic',
     color: '#F97316',
-    icon: '⚠️',
+    iconName: 'alert-triangle',
     priority: 13,
     description: 'Pression de chasse',
     descriptionEn: 'Hunting pressure'
