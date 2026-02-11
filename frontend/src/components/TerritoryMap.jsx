@@ -3574,7 +3574,9 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                           
                           {zone.recommendations && zone.recommendations.length > 0 && (
                             <div className="mt-3 pt-2 border-t border-gray-200">
-                              <p className="text-xs text-gray-500 mb-1 font-medium">💡 Recommandations:</p>
+                              <p className="text-xs text-gray-500 mb-1 font-medium flex items-center gap-1">
+                                <Lightbulb className="h-3 w-3" /> {t('recommendations')}:
+                              </p>
                               <ul className="text-xs text-gray-600 space-y-1">
                                 {zone.recommendations.slice(0, 2).map((rec, i) => (
                                   <li key={i} className="flex items-start gap-1">
@@ -3622,19 +3624,31 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
                 </div>
                 
                 <div>
-                  <Label className="text-gray-400 text-xs">Type</Label>
+                  <Label className="text-gray-400 text-xs">{t('type')}</Label>
                   <Select value={waypointType} onValueChange={setWaypointType}>
                     <SelectTrigger className="bg-card border-border mt-1">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="observation">👁️ Observation</SelectItem>
-                      <SelectItem value="camera">📷 Caméra</SelectItem>
-                      <SelectItem value="cache">🧂 Cache (sel/appât)</SelectItem>
-                      <SelectItem value="stand">🏕️ Affût/Mirador</SelectItem>
-                      <SelectItem value="water">💧 Point d'eau</SelectItem>
-                      <SelectItem value="trail_start">🚶 Départ sentier</SelectItem>
-                      <SelectItem value="custom">Autre</SelectItem>
+                      <SelectItem value="observation">
+                        <span className="flex items-center gap-2"><Eye className="h-4 w-4" /> {t('waypoint_observation')}</span>
+                      </SelectItem>
+                      <SelectItem value="camera">
+                        <span className="flex items-center gap-2"><Camera className="h-4 w-4" /> {t('waypoint_camera')}</span>
+                      </SelectItem>
+                      <SelectItem value="cache">
+                        <span className="flex items-center gap-2"><Droplet className="h-4 w-4" /> {t('waypoint_cache')}</span>
+                      </SelectItem>
+                      <SelectItem value="stand">
+                        <span className="flex items-center gap-2"><Tent className="h-4 w-4" /> {t('waypoint_stand')}</span>
+                      </SelectItem>
+                      <SelectItem value="water">
+                        <span className="flex items-center gap-2"><Waves className="h-4 w-4" /> {t('waypoint_water')}</span>
+                      </SelectItem>
+                      <SelectItem value="trail_start">
+                        <span className="flex items-center gap-2"><Route className="h-4 w-4" /> {t('waypoint_trail_start')}</span>
+                      </SelectItem>
+                      <SelectItem value="custom">{t('common_other')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
