@@ -472,26 +472,26 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
   });
   const [advancedZoneOpacity, setAdvancedZoneOpacity] = useState(75);
   
-  // Configuration des modules BIONIC avec couleurs
+  // Configuration des modules BIONIC avec couleurs - BIONIC Design System (Lucide icons)
   const BIONIC_MODULE_CONFIG = {
-    thermal: { name: 'ThermalScore', label: 'Zone Thermique', color: '#ef4444', icon: '🌡️' },
-    wetness: { name: 'WetnessScore', label: 'Zone Humidité', color: '#3b82f6', icon: '💧' },
-    food: { name: 'FoodScore', label: 'Zone Alimentation', color: '#22c55e', icon: '🌿' },
-    pressure: { name: 'PressureScore', label: 'Zone Pression', color: '#f59e0b', icon: '👥' },
-    access: { name: 'AccessScore', label: 'Zone Accès', color: '#8b5cf6', icon: '🛤️' },
-    corridor: { name: 'CorridorScore', label: 'Corridors', color: '#06b6d4', icon: '🔄' },
-    canopy: { name: 'CanopyScore', label: 'Couvert Forestier', color: '#10b981', icon: '🌳' },
-    geoform: { name: 'GeoFormScore', label: 'Géomorphologie', color: '#6366f1', icon: '⛰️' }
+    thermal: { name: 'ThermalScore', labelKey: 'module_thermal', color: BIONIC_COLORS.red.primary, Icon: Thermometer },
+    wetness: { name: 'WetnessScore', labelKey: 'module_wetness', color: BIONIC_COLORS.blue.light, Icon: Droplet },
+    food: { name: 'FoodScore', labelKey: 'module_food', color: BIONIC_COLORS.green.primary, Icon: Leaf },
+    pressure: { name: 'PressureScore', labelKey: 'module_pressure', color: BIONIC_COLORS.gold.primary, Icon: Users },
+    access: { name: 'AccessScore', labelKey: 'module_access', color: BIONIC_COLORS.purple.primary, Icon: Route },
+    corridor: { name: 'CorridorScore', labelKey: 'module_corridor', color: BIONIC_COLORS.cyan.primary, Icon: Compass },
+    canopy: { name: 'CanopyScore', labelKey: 'module_canopy', color: BIONIC_COLORS.green.light, Icon: TreePine },
+    geoform: { name: 'GeoFormScore', labelKey: 'module_geoform', color: BIONIC_COLORS.purple.light, Icon: Mountain }
   };
 
-  // Territory Types and Mock Data
-  const TERRITORY_TYPES = {
-    zec: { name: 'ZEC', color: '#22c55e', iconType: 'tent' },
-    sepaq: { name: 'Réserve faunique', color: '#3b82f6', iconType: 'shield' },
-    clic: { name: 'Zone Clic', color: '#f59e0b', icon: '🟠' },
-    pourvoirie: { name: 'Pourvoirie', color: '#8b5cf6', icon: '🟣' },
-    prive: { name: 'Territoire privé', color: '#ef4444', icon: '🔴' },
-    refuge: { name: 'Refuge faunique', color: '#06b6d4', icon: '🔷' }
+  // Territory Types Configuration - BIONIC Design System (Lucide icons)
+  const TERRITORY_TYPES_LOCAL = {
+    zec: { nameKey: 'territory_zec', color: TERRITORY_COLORS.zec, Icon: Tent },
+    sepaq: { nameKey: 'territory_reserve', color: TERRITORY_COLORS.reserve, Icon: Shield },
+    clic: { nameKey: 'territory_clic', color: BIONIC_COLORS.gold.primary, Icon: Target },
+    pourvoirie: { nameKey: 'territory_pourvoirie', color: TERRITORY_COLORS.pourvoirie, Icon: Flag },
+    prive: { nameKey: 'territory_private', color: TERRITORY_COLORS.private, Icon: BIONIC_ICONS.lock },
+    refuge: { nameKey: 'territory_refuge', color: BIONIC_COLORS.cyan.primary, Icon: Shield }
   };
 
   // Mock Territory Database (ZEC, Sépaq examples)
