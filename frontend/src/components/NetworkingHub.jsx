@@ -40,6 +40,7 @@ import {
   Phone,
   Mail,
   Building2,
+  Briefcase,
   Tag,
   Clock,
   CheckCircle,
