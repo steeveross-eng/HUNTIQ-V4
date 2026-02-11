@@ -18,41 +18,45 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import {
   Calendar, Clock, Play, CheckCircle, XCircle, Target, Eye,
-  Thermometer, Cloud, Loader2, ChevronRight, AlertTriangle
+  Thermometer, Cloud, Loader2, ChevronRight, AlertTriangle,
+  Sun, CloudRain, Snowflake, Wind, CloudFog, CloudSun, CircleDot
 } from 'lucide-react';
 import TripService from '@/services/TripService';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const WEATHER_OPTIONS = [
-  { value: 'sunny', label: '☀️ Ensoleillé' },
-  { value: 'cloudy', label: '☁️ Nuageux' },
-  { value: 'overcast', label: '🌥️ Couvert' },
-  { value: 'rainy', label: '🌧️ Pluvieux' },
-  { value: 'snowy', label: '❄️ Neigeux' },
-  { value: 'foggy', label: '🌫️ Brumeux' },
-  { value: 'windy', label: '💨 Venteux' }
+  { value: 'sunny', label: 'Ensoleillé', icon: Sun },
+  { value: 'cloudy', label: 'Nuageux', icon: Cloud },
+  { value: 'overcast', label: 'Couvert', icon: CloudSun },
+  { value: 'rainy', label: 'Pluvieux', icon: CloudRain },
+  { value: 'snowy', label: 'Neigeux', icon: Snowflake },
+  { value: 'foggy', label: 'Brumeux', icon: CloudFog },
+  { value: 'windy', label: 'Venteux', icon: Wind }
 ];
 
-const SPECIES_EMOJIS = {
-  deer: '🦌',
-  moose: '🫎',
-  bear: '🐻',
-  turkey: '🦃',
-  duck: '🦆',
-  goose: '🪿',
-  grouse: '🐔',
-  rabbit: '🐰',
-  coyote: '🐺',
-  other: '🎯'
+// BIONIC Design System - Lucide icons for species
+const SPECIES_ICONS = {
+  deer: CircleDot,
+  moose: CircleDot,
+  bear: CircleDot,
+  turkey: CircleDot,
+  duck: CircleDot,
+  goose: CircleDot,
+  grouse: CircleDot,
+  rabbit: CircleDot,
+  coyote: CircleDot,
+  other: Target
 };
 
 const STATUS_CONFIG = {
-  planned: { label: 'Planifiée', color: 'bg-blue-600', icon: Calendar },
-  in_progress: { label: 'En cours', color: 'bg-emerald-600', icon: Play },
-  completed: { label: 'Terminée', color: 'bg-slate-600', icon: CheckCircle },
-  cancelled: { label: 'Annulée', color: 'bg-red-600', icon: XCircle }
+  planned: { label: 'Planifiée', color: 'bg-[var(--bionic-blue-light)]', icon: Calendar },
+  in_progress: { label: 'En cours', color: 'bg-[var(--bionic-green-primary)]', icon: Play },
+  completed: { label: 'Terminée', color: 'bg-[var(--bionic-gray-600)]', icon: CheckCircle },
+  cancelled: { label: 'Annulée', color: 'bg-[var(--bionic-red-primary)]', icon: XCircle }
 };
 
 const TripHistory = ({ trips, onTripStarted, onRefresh }) => {
+  const { t } = useLanguage();
   const [showStartModal, setShowStartModal] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState(null);
 
@@ -69,17 +73,17 @@ const TripHistory = ({ trips, onTripStarted, onRefresh }) => {
     <div className="space-y-6">
       {/* In Progress Trips */}
       {inProgressTrips.length > 0 && (
-        <Card className="bg-emerald-900/20 border-emerald-700">
+        <Card className="bg-[var(--bionic-green-muted)] border-[var(--bionic-green-primary)]/50">
           <CardHeader>
-            <CardTitle className="text-emerald-400 flex items-center gap-2">
+            <CardTitle className="text-[var(--bionic-green-primary)] flex items-center gap-2">
               <Play className="h-5 w-5" />
-              Sorties en cours ({inProgressTrips.length})
+              {t('trips_in_progress') || 'Sorties en cours'} ({inProgressTrips.length})
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
               {inProgressTrips.map((trip) => (
-                <TripCard key={trip.trip_id} trip={trip} />
+                <TripCard key={trip.trip_id} trip={trip} t={t} />
               ))}
             </div>
           </CardContent>
@@ -87,18 +91,18 @@ const TripHistory = ({ trips, onTripStarted, onRefresh }) => {
       )}
 
       {/* Planned Trips */}
-      <Card className="bg-slate-800/30 border-slate-700">
+      <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
         <CardHeader>
-          <CardTitle className="text-blue-400 flex items-center gap-2">
+          <CardTitle className="text-[var(--bionic-blue-light)] flex items-center gap-2">
             <Calendar className="h-5 w-5" />
-            Sorties planifiées ({plannedTrips.length})
+            {t('trips_planned') || 'Sorties planifiées'} ({plannedTrips.length})
           </CardTitle>
         </CardHeader>
         <CardContent>
           {plannedTrips.length === 0 ? (
-            <div className="text-center py-8 text-gray-400">
+            <div className="text-center py-8 text-[var(--bionic-text-secondary)]">
               <Calendar className="h-10 w-10 mx-auto mb-2 opacity-50" />
-              <p>Aucune sortie planifiée</p>
+              <p>{t('trips_no_planned') || 'Aucune sortie planifiée'}</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -106,6 +110,7 @@ const TripHistory = ({ trips, onTripStarted, onRefresh }) => {
                 <TripCard 
                   key={trip.trip_id} 
                   trip={trip} 
+                  t={t}
                   onStartClick={() => handleStartClick(trip)}
                 />
               ))}
@@ -115,27 +120,27 @@ const TripHistory = ({ trips, onTripStarted, onRefresh }) => {
       </Card>
 
       {/* Completed Trips */}
-      <Card className="bg-slate-800/30 border-slate-700">
+      <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
         <CardHeader>
-          <CardTitle className="text-gray-400 flex items-center gap-2">
+          <CardTitle className="text-[var(--bionic-text-secondary)] flex items-center gap-2">
             <CheckCircle className="h-5 w-5" />
-            Historique ({completedTrips.length})
+            {t('trips_history') || 'Historique'} ({completedTrips.length})
           </CardTitle>
         </CardHeader>
         <CardContent>
           {completedTrips.length === 0 ? (
-            <div className="text-center py-8 text-gray-400">
+            <div className="text-center py-8 text-[var(--bionic-text-secondary)]">
               <Target className="h-10 w-10 mx-auto mb-2 opacity-50" />
-              <p>Aucune sortie terminée</p>
+              <p>{t('trips_no_completed') || 'Aucune sortie terminée'}</p>
             </div>
           ) : (
             <div className="space-y-3">
               {completedTrips.slice(0, 10).map((trip) => (
-                <TripCard key={trip.trip_id} trip={trip} />
+                <TripCard key={trip.trip_id} trip={trip} t={t} />
               ))}
               {completedTrips.length > 10 && (
-                <p className="text-center text-sm text-gray-500">
-                  Et {completedTrips.length - 10} autres sorties...
+                <p className="text-center text-sm text-[var(--bionic-text-muted)]">
+                  {t('trips_and_more') || 'Et'} {completedTrips.length - 10} {t('trips_other_trips') || 'autres sorties...'}
                 </p>
               )}
             </div>
