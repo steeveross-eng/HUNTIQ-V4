@@ -1,6 +1,7 @@
 /**
  * SuccessForecast - Display success probability and best waypoint recommendations
  * Phase P3 - WQS & Success Forecast
+ * BIONIC Design System compliant
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
@@ -8,21 +9,27 @@ import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Progress } from '../components/ui/progress';
 import { WaypointScoringService } from '../services/WaypointScoringService';
+import { 
+  CircleDot, Sun, Cloud, CloudRain, CloudFog, Snowflake, 
+  Flame, ThumbsUp, MapPin, AlertTriangle, Target
+} from 'lucide-react';
 
+// BIONIC Design System - Species config with Lucide icons
 const SPECIES_OPTIONS = [
-  { id: 'deer', label: 'Cerf', icon: '🦌' },
-  { id: 'moose', label: 'Orignal', icon: '🫎' },
-  { id: 'bear', label: 'Ours', icon: '🐻' },
-  { id: 'wild_turkey', label: 'Dindon', icon: '🦃' },
-  { id: 'duck', label: 'Canard', icon: '🦆' }
+  { id: 'deer', label: 'Cerf', Icon: CircleDot, color: '#D2691E' },
+  { id: 'moose', label: 'Orignal', Icon: CircleDot, color: '#8B4513' },
+  { id: 'bear', label: 'Ours', Icon: CircleDot, color: '#2F4F4F' },
+  { id: 'wild_turkey', label: 'Dindon', Icon: CircleDot, color: '#ef4444' },
+  { id: 'duck', label: 'Canard', Icon: CircleDot, color: '#3b82f6' }
 ];
 
+// BIONIC Design System - Weather config with Lucide icons
 const WEATHER_OPTIONS = [
-  { id: 'Ensoleillé', label: 'Ensoleillé', icon: '☀️' },
-  { id: 'Nuageux', label: 'Nuageux', icon: '☁️' },
-  { id: 'Pluvieux', label: 'Pluvieux', icon: '🌧️' },
-  { id: 'Brumeux', label: 'Brumeux', icon: '🌫️' },
-  { id: 'Neigeux', label: 'Neigeux', icon: '❄️' }
+  { id: 'Ensoleillé', label: 'Ensoleillé', Icon: Sun, color: '#f5a623' },
+  { id: 'Nuageux', label: 'Nuageux', Icon: Cloud, color: '#9ca3af' },
+  { id: 'Pluvieux', label: 'Pluvieux', Icon: CloudRain, color: '#3b82f6' },
+  { id: 'Brumeux', label: 'Brumeux', Icon: CloudFog, color: '#6b7280' },
+  { id: 'Neigeux', label: 'Neigeux', Icon: Snowflake, color: '#06b6d4' }
 ];
 
 const getClassificationColor = (classification) => {
@@ -35,13 +42,13 @@ const getClassificationColor = (classification) => {
   }
 };
 
-const getClassificationLabel = (classification) => {
+const getClassificationIcon = (classification) => {
   switch (classification) {
-    case 'hotspot': return '🔥 Hotspot';
-    case 'good': return '👍 Bon';
-    case 'standard': return '📍 Standard';
-    case 'weak': return '⚠️ Faible';
-    default: return classification;
+    case 'hotspot': return { Icon: Flame, color: '#22c55e', label: 'Hotspot' };
+    case 'good': return { Icon: ThumbsUp, color: '#3b82f6', label: 'Bon' };
+    case 'standard': return { Icon: MapPin, color: '#eab308', label: 'Standard' };
+    case 'weak': return { Icon: AlertTriangle, color: '#ef4444', label: 'Faible' };
+    default: return { Icon: Target, color: '#6b7280', label: classification };
   }
 };
 
