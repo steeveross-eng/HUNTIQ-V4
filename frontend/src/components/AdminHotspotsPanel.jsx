@@ -52,6 +52,7 @@ const CATEGORY_ICONS = {
 
 const AdminHotspotsPanel = () => {
   const navigate = useNavigate();
+  const { token } = useAuth();
   const [loading, setLoading] = useState(true);
   const [hotspots, setHotspots] = useState([]);
   const [hotspotStats, setHotspotStats] = useState({});
@@ -60,6 +61,11 @@ const AdminHotspotsPanel = () => {
 
   // Load hotspots (ALL hotspots for admin)
   const loadHotspots = useCallback(async () => {
+    if (!token) {
+      toast.error('Authentification requise');
+      return;
+    }
+    
     try {
       setLoading(true);
       let url = `${API_URL}/api/admin/geo/hotspots?limit=200`;
@@ -67,7 +73,23 @@ const AdminHotspotsPanel = () => {
         url += `&category=${categoryFilter}`;
       }
       
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (response.status === 401) {
+        toast.error('Session expirée. Veuillez vous reconnecter.');
+        return;
+      }
+      
+      if (response.status === 403) {
+        toast.error('Accès réservé aux administrateurs');
+        return;
+      }
+      
       const data = await response.json();
       setHotspots(data.hotspots || []);
       setHotspotStats(data.by_category || {});
@@ -77,7 +99,7 @@ const AdminHotspotsPanel = () => {
     } finally {
       setLoading(false);
     }
-  }, [categoryFilter]);
+  }, [categoryFilter, token]);
 
   // Initial load
   useEffect(() => {
