@@ -984,7 +984,7 @@ const TerritoryMap = ({ userId, userName, onLogout, navigateToCoords, onNavigati
       console.error('Error deleting waypoint:', error);
       // Reload waypoints to restore state if delete failed
       loadWaypoints();
-      toast.error('❌ Erreur lors de la suppression', {
+      toast.error('Erreur lors de la suppression', {
         description: 'Le waypoint n\'a pas pu être supprimé. Veuillez réessayer.'
       });
     }
