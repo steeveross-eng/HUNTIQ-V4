@@ -481,7 +481,14 @@ const EndTripModal = ({ open, onClose, trip, onTripEnded }) => {
             <h4 className="text-white font-medium mb-2">{trip.title}</h4>
             <div className="grid grid-cols-2 gap-2 text-sm">
               <div className="text-gray-400">Espèce:</div>
-              <div className="text-white">{SPECIES_EMOJIS[trip.target_species]} {trip.target_species}</div>
+              <div className="text-white flex items-center gap-1">
+                {(() => {
+                  const speciesConfig = SPECIES_CONFIG[trip.target_species] || SPECIES_CONFIG.other;
+                  const SpeciesIcon = speciesConfig.Icon;
+                  return <SpeciesIcon className="h-4 w-4" style={{ color: speciesConfig.color }} />;
+                })()}
+                {SPECIES_CONFIG[trip.target_species]?.label || trip.target_species}
+              </div>
               <div className="text-gray-400">Observations:</div>
               <div className="text-white">{trip.observations_count || 0}</div>
               <div className="text-gray-400">Waypoints:</div>
