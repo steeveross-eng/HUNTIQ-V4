@@ -266,7 +266,7 @@ Les endpoints admin utilisent l'authentification existante.
         },
         "servers": [
             {
-                "url": "https://mapquest-v3.preview.emergentagent.com",
+                "url": "https://geo-unity.preview.emergentagent.com",
                 "description": "Preview Server"
             }
         ],
