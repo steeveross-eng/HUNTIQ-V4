@@ -184,7 +184,7 @@ export const ZONE_CONFIG = {
     nameEn: 'Access Point',
     category: 'strategic',
     color: '#8B5CF6',
-    icon: '🚶',
+    iconName: 'footprints',
     priority: 14,
     description: 'Accès au territoire',
     descriptionEn: 'Territory access'
