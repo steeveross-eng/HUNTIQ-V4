@@ -69,6 +69,7 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 // ============================================
 
 const FeedTab = ({ userId, userName }) => {
+  const { t } = useLanguage();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showNewPost, setShowNewPost] = useState(false);
