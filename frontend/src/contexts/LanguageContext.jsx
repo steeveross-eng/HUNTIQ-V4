@@ -333,6 +333,14 @@ export const TRANSLATIONS = {
     shop_filter: "Filtrer",
     shop_clear_filters: "Effacer les filtres",
     
+    // Sort Options
+    sort_rank_best: "Classement (meilleur)",
+    sort_rank_low: "Classement (bas)",
+    sort_score_high: "Score (haut)",
+    sort_score_low: "Score (bas)",
+    sort_name_az: "Nom (A-Z)",
+    sort_name_za: "Nom (Z-A)",
+    
     // Trips Page
     trips_title: "Sorties de Chasse",
     trips_active: "Sortie active",
