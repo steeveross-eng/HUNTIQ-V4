@@ -8,7 +8,7 @@ import { Button } from '../../components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
 import { Badge } from '../../components/ui/badge';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { BarChart3, Cloud, FlaskConical, Target, Bot, Loader2 } from 'lucide-react';
+import { BarChart3, Cloud, FlaskConical, Target, Bot, Loader2, Beef, Gem, CircleDot, Timer } from 'lucide-react';
 
 // Core Module Imports
 import { NutritionAnalyzer, NutritionScore, NutritionCard } from '../nutrition';
