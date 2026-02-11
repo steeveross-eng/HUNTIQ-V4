@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "project_name": "BIONIC (HuntIQ V3)",
+    "version": "3.0.0",
+    "design_philosophy": "Scientific Precision & Tactical Reliability",
+    "theme_strategy": "Dark Mode First (Tactical/Obsidian)",
+    "last_updated": "2024-05-22"
+  },
+  "typography": {
+    "font_families": {
+      "headings": "Barlow Condensed, sans-serif",
+      "body": "Inter, sans-serif",
+      "data": "JetBrains Mono, monospace"
+    },
+    "weights": {
+      "light": 300,
+      "regular": 400,
+      "medium": 500,
+      "bold": 700,
+      "black": 900
+    },
+    "scale": {
+      "hero": "text-5xl md:text-7xl tracking-tighter uppercase font-black",
+      "h1": "text-4xl md:text-5xl tracking-tight uppercase font-bold",
+      "h2": "text-3xl md:text-4xl tracking-tight font-bold",
+      "h3": "text-xl md:text-2xl font-semibold tracking-wide",
+      "body_lg": "text-lg leading-relaxed",
+      "body": "text-base leading-relaxed",
+      "caption": "text-xs tracking-widest uppercase text-muted-foreground"
+    },
+    "instructions": "Import 'Barlow Condensed' (Weights: 400, 700, 900) and 'JetBrains Mono' from Google Fonts. Use Barlow Condensed for ALL headings to achieve the 'HUD/Tactical' look. Use JetBrains Mono for ALL numerical data, coordinates, and weather metrics."
+  },
+  "colors": {
+    "palette": {
+      "background": "#0A0A0A",
+      "foreground": "#FAFAFA",
+      "card": "#121212",
+      "card_foreground": "#FAFAFA",
+      "popover": "#0F0F0F",
+      "popover_foreground": "#FAFAFA",
+      "primary": "#F5A623",
+      "primary_foreground": "#000000",
+      "secondary": "#10B981",
+      "secondary_foreground": "#000000",
+      "muted": "#262626",
+      "muted_foreground": "#A3A3A3",
+      "accent": "#262626",
+      "accent_foreground": "#FAFAFA",
+      "destructive": "#EF4444",
+      "destructive_foreground": "#FAFAFA",
+      "border": "#262626",
+      "input": "#262626",
+      "ring": "#F5A623"
+    },
+    "gradients": {
+      "gold_glow": "linear-gradient(135deg, #F5A623 0%, #F7C857 100%)",
+      "tactical_fade": "linear-gradient(to bottom, rgba(10,10,10,0) 0%, #0A0A0A 100%)",
+      "glass_surface": "linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)"
+    },
+    "usage_rules": {
+      "primary": "Use sparingly for CTAs, active states, and 'Trophy' highlights.",
+      "secondary": "Use for 'Safe Zones', 'Success' metrics, and map vegetation data.",
+      "destructive": "Use for 'No-Go Zones', 'Danger' alerts, and critical errors.",
+      "background": "NEVER use pure black (#000000) for cards. Use #121212 or glassmorphism."
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": {
+      "hud_panel": "bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl",
+      "tooltip": "bg-black/80 backdrop-blur-md border border-white/5 text-xs"
+    },
+    "borders": {
+      "tactical": "border border-white/10",
+      "active": "border border-primary/50 shadow-[0_0_15px_rgba(245,166,35,0.3)]"
+    },
+    "shadows": {
+      "glow": "0 0 20px rgba(245, 166, 35, 0.15)",
+      "deep": "0 20px 40px -10px rgba(0,0,0,0.5)"
+    },
+    "radius": {
+      "default": "rounded-sm",
+      "button": "rounded-sm",
+      "card": "rounded-md"
+    }
+  },
+  "layout_system": {
+    "grid_strategy": "Bento Grid (High Density)",
+    "spacing_scale": {
+      "section_gap": "py-16 md:py-24",
+      "component_gap": "gap-6",
+      "internal_padding": "p-6 md:p-8"
+    },
+    "container": "max-w-7xl mx-auto px-4 md:px-8"
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-primary-foreground hover:bg-primary/90 font-bold uppercase tracking-wider rounded-sm shadow-[0_0_10px_rgba(245,166,35,0.2)] transition-all duration-300 hover:shadow-[0_0_20px_rgba(245,166,35,0.4)]",
+      "secondary": "bg-secondary/10 text-secondary border border-secondary/20 hover:bg-secondary/20 font-semibold uppercase tracking-wide rounded-sm",
+      "ghost": "hover:bg-white/5 text-muted-foreground hover:text-white uppercase tracking-wide"
+    },
+    "cards": {
+      "default": "bg-card border border-border/50 rounded-md shadow-lg overflow-hidden relative group",
+      "interactive": "hover:border-primary/30 transition-colors duration-300 cursor-pointer"
+    },
+    "inputs": {
+      "default": "bg-input/50 border-input focus:border-primary focus:ring-1 focus:ring-primary rounded-sm font-mono text-sm"
+    }
+  },
+  "assets": {
+    "images": {
+      "hero_bg": "https://images.unsplash.com/photo-1570018773108-602550918b3b?q=80&w=2070&auto=format&fit=crop",
+      "animals": {
+        "moose": "https://images.unsplash.com/photo-1640964810060-321bf9f48c88?q=80&w=2070&auto=format&fit=crop",
+        "deer": "https://images.unsplash.com/photo-1556144697-230920819885?q=80&w=2070&auto=format&fit=crop",
+        "bear": "https://images.unsplash.com/photo-1710948651972-736cbca18977?q=80&w=2070&auto=format&fit=crop"
+      }
+    },
+    "icons": {
+      "library": "Lucide React",
+      "style": "Stroke width 1.5px (Thin/Precise)",
+      "custom_svgs": "Use for specific animal tracks or weapon types if Lucide is insufficient."
+    }
+  },
+  "accessibility": {
+    "contrast_check": "Ensure all text on dark backgrounds is at least #A3A3A3 or lighter. Avoid dark grey on black.",
+    "focus_states": "Visible ring-2 ring-primary ring-offset-2 ring-offset-background",
+    "touch_targets": "Minimum 44px for all mobile interactive elements."
+  },
+  "universal_guidelines": [
+    "DO NOT use gradients for backgrounds unless it is a subtle 'spotlight' effect.",
+    "DO NOT use rounded-xl or rounded-2xl. Keep it sharp (rounded-sm or rounded-md) for the 'Tactical' feel.",
+    "ALWAYS use 'Barlow Condensed' for headings. It is the signature of the BIONIC brand.",
+    "Ensure the map interface feels like a 'Command Center' - controls should float over the map with glassmorphism.",
+    "Use 'JetBrains Mono' for all coordinates, weather data, and ballistics info.",
+    "Preserve the 'Dany Lavoie' zone style: Thick borders (4px), no shadow, semi-transparent fill."
+  ]
+}
