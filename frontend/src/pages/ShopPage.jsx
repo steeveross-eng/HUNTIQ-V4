@@ -221,9 +221,9 @@ const ShopPage = ({ products = [], onAddToCart, onAffiliateClick }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="golden-text text-h1 font-bold mb-2">Magasin</h1>
+          <h1 className="golden-text text-h1 font-bold mb-2">{t('shop_title')}</h1>
           <p className="text-gray-400 text-body">
-            Découvrez notre sélection complète d'attractants premium.
+            {t('shop_all_products')}
           </p>
         </div>
         
@@ -238,7 +238,7 @@ const ShopPage = ({ products = [], onAddToCart, onAffiliateClick }) => {
         {/* Results Count */}
         <div className="mb-4 flex items-center justify-between">
           <p className="text-gray-400 text-sm">
-            {filteredProducts.length} produit{filteredProducts.length > 1 ? "s" : ""} trouvé{filteredProducts.length > 1 ? "s" : ""}
+            {filteredProducts.length} {t('common_products').toLowerCase()}
           </p>
         </div>
         
