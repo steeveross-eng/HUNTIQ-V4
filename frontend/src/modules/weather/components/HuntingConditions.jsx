@@ -1,7 +1,9 @@
 /**
  * HuntingConditions - Hunting conditions assessment widget
+ * BIONIC Design System compliant
  */
 import React from 'react';
+import { Target, ThumbsUp, Meh, AlertTriangle, Thermometer, Wind, BarChart3, Lightbulb, CircleDot } from 'lucide-react';
 
 export const HuntingConditions = ({ 
   conditions = null,
@@ -19,25 +21,25 @@ export const HuntingConditions = ({
   } = safeConditions;
 
   const getScoreColor = (score) => {
-    if (score >= 80) return { color: '#10b981', label: 'Excellent', emoji: '🎯' };
-    if (score >= 60) return { color: '#22c55e', label: 'Bon', emoji: '👍' };
-    if (score >= 40) return { color: '#f59e0b', label: 'Moyen', emoji: '😐' };
-    return { color: '#ef4444', label: 'Défavorable', emoji: '⚠️' };
+    if (score >= 80) return { color: '#10b981', label: 'Excellent', Icon: Target };
+    if (score >= 60) return { color: '#22c55e', label: 'Bon', Icon: ThumbsUp };
+    if (score >= 40) return { color: '#f59e0b', label: 'Moyen', Icon: Meh };
+    return { color: '#ef4444', label: 'Défavorable', Icon: AlertTriangle };
   };
 
-  const { color, label, emoji } = getScoreColor(overall_score);
+  const { color, label, Icon: ScoreIcon } = getScoreColor(overall_score);
 
   const factors = [
-    { name: 'Température', value: temperature_rating, icon: '🌡️' },
-    { name: 'Vent', value: wind_rating, icon: '💨' },
-    { name: 'Pression', value: pressure_rating, icon: '📊' }
+    { name: 'Température', value: temperature_rating, Icon: Thermometer },
+    { name: 'Vent', value: wind_rating, Icon: Wind },
+    { name: 'Pression', value: pressure_rating, Icon: BarChart3 }
   ];
 
   return (
     <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg p-4 border border-slate-700">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-white font-medium flex items-center gap-2">
-          <span>🦌</span>
+          <CircleDot className="h-5 w-5 text-[#f5a623]" />
           Conditions de Chasse
         </h3>
         <span className="text-xs text-slate-400 capitalize">{species}</span>
@@ -50,7 +52,7 @@ export const HuntingConditions = ({
           style={{ borderColor: color, backgroundColor: `${color}20` }}
         >
           <div className="text-center">
-            <span className="text-2xl">{emoji}</span>
+            <ScoreIcon className="h-6 w-6 mx-auto" style={{ color }} />
             <div className="text-lg font-bold" style={{ color }}>
               {overall_score}%
             </div>
@@ -68,7 +70,7 @@ export const HuntingConditions = ({
             key={factor.name}
             className="text-center p-2 bg-slate-700/50 rounded-lg"
           >
-            <span className="text-lg">{factor.icon}</span>
+            <factor.Icon className="h-5 w-5 mx-auto text-[#f5a623]" />
             <div className="text-xs text-slate-400 mt-1">{factor.name}</div>
             <div className="text-sm text-white font-medium">{factor.value}</div>
           </div>
@@ -78,8 +80,9 @@ export const HuntingConditions = ({
       {/* Recommendation */}
       {recommendation && (
         <div className="p-3 bg-blue-900/30 rounded-lg border border-blue-700">
-          <p className="text-sm text-blue-300">
-            💡 {recommendation}
+          <p className="text-sm text-blue-300 flex items-start gap-2">
+            <Lightbulb className="h-4 w-4 flex-shrink-0 mt-0.5" />
+            {recommendation}
           </p>
         </div>
       )}
