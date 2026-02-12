@@ -15,7 +15,7 @@ import {
 } from 'recharts';
 import { 
   BarChart3, TrendingUp, Target, Cloud, CircleDot, Download, RefreshCw,
-  Clock, Eye
+  Clock, Eye, FileDown, FileText, Scroll, ClipboardList, CloudSun
 } from 'lucide-react';
 import { AnalyticsService } from '../AnalyticsService';
 import { ExportService } from '../../../services/ExportService';
@@ -162,7 +162,7 @@ export const AnalyticsDashboard = () => {
             onClick={handleExportTripsCSV}
             data-testid="export-csv-btn"
           >
-            📥 CSV
+            <FileDown className="h-4 w-4 mr-1" /> CSV
           </Button>
           <Button
             size="sm"
@@ -171,7 +171,7 @@ export const AnalyticsDashboard = () => {
             onClick={handleExportPDF}
             data-testid="export-pdf-btn"
           >
-            📄 PDF
+            <FileText className="h-4 w-4 mr-1" /> PDF
           </Button>
         </div>
       </div>
@@ -284,7 +284,7 @@ export const AnalyticsDashboard = () => {
             <Card className="bg-slate-800 border-slate-700">
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg text-white flex items-center gap-2">
-                  <span>📈</span>
+                  <TrendingUp className="h-5 w-5 text-[#f5a623]" />
                   Tendances mensuelles
                 </CardTitle>
               </CardHeader>
@@ -441,7 +441,7 @@ export const AnalyticsDashboard = () => {
             <Card className="bg-slate-800 border-slate-700">
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg text-white flex items-center gap-2">
-                  <span>🌤️</span>
+                  <CloudSun className="h-5 w-5 text-[#f5a623]" />
                   Impact de la météo
                 </CardTitle>
               </CardHeader>
@@ -585,7 +585,7 @@ export const AnalyticsDashboard = () => {
           <Card className="bg-slate-800 border-slate-700">
             <CardHeader className="pb-2">
               <CardTitle className="text-lg text-white flex items-center gap-2">
-                <span>📜</span>
+                <Scroll className="h-5 w-5 text-[#f5a623]" />
                 Dernières sorties
               </CardTitle>
             </CardHeader>
@@ -622,7 +622,7 @@ export const AnalyticsDashboard = () => {
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <span className="text-4xl">📋</span>
+                  <ClipboardList className="h-12 w-12 text-slate-500 mx-auto" />
                   <p className="text-slate-400 mt-4">Aucune sortie enregistrée</p>
                   <p className="text-slate-500 text-sm">Commencez à enregistrer vos sorties de chasse</p>
                 </div>
