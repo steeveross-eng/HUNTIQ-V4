@@ -2,6 +2,7 @@
  * POIMarker - Point of Interest marker in heading view
  */
 import React from 'react';
+import { MapPin } from 'lucide-react';
 
 export const POIMarker = ({ poi, index, heading, autoRotate }) => {
   // Position based on bearing and distance
@@ -48,9 +49,7 @@ export const POIMarker = ({ poi, index, heading, autoRotate }) => {
             borderColor: poi.color
           }}
         >
-          <span className="text-lg" role="img" aria-label={poi.poi_type}>
-            {poi.icon || '📍'}
-          </span>
+          <MapPin className="h-5 w-5" style={{ color: poi.color }} />
         </div>
         
         {/* Distance label */}
