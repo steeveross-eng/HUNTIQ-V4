@@ -1231,7 +1231,9 @@ const ListingDetailModal = ({ isOpen, onClose, listing, onFavorite, auth, getCat
             {listing.photos?.[0] ? (
               <img src={listing.photos[0]} alt={listing.title} className="w-full h-full object-cover" />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-6xl">📦</div>
+              <div className="w-full h-full flex items-center justify-center">
+                <Package className="h-16 w-16 text-slate-500" />
+              </div>
             )}
           </div>
           
