@@ -1,12 +1,16 @@
 /**
  * WildlifeTracker - Species tracking and activity display
+ * BIONIC Design System compliant - No emojis
  * Phase 10 - Plan Maître Modules
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
+import { Loader2 } from 'lucide-react';
 import { WildlifeService } from '../WildlifeService';
+import { SpeciesIcon } from '../../../components/bionic/SpeciesIcon';
+import { getSpeciesInfo } from '../../../config/speciesImages';
 
 export const WildlifeTracker = ({ 
   species = 'deer',
