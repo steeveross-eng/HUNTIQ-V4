@@ -12,8 +12,10 @@ import BackgroundTracker from '../components/BackgroundTracker';
 import GeoSyncToggle from '../components/GeoSyncToggle';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Map, Satellite, RefreshCw, X } from 'lucide-react';
+import { Map, Satellite, RefreshCw, X, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { GroupeTab } from '../modules/groupe';
 
 const MapPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
