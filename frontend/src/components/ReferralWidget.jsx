@@ -33,21 +33,25 @@ import {
   Zap,
   Trophy,
   ArrowRight,
-  UserPlus
+  UserPlus,
+  Medal,
+  Award,
+  Star,
+  Loader2
 } from "lucide-react";
 import { toast } from "sonner";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-// Tier configuration
+// Tier configuration - using lucide icons
 const TIER_CONFIG = {
-  bronze: { color: "from-amber-700 to-amber-900", icon: "🥉", label: "Bronze", next: "silver" },
-  silver: { color: "from-gray-400 to-gray-600", icon: "🥈", label: "Argent", next: "gold" },
-  gold: { color: "from-yellow-500 to-yellow-700", icon: "🥇", label: "Or", next: "platinum" },
-  platinum: { color: "from-cyan-400 to-cyan-600", icon: "💎", label: "Platine", next: "diamond" },
-  diamond: { color: "from-purple-500 to-purple-700", icon: "👑", label: "Diamant", next: null },
-  partner: { color: "from-[#f5a623] to-purple-600", icon: "⭐", label: "Partenaire", next: null }
+  bronze: { color: "from-amber-700 to-amber-900", Icon: Medal, label: "Bronze", next: "silver" },
+  silver: { color: "from-gray-400 to-gray-600", Icon: Medal, label: "Argent", next: "gold" },
+  gold: { color: "from-yellow-500 to-yellow-700", Icon: Trophy, label: "Or", next: "platinum" },
+  platinum: { color: "from-cyan-400 to-cyan-600", Icon: Award, label: "Platine", next: "diamond" },
+  diamond: { color: "from-purple-500 to-purple-700", Icon: Crown, label: "Diamant", next: null },
+  partner: { color: "from-[#f5a623] to-purple-600", Icon: Star, label: "Partenaire", next: null }
 };
 
 // Share platforms
@@ -116,7 +120,7 @@ const ReferralWidget = () => {
       setShowRegistration(false);
       setAnimateReward(true);
       setTimeout(() => setAnimateReward(false), 2000);
-      toast.success("🎉 Bienvenue dans le programme de parrainage!");
+      toast.success("Bienvenue dans le programme de parrainage!");
     } catch (error) {
       toast.error(error.response?.data?.detail || "Erreur lors de l'inscription");
     }
@@ -134,7 +138,7 @@ const ReferralWidget = () => {
   const handleShare = (platformId) => {
     if (!user?.referral_link) return;
     
-    const message = `🦌 Découvrez SCENT SCIENCE™ - L'analyse scientifique des attractants de chasse! Utilisez mon lien pour ${user.current_discount_percent}% de rabais!`;
+    const message = `Découvrez SCENT SCIENCE - L'analyse scientifique des attractants de chasse! Utilisez mon lien pour ${user.current_discount_percent}% de rabais!`;
     const link = user.referral_link;
     
     const shareUrls = {
@@ -177,7 +181,7 @@ const ReferralWidget = () => {
           <div className="bg-card border border-border rounded-2xl p-4 shadow-2xl animate-in slide-in-from-bottom-2 duration-300 w-72">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <span className="text-2xl">{tierConfig.icon}</span>
+                <tierConfig.Icon className="h-6 w-6 text-white" />
                 <div>
                   <p className="text-white font-semibold">{user.name}</p>
                   <Badge className={`bg-gradient-to-r ${tierConfig.color} text-white text-xs`}>
@@ -214,7 +218,9 @@ const ReferralWidget = () => {
               <div className="mb-3">
                 <div className="flex justify-between text-xs mb-1">
                   <span className="text-gray-400">Prochain niveau</span>
-                  <span className="text-[#f5a623]">{nextTierConfig.icon} {nextTierConfig.label}</span>
+                  <span className="text-[#f5a623] flex items-center gap-1">
+                    <nextTierConfig.Icon className="h-3 w-3" /> {nextTierConfig.label}
+                  </span>
                 </div>
                 <Progress value={Math.min((user.total_buyers / 3) * 100, 100)} className="h-2" />
               </div>
@@ -362,7 +368,7 @@ const ReferralWidget = () => {
               disabled={registering}
             >
               {registering ? (
-                <span className="animate-spin">⏳</span>
+                <Loader2 className="h-5 w-5 animate-spin" />
               ) : (
                 <>
                   <UserPlus className="h-5 w-5 mr-2" />
@@ -394,7 +400,7 @@ const ReferralWidget = () => {
               {/* User Info */}
               <div className={`bg-gradient-to-r ${tierConfig.color} p-4 rounded-xl`}>
                 <div className="flex items-center gap-3">
-                  <span className="text-4xl">{tierConfig.icon}</span>
+                  <tierConfig.Icon className="h-10 w-10 text-white" />
                   <div>
                     <p className="text-white font-bold text-lg">{user.name}</p>
                     <p className="text-white/80">Niveau {tierConfig.label}</p>
@@ -457,7 +463,9 @@ const ReferralWidget = () => {
                 <div className="bg-[#f5a623]/10 border border-[#f5a623]/30 rounded-xl p-4">
                   <div className="flex justify-between mb-2">
                     <span className="text-white font-medium">Progression</span>
-                    <span className="text-[#f5a623]">{nextTierConfig.icon} {nextTierConfig.label}</span>
+                    <span className="text-[#f5a623] flex items-center gap-1">
+                      <nextTierConfig.Icon className="h-4 w-4" /> {nextTierConfig.label}
+                    </span>
                   </div>
                   <Progress value={Math.min((user.total_buyers / 3) * 100, 100)} className="h-3 mb-2" />
                   <p className="text-gray-400 text-sm text-center">
