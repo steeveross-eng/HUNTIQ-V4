@@ -157,12 +157,12 @@ HUNTIQ V3 is a professional hunting intelligence platform following the "BIONIC 
 ## Pending Tasks
 
 ### P0 - Validation Required
-- [ ] Phase 9 (Roles Corrections) - User validation pending
-- [ ] Phase 1 Cameras - User validation pending
+- [x] Phase 9 (Roles Corrections) - ACTIVÉ
+- [x] Phase 1 Caméras - ✅ VALIDÉ ET CLOS
 
-### P0 - Next (After validation)
+### P0 - Next (En attente directive utilisateur)
+- [ ] Phase 2 Caméras: Traitement avancé des images (INTERDIT - non ouvert)
 - [ ] Phase 10: Activation contrôlée des correctifs + QA
-- [ ] Phase 2 Caméras: Corridors, prédictions, IA
 
 ### P1 - Future
 - [ ] Phase 11: Stabilisation module Analytics
