@@ -7,6 +7,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui
 import { Badge } from '../../../components/ui/badge';
 import { Button } from '../../../components/ui/button';
 import { PredictiveService } from '../PredictiveService';
+import { Sparkles, Lightbulb, Loader2, TrendingUp, TrendingDown, ArrowRight } from 'lucide-react';
 
 export const PredictiveWidget = ({ 
   species = 'deer',
@@ -53,13 +54,24 @@ export const PredictiveWidget = ({
 
   const getImpactIcon = (impact) => {
     const icons = {
-      very_positive: '⬆️⬆️',
-      positive: '⬆️',
-      neutral: '➡️',
-      negative: '⬇️',
-      very_negative: '⬇️⬇️'
+      very_positive: TrendingUp,
+      positive: TrendingUp,
+      neutral: ArrowRight,
+      negative: TrendingDown,
+      very_negative: TrendingDown
     };
-    return icons[impact] || '➡️';
+    return icons[impact] || ArrowRight;
+  };
+
+  const getImpactColor = (impact) => {
+    const colors = {
+      very_positive: 'text-emerald-400',
+      positive: 'text-green-400',
+      neutral: 'text-slate-400',
+      negative: 'text-orange-400',
+      very_negative: 'text-red-400'
+    };
+    return colors[impact] || 'text-slate-400';
   };
 
   if (compact && prediction) {
@@ -90,7 +102,7 @@ export const PredictiveWidget = ({
       <CardHeader className="pb-3">
         <CardTitle className="text-lg text-white flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <span className="text-2xl">🔮</span>
+            <Sparkles className="h-6 w-6 text-blue-400" />
             Prédiction de Succès
           </span>
           <Badge className="bg-blue-900/50 text-blue-400">
@@ -101,7 +113,7 @@ export const PredictiveWidget = ({
       <CardContent>
         {loading ? (
           <div className="text-center py-6">
-            <div className="animate-spin text-3xl">🔮</div>
+            <Loader2 className="h-8 w-8 animate-spin text-blue-400 mx-auto" />
             <p className="text-slate-400 text-sm mt-2">Analyse prédictive...</p>
           </div>
         ) : prediction ? (
@@ -124,23 +136,26 @@ export const PredictiveWidget = ({
             <div>
               <p className="text-slate-400 text-sm mb-2">Facteurs d'influence</p>
               <div className="space-y-2">
-                {prediction.factors?.slice(0, 5).map((factor, index) => (
-                  <div key={index} className="flex items-center justify-between text-sm">
-                    <span className="text-slate-300">{factor.name}</span>
-                    <span className="flex items-center gap-2">
-                      <span>{getImpactIcon(factor.impact)}</span>
-                      <Badge 
-                        className="text-xs"
-                        style={{ 
-                          backgroundColor: `${getProbabilityColor(factor.score)}20`,
-                          color: getProbabilityColor(factor.score)
-                        }}
-                      >
-                        {factor.score}
-                      </Badge>
-                    </span>
-                  </div>
-                ))}
+                {prediction.factors?.slice(0, 5).map((factor, index) => {
+                  const ImpactIcon = getImpactIcon(factor.impact);
+                  return (
+                    <div key={index} className="flex items-center justify-between text-sm">
+                      <span className="text-slate-300">{factor.name}</span>
+                      <span className="flex items-center gap-2">
+                        <ImpactIcon className={`h-4 w-4 ${getImpactColor(factor.impact)}`} />
+                        <Badge 
+                          className="text-xs"
+                          style={{ 
+                            backgroundColor: `${getProbabilityColor(factor.score)}20`,
+                            color: getProbabilityColor(factor.score)
+                          }}
+                        >
+                          {factor.score}
+                        </Badge>
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
@@ -175,7 +190,7 @@ export const PredictiveWidget = ({
             {prediction.recommendation && (
               <div className="bg-emerald-900/20 border border-emerald-700/50 rounded-lg p-3">
                 <p className="text-emerald-400 text-sm flex items-center gap-2">
-                  <span>💡</span>
+                  <Lightbulb className="h-4 w-4" />
                   {prediction.recommendation}
                 </p>
               </div>
@@ -190,7 +205,7 @@ export const PredictiveWidget = ({
           </div>
         ) : (
           <div className="text-center py-8">
-            <span className="text-4xl">🔮</span>
+            <Sparkles className="h-10 w-10 text-blue-400 mx-auto" />
             <p className="text-slate-400 mt-2">Aucune prédiction disponible</p>
           </div>
         )}
