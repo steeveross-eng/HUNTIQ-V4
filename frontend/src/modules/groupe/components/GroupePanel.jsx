@@ -1,56 +1,27 @@
 /**
  * GroupePanel - Panneau principal des fonctionnalités GROUPE
  * BIONIC Design System compliant
- * Version: 1.0.0 - Phase 1
+ * Version: 1.1.0 - Phase 3
  * 
  * Panneau regroupant les fonctionnalités collaboratives.
+ * Intégré avec useGroupeTracking pour le tracking temps réel.
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { 
   Users, MapPin, Radio, Target, Navigation, Binoculars, Coffee,
   AlertTriangle, Activity, Bell, Shield, Clock, X, Maximize2,
-  Minimize2, RefreshCw, Settings, ChevronRight
+  Minimize2, RefreshCw, Settings, ChevronRight, Eye
 } from 'lucide-react';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 import { ScrollArea } from '../../../components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs';
+import { useGroupeTracking, TRACKING_STATUS } from '../hooks/useGroupeTracking';
 
-// Status configuration with BIONIC colors
-const STATUS_CONFIG = {
-  hunting: { 
-    icon: Target, 
-    colorVar: 'var(--bionic-gold-primary)', 
-    bgVar: 'var(--bionic-gold-muted)',
-    labelKey: 'groupe_status_hunting' 
-  },
-  moving: { 
-    icon: Navigation, 
-    colorVar: 'var(--bionic-blue-light)', 
-    bgVar: 'var(--bionic-blue-muted)',
-    labelKey: 'groupe_status_moving' 
-  },
-  observing: { 
-    icon: Binoculars, 
-    colorVar: 'var(--bionic-green-primary)', 
-    bgVar: 'var(--bionic-green-muted)',
-    labelKey: 'groupe_status_observing' 
-  },
-  break: { 
-    icon: Coffee, 
-    colorVar: 'var(--bionic-gray-400)', 
-    bgVar: 'var(--bionic-bg-hover)',
-    labelKey: 'groupe_status_break' 
-  },
-  emergency: { 
-    icon: AlertTriangle, 
-    colorVar: 'var(--bionic-red-primary)', 
-    bgVar: 'var(--bionic-red-muted)',
-    labelKey: 'groupe_status_emergency' 
-  }
-};
+// Status configuration with BIONIC colors (using imported TRACKING_STATUS)
+const STATUS_CONFIG = TRACKING_STATUS;
 
 // Member status indicator
 const MemberStatusBadge = ({ status, lastUpdate }) => {
