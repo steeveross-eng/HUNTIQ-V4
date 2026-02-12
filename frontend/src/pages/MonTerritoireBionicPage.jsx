@@ -2329,15 +2329,16 @@ const MonTerritoireBionicPage = () => {
             >
               <LocateFixed className="h-4 w-4 mr-2" /> Utiliser ma position actuelle
             </Button>
-            <div className="bg-[#f5a623]/10 border border-[#f5a623]/30 rounded-lg p-3">
-              <p className="text-xs text-[#f5a623]">
-                💡 Astuce : Un waypoint actif génère automatiquement des zones d'analyse BIONIC™ autour de sa position.
+            <div className="bg-[var(--bionic-gold-muted)] border border-[var(--bionic-gold-primary)]/30 rounded-lg p-3">
+              <p className="text-xs text-[var(--bionic-gold-primary)] flex items-center gap-2">
+                <Lightbulb className="h-4 w-4 flex-shrink-0" />
+                {t('waypoint_tip') || 'Astuce : Un waypoint actif génère automatiquement des zones d\'analyse BIONIC™ autour de sa position.'}
               </p>
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" className="border-gray-700" onClick={() => setShowAddWaypointDialog(false)}>
-              Annuler
+            <Button variant="outline" className="border-[var(--bionic-border-secondary)]" onClick={() => setShowAddWaypointDialog(false)}>
+              {t('common_cancel')}
             </Button>
             <Button 
               onClick={handleAddWaypointFromDialog} 
