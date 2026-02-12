@@ -299,7 +299,7 @@ const AdminHotspotsPanel = () => {
                         <tr key={hotspot.id} className="border-b border-slate-700/50 hover:bg-slate-700/30">
                           <td className="py-3">
                             <div className="flex items-center gap-2">
-                              <span>{CATEGORY_ICONS[hotspot.category] || '📍'}</span>
+                              <CategoryIconComponent category={hotspot.category} className="h-4 w-4 text-slate-400" />
                               <span className="text-white">{hotspot.name}</span>
                             </div>
                           </td>
