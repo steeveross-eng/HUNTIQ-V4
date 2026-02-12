@@ -16,7 +16,7 @@ import {
   Edit2, Save, X, LocateFixed, Building, Trees, Tent, Star,
   BookMarked, List, MapPinned, User, Navigation2, Cloud, Wifi, WifiOff,
   Share2, Users, Bell, Lock, Unlock, Leaf, CheckCircle, Droplet,
-  CircleDot, Car, Pin, Binoculars, ParkingCircle
+  CircleDot, Car, Pin, Binoculars, ParkingCircle, Lightbulb
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
