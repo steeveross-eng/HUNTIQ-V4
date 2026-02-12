@@ -307,14 +307,14 @@ const MonTerritoireBionic = ({ onNavigateToTerritory }) => {
               
               <div className="space-y-3">
                 {[
-                  { label: 'Habitat', score: 78, icon: '🏠', color: 'bg-green-500' },
-                  { label: 'Rut', score: 72, icon: '💕', color: 'bg-pink-500' },
-                  { label: 'Affûts', score: 85, icon: '🎯', color: 'bg-purple-500' },
-                  { label: 'Corridors', score: 68, icon: '🦌', color: 'bg-orange-500' },
-                  { label: 'Alimentation', score: 74, icon: '🍃', color: 'bg-lime-500' },
+                  { label: 'Habitat', score: 78, Icon: Home, color: 'bg-green-500' },
+                  { label: 'Rut', score: 72, Icon: Heart, color: 'bg-pink-500' },
+                  { label: 'Affûts', score: 85, Icon: Target, color: 'bg-purple-500' },
+                  { label: 'Corridors', score: 68, Icon: Footprints, color: 'bg-orange-500' },
+                  { label: 'Alimentation', score: 74, Icon: Leaf, color: 'bg-lime-500' },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-3">
-                    <span className="text-lg">{item.icon}</span>
+                    <item.Icon className="w-5 h-5 text-slate-400" />
                     <div className="flex-1">
                       <div className="flex justify-between text-xs mb-1">
                         <span className="text-gray-400">{item.label}</span>
