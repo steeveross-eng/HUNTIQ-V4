@@ -508,7 +508,8 @@ const LandsRental = () => {
   };
 
   const getSpeciesIcon = (species) => {
-    return SPECIES_CONFIG[species]?.icon || '🎯';
+    const SpeciesIcon = SPECIES_CONFIG[species]?.icon || Target;
+    return SpeciesIcon;
   };
 
   // ============================================
@@ -916,7 +917,7 @@ const LandsRental = () => {
 // ============================================
 
 const LandCard = ({ listing, onView, formatPrice, viewMode }) => {
-  const speciesIcons = listing.game_species?.map(s => SPECIES_CONFIG[s]?.icon || '🎯').join(' ');
+  const speciesIconComponents = listing.game_species?.map(s => SPECIES_CONFIG[s]?.icon || Target);
 
   if (viewMode === 'list') {
     return (
@@ -925,7 +926,13 @@ const LandCard = ({ listing, onView, formatPrice, viewMode }) => {
           <div className="w-32 h-24 bg-gray-800 rounded-lg flex items-center justify-center text-3xl flex-shrink-0">
             {listing.photos?.[0] ? (
               <img src={listing.photos[0]} alt="" className="w-full h-full object-cover rounded-lg" />
-            ) : speciesIcons}
+            ) : (
+              <div className="flex gap-1">
+                {speciesIconComponents?.slice(0, 3).map((IconComp, i) => (
+                  <IconComp key={i} className="h-6 w-6 text-[#f5a623]" />
+                ))}
+              </div>
+            )}
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between">
@@ -946,10 +953,14 @@ const LandCard = ({ listing, onView, formatPrice, viewMode }) => {
               </div>
             </div>
             <div className="flex items-center gap-3 mt-2 text-xs text-gray-500">
-              <span className="text-lg">{speciesIcons}</span>
+              <span className="flex gap-1">
+                {speciesIconComponents?.slice(0, 3).map((IconComp, i) => (
+                  <IconComp key={i} className="h-4 w-4 text-[#f5a623]" />
+                ))}
+              </span>
               <span><Eye className="h-3 w-3 inline" /> {listing.views}</span>
-              {listing.has_blinds && <span>🏠 Caches</span>}
-              {listing.has_cameras && <span>📷 Caméras</span>}
+              {listing.has_blinds && <span className="flex items-center gap-1"><Tent className="h-3 w-3" /> Caches</span>}
+              {listing.has_cameras && <span className="flex items-center gap-1"><Camera className="h-3 w-3" /> Caméras</span>}
             </div>
           </div>
         </CardContent>
@@ -964,7 +975,11 @@ const LandCard = ({ listing, onView, formatPrice, viewMode }) => {
         {listing.photos?.[0] ? (
           <img src={listing.photos[0]} alt="" className="w-full h-full object-cover" />
         ) : (
-          <div className="text-5xl">{speciesIcons || '🌲'}</div>
+          <div className="flex gap-2">
+            {speciesIconComponents?.slice(0, 3).map((IconComp, i) => (
+              <IconComp key={i} className="h-10 w-10 text-[#f5a623]" />
+            )) || <Trees className="h-10 w-10 text-green-500" />}
+          </div>
         )}
         
         {/* Badges */}
@@ -1021,9 +1036,9 @@ const LandCard = ({ listing, onView, formatPrice, viewMode }) => {
 
         {/* Amenities */}
         <div className="flex gap-2 mt-3 text-xs text-gray-500">
-          {listing.has_blinds && <span className="flex items-center gap-1">🏠 Caches</span>}
-          {listing.has_cameras && <span className="flex items-center gap-1">📷 Caméras</span>}
-          {listing.dogs_allowed && <span className="flex items-center gap-1">🐕 Chiens</span>}
+          {listing.has_blinds && <span className="flex items-center gap-1"><Tent className="h-3 w-3" /> Caches</span>}
+          {listing.has_cameras && <span className="flex items-center gap-1"><Camera className="h-3 w-3" /> Caméras</span>}
+          {listing.dogs_allowed && <span className="flex items-center gap-1"><Dog className="h-3 w-3" /> Chiens</span>}
         </div>
       </CardContent>
     </Card>
