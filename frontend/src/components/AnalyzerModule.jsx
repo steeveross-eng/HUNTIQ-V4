@@ -351,7 +351,10 @@ const AnalyzerModule = () => {
                         <SelectContent className="bg-card border-border">
                           {SPECIES.map((s) => (
                             <SelectItem key={s.id} value={s.id} className="text-white hover:bg-gray-700">
-                              {s.icon} {s.name}
+                              <div className="flex items-center gap-2">
+                                <SpeciesIcon species={s.speciesId} size="xs" />
+                                {s.name}
+                              </div>
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -368,7 +371,10 @@ const AnalyzerModule = () => {
                         <SelectContent className="bg-card border-border">
                           {SEASONS.map((s) => (
                             <SelectItem key={s.id} value={s.id} className="text-white hover:bg-gray-700">
-                              {s.icon} {s.name}
+                              <div className="flex items-center gap-2">
+                                <s.Icon className={`h-4 w-4 ${s.color}`} />
+                                {s.name}
+                              </div>
                             </SelectItem>
                           ))}
                         </SelectContent>
