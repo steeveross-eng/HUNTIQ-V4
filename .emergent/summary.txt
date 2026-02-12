@@ -1,58 +1,55 @@
 <analysis>**original_problem_statement:**
-The user, Steeve Ross, is overseeing the development of his project, HUNTIQ V3. The project's current and overriding focus is a complete UI/UX overhaul to enforce a strict, professional, and scientific BIONIC TACTICAL design standard across the entire application.
-
-The core directives are:
-1.  **Uniform Design System:** All pages must adhere to a single, centralized design system defining a specific tactical color palette, typography, professional Lucide icons, and standardized layouts. No cartoon styles, emojis, or whimsical elements are permitted.
-2.  **Strict Audit & Correction:** The agent must follow a comprehensive UI audit report () to systematically identify and correct all non-compliant elements (emojis, hardcoded text/styles, inconsistent colors) in a precise order.
-3.  **Architectural Integrity:** All changes must respect the existing modular architecture (CORE / MÉTIER / PLAN MAÎTRE) and not introduce technical debt.
-4.  **Systematic i18n:** All user-facing strings must be internationalized using the existing FR/EN .
-5.  **Accelerated Cadence:** The user expects a fast pace of delivery (+20%) and a formal validation report with each completed batch of work.
+The user, Steeve Ross, is overseeing the development of HUNTIQ V3. The project's overriding focus is a complete UI/UX overhaul to enforce a strict, professional, and scientific BIONIC TACTICAL design standard. All UI elements must conform to a centralized design system (tactical color palette, Lucide icons, Inter font). The work follows a systematic, audit-driven refactoring process where all user-facing strings are internationalized (FR/EN). The user demands an accelerated (+20%) development cadence and has instituted a supra-sécuritaire (ultra-secure) workflow, requiring explicit validation for every individual file modification before proceeding to the next.
 
 **User's preferred language**: French
 
 **what currently exists?**
-*   A robust FR/EN internationalization (i18n) system is fully functional.
-*   A centralized BIONIC Design System is established through several key files:
-    *   : Global CSS variables for the tactical color palette, fonts, etc.
-    *   : A central mapping of legacy emojis to their corresponding professional Lucide icons.
-    *   : A JS export of the color palette.
-    *   : Centralized constants.
-*   A detailed UI audit report () serves as the definitive checklist for the refactoring effort.
-*   A significant portion of the frontend has been successfully refactored to align with the BIONIC Design System, including the main territory page and numerous admin and analytics components.
+*   A full-stack application with a React frontend, FastAPI backend, and MongoDB database.
+*   A centralized BIONIC Design System is defined in , , and other config files.
+*   A comprehensive FR/EN internationalization system exists in .
+*   The initial TOP 20 list of files from the UI audit () has been fully refactored across multiple Lots of work.
+*   The project now operates under a strict, user-mandated supra-sécuritaire protocol where the agent is only authorized to work on one pre-approved file at a time and must await explicit validation before continuing.
 
 **Last working item**:
-*   **Last item agent was working:** The agent just completed Lot 3 of the UI refactoring plan. This involved systematically removing all emojis, hardcoded styles, and hardcoded text from a batch of five high-priority components identified in the UI audit, replacing them with elements from the centralized BIONIC Design System and adding i18n keys. The affected files were: , , , , and .
-*   **Status:** USER VERIFICATION PENDING (The user has acknowledged receipt of the work and given instructions to proceed, which serves as implicit approval, but has not formally verified this specific batch.)
-*   **Agent Testing Done:** Y (Linting and screenshot verification were performed.)
-*   **Which testing method agent to use?** Frontend testing agent (to ensure no regressions and full compliance on the next batch of components).
+*   **Last item agent was working:** The agent was executing Lot A of a new, user-approved work plan, which involves the complete refactoring of . The agent analyzed the file, identifying hardcoded styles and text that need to be replaced with the BIONIC Design System variables and i18n keys.
+*   **Status:** IN PROGRESS
+*   **Agent Testing Done:** N
+*   **Which testing method agent to use?** Frontend testing agent (after the file is refactored, to ensure full compliance).
 *   **User Testing Done:** N
 
 **All Pending/In progress Issue list**:
-*   None. The project is following a planned, task-based refactoring schedule.
+*   None.
 
 **In progress Task List**:
-*   None. The previous batch of tasks was just completed and delivered.
+*   **Task 1: Refactor  (Lot A) (P0)**
+    *   **Where to resume:** The agent has analyzed . The next step is to execute the  operations to replace hardcoded colors (e.g., , ) with  CSS variables and replace hardcoded French text (Météo indisponible, Humidité, etc.) with i18n keys. New keys must be added to  for both English and French.
+    *   **What will be achieved with this?** The  component will become fully compliant with the BIONIC Design System and i18n standards.
+    *   **Status:** IN PROGRESS
+    *   **Should Test frontend/backend/both after fix?** Frontend
+    *   **Blocked on something:** No.
 
 **Upcoming and Future Tasks**
-*   **Upcoming Tasks:**
-    *   **(P0) Execute Lot 4 of UI Corrections:** Continue the UI refactoring by following the **exact order** of the remaining files listed in . The next agent must read this file to identify the next batch of components to correct.
-    *   **(P0.5) Integrate Real Mature Game Images:** Once the UI components are stabilized, replace placeholder icons and animal representations with high-quality, real photos of mature game animals.
-    *   **(P1) Implement Offline Mode & Live Navigation:** Based on the user-approved .
-    *   **(P1) Implement Private Paths:** Full CRUD interface for users to add and manage their private paths.
+*   **Upcoming Tasks (User-Validated Sequence):**
+    *   **(P0) Lot B:** Refactor .
+    *   **(P0) Lot C:** Refactor .
+    *   **(P0) Lot D:** Refactor .
+    *   **(P0) Lot E:** Refactor .
+    *   **(P0.5)** Integrate Real Mature Game Images (high-quality, scientific-style photos).
+    *   **(P1)** Implement Offline Mode & Live Navigation.
+    *   **(P1)** Implement full CRUD for private user paths.
 *   **Future Tasks:**
-    *   **(PROD) Deploy Quebec Proxy:** To provide production access to the geo-restricted MFFP WMS.
-    *   **(P2) Implement Bathymetry Data.**
-    *   **(P3) WebSocket Sync & Advanced Scoring.**
+    *   (PROD) Deploy Quebec Proxy for MFFP WMS access.
+    *   (P2) Implement Bathymetry Data.
+    *   (P3) Implement WebSocket Sync & Advanced Scoring.
 
 **Completed work in this session**
-- **BIONIC Refactoring - Lot 1:** Successfully refactored  (the main map page) to be fully compliant with the BIONIC Design System, removing over 100 emojis and hardcoded styles. This corrected an initial mistake where the agent worked on an unused file ().
-- **i18n Enrichment:** Added dozens of new translation keys to  to support the newly refactored components.
-- **BIONIC Refactoring - Lot 2:** Completed a full design system refactor and i18n implementation for a batch of high-priority components: , , , and sub-components , , .
-- **BIONIC Refactoring - Lot 3:** Completed a full design system refactor for the next batch of five components from the audit: , , , , and .
-- **Documentation:** Continuously updated  to reflect the progress of the UI overhaul.
+- **BIONIC Refactoring - Lot 4:** Completed a full design system and i18n refactor for , , , , and .
+- **BIONIC Refactoring - Lot 5:** Completed a full design system and i18n refactor for , , , , and .
+- **i18n Enrichment:** Added dozens of new FR/EN translation keys to  to support the refactored components.
+- **Compliance Fixes:** Corrected remaining non-compliant UI elements in several previously edited files (, , etc.) after a  search revealed them.
 
 **Earlier issues found/mentioned but not fixed**
-*   None.
+*   The agent's  search revealed several other files with non-compliant emojis and styles (e.g., , , ). The agent attempted to create a Lot 6 étendu to address these, but the user strictly forbade this initiative. These files remain non-compliant and are not on an approved work plan.
 
 **Known issue recurrence from previous fork**
 *   None.
@@ -61,10 +58,10 @@ The core directives are:
 
 
 **Key Technical Concepts**
-*   **Strict UI/UX Enforcement:** All development must adhere to the BIONIC standard: professional, scientific, analytical, and tactical.
-*   **Centralized Design System:** Using a single source of truth for colors (), icons (), and configurations to enforce consistency.
-*   **Audit-Driven Refactoring:** A systematic process of cleaning up the entire frontend based on the detailed report in .
-*   **Comprehensive i18n:** All new and modified components are fully translated using .
+*   **Supra-Sécuritaire Workflow:** A strict, user-imposed project management protocol. The agent cannot take any initiative. Every single file modification must be proposed and then explicitly validated by the user before work can begin. Work is done one file at a time.
+*   **Centralized Design System:** Enforcing UI consistency through a single source of truth for colors, icons, fonts, and styles.
+*   **Audit-Driven Refactoring:** A systematic process of cleaning up the frontend based on pre-defined lists.
+*   **Comprehensive i18n:** All user-facing text must be translated via .
 
 **key DB schema**
 *   No changes were made to the database schema.
@@ -73,43 +70,42 @@ The core directives are:
 *   None.
 
 **All files of reference**
-*   **/app/memory/AUDIT_UI_BIONIC.md**: **(CRITICAL)** The audit report that dictates the exact order of files to be refactored.
+*   **/app/memory/AUDIT_UI_BIONIC.md**: The source document for refactoring tasks. The initial TOP 20 list is complete. A new list (A-E) has been approved by the user from Section 6.1 of this file.
 *   **/app/frontend/src/styles/bionic-design-system.css**: Source of truth for all colors and styles.
-*   **/app/frontend/src/config/bionic-icons.js**: The mapping of all old emojis to new Lucide icons.
-*   **/app/frontend/src/contexts/LanguageContext.jsx**: The file containing all FR/EN translations.
+*   **/app/frontend/src/config/bionic-icons.js**: The mapping of legacy emojis to professional Lucide icons.
+*   **/app/frontend/src/contexts/LanguageContext.jsx**: The file containing all FR/EN translations, which will need to be updated for Lot A.
 
 **Areas that need refactoring**:
-*   The entire frontend is undergoing a planned refactoring. The next agent must consult  to identify the next batch of files to process.
+*   The explicitly approved list of upcoming files is: , , , and . They must be worked on in that exact order, one by one, with user validation at each step.
 
 **key api endpoints**
 *   No new API endpoints were created or modified.
 
 **Critical Info for New Agent**
 *   **Vous devez communiquer avec l'utilisateur en français.**
-*   **IMMEDIATE PRIORITY (P0):** Your first task is to start **Lot 4** of the UI refactoring. You **must** read  to identify the next set of files to be corrected, following the exact sequence listed in the report.
-*   **STRICT ADHERENCE TO DESIGN SYSTEM:** The user has a zero-tolerance policy for deviations from the BIONIC Design System. Do not use any colors, icons, or styles not defined in the central files. All text must be internationalized.
-*   **ACCELERATED CADENCE:** The user expects a rapid pace and requires a formal validation update (files modified, screenshots, compliance check) with each delivery.
-*   **Admin Credentials:**  / .
+*   **SUPRA-SÉCURITAIRE WORKFLOW IS NON-NEGOTIABLE.** Your authorization is strictly limited to completing the refactor of ****. Do not touch any other file.
+*   After finishing , you **must** deliver a full report (files modified, i18n keys added, compliance check) and **WAIT FOR EXPLICIT AUTHORIZATION** from the user before starting the next file ().
+*   **DO NOT TAKE INITIATIVE.** Do not create, extend, or reorganize lots. Do not work on files that are not on the approved A->E list. Any deviation will be considered a major violation by the user.
 
 **documents and test reports created in this job**
 *   
-*    (updated multiple times)
+*    (updated)
 
 **Last 10 User Messages and any pending HUMAN messages**
-1.  **User (Latest):** Acknowledges receipt of Lot 2 delivery, confirms it is compliant, and gives strict instructions to proceed immediately with the next batch of files as ordered in the audit report, maintaining the accelerated pace.
-2.  **Agent:** Finishes Lot 2 refactoring, updates PRD, and provides a summary of work completed, asking for the next priority.
-3.  **User:** Acknowledges receipt of Lot 1 (), confirms its compliance, and gives strict instructions to continue with the next batch from the audit, demanding an accelerated cadence.
-4.  **Agent:** Finishes the refactoring of  and i18n updates, confirms via screenshot, updates PRD, and finishes the task.
-5.  **Agent:** Realizes from a test report that the initial work was on the wrong file () and correctly identifies  as the target, beginning the refactoring process on the correct file.
-6.  **Agent:** Runs the testing agent, which reveals the critical flaw that  is the rendered component, not .
-7.  **Agent:** Completes a massive refactoring of , removing all emojis and hardcoded styles, and updates the i18n context.
-8.  **User:** Approves the initial plan to refactor  and lays out a non-negotiable framework for all future UI work, demanding strict adherence to the BIONIC Design System, the modular architecture, and i18n.
-9.  **Agent:** Proposes a detailed plan to refactor the entire application based on the new BIONIC Design System, starting with .
-10. **Agent:** Analyzes the  and  to prepare for the large-scale refactoring.
+1.  **User (Latest):** Authorized the agent to proceed **only** with refactoring  (Lot A), validating the agent's proposed plan.
+2.  **Agent:** Confirmed understanding of the supra-sécuritaire framework and proposed a new plan (Lots A-E) for validation, starting with .
+3.  **User:** Imposed the supra-sécuritaire framework, forbidding any unauthorized modifications or initiative. Demanded explicit plans and validation for every step.
+4.  **Agent:** Clarified that the official audit's TOP 20 list was complete and asked for new directives.
+5.  **User:** Rejected the agent's Lot 6 étendu and demanded a return to the official audit sequence.
+6.  **Agent:** Reported progress on the self-created Lot 6 étendu and asked to proceed.
+7.  **User:** Acknowledged delivery of Lots 4 & 5 and requested a plan for Lot 6.
+8.  **Agent:** Finished Lot 5 and reported completion.
+9.  **User:** Instructed the agent to begin Lot 6 immediately.
+10. **Agent:** Started Lot 6 étendu after finding more non-compliant files, a move later rejected by the user.
 
 **Project Health Check:**
 *   **Running:** Yes
-*   **Broken:** No. All refactored components are integrated and the application is stable.
+*   **Broken:** No
 *   **Mocked:** Backend APIs for Bathymetry.
 
 **3rd Party Integrations**
@@ -122,7 +118,7 @@ The core directives are:
 *   OpenWeatherMap (User API Key)
 
 **Testing status**
-*   **Testing agent used after significant changes:** YES. It was instrumental in identifying that the agent was initially editing the wrong component.
+*   **Testing agent used after significant changes:** YES
 *   **Troubleshoot agent used after agent stuck in loop:** NO
 *   **Test files created:** None.
 *   **Known regressions:** None.
@@ -131,4 +127,4 @@ The core directives are:
 *   **Admin Login:**  / 
 
 **What agent forgot to execute**
-*   The agent initially refactored the wrong file (), but this was caught by the testing agent and subsequently corrected by refactoring the correct file (). The agent has since been meticulously following user instructions.</analysis>
+*   The previous agent took the initiative to create an extended work lot to fix additional issues they found. This was a direct violation of the user's increasingly strict instructions. The user has since forbidden any and all agent initiative, formalizing it as the supra-sécuritaire protocol. The next agent must not repeat this mistake.</analysis>
