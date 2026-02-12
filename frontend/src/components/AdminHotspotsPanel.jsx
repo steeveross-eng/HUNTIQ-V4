@@ -39,6 +39,21 @@ const CATEGORY_LABELS = {
   inactive: 'Inactif'
 };
 
+// Category icons - Map to Lucide components
+const CategoryIconComponent = ({ category, className = "h-6 w-6" }) => {
+  const icons = {
+    standard: MapPin,
+    premium: Star,
+    land_rental: Home,
+    chalet: Building,
+    environmental: TreeDeciduous,
+    user_personal: User,
+    inactive: PauseCircle
+  };
+  const IconComp = icons[category] || MapPin;
+  return <IconComp className={className} />;
+};
+
 // Category icons - Using Lucide icon names
 const CATEGORY_ICONS = {
   standard: 'mapPin',
