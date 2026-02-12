@@ -95,9 +95,9 @@ const SiteAccessControl = () => {
       setFormData(prev => ({ ...prev, mode: newMode }));
       
       const modeLabels = {
-        live: '🟢 Site en ligne',
-        development: '🟡 Mode développement activé',
-        maintenance: '🔴 Mode maintenance activé'
+        live: 'Site en ligne',
+        development: 'Mode développement activé',
+        maintenance: 'Mode maintenance activé'
       };
       
       // Show main toast
@@ -108,12 +108,12 @@ const SiteAccessControl = () => {
         const { action, count, message } = response.data.features_sync;
         setTimeout(() => {
           if (action === 'disabled') {
-            toast.warning(`⚡ ${message}`, {
+            toast.warning(`${message}`, {
               description: 'Toutes les actions sont bloquées pendant la maintenance',
               duration: 5000
             });
           } else if (action === 'restored') {
-            toast.success(`⚡ ${message}`, {
+            toast.success(`${message}`, {
               description: 'Les fonctionnalités ont été restaurées à leur état précédent',
               duration: 5000
             });
@@ -210,9 +210,9 @@ const SiteAccessControl = () => {
                 <h3 className="text-white font-semibold text-lg">État actuel du site</h3>
                 <div className="flex items-center gap-2 mt-1">
                   <Badge className={getModeColor(formData.mode)}>
-                    {formData.mode === 'live' && '🟢 En ligne'}
-                    {formData.mode === 'development' && '🟡 En développement'}
-                    {formData.mode === 'maintenance' && '🔴 En maintenance'}
+                    {formData.mode === 'live' && 'En ligne'}
+                    {formData.mode === 'development' && 'En développement'}
+                    {formData.mode === 'maintenance' && 'En maintenance'}
                   </Badge>
                   {config?.updated_at && (
                     <span className="text-gray-500 text-xs">
