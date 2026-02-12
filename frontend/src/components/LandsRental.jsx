@@ -1587,8 +1587,8 @@ const ListingDetailModal = ({ isOpen, onClose, listing, formatPrice, onRent, onP
           </div>
 
           {/* Disclaimer */}
-          <p className="text-xs text-gray-500 text-center">
-            ⚠️ La plateforme met en relation propriétaires et chasseurs. Elle n'est pas partie aux ententes 
+          <p className="text-xs text-gray-500 text-center flex items-start justify-center gap-1">
+            <AlertTriangle className="h-3 w-3 flex-shrink-0 mt-0.5" /> La plateforme met en relation propriétaires et chasseurs. Elle n'est pas partie aux ententes 
             et n'assume aucune responsabilité.
           </p>
         </div>
@@ -1836,8 +1836,8 @@ const PricingModal = ({ isOpen, onClose, pricing, onPurchase }) => {
                 return (
                   <Card key={key} className={`border-border ${isVip ? 'border-amber-500 bg-amber-500/5' : 'bg-gray-900/50'}`}>
                     {isVip && (
-                      <div className="bg-amber-500 text-black text-xs font-bold text-center py-1">
-                        ⭐ POPULAIRE
+                      <div className="bg-amber-500 text-black text-xs font-bold text-center py-1 flex items-center justify-center gap-1">
+                        <Star className="h-3 w-3 fill-black" /> POPULAIRE
                       </div>
                     )}
                     <CardContent className="p-4 text-center">
