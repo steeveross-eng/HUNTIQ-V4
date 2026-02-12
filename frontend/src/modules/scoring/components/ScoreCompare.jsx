@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { ScoreDisplay } from './ScoreDisplay';
+import { Trophy } from 'lucide-react';
 
 export const ScoreCompare = ({ 
   productA, 
@@ -52,9 +53,9 @@ export const ScoreCompare = ({
       {/* Winner badge */}
       {diff !== 0 && (
         <div className="mt-4 text-center">
-          <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium
+          <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium
             ${diff > 0 ? 'bg-emerald-900/50 text-emerald-400' : 'bg-blue-900/50 text-blue-400'}`}>
-            🏆 {diff > 0 ? productA.name : productB.name} gagne
+            <Trophy className="h-3 w-3" /> {diff > 0 ? productA.name : productB.name} gagne
           </span>
         </div>
       )}
