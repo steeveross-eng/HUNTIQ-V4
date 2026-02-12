@@ -6,40 +6,59 @@ import React from 'react';
 import { Card, CardContent } from '../../../components/ui/card';
 import { Badge } from '../../../components/ui/badge';
 import { Button } from '../../../components/ui/button';
+import { Clock, Check, Settings, Package, CheckCircle, XCircle, RefreshCcw, Link, ClipboardList, Truck } from 'lucide-react';
+
+const STATUS_ICONS = {
+  pending: Clock,
+  confirmed: Check,
+  processing: Settings,
+  shipped: Package,
+  delivered: CheckCircle,
+  cancelled: XCircle,
+  refunded: RefreshCcw
+};
+
+const MODE_ICONS = {
+  dropshipping: Truck,
+  affiliate: Link,
+  direct: Package
+};
 
 export const OrderCard = ({ order, onViewDetails, onCancel, compact = false }) => {
   if (!order) return null;
 
   const getStatusInfo = (status) => {
     const statusMap = {
-      pending: { color: 'amber', label: 'En attente', icon: '⏳' },
-      confirmed: { color: 'blue', label: 'Confirmée', icon: '✓' },
-      processing: { color: 'purple', label: 'En traitement', icon: '⚙️' },
-      shipped: { color: 'cyan', label: 'Expédiée', icon: '📦' },
-      delivered: { color: 'emerald', label: 'Livrée', icon: '✅' },
-      cancelled: { color: 'red', label: 'Annulée', icon: '❌' },
-      refunded: { color: 'slate', label: 'Remboursée', icon: '💸' }
+      pending: { color: 'amber', label: 'En attente' },
+      confirmed: { color: 'blue', label: 'Confirmée' },
+      processing: { color: 'purple', label: 'En traitement' },
+      shipped: { color: 'cyan', label: 'Expédiée' },
+      delivered: { color: 'emerald', label: 'Livrée' },
+      cancelled: { color: 'red', label: 'Annulée' },
+      refunded: { color: 'slate', label: 'Remboursée' }
     };
-    return statusMap[status] || { color: 'slate', label: status, icon: '📋' };
+    return statusMap[status] || { color: 'slate', label: status };
   };
 
   const getSaleModeInfo = (mode) => {
     const modes = {
-      dropshipping: { label: 'Dropshipping', icon: '🚚' },
-      affiliate: { label: 'Affiliation', icon: '🔗' },
-      direct: { label: 'Vente directe', icon: '📦' }
+      dropshipping: { label: 'Dropshipping' },
+      affiliate: { label: 'Affiliation' },
+      direct: { label: 'Vente directe' }
     };
-    return modes[mode] || { label: mode, icon: '📋' };
+    return modes[mode] || { label: mode };
   };
 
   const statusInfo = getStatusInfo(order.status);
   const modeInfo = getSaleModeInfo(order.sale_mode);
+  const StatusIcon = STATUS_ICONS[order.status] || ClipboardList;
+  const ModeIcon = MODE_ICONS[order.sale_mode] || ClipboardList;
 
   if (compact) {
     return (
       <div className="flex items-center justify-between bg-slate-800 rounded-lg p-3 border border-slate-700">
         <div className="flex items-center gap-3">
-          <span className="text-xl">{statusInfo.icon}</span>
+          <StatusIcon className="h-5 w-5" />
           <div>
             <p className="text-white text-sm font-medium">#{order.order_number || order.id?.slice(-8)}</p>
             <p className="text-slate-400 text-xs">{order.total?.toFixed(2)}$</p>
@@ -66,10 +85,12 @@ export const OrderCard = ({ order, onViewDetails, onCancel, compact = false }) =
             </p>
           </div>
           <div className="flex flex-col items-end gap-1">
-            <Badge className={`bg-${statusInfo.color}-900/50 text-${statusInfo.color}-400`}>
-              {statusInfo.icon} {statusInfo.label}
+            <Badge className={`bg-${statusInfo.color}-900/50 text-${statusInfo.color}-400 flex items-center gap-1`}>
+              <StatusIcon className="h-3 w-3" /> {statusInfo.label}
             </Badge>
-            <span className="text-xs text-slate-500">{modeInfo.icon} {modeInfo.label}</span>
+            <span className="text-xs text-slate-500 flex items-center gap-1">
+              <ModeIcon className="h-3 w-3" /> {modeInfo.label}
+            </span>
           </div>
         </div>
 
