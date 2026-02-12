@@ -219,7 +219,7 @@ const PackageCard = ({ pkg, icon, onPurchase, isPurchasing, highlight, isPro, is
     }`}>
       {highlight && (
         <div className="bg-[#f5a623] text-black text-xs font-bold text-center py-1">
-          ⭐ MEILLEUR CHOIX
+          <Star className="h-3 w-3 inline mr-1" /> MEILLEUR CHOIX
         </div>
       )}
       <CardHeader className="pb-2">
@@ -304,7 +304,7 @@ export const PaymentStatusChecker = ({ sessionId, onComplete }) => {
       
       if (response.data.payment_status === 'paid') {
         setStatus('success');
-        toast.success('🎉 Paiement réussi!');
+        toast.success('Paiement réussi!');
         if (onComplete) {
           onComplete(response.data);
         }

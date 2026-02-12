@@ -40,7 +40,7 @@ export const OfflineIndicator = () => {
     >
       <span className={`w-3 h-3 rounded-full ${isOnline ? 'bg-green-300' : 'bg-amber-300 animate-pulse'}`} />
       <span className="font-medium">
-        {isOnline ? '✓ Connexion rétablie' : '⚠️ Mode hors ligne'}
+        {isOnline ? 'Connexion rétablie' : 'Mode hors ligne'}
       </span>
       {!isOnline && (
         <span className="text-sm opacity-80">
