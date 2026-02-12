@@ -1241,6 +1241,16 @@ export const TRANSLATIONS = {
     forecast_days_title: "Prévisions {days} jours",
     forecast_day_prefix: "J+",
     
+    // HuntingConditions - Lot C
+    hunting_conditions_title: "Conditions de Chasse",
+    hunting_score_excellent: "Excellent",
+    hunting_score_good: "Bon",
+    hunting_score_average: "Moyen",
+    hunting_score_poor: "Défavorable",
+    hunting_factor_temperature: "Température",
+    hunting_factor_wind: "Vent",
+    hunting_factor_pressure: "Pression",
+    
     // Networking - Extended Lot 5
     feed_liked: "Aimé!",
     feed_removed: "Retiré",
