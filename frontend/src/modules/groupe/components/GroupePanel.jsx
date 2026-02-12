@@ -250,6 +250,14 @@ export const GroupePanel = ({
               </Badge>
             )}
           </TabsTrigger>
+          <TabsTrigger 
+            value="security"
+            className="data-[state=active]:text-[var(--bionic-gold-primary)] data-[state=active]:border-b-2 data-[state=active]:border-[var(--bionic-gold-primary)] rounded-none"
+            data-testid="groupe-tab-security"
+          >
+            <ShieldCheck className="h-4 w-4 mr-2" />
+            {t('safety_title')}
+          </TabsTrigger>
         </TabsList>
 
         {/* Members Tab */}
