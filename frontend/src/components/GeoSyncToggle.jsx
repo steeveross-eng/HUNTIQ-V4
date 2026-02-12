@@ -4,7 +4,7 @@
  * 
  * Provides a toggle to enable/disable real-time sync with hunting group members.
  * 
- * ⚠️ CONFIDENTIALITÉ:
+ * CONFIDENTIALITÉ:
  * - Les HOTSPOTS et CORRIDORS sont EXCLUS de la synchronisation
  * - Ces données sensibles restent 100% privées
  * - Seuls les waypoints, zones et POI non-sensibles peuvent être synchronisés
@@ -236,7 +236,7 @@ const GeoSyncToggle = ({
         className={isEnabled ? "bg-green-600 hover:bg-green-700" : ""}
         data-testid="geo-sync-toggle"
       >
-        {isEnabled ? "🔄 Sync ON" : "⏸️ Sync OFF"}
+        {isEnabled ? "Sync ON" : "Sync OFF"}
       </Button>
       
       {/* Connection Status */}
