@@ -129,7 +129,10 @@ const CreateTripModal = ({ open, onClose, onTripCreated }) => {
                     value={species.value}
                     className="text-white hover:bg-slate-700"
                   >
-                    {species.label}
+                    <span className="flex items-center gap-2">
+                      <SpeciesIcon species={species.value} size="xs" rounded />
+                      {species.label}
+                    </span>
                   </SelectItem>
                 ))}
               </SelectContent>
