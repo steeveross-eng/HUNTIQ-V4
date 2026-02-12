@@ -1,5 +1,6 @@
 /**
  * TerritoryHeader - Map header with stats, user info and actions
+ * BIONIC Design System compliant - No emojis
  * Extracted from TerritoryMap.jsx for better maintainability
  */
 
@@ -16,6 +17,7 @@ import {
   User, 
   LogOut 
 } from 'lucide-react';
+import { SpeciesIcon } from '@/components/bionic/SpeciesIcon';
 
 const TerritoryHeader = ({
   userName,
