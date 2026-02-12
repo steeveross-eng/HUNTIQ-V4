@@ -393,6 +393,23 @@ export const GroupePanel = ({
             )}
           </ScrollArea>
         </TabsContent>
+
+        {/* Security Tab - Phase 4 */}
+        <TabsContent value="security" className="p-4 m-0" data-testid="groupe-security-content">
+          <SafetyStatus
+            safetyStatus="safe"
+            myZone={null}
+            dangerAlerts={[]}
+            memberNames={{}}
+            myPosition={null}
+            onCreateZone={null}
+            onUpdateZone={null}
+            onClearZone={null}
+            onSetZoneType={null}
+            compact={false}
+            showControls={true}
+          />
+        </TabsContent>
       </Tabs>
 
       {/* Safety Status Footer (Phase 2+) */}
