@@ -29,13 +29,13 @@ export const WildlifeTracker = ({
       if (infoResult?.success) {
         setSpeciesInfo(infoResult.species);
       } else {
-        // Placeholder
+        // Placeholder - using centralized species config
         const placeholders = WildlifeService.getPlaceholderSpecies();
         const found = placeholders.find(s => s.id === species);
+        const speciesData = getSpeciesInfo(species);
         setSpeciesInfo(found || { 
           id: species, 
-          name: species.charAt(0).toUpperCase() + species.slice(1),
-          icon: '🦌',
+          name: speciesData?.name || species.charAt(0).toUpperCase() + species.slice(1),
           category: 'big_game'
         });
       }
