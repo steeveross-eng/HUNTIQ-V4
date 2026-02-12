@@ -117,14 +117,14 @@ const GpsHotspots = ({ onNavigateToMap }) => {
   const handleNavigateToSpot = (hotspot) => {
     if (onNavigateToMap) {
       onNavigateToMap(hotspot.coordinates.lat, hotspot.coordinates.lng);
-      toast.success(`🎯 Navigation vers: ${hotspot.coordinates.lat.toFixed(4)}, ${hotspot.coordinates.lng.toFixed(4)}`);
+      toast.success(`Navigation vers: ${hotspot.coordinates.lat.toFixed(4)}, ${hotspot.coordinates.lng.toFixed(4)}`);
     }
   };
 
   const copyCoordinates = (hotspot) => {
     const coords = `${hotspot.coordinates.lat}, ${hotspot.coordinates.lng}`;
     navigator.clipboard.writeText(coords);
-    toast.success('📋 Coordonnées copiées!', { description: coords });
+    toast.success('Coordonnées copiées!', { description: coords });
   };
 
   const filteredHotspots = hotspots.filter(h => 
