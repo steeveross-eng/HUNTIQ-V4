@@ -7,6 +7,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui
 import { Badge } from '../../../components/ui/badge';
 import { Button } from '../../../components/ui/button';
 import { BehavioralService } from '../BehavioralService';
+import { BarChart3, Sunrise, Sunset, Leaf, BedDouble, Route, Loader2 } from 'lucide-react';
 
 export const ActivityChart = ({ 
   species = 'deer',
@@ -54,7 +55,7 @@ export const ActivityChart = ({
       <CardHeader className="pb-3">
         <CardTitle className="text-lg text-white flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <span className="text-2xl">📊</span>
+            <BarChart3 className="h-6 w-6 text-cyan-400" />
             Patterns d'Activité
           </span>
           <Badge className="bg-cyan-900/50 text-cyan-400">
@@ -65,7 +66,7 @@ export const ActivityChart = ({
       <CardContent>
         {loading ? (
           <div className="text-center py-6">
-            <div className="animate-spin text-3xl">📊</div>
+            <Loader2 className="h-8 w-8 animate-spin text-cyan-400 mx-auto" />
             <p className="text-slate-400 text-sm mt-2">Analyse comportementale...</p>
           </div>
         ) : (
@@ -100,12 +101,12 @@ export const ActivityChart = ({
             {/* Peak Hours */}
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-emerald-900/30 rounded-lg p-3 text-center border border-emerald-700/50">
-                <div className="text-emerald-400 text-2xl mb-1">🌅</div>
+                <Sunrise className="h-6 w-6 text-emerald-400 mx-auto mb-1" />
                 <div className="text-white font-bold">06:00 - 08:00</div>
                 <div className="text-emerald-400 text-xs">Pic matinal</div>
               </div>
               <div className="bg-amber-900/30 rounded-lg p-3 text-center border border-amber-700/50">
-                <div className="text-amber-400 text-2xl mb-1">🌆</div>
+                <Sunset className="h-6 w-6 text-amber-400 mx-auto mb-1" />
                 <div className="text-white font-bold">17:00 - 19:00</div>
                 <div className="text-amber-400 text-xs">Pic crépuscule</div>
               </div>
@@ -119,7 +120,7 @@ export const ActivityChart = ({
                 {/* Feeding */}
                 <div className="bg-slate-800/50 rounded-lg p-2">
                   <div className="flex items-center gap-2 text-sm">
-                    <span>🌿</span>
+                    <Leaf className="h-4 w-4 text-emerald-400" />
                     <span className="text-slate-300">Alimentation</span>
                     <Badge className="ml-auto bg-emerald-900/50 text-emerald-400 text-xs">
                       {zones.feeding[0]?.score || 0}%
@@ -130,7 +131,7 @@ export const ActivityChart = ({
                 {/* Bedding */}
                 <div className="bg-slate-800/50 rounded-lg p-2">
                   <div className="flex items-center gap-2 text-sm">
-                    <span>🛏️</span>
+                    <BedDouble className="h-4 w-4 text-blue-400" />
                     <span className="text-slate-300">Repos</span>
                     <Badge className="ml-auto bg-blue-900/50 text-blue-400 text-xs">
                       {zones.bedding[0]?.score || 0}%
@@ -141,7 +142,7 @@ export const ActivityChart = ({
                 {/* Corridors */}
                 <div className="bg-slate-800/50 rounded-lg p-2">
                   <div className="flex items-center gap-2 text-sm">
-                    <span>🛤️</span>
+                    <Route className="h-4 w-4 text-purple-400" />
                     <span className="text-slate-300">Corridors</span>
                     <Badge className="ml-auto bg-purple-900/50 text-purple-400 text-xs">
                       {zones.corridors?.length || 0} identifiés
