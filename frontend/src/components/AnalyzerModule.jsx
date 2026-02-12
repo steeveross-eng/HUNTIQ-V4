@@ -15,10 +15,12 @@ import {
   TrendingUp, AlertTriangle, Info, Package, RefreshCw, Droplets,
   Thermometer, Cloud, TreePine, Target, Calendar, Clock, Sun,
   Moon, CloudRain, Snowflake, Wind, Mountain, Leaf, Rabbit,
-  Bug, Award, ShieldCheck, Beaker, Scale, Timer, Zap, Heart
+  Bug, Award, ShieldCheck, Beaker, Scale, Timer, Zap, Heart, Flower2
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { toast } from "sonner";
+import { SpeciesIcon } from "@/components/bionic/SpeciesIcon";
+import { getSpeciesName } from "@/config/speciesImages";
 
 const API = process.env.REACT_APP_BACKEND_URL + "/api";
 
