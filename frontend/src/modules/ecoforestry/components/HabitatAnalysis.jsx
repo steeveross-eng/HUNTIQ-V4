@@ -21,7 +21,9 @@ const HABITAT_LABELS = {
   cover: 'Couvert',
   water: 'Eau',
   terrain: 'Terrain'
-}; 
+};
+
+export const HabitatAnalysis = ({ 
   coordinates = null,
   species = 'deer'
 }) => {
@@ -116,36 +118,34 @@ const HABITAT_LABELS = {
             {/* Score Breakdown */}
             {habitatScore && (
               <div className="grid grid-cols-2 gap-2">
-                {[
-                  { key: 'food', label: 'Nourriture', icon: '🌿' },
-                  { key: 'cover', label: 'Couvert', icon: '🌳' },
-                  { key: 'water', label: 'Eau', icon: '💧' },
-                  { key: 'terrain', label: 'Terrain', icon: '⛰️' }
-                ].map(item => (
-                  <div key={item.key} className="bg-slate-800/50 rounded-lg p-3">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span>{item.icon}</span>
-                      <span className="text-slate-400 text-xs">{item.label}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex-1 h-2 bg-slate-700 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full rounded-full"
-                          style={{ 
-                            width: `${habitatScore[item.key]}%`,
-                            backgroundColor: getScoreColor(habitatScore[item.key])
-                          }}
-                        />
+                {['food', 'cover', 'water', 'terrain'].map(key => {
+                  const IconComponent = HABITAT_ICONS[key];
+                  return (
+                    <div key={key} className="bg-slate-800/50 rounded-lg p-3">
+                      <div className="flex items-center gap-2 mb-1">
+                        <IconComponent className="h-4 w-4 text-slate-400" />
+                        <span className="text-slate-400 text-xs">{HABITAT_LABELS[key]}</span>
                       </div>
-                      <span 
-                        className="text-sm font-medium"
-                        style={{ color: getScoreColor(habitatScore[item.key]) }}
-                      >
-                        {habitatScore[item.key]}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 h-2 bg-slate-700 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full rounded-full"
+                            style={{ 
+                              width: `${habitatScore[key]}%`,
+                              backgroundColor: getScoreColor(habitatScore[key])
+                            }}
+                          />
+                        </div>
+                        <span 
+                          className="text-sm font-medium"
+                          style={{ color: getScoreColor(habitatScore[key]) }}
+                        >
+                          {habitatScore[key]}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
 
