@@ -7,6 +7,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui
 import { Badge } from '../../../components/ui/badge';
 import { TerritoryCard } from './TerritoryCard';
 import { TerritoryService } from '../TerritoryService';
+import { Map } from 'lucide-react';
 
 export const TerritoryList = ({ 
   type = null,
@@ -51,7 +52,7 @@ export const TerritoryList = ({
       <CardHeader className="pb-3">
         <CardTitle className="text-lg text-white flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <span className="text-2xl">🗺️</span>
+            <Map className="h-6 w-6 text-[#f5a623]" />
             Territoires de Chasse
           </span>
           <Badge className="bg-slate-700">{filteredTerritories.length}</Badge>
@@ -108,7 +109,7 @@ export const TerritoryList = ({
           </div>
         ) : (
           <div className="text-center py-8">
-            <span className="text-4xl">🗺️</span>
+            <Map className="h-10 w-10 text-[#f5a623] mx-auto" />
             <p className="text-slate-400 mt-2">Aucun territoire trouvé</p>
           </div>
         )}
