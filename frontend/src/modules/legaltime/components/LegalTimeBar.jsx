@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { Badge } from '../../../components/ui/badge';
 import { LegalTimeService } from '../LegalTimeService';
+import { Sunrise, Sunset, Loader2 } from 'lucide-react';
 
 export const LegalTimeBar = ({ 
   coordinates = { lat: 46.8139, lng: -71.2080 }
@@ -37,7 +38,7 @@ export const LegalTimeBar = ({
   if (!data) {
     return (
       <div className="flex items-center gap-2 text-slate-400 text-sm">
-        <div className="animate-spin">⏳</div>
+        <Loader2 className="h-4 w-4 animate-spin" />
         <span>Chargement...</span>
       </div>
     );
@@ -77,13 +78,13 @@ export const LegalTimeBar = ({
       <div className="h-4 border-l border-slate-600" />
 
       {/* Sun Times */}
-      <div className="flex items-center gap-3 text-sm">
-        <span className="flex items-center gap-1">
-          <span>🌅</span>
+80|      <div className="flex items-center gap-3 text-sm">
+81|        <span className="flex items-center gap-1">
+          <Sunrise className="h-4 w-4 text-amber-400" />
           <span className="text-amber-400">{sunrise}</span>
         </span>
         <span className="flex items-center gap-1">
-          <span>🌇</span>
+          <Sunset className="h-4 w-4 text-purple-400" />
           <span className="text-purple-400">{sunset}</span>
         </span>
       </div>
