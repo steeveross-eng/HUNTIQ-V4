@@ -38,7 +38,7 @@ import { ShareWaypointDialog, CreateGroupDialog, NotificationBell } from '@/comp
 import { GroupDashboard } from '@/components/territoire/GroupDashboard';
 import BionicMicroZones, { generateMicroZones, generateMicroZonesForBounds, BIONIC_MODULES } from '@/components/territoire/BionicMicroZones';
 import { useZoneFavorites, AddToFavoritesButton, AlertsPanel, FavoritesList } from '@/components/territoire/ZoneFavorites';
-import { GroupeTab, ShootingZones, useGroupeSafety } from '@/modules/groupe';
+import { GroupeTab, ShootingZones, useGroupeSafety, useGroupeTracking, SessionHeatmap } from '@/modules/groupe';
 import EcoforestryLayers, { 
   EcoforestryLayerControl, 
   EcoMapFallbackNotification,
