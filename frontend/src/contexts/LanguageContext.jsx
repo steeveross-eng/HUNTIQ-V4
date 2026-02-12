@@ -1310,6 +1310,14 @@ export const TRANSLATIONS = {
     chat_quick_quiet: "Silence",
     chat_quick_game_seen: "Gibier vu",
     
+    // Map Selector - UX Refacto
+    map_selector_title: "Type de Carte",
+    map_selector_basemap_note: "Un seul fond de carte actif. Les couches sont superposables.",
+    map_selector_options: "Options",
+    map_option_labels: "Labels de terrain",
+    map_option_coordinates: "Coordonnées GPS",
+    map_option_auto_opacity: "Opacité zones auto",
+    
     // LegalTimeWidget - Lot D
     legaltime_loading: "Calcul des heures légales...",
     legaltime_title: "Heures Légales de Chasse",
