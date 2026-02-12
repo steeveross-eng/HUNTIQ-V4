@@ -125,22 +125,22 @@ export const WaypointManager = ({ coordinates = { lat: 46.8139, lng: -71.2080 } 
   };
 
   return (
-    <Card className="bg-slate-800 border-slate-700">
+    <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
       <CardHeader className="pb-3">
-        <CardTitle className="text-lg text-white flex items-center justify-between">
+        <CardTitle className="text-lg text-[var(--bionic-text-primary)] flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <span className="text-2xl">📍</span>
-            Mes Waypoints
+            <MapPin className="h-5 w-5 text-[var(--bionic-gold-primary)]" />
+            {t('waypoints_my_waypoints') || 'Mes Waypoints'}
           </span>
           <div className="flex items-center gap-2">
-            <Badge className="bg-slate-700">{waypoints.length}</Badge>
+            <Badge className="bg-[var(--bionic-bg-secondary)]">{waypoints.length}</Badge>
             <Button 
               size="sm"
-              className="bg-[#f5a623] hover:bg-[#e09000] text-black"
+              className="bg-[var(--bionic-gold-primary)] hover:bg-[var(--bionic-gold-light)] text-black"
               onClick={() => setShowForm(!showForm)}
               data-testid="add-waypoint-btn"
             >
-              {showForm ? '✕ Annuler' : '+ Nouveau'}
+              {showForm ? <><span className="mr-1">×</span> {t('common_cancel')}</> : <><Plus className="h-4 w-4 mr-1" /> {t('common_new')}</>}
             </Button>
           </div>
         </CardTitle>
@@ -148,17 +148,19 @@ export const WaypointManager = ({ coordinates = { lat: 46.8139, lng: -71.2080 } 
       <CardContent>
         {/* Add Form */}
         {showForm && (
-          <div className="mb-4 p-4 bg-slate-700/50 rounded-lg space-y-3" data-testid="waypoint-form">
+          <div className="mb-4 p-4 bg-[var(--bionic-bg-secondary)] rounded-lg space-y-3" data-testid="waypoint-form">
             <Input
-              placeholder="Nom du waypoint"
+              placeholder={t('waypoint_name_placeholder') || 'Nom du waypoint'}
               value={newWaypoint.name}
               onChange={(e) => setNewWaypoint(prev => ({ ...prev, name: e.target.value }))}
-              className="bg-slate-700 border-slate-600"
+              className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)]"
               data-testid="waypoint-name-input"
             />
             
             <div className="flex flex-wrap gap-2">
-              {WAYPOINT_TYPES.map(type => (
+              {WAYPOINT_TYPES.map(type => {
+                const TypeIcon = type.icon;
+                return (
                 <button
                   key={type.id}
                   onClick={() => setNewWaypoint(prev => ({ ...prev, type: type.id }))}
