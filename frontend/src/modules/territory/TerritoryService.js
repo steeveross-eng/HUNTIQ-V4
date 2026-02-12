@@ -116,13 +116,13 @@ export class TerritoryService {
 
   static getTerritoryTypeInfo(type) {
     const types = {
-      zec: { label: 'ZEC', icon: '🏕️', color: 'emerald' },
-      pourvoirie: { label: 'Pourvoirie', icon: '🏠', color: 'blue' },
-      public: { label: 'Terre publique', icon: '🌲', color: 'green' },
-      reserve: { label: 'Réserve faunique', icon: '🦌', color: 'amber' },
-      private: { label: 'Terre privée', icon: '🏡', color: 'purple' }
+      zec: { label: 'ZEC', iconName: 'Tent', color: 'emerald' },
+      pourvoirie: { label: 'Pourvoirie', iconName: 'Home', color: 'blue' },
+      public: { label: 'Terre publique', iconName: 'TreePine', color: 'green' },
+      reserve: { label: 'Réserve faunique', iconName: 'Shield', color: 'amber' },
+      private: { label: 'Terre privée', iconName: 'Lock', color: 'purple' }
     };
-    return types[type] || { label: type, icon: '📍', color: 'slate' };
+    return types[type] || { label: type, iconName: 'MapPin', color: 'slate' };
   }
 }
 
