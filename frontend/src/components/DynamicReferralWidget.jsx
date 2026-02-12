@@ -29,7 +29,8 @@ import {
   ArrowRight,
   UserPlus,
   Zap,
-  TrendingUp
+  TrendingUp,
+  Loader2
 } from "lucide-react";
 import { toast } from "sonner";
 
