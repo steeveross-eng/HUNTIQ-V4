@@ -1,7 +1,7 @@
 /**
  * MODULE GROUPE - Exports centralisés
  * BIONIC Design System compliant
- * Version: 1.3.0 - Phase 4
+ * Version: 1.4.0 - Phase 5
  * 
  * Fonctionnalités collaboratives pour les sorties de chasse en équipe.
  */
@@ -20,21 +20,23 @@ export { GroupChat } from './components/GroupChat';
 export { SafetyStatus, SafetyStatusBadge } from './components/SafetyStatus';
 export { ShootingZones, ShootingZone } from './components/ShootingZones';
 
+// Components - Phase 5
+export { SmartAlerts, AlertItem, AlertTypeBadge, SeverityBadge } from './components/SmartAlerts';
+
 // Hooks - Phase 3
 export { useGroupeTracking, TRACKING_STATUS } from './hooks/useGroupeTracking';
 
 // Hooks - Phase 3.5
-export { useGroupeChat, MESSAGE_TYPES, ALERT_TYPES, QUICK_MESSAGES } from './hooks/useGroupeChat';
+export { useGroupeChat, MESSAGE_TYPES, ALERT_TYPES as CHAT_ALERT_TYPES, QUICK_MESSAGES } from './hooks/useGroupeChat';
 
 // Hooks - Phase 4
 export { useGroupeSafety, SAFETY_STATUS, SHOOTING_ZONE_TYPES } from './hooks/useGroupeSafety';
 
-// Future exports (Phase 5+)
-// export { SmartAlerts } from './components/SmartAlerts';
+// Hooks - Phase 5
+export { useGroupeAlerts, ALERT_TYPES, ALERT_SEVERITY } from './hooks/useGroupeAlerts';
+
+// Future exports (Phase 6+)
 // export { SessionHeatmap } from './components/SessionHeatmap';
 
-// Hooks (Phase 5+)
-// export { useGroupeAlerts } from './hooks/useGroupeAlerts';
-
-// Services (Phase 6+)
+// Services (Phase 7+)
 // export { GroupeService } from './services/GroupeService';
