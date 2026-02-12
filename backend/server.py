@@ -181,8 +181,32 @@ async def root():
         "status": "operational",
         "version": "3.8.0",
         "architecture": "modular_v2.0",
-        "modules": 42,
+        "modules": 47,
         "docs": "/api/docs"
+    }
+
+
+@orchestrator_router.get("/health")
+async def health_check():
+    """Simple health check endpoint"""
+    return {
+        "status": "healthy",
+        "service": "huntiq-backend",
+        "version": "3.8.0"
+    }
+
+
+@orchestrator_router.get("/status")
+async def status():
+    """Detailed status endpoint"""
+    return {
+        "status": "operational",
+        "version": "3.8.0",
+        "architecture": "modular_v2.0_phase6",
+        "modules": {
+            "total": MODULE_STATUS["total_modules"],
+            "loaded": len(CORE_ROUTERS)
+        }
     }
 
 @orchestrator_router.get("/modules/status")
