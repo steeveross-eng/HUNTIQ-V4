@@ -1596,6 +1596,18 @@ const MonTerritoireBionicPage = () => {
                   />
                 )}
                 
+                {/* Zones de Tir - Phase 4 GROUPE Module */}
+                <ShootingZones
+                  zones={[]}
+                  currentUserId={userId}
+                  dangerAlerts={[]}
+                  members={[]}
+                  onZoneClick={null}
+                  showOwnZone={true}
+                  showOtherZones={true}
+                  showDangerIndicators={true}
+                />
+                
                 {/* Position utilisateur */}
                 {userPosition && (
                   <Marker position={[userPosition.lat, userPosition.lng]} icon={createCustomIcon('#3b82f6', 'user')}>
