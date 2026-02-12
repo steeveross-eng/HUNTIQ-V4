@@ -1,12 +1,13 @@
 /**
  * GroupePanel - Panneau principal des fonctionnalités GROUPE
  * BIONIC Design System compliant
- * Version: 1.3.0 - Phase 4
+ * Version: 1.4.0 - Phase 5
  * 
  * Panneau regroupant les fonctionnalités collaboratives.
  * Intégré avec useGroupeTracking pour le tracking temps réel.
  * Intégré avec GroupChat pour la messagerie temps réel.
  * Intégré avec SafetyStatus pour la gestion de sécurité.
+ * Intégré avec SmartAlerts pour les alertes intelligentes.
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '../../../contexts/LanguageContext';
@@ -22,8 +23,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui
 import { ScrollArea } from '../../../components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs';
 import { useGroupeTracking, TRACKING_STATUS } from '../hooks/useGroupeTracking';
+import { useGroupeAlerts } from '../hooks/useGroupeAlerts';
 import { GroupChat } from './GroupChat';
 import { SafetyStatus } from './SafetyStatus';
+import { SmartAlerts } from './SmartAlerts';
 import { useGroupeSafety, SAFETY_STATUS } from '../hooks/useGroupeSafety';
 
 // Status configuration with BIONIC colors (using imported TRACKING_STATUS)
