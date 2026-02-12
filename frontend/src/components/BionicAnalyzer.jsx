@@ -129,11 +129,11 @@ const getNdviLabel = (ndvi) => {
  */
 const getNdwiLabel = (ndwi) => {
   if (ndwi === null || ndwi === undefined) return "N/A";
-  if (ndwi < 0) return "☀️ Très sec";
-  if (ndwi < 0.10) return "🌤️ Sec";
-  if (ndwi < 0.25) return "💧 Humidité normale";
-  if (ndwi < 0.40) return "💦 Humide";
-  return "🌊 Très humide";
+  if (ndwi < 0) return "Très sec";
+  if (ndwi < 0.10) return "Sec";
+  if (ndwi < 0.25) return "Humidité normale";
+  if (ndwi < 0.40) return "Humide";
+  return "Très humide";
 };
 
 /**
