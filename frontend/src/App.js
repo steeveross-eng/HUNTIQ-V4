@@ -566,7 +566,7 @@ const FormationsPage = () => {
       id: "securite",
       title: "Initiation à la chasse avec arme à feu",
       description: "Formation obligatoire pour obtenir le certificat du chasseur au Québec",
-      icon: "crosshair",
+      Icon: Crosshair,
       duration: "8 heures (2 jours)",
       type: "Obligatoire",
       price: "Environ 75$",
@@ -577,7 +577,7 @@ const FormationsPage = () => {
       id: "arc",
       title: "Initiation à la chasse à l'arc",
       description: "Formation pour la chasse à l'arc et à l'arbalète",
-      icon: "target",
+      Icon: Target,
       duration: "4 heures",
       type: "Obligatoire pour arc/arbalète",
       price: "Environ 50$",
@@ -588,7 +588,7 @@ const FormationsPage = () => {
       id: "piegeage",
       title: "Formation au piégeage",
       description: "Cours obligatoire pour obtenir le certificat de piégeur",
-      icon: "box",
+      Icon: Package,
       duration: "8 heures",
       type: "Obligatoire",
       price: "Environ 60$",
@@ -599,7 +599,7 @@ const FormationsPage = () => {
       id: "orignal",
       title: "Formation chasse à l'orignal",
       description: "Techniques avancées pour la chasse au roi de nos forêts",
-      icon: "moose",
+      Icon: Target,
       duration: "4 heures",
       type: "Facultatif",
       price: "Environ 40$",
@@ -614,7 +614,7 @@ const FormationsPage = () => {
       id: "analyse-territoire",
       title: "Analyse de territoire BIONIC™",
       description: "Maîtrisez les outils d'analyse GPS et cartographique pour optimiser votre territoire de chasse",
-      icon: "map",
+      Icon: Map,
       duration: "Auto-formation",
       type: "Exclusif BIONIC™",
       modules: ["Lecture de cartes topographiques", "Identification des corridors", "Placement stratégique des caches", "Analyse des points d'eau"]
@@ -623,7 +623,7 @@ const FormationsPage = () => {
       id: "attractants",
       title: "Science des attractants",
       description: "Comprenez la chimie et la biologie derrière les leurres et attractants",
-      icon: "flask",
+      Icon: FlaskConical,
       duration: "Auto-formation",
       type: "Exclusif BIONIC™",
       modules: ["Composés olfactifs", "Phéromones et comportement", "Timing et application", "13 critères d'évaluation"]
@@ -632,7 +632,7 @@ const FormationsPage = () => {
       id: "meteo",
       title: "Météo et mouvement du gibier",
       description: "Apprenez à prédire le comportement du gibier selon les conditions météo",
-      icon: "cloud-sun",
+      Icon: Cloud,
       duration: "Auto-formation",
       type: "Exclusif BIONIC™",
       modules: ["Pression atmosphérique", "Phases lunaires", "Front météo et activité", "Prévisions optimales"]
@@ -725,7 +725,7 @@ const FormationsPage = () => {
               <Card key={formation.id} className="bg-card border-border hover:border-blue-500/50 transition-all">
                 <CardHeader className="pb-2">
                   <div className="flex items-start justify-between">
-                    <span className="text-3xl">{formation.icon}</span>
+                    <formation.Icon className="h-8 w-8 text-blue-400" />
                     <Badge className={formation.type === 'Obligatoire' || formation.type.includes('Obligatoire') ? 'bg-red-500/20 text-red-400' : 'bg-gray-500/20 text-gray-400'}>
                       {formation.type}
                     </Badge>
@@ -782,7 +782,7 @@ const FormationsPage = () => {
               <Card key={formation.id} className="bg-card border-border hover:border-[#f5a623]/50 transition-all">
                 <CardHeader className="pb-2">
                   <div className="flex items-start justify-between">
-                    <span className="text-3xl">{formation.icon}</span>
+                    <formation.Icon className="h-8 w-8 text-[#f5a623]" />
                     <Badge className="bg-[#f5a623]/20 text-[#f5a623]">{formation.type}</Badge>
                   </div>
                   <CardTitle className="text-white text-lg">{formation.title}</CardTitle>
