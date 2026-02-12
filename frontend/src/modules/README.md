@@ -5,7 +5,22 @@
 This directory contains the modular frontend architecture for BIONIC V3.
 Each module is isolated and follows strict architectural rules.
 
-## Architecture Version: 3.0.0
+## Architecture Version: 3.0.0 - Phase 7-8 Complete
+
+## Navigation System (Phase 7-8)
+
+### Route Configuration
+Central route configuration: `/src/config/routes.js`
+
+### Modular Navigation Component
+Location: `/src/components/navigation/ModularNavigation.jsx`
+
+Features:
+- Centralized route management
+- Role-based visibility
+- Dropdown groups (Intelligence, Territory)
+- Mobile-responsive
+- i18n support via `useLanguage`
 
 ## Module Categories
 
