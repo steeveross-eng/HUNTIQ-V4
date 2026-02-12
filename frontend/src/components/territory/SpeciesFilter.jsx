@@ -1,5 +1,6 @@
 /**
  * SpeciesFilter - Species filter panel
+ * BIONIC Design System compliant - No emojis
  * Extracted from TerritoryMap.jsx for better maintainability
  */
 
@@ -14,13 +15,14 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Filter } from 'lucide-react';
+import { SpeciesIcon } from '@/components/bionic/SpeciesIcon';
 
-// Species Configuration
+// Species Configuration - No emojis, using images
 export const SPECIES_CONFIG = {
-  orignal: { color: '#8B4513', emoji: '🫎', label: 'Orignal', heatColor: 'brown' },
-  chevreuil: { color: '#D2691E', emoji: '🦌', label: 'Chevreuil', heatColor: 'orange' },
-  ours: { color: '#2F4F4F', emoji: '🐻', label: 'Ours', heatColor: 'darkslategray' },
-  autre: { color: '#808080', emoji: '❓', label: 'Autre', heatColor: 'gray' }
+  orignal: { color: '#8B4513', label: 'Orignal', heatColor: 'brown', speciesId: 'moose' },
+  chevreuil: { color: '#D2691E', label: 'Chevreuil', heatColor: 'orange', speciesId: 'deer' },
+  ours: { color: '#2F4F4F', label: 'Ours', heatColor: 'darkslategray', speciesId: 'bear' },
+  autre: { color: '#808080', label: 'Autre', heatColor: 'gray', speciesId: 'other' }
 };
 
 // Time window options (kept for backward compatibility)
@@ -54,7 +56,10 @@ const SpeciesFilter = ({
               <SelectItem value="all">Toutes les espèces</SelectItem>
               {Object.entries(SPECIES_CONFIG).filter(([key]) => key !== 'autre').map(([key, config]) => (
                 <SelectItem key={key} value={key}>
-                  {config.emoji} {config.label}
+                  <span className="flex items-center gap-2">
+                    <SpeciesIcon species={config.speciesId} size="xs" rounded />
+                    {config.label}
+                  </span>
                 </SelectItem>
               ))}
             </SelectContent>
