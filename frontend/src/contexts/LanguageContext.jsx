@@ -2576,6 +2576,9 @@ export const TRANSLATIONS = {
     groupe_activity_waypoint_added: "added a waypoint",
     groupe_activity_entered_sector: "entered the North sector",
     groupe_activity_observation: "reported an observation",
+    groupe_member_online: "Online",
+    groupe_member_offline: "Offline",
+    groupe_member_recent: "Recently active",
     
     // LegalTimeWidget - Lot D
     legaltime_loading: "Calculating legal hours...",
