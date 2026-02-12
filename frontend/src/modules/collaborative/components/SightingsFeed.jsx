@@ -59,11 +59,8 @@ export const SightingsFeed = ({
   }, [loadData]);
 
   const getSpeciesIcon = (species) => {
-    const icons = {
-      deer: '🦌', moose: '🫎', bear: '🐻', wild_boar: '🐗',
-      turkey: '🦃', duck: '🦆', goose: '🪿'
-    };
-    return icons[species] || '🎯';
+    // Using SpeciesIcon component - no emojis
+    return species;
   };
 
   const formatTimeAgo = (timestamp) => {
