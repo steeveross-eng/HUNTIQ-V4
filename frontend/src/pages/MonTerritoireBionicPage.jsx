@@ -1988,8 +1988,8 @@ const MonTerritoireBionicPage = () => {
         {/* Onglet Lieux enregistrés */}
         {activeTab === 'lieux' && (
           <div className="flex h-full">
-            {/* Liste des lieux */}
-            <div className="w-96 bg-gray-900/95 border-r border-gray-800 flex flex-col">
+            {/* Liste des lieux - Compact */}
+            <div className="w-72 bg-gray-900/95 border-r border-gray-800 flex flex-col">
               <div className="p-4 border-b border-gray-800">
                 <div className="flex items-center justify-between mb-3">
                   <h2 className="text-white font-semibold flex items-center gap-2">
