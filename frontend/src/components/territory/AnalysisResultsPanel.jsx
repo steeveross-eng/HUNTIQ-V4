@@ -14,14 +14,16 @@ import {
   Mountain, 
   Activity, 
   X,
-  Target
+  Target,
+  MapPin
 } from 'lucide-react';
+import { SpeciesIcon } from '@/components/bionic/SpeciesIcon';
 
-// Species configuration for display
+// Species configuration for display - BIONIC Design System Compliant
 const SPECIES_DISPLAY = {
-  orignal: { emoji: '🫎', label: 'Orignal', color: 'text-amber-500' },
-  chevreuil: { emoji: '🦌', label: 'Chevreuil', color: 'text-orange-500' },
-  ours: { emoji: '🐻', label: 'Ours', color: 'text-gray-500' }
+  orignal: { species: 'moose', label: 'Orignal', color: 'text-amber-500' },
+  chevreuil: { species: 'deer', label: 'Chevreuil', color: 'text-orange-500' },
+  ours: { species: 'bear', label: 'Ours', color: 'text-gray-500' }
 };
 
 const AnalysisResultsPanel = ({ 
@@ -73,7 +75,7 @@ const AnalysisResultsPanel = ({
                   const percentage = Math.round(prob * 100);
                   return (
                     <div key={species} className="flex items-center gap-2">
-                      <span className="text-sm">{speciesInfo.emoji}</span>
+                      <SpeciesIcon species={speciesInfo.species} size="xs" />
                       <span className="text-gray-300 text-xs flex-1">{speciesInfo.label}</span>
                       <div className="w-24 h-2 bg-gray-700 rounded-full overflow-hidden">
                         <div 
@@ -139,8 +141,8 @@ const AnalysisResultsPanel = ({
               </Button>
             </div>
             
-            <div className="text-xs text-gray-400 mb-2">
-              📍 {gpsAnalysis.lat?.toFixed(4)}, {gpsAnalysis.lng?.toFixed(4)}
+            <div className="text-xs text-gray-400 mb-2 flex items-center gap-1">
+              <MapPin className="h-3 w-3" /> {gpsAnalysis.lat?.toFixed(4)}, {gpsAnalysis.lng?.toFixed(4)}
             </div>
             
             {/* GPS Point Analysis */}
