@@ -1,10 +1,12 @@
 /**
  * AIAnalyzer - AI-powered product analysis component
+ * BIONIC Design System compliant - No emojis
  */
 import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 import { AIService } from '../AIService';
+import { CheckCircle, AlertTriangle } from 'lucide-react';
 
 export const AIAnalyzer = ({ 
   productId, 
