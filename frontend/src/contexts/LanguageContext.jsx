@@ -2598,6 +2598,7 @@ export const TRANSLATIONS = {
     groupe_tab_members: "Members",
     groupe_tab_activity: "Activity",
     groupe_tab_alerts: "Alerts",
+    groupe_tab_chat: "Chat",
     groupe_status_hunting: "Hunting",
     groupe_status_moving: "Moving",
     groupe_status_observing: "Observing",
