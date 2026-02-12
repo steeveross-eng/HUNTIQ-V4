@@ -1357,8 +1357,8 @@ const MonTerritoireBionicPage = () => {
         {/* Onglet Carte BIONIC */}
         {activeTab === 'carte' && (
           <div className="flex h-full">
-            {/* Panneau Couches */}
-            <div className={`${showLayersPanel ? 'w-64' : 'w-10'} bg-gray-900/95 border-r border-gray-800 transition-all duration-300 flex flex-col`}>
+            {/* Panneau Couches - Compact */}
+            <div className={`${showLayersPanel ? 'w-48' : 'w-10'} bg-gray-900/95 border-r border-gray-800 transition-all duration-300 flex flex-col`}>
               <button onClick={() => setShowLayersPanel(!showLayersPanel)} className="p-2 border-b border-gray-800 flex items-center justify-between hover:bg-gray-800/50">
                 <div className="flex items-center gap-2">
                   <Layers className="h-4 w-4 text-[#f5a623]" />
