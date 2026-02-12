@@ -55,8 +55,8 @@ export const NotificationProvider = ({
             
             toast[urgency](
               currentMinute <= 5 
-                ? `🚨 ${currentMinute} min avant fin de chasse!`
-                : `⏰ ${currentMinute} min restantes`,
+                ? `${currentMinute} min avant fin de chasse!`
+                : `${currentMinute} min restantes`,
               {
                 description: `Fin de période légale à ${status.legal_window?.end}`,
                 duration: currentMinute <= 5 ? 10000 : 5000,
@@ -89,7 +89,7 @@ export const NotificationProvider = ({
     setPermissionStatus(permission);
     
     if (permission === 'granted') {
-      toast.success('🔔 Notifications activées', {
+      toast.success('Notifications activées', {
         description: 'Vous recevrez des alertes 15 min avant la fin de période légale'
       });
     }
