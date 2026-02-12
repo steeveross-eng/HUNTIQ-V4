@@ -157,7 +157,7 @@ export const SightingsFeed = ({
                 </div>
                 <p className="text-slate-300 text-sm">{report.comment}</p>
                 <div className="flex items-center gap-2 mt-2">
-                  <span className="text-amber-400">{'⭐'.repeat(report.rating)}</span>
+                  <span className="text-amber-400">{'★'.repeat(report.rating)}</span>
                   <span className="text-slate-500 text-xs">{report.date}</span>
                 </div>
               </div>
