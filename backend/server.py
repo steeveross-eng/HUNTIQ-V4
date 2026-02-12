@@ -221,85 +221,113 @@ async def modules_health():
     }
 
 # ==============================================
-# REGISTER ROUTERS
+# REGISTER ROUTERS (Phase 6 - Pure Orchestrator)
 # ==============================================
 
-# 1. Register orchestrator endpoints
-app.include_router(orchestrator_router)
+def register_all_routers():
+    """
+    Phase 6: Centralized router registration.
+    All routers are registered here for clean orchestration.
+    """
+    
+    # 1. Orchestrator endpoints (health, status)
+    app.include_router(orchestrator_router)
+    logger.info("✓ Loaded: Orchestrator [/api/health, /api/status]")
+    
+    # 2. Core modular routers (from modules/routers.py)
+    for router, meta in CORE_ROUTERS:
+        app.include_router(router)
+        logger.info(f"✓ Loaded: {meta['name']} v{meta['version']} [{router.prefix}]")
+    
+    # 3. Legacy monolith (backward compatibility - will be deprecated)
+    try:
+        from server_monolith_backup import api_router as legacy_router
+        app.include_router(legacy_router)
+        logger.info("✓ Loaded: Legacy monolith router [/api/*] (DEPRECATED)")
+    except ImportError as e:
+        logger.debug(f"Legacy router not available: {e}")
+    
+    # 4. Special routers (root-level modules awaiting migration)
+    _register_special_routers()
+    
+    logger.info("=" * 50)
+    logger.info(f"✓ Total modules loaded: {len(CORE_ROUTERS)}")
+    logger.info("=" * 50)
 
-# 2. Register all modular routers
-for router, meta in CORE_ROUTERS:
-    app.include_router(router)
-    logger.info(f"✓ Loaded: {meta['name']} v{meta['version']} [{router.prefix}]")
 
-# 3. Register legacy monolith router (for backward compatibility)
-try:
-    from server_monolith_backup import api_router as legacy_router
-    app.include_router(legacy_router)
-    logger.info("✓ Loaded: Legacy monolith router [/api/*]")
-except ImportError as e:
-    logger.warning(f"Legacy router not available: {e}")
+def _register_special_routers():
+    """
+    Register special routers from root-level modules.
+    These are awaiting full migration to /modules/ structure.
+    
+    Phase 6 status:
+    - site_access: Active (root-level)
+    - territory: Active (root-level) 
+    - geo_engine: Migrated to modules/
+    - bathymetry: Active (routes/)
+    - advanced_zones: Active (routes/)
+    - websocket: Active (websocket/)
+    """
+    
+    # Site access control
+    try:
+        from site_access import access_router
+        app.include_router(access_router)
+        logger.info("✓ Loaded: Site Access Control [/api/site/*]")
+    except ImportError as e:
+        logger.debug(f"Site Access not available: {e}")
+    
+    # Territory analysis (unified waypoints)
+    try:
+        from territory import territory_router
+        app.include_router(territory_router)
+        logger.info("✓ Loaded: Territory Analysis [/api/territory/*]")
+    except ImportError as e:
+        logger.debug(f"Territory not available: {e}")
+    
+    # Geo Engine (already in modules - referenced for admin routes)
+    try:
+        from modules.geo_engine.v1 import router as geo_router
+        # Already registered via CORE_ROUTERS, skip duplicate
+        logger.info("✓ Verified: Geo Engine [/api/v1/geo/*]")
+    except ImportError:
+        pass
+    
+    # Admin Geo Engine
+    try:
+        from modules.geo_engine.admin import router as admin_geo_router
+        app.include_router(admin_geo_router)
+        logger.info("✓ Loaded: Admin Geo Engine [/api/admin/geo/*]")
+    except ImportError as e:
+        logger.debug(f"Admin Geo not available: {e}")
+    
+    # WebSocket Geo Sync
+    try:
+        from websocket.geo_sync import router as ws_geo_router
+        app.include_router(ws_geo_router)
+        logger.info("✓ Loaded: WebSocket Geo Sync [/ws/geo-sync]")
+    except ImportError as e:
+        logger.debug(f"WebSocket Geo not available: {e}")
+    
+    # Bathymetry
+    try:
+        from routes.bathymetry import router as bathymetry_router
+        app.include_router(bathymetry_router)
+        logger.info("✓ Loaded: Bathymetry API [/api/bathymetry/*]")
+    except ImportError as e:
+        logger.debug(f"Bathymetry not available: {e}")
+    
+    # Advanced Zones
+    try:
+        from routes.advanced_zones import router as advanced_zones_router
+        app.include_router(advanced_zones_router)
+        logger.info("✓ Loaded: Advanced Zones [/api/territory/zones/*]")
+    except ImportError as e:
+        logger.debug(f"Advanced Zones not available: {e}")
 
-# 4. [REMOVED - P6.2] user_waypoints.py has been deleted
-# All waypoint functionality is now handled by the unified geo_engine (/api/v1/geo/*)
-# Migration: user_waypoints → geo_entities (unified collection)
-logger.info("✓ Legacy user_waypoints REMOVED - Use /api/v1/geo/* instead")
 
-# 5. Register site access control router
-try:
-    from site_access import access_router
-    app.include_router(access_router)
-    logger.info("✓ Loaded: Site Access Control router [/api/site/*]")
-except ImportError as e:
-    logger.warning(f"Site Access Control router not available: {e}")
-
-# 6. Register territory analysis router (UNIFIED waypoints source of truth)
-try:
-    from territory import territory_router
-    app.include_router(territory_router)
-    logger.info("✓ Loaded: Territory Analysis router [/api/territory/*] (UNIFIED waypoints)")
-except ImportError as e:
-    logger.warning(f"Territory Analysis router not available: {e}")
-
-# 7. Register unified geo engine (Phase P6.2)
-try:
-    from modules.geo_engine.v1 import router as geo_router, ensure_indexes
-    app.include_router(geo_router)
-    logger.info("✓ Loaded: Unified Geo Engine [/api/v1/geo/*]")
-except ImportError as e:
-    logger.warning(f"Geo Engine not available: {e}")
-
-# 8. Register admin geo engine (Phase P6.5)
-try:
-    from modules.geo_engine.admin import router as admin_geo_router
-    app.include_router(admin_geo_router)
-    logger.info("✓ Loaded: Admin Geo Engine [/api/admin/geo/*]")
-except ImportError as e:
-    logger.warning(f"Admin Geo Engine not available: {e}")
-
-# 9. Register WebSocket geo sync (Phase P6.4)
-try:
-    from websocket.geo_sync import router as ws_geo_router
-    app.include_router(ws_geo_router)
-    logger.info("✓ Loaded: WebSocket Geo Sync [/ws/geo-sync, /api/v1/geo-sync/*]")
-except ImportError as e:
-    logger.warning(f"WebSocket Geo Sync not available: {e}")
-
-# 10. Register Bathymetry routes (Phase P2 Cartes Premium)
-try:
-    from routes.bathymetry import router as bathymetry_router
-    app.include_router(bathymetry_router)
-    logger.info("✓ Loaded: Bathymetry API [/api/bathymetry/*]")
-except ImportError as e:
-    logger.warning(f"Bathymetry API not available: {e}")
-
-# 11. Register Advanced Zones routes (Phase P2 - 14 Zone Types)
-try:
-    from routes.advanced_zones import router as advanced_zones_router
-    app.include_router(advanced_zones_router)
-    logger.info("✓ Loaded: Advanced Zones API [/api/territory/zones/*]")
-except ImportError as e:
-    logger.warning(f"Advanced Zones API not available: {e}")
+# Execute router registration
+register_all_routers()
 
 # ==============================================
 # CUSTOM OPENAPI SCHEMA
