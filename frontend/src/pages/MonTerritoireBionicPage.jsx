@@ -2213,6 +2213,17 @@ const MonTerritoireBionicPage = () => {
             </div>
           </div>
         )}
+
+        {/* Onglet GROUPE - Phase 2 */}
+        {activeTab === 'groupe' && (
+          <div className="h-[calc(100vh-220px)] bg-[var(--bionic-bg-secondary)] rounded-lg border border-[var(--bionic-border-primary)] p-4">
+            <GroupeTab
+              groupId="territory_group"
+              userId={userId}
+              compact={false}
+            />
+          </div>
+        )}
       </div>
       
       {/* Dialog d'édition de lieu */}
