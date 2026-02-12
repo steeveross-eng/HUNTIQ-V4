@@ -223,8 +223,40 @@ server.py (orchestrateur pur)
 ```
 
 ### P0 - Next (En attente directive utilisateur)
-- [ ] Phase 3 Caméras: Analyse comportementale (SUSPENDU - Plan MAÎTRE)
-- [ ] Phase 7-8: Frontend modulaire
+- [ ] Phases 7-8 Frontend Modulaire - EN COURS
+
+### Phase 7-8 Frontend Modulaire - EN COURS
+
+**Objectifs Phase 7 (Core):**
+1. ✅ Configuration centrale des routes (`/src/config/routes.js`)
+2. ✅ Navigation modulaire (`ModularNavigation.jsx`)
+3. ✅ Registre des modules (`/src/config/modules.js`)
+4. ✅ Fix hook React (SessionHeatmap.jsx)
+5. ✅ Build validé
+
+**Livrables créés:**
+- `/app/frontend/src/config/routes.js` - Configuration routes centralisée
+- `/app/frontend/src/config/modules.js` - Registre des modules
+- `/app/frontend/src/components/navigation/ModularNavigation.jsx` - Navigation modulaire
+- `/app/frontend/src/components/navigation/index.js` - Index exports
+
+**Architecture Navigation:**
+- Route categories: CORE, INTELLIGENCE, TERRITORY, COMMERCE, ADMIN, USER
+- Dropdown groups: Intelligence (Analytics, Forecast, Plan Maître), Territory (Map, Mon Territoire)
+- Role-based visibility
+- i18n support
+
+**Modules Frontend enregistrés:** 23 modules actifs
+- Core: 8 (weather, scoring, strategy, geospatial, ai, wms, marketplace, tracking)
+- Advanced: 9 (ecoforestry, advanced_geospatial, engine_3d, wildlife_behavior, simulation, adaptive_strategy, recommendation, progression, collaborative)
+- Business: 4 (products, orders, cart, affiliate)
+- Special: 3 (live_heading_view, analytics, predictive)
+- Admin: 1
+
+**Reste à faire Phase 8 (Métier):**
+- [ ] Intégrer ModularNavigation dans App.js
+- [ ] Stabiliser popups et data layers
+- [ ] Tests de non-régression frontend
 
 ### P1 - Future
 - [ ] Phase 11: Stabilisation module Analytics
