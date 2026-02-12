@@ -259,21 +259,21 @@ export const AnalyticsDashboard = () => {
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="bg-slate-800 border border-slate-700 w-full justify-start">
-          <TabsTrigger value="overview" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            📈 Vue d'ensemble
+        <TabsList className="bg-[var(--bionic-bg-card)] border border-[var(--bionic-border-secondary)] w-full justify-start">
+          <TabsTrigger value="overview" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <TrendingUp className="h-4 w-4" /> {t('common_overview') || "Vue d'ensemble"}
           </TabsTrigger>
-          <TabsTrigger value="species" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            🦌 Par espèce
+          <TabsTrigger value="species" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <Target className="h-4 w-4" /> {t('analytics_by_species') || 'Par espèce'}
           </TabsTrigger>
-          <TabsTrigger value="weather" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            🌤️ Météo
+          <TabsTrigger value="weather" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <Cloud className="h-4 w-4" /> {t('common_weather') || 'Météo'}
           </TabsTrigger>
-          <TabsTrigger value="times" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            ⏰ Horaires
+          <TabsTrigger value="times" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <Clock className="h-4 w-4" /> {t('analytics_times') || 'Horaires'}
           </TabsTrigger>
-          <TabsTrigger value="history" className="data-[state=active]:bg-[#f5a623] data-[state=active]:text-black">
-            📜 Historique
+          <TabsTrigger value="history" className="data-[state=active]:bg-[var(--bionic-gold-primary)] data-[state=active]:text-black gap-2">
+            <FileText className="h-4 w-4" /> {t('common_history') || 'Historique'}
           </TabsTrigger>
         </TabsList>
 
@@ -361,11 +361,11 @@ export const AnalyticsDashboard = () => {
         <TabsContent value="species" className="mt-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Species Bar Chart */}
-            <Card className="bg-slate-800 border-slate-700">
+            <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)]">
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg text-white flex items-center gap-2">
-                  <span>📊</span>
-                  Taux de succès par espèce
+                <CardTitle className="text-lg text-[var(--bionic-text-primary)] flex items-center gap-2">
+                  <BarChart3 className="h-5 w-5 text-[var(--bionic-gold-primary)]" />
+                  {t('analytics_success_by_species') || 'Taux de succès par espèce'}
                 </CardTitle>
               </CardHeader>
               <CardContent>
