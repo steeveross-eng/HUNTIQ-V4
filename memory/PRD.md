@@ -184,13 +184,47 @@ HUNTIQ V3 is a professional hunting intelligence platform following the "BIONIC 
 
 ## Pending Tasks
 
-### P0 - Validation Required
+### P0 - Completed
 - [x] Phase 9 (Roles Corrections) - ACTIVÉ
 - [x] Phase 1 Caméras - ✅ VALIDÉ ET CLOS
+- [x] Phase 2 Caméras - ✅ VALIDÉ ET CLOS
+- [x] Phase 6 Backend - ✅ DÉCOUPLAGE ORCHESTRATEUR PUR
+
+### Phase 6 Backend - Découplage (COMPLÉTÉ)
+**Objectifs atteints:**
+1. ✅ `server.py` est maintenant un orchestrateur pur
+2. ✅ Fonction `register_all_routers()` centralisée
+3. ✅ Fonction `_register_special_routers()` pour routers racine
+4. ✅ 47 modules chargés et opérationnels
+5. ✅ Legacy monolith isolé et marqué DEPRECATED
+6. ✅ Tests de non-régression validés
+
+**Endpoints orchestrateur:**
+- `/api/health` - Health check simple
+- `/api/status` - Status détaillé
+- `/api/modules/status` - Liste tous les modules
+- `/api/modules/health` - Santé des modules par phase
+
+**Architecture Phase 6:**
+```
+server.py (orchestrateur pur)
+├── register_all_routers()
+│   ├── orchestrator_router
+│   ├── CORE_ROUTERS (47 modules)
+│   ├── legacy_router (DEPRECATED)
+│   └── _register_special_routers()
+│       ├── site_access
+│       ├── territory
+│       ├── admin_geo
+│       ├── websocket_geo
+│       ├── bathymetry
+│       └── advanced_zones
+└── custom_openapi()
+```
 
 ### P0 - Next (En attente directive utilisateur)
-- [ ] Phase 2 Caméras: Traitement avancé des images (INTERDIT - non ouvert)
-- [ ] Phase 10: Activation contrôlée des correctifs + QA
+- [ ] Phase 3 Caméras: Analyse comportementale (SUSPENDU - Plan MAÎTRE)
+- [ ] Phase 7-8: Frontend modulaire
 
 ### P1 - Future
 - [ ] Phase 11: Stabilisation module Analytics
