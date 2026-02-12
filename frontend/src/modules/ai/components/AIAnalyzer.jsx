@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 import { AIService } from '../AIService';
-import { CheckCircle, AlertTriangle } from 'lucide-react';
+import { CheckCircle, AlertTriangle, Bot, Sparkles, FileText, Loader2 } from 'lucide-react';
 
 export const AIAnalyzer = ({ 
   productId, 
@@ -38,7 +38,7 @@ export const AIAnalyzer = ({
     <Card className="bg-gradient-to-br from-purple-900/30 to-slate-900 border-purple-700/50">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg text-white flex items-center gap-2">
-          <span className="text-2xl">🤖</span>
+          <Bot className="h-6 w-6 text-purple-400" />
           Analyse IA Bionic™
         </CardTitle>
       </CardHeader>
@@ -57,12 +57,12 @@ export const AIAnalyzer = ({
           >
             {loading ? (
               <>
-                <span className="animate-pulse mr-2">🔮</span>
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                 Analyse en cours...
               </>
             ) : (
               <>
-                <span className="mr-2">✨</span>
+                <Sparkles className="h-4 w-4 mr-2" />
                 Lancer l'analyse IA
               </>
             )}
@@ -84,8 +84,8 @@ export const AIAnalyzer = ({
             {/* Summary */}
             {analysis.summary && (
               <div className="p-3 bg-slate-800/50 rounded-lg">
-                <h4 className="text-purple-400 font-medium text-sm mb-2">
-                  📝 Résumé
+                <h4 className="text-purple-400 font-medium text-sm mb-2 flex items-center gap-2">
+                  <FileText className="h-4 w-4" /> Résumé
                 </h4>
                 <p className="text-slate-300 text-sm">
                   {analysis.summary}
