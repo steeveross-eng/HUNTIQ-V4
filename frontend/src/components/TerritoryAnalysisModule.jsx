@@ -606,10 +606,10 @@ const TerritoryAnalysisModule = () => {
             {activeCategory === "territoire" && (
               <Tabs defaultValue="analyse" className="space-y-4">
                 <TabsList className="grid grid-cols-4 bg-black/30">
-                  <TabsTrigger value="analyse">📍 Analyse</TabsTrigger>
-                  <TabsTrigger value="cameras">📸 Caméras</TabsTrigger>
-                  <TabsTrigger value="events">👁️ Événements</TabsTrigger>
-                  <TabsTrigger value="plan">📋 Plan</TabsTrigger>
+                  <TabsTrigger value="analyse" className="flex items-center gap-1"><MapPin className="h-3 w-3" /> Analyse</TabsTrigger>
+                  <TabsTrigger value="cameras" className="flex items-center gap-1"><Camera className="h-3 w-3" /> Caméras</TabsTrigger>
+                  <TabsTrigger value="events" className="flex items-center gap-1"><Eye className="h-3 w-3" /> Événements</TabsTrigger>
+                  <TabsTrigger value="plan" className="flex items-center gap-1"><FileText className="h-3 w-3" /> Plan</TabsTrigger>
                 </TabsList>
                 
                 <TabsContent value="analyse" className="space-y-4">
@@ -622,9 +622,9 @@ const TerritoryAnalysisModule = () => {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="orignal">🫎 Orignal</SelectItem>
-                          <SelectItem value="chevreuil">🦌 Chevreuil</SelectItem>
-                          <SelectItem value="ours">🐻 Ours noir</SelectItem>
+                          <SelectItem value="orignal"><span className="flex items-center gap-2"><CircleDot className="h-3 w-3" style={{color: '#8B4513'}} /> Orignal</span></SelectItem>
+                          <SelectItem value="chevreuil"><span className="flex items-center gap-2"><CircleDot className="h-3 w-3" style={{color: '#D2691E'}} /> Chevreuil</span></SelectItem>
+                          <SelectItem value="ours"><span className="flex items-center gap-2"><CircleDot className="h-3 w-3" style={{color: '#2F4F4F'}} /> Ours noir</span></SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -769,7 +769,7 @@ const TerritoryAnalysisModule = () => {
               setSelectedSpecies("orignal");
             }}
           >
-            <span className="text-3xl">🫎</span>
+            <CircleDot className="h-8 w-8" style={{color: '#8B4513'}} />
             <span className="text-sm">Analyser Orignal</span>
           </Button>
           <Button
@@ -780,7 +780,7 @@ const TerritoryAnalysisModule = () => {
               setSelectedSpecies("chevreuil");
             }}
           >
-            <span className="text-3xl">🦌</span>
+            <CircleDot className="h-8 w-8" style={{color: '#D2691E'}} />
             <span className="text-sm">Analyser Chevreuil</span>
           </Button>
           <Button
@@ -791,7 +791,7 @@ const TerritoryAnalysisModule = () => {
               setSelectedSpecies("ours");
             }}
           >
-            <span className="text-3xl">🐻</span>
+            <CircleDot className="h-8 w-8" style={{color: '#2F4F4F'}} />
             <span className="text-sm">Analyser Ours</span>
           </Button>
           <Button
@@ -799,7 +799,7 @@ const TerritoryAnalysisModule = () => {
             className="h-auto py-4 flex flex-col items-center gap-2 border-[#f5a623]/30 hover:border-[#f5a623] hover:bg-[#f5a623]/10"
             onClick={() => window.location.href = "/shop"}
           >
-            <span className="text-3xl">🎯</span>
+            <Target className="h-8 w-8 text-[#f5a623]" />
             <span className="text-sm">Voir Attractants</span>
           </Button>
         </div>
