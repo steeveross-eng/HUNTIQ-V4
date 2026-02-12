@@ -137,10 +137,14 @@ export const useGroupeAlerts = (userId, groupId, options = {}) => {
 
   // State
   const [alerts, setAlerts] = useState([]);
-  const [unreadCount, setUnreadCount] = useState(0);
   const [settings, setSettings] = useState(DEFAULT_ALERT_SETTINGS);
   const [isMuted, setIsMuted] = useState(false);
   const [lastCheck, setLastCheck] = useState(null);
+
+  // Calculer unreadCount à partir des alertes
+  const unreadCount = useMemo(() => {
+    return alerts.filter(a => !a.read && !a.dismissed).length;
+  }, [alerts]);
 
   // Ajouter une nouvelle alerte
   const addAlert = useCallback((alertData) => {
