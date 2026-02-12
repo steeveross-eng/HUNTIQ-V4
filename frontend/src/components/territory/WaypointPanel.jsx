@@ -23,19 +23,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { MapPin, Edit, Trash2, Navigation, Plus, Save, X } from 'lucide-react';
+import { MapPin, Edit, Trash2, Navigation, Plus, Save, X, Package, Wheat, Droplet, Camera, Car, AlertTriangle, Crosshair } from 'lucide-react';
 import { toast } from 'sonner';
+import { SpeciesIcon } from '@/components/bionic/SpeciesIcon';
 
-// Waypoint type configurations
+// Waypoint type configurations - BIONIC Design System Compliant
 export const WAYPOINT_TYPES = {
-  custom: { icon: '📍', color: '#f5a623', name: 'Point personnalisé' },
-  cache: { icon: '📦', color: '#8B5CF6', name: 'Cache/Affût' },
-  feeding: { icon: '🌾', color: '#22C55E', name: 'Zone alimentation' },
-  water: { icon: '💧', color: '#3B82F6', name: 'Point d\'eau' },
-  crossing: { icon: '🦌', color: '#EF4444', name: 'Traverse' },
-  camera: { icon: '📷', color: '#EC4899', name: 'Caméra' },
-  parking: { icon: '🚗', color: '#6B7280', name: 'Stationnement' },
-  danger: { icon: '⚠️', color: '#F59E0B', name: 'Zone danger' }
+  custom: { icon: MapPin, color: '#f5a623', name: 'Point personnalisé' },
+  cache: { icon: Package, color: '#8B5CF6', name: 'Cache/Affût' },
+  feeding: { icon: Wheat, color: '#22C55E', name: 'Zone alimentation' },
+  water: { icon: Droplet, color: '#3B82F6', name: 'Point d\'eau' },
+  crossing: { icon: Crosshair, color: '#EF4444', name: 'Traverse' },
+  camera: { icon: Camera, color: '#EC4899', name: 'Caméra' },
+  parking: { icon: Car, color: '#6B7280', name: 'Stationnement' },
+  danger: { icon: AlertTriangle, color: '#F59E0B', name: 'Zone danger' }
 };
 
 const WaypointPanel = ({
@@ -124,8 +125,8 @@ const WaypointPanel = ({
         </CardHeader>
         <CardContent className="space-y-2 max-h-60 overflow-y-auto">
           {waypoints.length === 0 ? (
-            <p className="text-gray-500 text-xs text-center py-4">
-              Cliquez sur la carte avec l'outil 📍 pour ajouter des waypoints
+            <p className="text-gray-500 text-xs text-center py-4 flex items-center justify-center gap-1">
+              <MapPin className="h-3 w-3" /> Cliquez sur la carte pour ajouter des waypoints
             </p>
           ) : (
             waypoints.map((waypoint, index) => {
@@ -139,7 +140,12 @@ const WaypointPanel = ({
                     className="flex items-center gap-2 flex-1 cursor-pointer"
                     onClick={() => onNavigateToWaypoint(waypoint)}
                   >
-                    <span className="text-lg">{typeConfig.icon}</span>
+                    <span 
+                      className="flex items-center justify-center h-6 w-6 rounded"
+                      style={{ backgroundColor: `${typeConfig.color}20` }}
+                    >
+                      <typeConfig.icon className="h-4 w-4" style={{ color: typeConfig.color }} />
+                    </span>
                     <div className="flex-1 min-w-0">
                       <p className="text-white text-sm truncate">{waypoint.name}</p>
                       <p className="text-gray-500 text-xs">
@@ -187,8 +193,8 @@ const WaypointPanel = ({
             </DialogTitle>
             <DialogDescription>
               {pendingWaypoint && (
-                <span className="text-[#f5a623]">
-                  📍 {pendingWaypoint.lat?.toFixed(5)}, {pendingWaypoint.lng?.toFixed(5)}
+                <span className="text-[#f5a623] flex items-center gap-1">
+                  <MapPin className="h-3 w-3" /> {pendingWaypoint.lat?.toFixed(5)}, {pendingWaypoint.lng?.toFixed(5)}
                 </span>
               )}
             </DialogDescription>
@@ -212,14 +218,17 @@ const WaypointPanel = ({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(WAYPOINT_TYPES).map(([key, config]) => (
-                    <SelectItem key={key} value={key}>
-                      <span className="flex items-center gap-2">
-                        <span>{config.icon}</span>
-                        <span>{config.name}</span>
-                      </span>
-                    </SelectItem>
-                  ))}
+                  {Object.entries(WAYPOINT_TYPES).map(([key, config]) => {
+                    const IconComponent = config.icon;
+                    return (
+                      <SelectItem key={key} value={key}>
+                        <span className="flex items-center gap-2">
+                          <IconComponent className="h-4 w-4" style={{ color: config.color }} />
+                          <span>{config.name}</span>
+                        </span>
+                      </SelectItem>
+                    );
+                  })}
                 </SelectContent>
               </Select>
             </div>
