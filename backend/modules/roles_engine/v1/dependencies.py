@@ -14,8 +14,10 @@ from .models import UserRole, UserWithRole, ROLE_PERMISSIONS
 
 logger = logging.getLogger(__name__)
 
-# JWT Configuration
-JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY", "huntiq_default_secret_change_me")
+# JWT Configuration - Secure: No default values, fail fast if not configured
+JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
+if not JWT_SECRET_KEY:
+    raise RuntimeError("CRITICAL: JWT_SECRET_KEY environment variable is not set. Application cannot start.")
 JWT_ALGORITHM = os.environ.get("JWT_ALGORITHM", "HS256")
 
 # Optional bearer - doesn't require auth header
@@ -25,10 +27,15 @@ security = HTTPBearer(auto_error=False)
 _db = None
 
 def get_db() -> AsyncIOMotorDatabase:
+    """Get database connection using environment variables only."""
     global _db
     if _db is None:
-        MONGO_URL = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
-        DB_NAME = os.environ.get('DB_NAME', 'hunttrack')
+        MONGO_URL = os.environ.get('MONGO_URL')
+        DB_NAME = os.environ.get('DB_NAME')
+        if not MONGO_URL:
+            raise RuntimeError("CRITICAL: MONGO_URL environment variable is not set.")
+        if not DB_NAME:
+            raise RuntimeError("CRITICAL: DB_NAME environment variable is not set.")
         client = AsyncIOMotorClient(MONGO_URL)
         _db = client[DB_NAME]
     return _db

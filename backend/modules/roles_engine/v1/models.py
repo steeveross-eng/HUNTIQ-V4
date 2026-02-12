@@ -144,32 +144,32 @@ class RoleInfo(BaseModel):
     is_elevated: bool = False
 
 
-# Role metadata
+# Role metadata - BIONIC compliant (no emojis)
 ROLE_METADATA: Dict[str, RoleInfo] = {
     UserRole.HUNTER.value: RoleInfo(
         role=UserRole.HUNTER,
-        label="🎯 Chasseur",
+        label="Chasseur",
         description="Utilisateur standard avec accès aux fonctionnalités de base",
         permissions=ROLE_PERMISSIONS[UserRole.HUNTER.value],
         is_elevated=False
     ),
     UserRole.GUIDE.value: RoleInfo(
         role=UserRole.GUIDE,
-        label="🧭 Guide",
+        label="Guide",
         description="Guide professionnel avec accès étendu pour gérer des groupes terrain",
         permissions=ROLE_PERMISSIONS[UserRole.GUIDE.value],
         is_elevated=True
     ),
     UserRole.BUSINESS.value: RoleInfo(
         role=UserRole.BUSINESS,
-        label="🏪 Business",
+        label="Business",
         description="Profil commercial avec accès marketplace, ventes et programme affilié",
         permissions=ROLE_PERMISSIONS[UserRole.BUSINESS.value],
         is_elevated=True
     ),
     UserRole.ADMIN.value: RoleInfo(
         role=UserRole.ADMIN,
-        label="⚙️ Administrateur",
+        label="Administrateur",
         description="Accès complet à toutes les fonctionnalités et paramètres",
         permissions=ROLE_PERMISSIONS[UserRole.ADMIN.value],
         is_elevated=True
