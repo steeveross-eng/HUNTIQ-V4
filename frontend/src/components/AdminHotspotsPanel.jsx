@@ -137,7 +137,7 @@ const AdminHotspotsPanel = () => {
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
             <CardTitle className="text-white flex items-center gap-2">
-              <span className="text-2xl">🔥</span>
+              <Flame className="h-6 w-6 text-orange-500" />
               Gestion des Hotspots
               <Badge className="bg-red-600 ml-2">
                 <Shield className="h-3 w-3 mr-1" />
