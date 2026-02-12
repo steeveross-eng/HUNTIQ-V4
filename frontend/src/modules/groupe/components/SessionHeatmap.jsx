@@ -23,14 +23,13 @@ export const SessionHeatmap = ({
   membersWithPositions = [], 
   isActive = false 
 }) => {
-  // Only render when session is active and positions are available
-  if (!isActive || !membersWithPositions || membersWithPositions.length === 0) {
-    return null;
-  }
-
   // Transform member positions to heatmap data format
   // Format: [lat, lng, intensity]
+  // NOTE: useMemo must be called before any early returns (React hooks rules)
   const heatmapData = useMemo(() => {
+    if (!membersWithPositions || membersWithPositions.length === 0) {
+      return [];
+    }
     return membersWithPositions
       .filter(member => member.position?.lat && member.position?.lng)
       .map(member => ({
@@ -40,8 +39,8 @@ export const SessionHeatmap = ({
       }));
   }, [membersWithPositions]);
 
-  // No data to display
-  if (heatmapData.length === 0) {
+  // Only render when session is active and has data
+  if (!isActive || heatmapData.length === 0) {
     return null;
   }
 
