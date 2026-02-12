@@ -1,6 +1,7 @@
 /**
  * WaypointManager - Waypoint management component
  * Allows users to save and manage hunting waypoints
+ * Version: 1.1.0 - BIONIC Design System Compliance
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui/card';
@@ -8,20 +9,27 @@ import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
 import { Input } from '../../../components/ui/input';
 import { toast } from 'sonner';
+import { useLanguage } from '../../../contexts/LanguageContext';
+import { 
+  Target, Camera, Eye, ParkingCircle, MapPin, TreePine, 
+  Loader2, Plus, Trash2, Edit, Save
+} from 'lucide-react';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
+// BIONIC Design System - Lucide icons for waypoint types
 const WAYPOINT_TYPES = [
-  { id: 'hunting', label: 'Spot de chasse', icon: '🎯' },
-  { id: 'stand', label: 'Mirador/Affût', icon: '🪵' },
-  { id: 'camera', label: 'Caméra trail', icon: '📷' },
-  { id: 'feeder', label: 'Nourrisseur', icon: '🌾' },
-  { id: 'sighting', label: 'Observation', icon: '👁️' },
-  { id: 'parking', label: 'Stationnement', icon: '🅿️' },
-  { id: 'custom', label: 'Autre', icon: '📍' }
+  { id: 'hunting', label: 'Spot de chasse', icon: Target },
+  { id: 'stand', label: 'Mirador/Affût', icon: TreePine },
+  { id: 'camera', label: 'Caméra trail', icon: Camera },
+  { id: 'feeder', label: 'Nourrisseur', icon: Target },
+  { id: 'sighting', label: 'Observation', icon: Eye },
+  { id: 'parking', label: 'Stationnement', icon: ParkingCircle },
+  { id: 'custom', label: 'Autre', icon: MapPin }
 ];
 
 export const WaypointManager = ({ coordinates = { lat: 46.8139, lng: -71.2080 } }) => {
+  const { t } = useLanguage();
   const [waypoints, setWaypoints] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showForm, setShowForm] = useState(false);
