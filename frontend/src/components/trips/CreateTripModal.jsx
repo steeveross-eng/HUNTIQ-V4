@@ -116,8 +116,8 @@ const CreateTripModal = ({ open, onClose, onTripCreated }) => {
                 <SelectValue>
                   {selectedSpecies && (
                     <span className="flex items-center gap-2">
-                      <span>{selectedSpecies.emoji}</span>
-                      <span>{selectedSpecies.label.replace(selectedSpecies.emoji + ' ', '')}</span>
+                      <SpeciesIcon species={selectedSpecies.value} size="xs" rounded />
+                      <span>{selectedSpecies.label}</span>
                     </span>
                   )}
                 </SelectValue>
