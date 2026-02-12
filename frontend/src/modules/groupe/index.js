@@ -1,7 +1,7 @@
 /**
  * MODULE GROUPE - Exports centralisés
  * BIONIC Design System compliant
- * Version: 1.4.0 - Phase 5
+ * Version: 1.5.0 - Phase 6
  * 
  * Fonctionnalités collaboratives pour les sorties de chasse en équipe.
  */
@@ -23,6 +23,9 @@ export { ShootingZones, ShootingZone } from './components/ShootingZones';
 // Components - Phase 5
 export { SmartAlerts, AlertItem, AlertTypeBadge, SeverityBadge } from './components/SmartAlerts';
 
+// Components - Phase 6
+export { SessionHeatmap } from './components/SessionHeatmap';
+
 // Hooks - Phase 3
 export { useGroupeTracking, TRACKING_STATUS } from './hooks/useGroupeTracking';
 
@@ -34,9 +37,6 @@ export { useGroupeSafety, SAFETY_STATUS, SHOOTING_ZONE_TYPES } from './hooks/use
 
 // Hooks - Phase 5
 export { useGroupeAlerts, ALERT_TYPES, ALERT_SEVERITY } from './hooks/useGroupeAlerts';
-
-// Future exports (Phase 6+)
-// export { SessionHeatmap } from './components/SessionHeatmap';
 
 // Services (Phase 7+)
 // export { GroupeService } from './services/GroupeService';
