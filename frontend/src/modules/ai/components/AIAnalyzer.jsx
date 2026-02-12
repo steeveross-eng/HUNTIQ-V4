@@ -96,8 +96,8 @@ export const AIAnalyzer = ({
             {/* Strengths */}
             {analysis.strengths?.length > 0 && (
               <div className="p-3 bg-emerald-900/20 rounded-lg border border-emerald-700/50">
-                <h4 className="text-emerald-400 font-medium text-sm mb-2">
-                  ✅ Points forts
+                <h4 className="text-emerald-400 font-medium text-sm mb-2 flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4" /> Points forts
                 </h4>
                 <ul className="space-y-1">
                   {analysis.strengths.map((s, i) => (
@@ -113,8 +113,8 @@ export const AIAnalyzer = ({
             {/* Weaknesses */}
             {analysis.weaknesses?.length > 0 && (
               <div className="p-3 bg-amber-900/20 rounded-lg border border-amber-700/50">
-                <h4 className="text-amber-400 font-medium text-sm mb-2">
-                  ⚠️ Points d'attention
+                <h4 className="text-amber-400 font-medium text-sm mb-2 flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4" /> Points d'attention
                 </h4>
                 <ul className="space-y-1">
                   {analysis.weaknesses.map((w, i) => (
