@@ -2497,6 +2497,16 @@ export const TRANSLATIONS = {
     forecast_days_title: "{days}-day forecast",
     forecast_day_prefix: "D+",
     
+    // HuntingConditions - Lot C
+    hunting_conditions_title: "Hunting Conditions",
+    hunting_score_excellent: "Excellent",
+    hunting_score_good: "Good",
+    hunting_score_average: "Average",
+    hunting_score_poor: "Unfavorable",
+    hunting_factor_temperature: "Temperature",
+    hunting_factor_wind: "Wind",
+    hunting_factor_pressure: "Pressure",
+    
     // Networking - Extended Lot 5
     feed_liked: "Liked!",
     feed_removed: "Removed",
