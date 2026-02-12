@@ -1,11 +1,13 @@
 /**
  * LegalTimeAlert - In-app alert component for legal hunting time warnings
+ * BIONIC Design System compliant - No emojis
  * Displays a prominent alert when approaching end of legal hunting period
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '../../../components/ui/alert';
 import { Button } from '../../../components/ui/button';
 import { NotificationService } from '../NotificationService';
+import { AlertTriangle, Clock, AlertOctagon } from 'lucide-react';
 
 export const LegalTimeAlert = ({ 
   coordinates = { lat: 46.8139, lng: -71.2080 },
