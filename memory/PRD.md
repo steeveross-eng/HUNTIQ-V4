@@ -11,80 +11,34 @@ HUNTIQ V3 is a professional hunting intelligence platform following the "BIONIC 
 
 ## What's Been Implemented
 
-### Date: 2025-02-12 - BIONIC Design System Audit COMPLETE
+### Date: 2025-02-12 - Phase 6 (Session Heatmap) COMPLETE
 
-**Audit Status:** 100% COMPLETE
+**Phase 6 Status:** COMPLETE - Awaiting validation
 
-**Files Modified (45+ files):**
+**Implementation:**
+- Created `SessionHeatmap.jsx` component in `/app/frontend/src/modules/groupe/components/`
+- Displays GPS position density of group members during active session
+- Read-only visualization layer using existing `HeatmapLayer.jsx`
+- Integrated as overlay on GROUPE map in `MonTerritoireBionicPage.jsx`
+- Uses `useGroupeTracking` hook for live GPS data
+- BIONIC color gradient: blue (sparse) → gold (good) → red (hotspot)
 
-#### Modules (src/modules/):
-- suppliers/components/SupplierCard.jsx
-- notifications/NotificationService.js
-- collaborative/components/SightingsFeed.jsx
-- products/components/ProductCard.jsx
-- products/components/ProductGrid.jsx
-- affiliate/components/AffiliateStats.jsx
-- cart/components/CartWidget.jsx
-- recommendation/components/SimilarProducts.jsx
-- ai/components/AIChat.jsx
-- live_heading_view/components/SessionControls.jsx
-- live_heading_view/components/WindIndicator.jsx
-- orders/components/OrdersList.jsx
-- scoring/ScoringService.js
-- weather/WeatherService.js
+**Files Modified:**
+- `/app/frontend/src/modules/groupe/components/SessionHeatmap.jsx` (NEW)
+- `/app/frontend/src/modules/groupe/index.js` (updated exports, version 1.5.0)
+- `/app/frontend/src/modules/groupe/components/GroupePanel.jsx` (version bump)
+- `/app/frontend/src/pages/MonTerritoireBionicPage.jsx` (integration)
 
-#### Components (src/components/):
-- BionicAnalyzer.jsx
-- ContentDepot.jsx
-- DynamicReferralWidget.jsx
-- GeoSyncToggle.jsx
-- HuntMarketplace.jsx
-- LandsRental.jsx
-- MaintenanceControl.jsx
-- MaintenancePage.jsx
-- MarketplacePayments.jsx
-- OfflineIndicator.jsx
-- PartnerDashboard.jsx
-- PartnerOffers.jsx
-- PromptManager.jsx
-- ReferralModule.jsx
-- ReferralWidget.jsx
-- SiteAccessControl.jsx
-- SuccessForecast.jsx
-- TerritoryAdvanced.jsx
-- TerritoryRankings.jsx
-- trips/TripStatsDashboard.jsx
+**Scope Compliance:**
+- Data source: GPS positions ONLY
+- Integration: Overlay on GROUPE map ONLY
+- Interaction: Read-only ONLY
+- No filters, no controls, no extra features
 
-#### Components Territoire:
-- BionicMicroZones.jsx
-- EcoforestryLayers.jsx
-- ShareComponents.jsx
-- ZoneFavorites.jsx
-
-#### Layouts & Configs:
-- layouts/MainLayout.jsx
-- services/ExportService.js
-- config/mapSources.js
-- config/EcoforestryDataSources.js
-
-#### Pages:
-- pages/TripsPage.jsx
-- pages/AdminGeoPage.jsx
-
-**Emoji Replacements Applied:**
-- Species emojis → SpeciesIcon component or Target icon
-- Weather emojis → lucide-react (Sun, Cloud, Snowflake, Wind)
-- Action emojis → lucide-react (Check, X, AlertTriangle, Bell)
-- Navigation emojis → lucide-react (MapPin, Map, Compass)
-- E-commerce emojis → lucide-react (ShoppingCart, Package, DollarSign)
-- Tier/Rank emojis → lucide-react (Trophy, Medal, Crown, Award)
-- Misc emojis → lucide-react (Bot, Lightbulb, Flame, Star, BarChart3)
-
-**Files Intentionally Excluded:**
-- config/bionic-icons.js (migration mapping file)
-- CategoriesManager.jsx (admin interface with intentional emoji defaults)
-- DynamicReferralWidget.jsx (social platform icons)
-- MarketingAIAdmin.jsx (social media content generation)
+### Previous: BIONIC Design System Audit - COMPLETE (Validated)
+- 45+ files refactored
+- All emojis replaced with lucide-react icons
+- 100% Design System compliance
 
 ## Architecture
 
@@ -92,41 +46,50 @@ HUNTIQ V3 is a professional hunting intelligence platform following the "BIONIC 
 /app/
 ├── backend/
 │   ├── server.py
-│   ├── modules/
-│   │   ├── groupe/          # Group hunting features
-│   │   └── realestate/      # Real estate scaffold
-│   └── requirements.txt
+│   └── modules/
+│       └── groupe/          # Backend (Phase 7+)
 ├── frontend/
 │   ├── src/
-│   │   ├── assets/bionic/species/  # Professional wildlife photos
+│   │   ├── modules/
+│   │   │   └── groupe/
+│   │   │       ├── components/
+│   │   │       │   ├── GroupeTab.jsx
+│   │   │       │   ├── GroupePanel.jsx
+│   │   │       │   ├── MembersTracker.jsx
+│   │   │       │   ├── GroupChat.jsx
+│   │   │       │   ├── SafetyStatus.jsx
+│   │   │       │   ├── ShootingZones.jsx
+│   │   │       │   ├── SmartAlerts.jsx
+│   │   │       │   └── SessionHeatmap.jsx  # Phase 6 NEW
+│   │   │       ├── hooks/
+│   │   │       └── index.js
 │   │   ├── components/
-│   │   │   ├── bionic/SpeciesIcon.jsx  # Centralized species display
-│   │   │   ├── ui/          # Shadcn components
-│   │   │   └── territoire/  # Territory components
-│   │   ├── config/
-│   │   │   ├── speciesImages.js    # Species image mapping
-│   │   │   └── bionic-icons.js     # Icon migration map
-│   │   ├── modules/         # Feature modules
-│   │   ├── pages/           # Route pages
-│   │   └── layouts/         # Layout components
-│   └── package.json
+│   │   │   └── HeatmapLayer.jsx  # Used by SessionHeatmap
+│   │   └── pages/
+│   │       └── MonTerritoireBionicPage.jsx
 └── memory/
     └── PRD.md
 ```
 
-## Tech Stack
-- **Frontend:** React, Tailwind CSS, Shadcn/UI, lucide-react
-- **Backend:** FastAPI, Python
-- **Database:** MongoDB
-- **Maps:** Leaflet, react-leaflet
-- **Charts:** Recharts
-- **AI:** OpenAI GPT-5.2 (via Emergent LLM Key)
+## GROUPE Module Phases
+
+| Phase | Component | Status |
+|-------|-----------|--------|
+| 1 | GroupeTab, GroupePanel | VALIDATED |
+| 2 | - | VALIDATED |
+| 3 | MembersTracker | VALIDATED |
+| 3.5 | GroupChat | VALIDATED |
+| 4 | SafetyStatus, ShootingZones | VALIDATED |
+| 5 | SmartAlerts | VALIDATED |
+| 6 | SessionHeatmap | COMPLETE - Awaiting validation |
+| 7 | Final integration, QA | PENDING |
 
 ## Pending Tasks
 
-### P0 - Blocked (awaiting validation)
-- [ ] Phase 5 (Smart Alerts) - Functionally complete, validation blocked
-- [ ] Phase 6: Session Heatmap
+### Awaiting Validation
+- [ ] Phase 6 (Session Heatmap) - Implementation complete
+
+### P0 - Next (After Phase 6 validation)
 - [ ] Phase 7: Final integration, testing, QA
 
 ### P1 - Future
