@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '../../../components/ui/alert';
 import { Button } from '../../../components/ui/button';
 import { NotificationService } from '../NotificationService';
-import { AlertTriangle, Clock, AlertOctagon } from 'lucide-react';
+import { AlertTriangle, Clock, AlertOctagon, Bell, Lightbulb } from 'lucide-react';
 
 export const LegalTimeAlert = ({ 
   coordinates = { lat: 46.8139, lng: -71.2080 },
@@ -122,7 +122,7 @@ export const LegalTimeAlert = ({
                   className="text-white border-white/50 hover:bg-white/10"
                   onClick={handleRequestPermission}
                 >
-                  🔔 Activer alertes
+                  <Bell className="h-4 w-4 mr-1" /> Activer alertes
                 </Button>
               )}
               <Button 
@@ -140,8 +140,8 @@ export const LegalTimeAlert = ({
 
       {/* Permission reminder if not granted */}
       {!permissionGranted && !dismissed && (
-        <div className="mt-2 p-2 bg-blue-900/50 rounded-lg border border-blue-700/50 text-sm text-blue-300">
-          💡 Activez les notifications pour ne jamais manquer la fin de période légale
+        <div className="mt-2 p-2 bg-blue-900/50 rounded-lg border border-blue-700/50 text-sm text-blue-300 flex items-center gap-2">
+          <Lightbulb className="h-4 w-4" /> Activez les notifications pour ne jamais manquer la fin de période légale
         </div>
       )}
     </div>
