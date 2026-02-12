@@ -29,7 +29,7 @@ def get_base_url():
                     return line.split('=', 1)[1].strip().rstrip('/')
     
     # Fallback
-    return 'https://bionic-hunting.preview.emergentagent.com'
+    return 'https://huntiq-v3.preview.emergentagent.com'
 
 BASE_URL = get_base_url()
 
