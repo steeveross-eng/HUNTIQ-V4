@@ -64,14 +64,14 @@ const TerritoryHeader = ({
                 <Camera className="h-3 w-3 mr-1" />
                 {stats.cameras?.total || 0} {t('territory_cameras')}
               </Badge>
-              <Badge variant="outline" className="text-blue-500 border-blue-500">
-                🫎 {stats.species_counts?.orignal || 0}
+              <Badge variant="outline" className="text-blue-500 border-blue-500 flex items-center gap-1">
+                <SpeciesIcon species="moose" size="xs" rounded /> {stats.species_counts?.orignal || 0}
               </Badge>
-              <Badge variant="outline" className="text-orange-500 border-orange-500">
-                🦌 {stats.species_counts?.chevreuil || 0}
+              <Badge variant="outline" className="text-orange-500 border-orange-500 flex items-center gap-1">
+                <SpeciesIcon species="deer" size="xs" rounded /> {stats.species_counts?.chevreuil || 0}
               </Badge>
-              <Badge variant="outline" className="text-gray-500 border-gray-500">
-                🐻 {stats.species_counts?.ours || 0}
+              <Badge variant="outline" className="text-gray-500 border-gray-500 flex items-center gap-1">
+                <SpeciesIcon species="bear" size="xs" rounded /> {stats.species_counts?.ours || 0}
               </Badge>
             </>
           )}
