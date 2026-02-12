@@ -11,34 +11,77 @@ HUNTIQ V3 is a professional hunting intelligence platform following the "BIONIC 
 
 ## What's Been Implemented
 
-### Date: 2025-02-12 - Phase 6 (Session Heatmap) COMPLETE
+### Date: 2026-02-12 - Phase 9 (Roles & Permissions Corrections) + Phase 1 Cameras
 
-**Phase 6 Status:** COMPLETE - Awaiting validation
+#### Phase 9 Status: PREPARED AND ACTIVATED ✅
 
-**Implementation:**
-- Created `SessionHeatmap.jsx` component in `/app/frontend/src/modules/groupe/components/`
-- Displays GPS position density of group members during active session
-- Read-only visualization layer using existing `HeatmapLayer.jsx`
-- Integrated as overlay on GROUPE map in `MonTerritoireBionicPage.jsx`
-- Uses `useGroupeTracking` hook for live GPS data
-- BIONIC color gradient: blue (sparse) → gold (good) → red (hotspot)
+**Correctifs appliqués:**
+1. **Emojis supprimés** dans `/app/backend/modules/roles_engine/v1/models.py`
+   - `🎯 Chasseur` → `Chasseur`
+   - `🧭 Guide` → `Guide`  
+   - `🏪 Business` → `Business`
+   - `⚙️ Administrateur` → `Administrateur`
 
-**Files Modified:**
-- `/app/frontend/src/modules/groupe/components/SessionHeatmap.jsx` (NEW)
-- `/app/frontend/src/modules/groupe/index.js` (updated exports, version 1.5.0)
-- `/app/frontend/src/modules/groupe/components/GroupePanel.jsx` (version bump)
-- `/app/frontend/src/pages/MonTerritoireBionicPage.jsx` (integration)
+2. **JWT_SECRET_KEY sécurisé** dans `/app/backend/modules/roles_engine/v1/dependencies.py`
+   - Supprimé la valeur par défaut hardcodée
+   - Fail-fast si variable d'environnement non configurée
 
-**Scope Compliance:**
-- Data source: GPS positions ONLY
-- Integration: Overlay on GROUPE map ONLY
-- Interaction: Read-only ONLY
-- No filters, no controls, no extra features
+3. **DB_NAME corrigé** dans `/app/backend/modules/roles_engine/v1/dependencies.py`
+   - Supprimé le fallback `hunttrack`
+   - Fail-fast si variable d'environnement non configurée
 
-### Previous: BIONIC Design System Audit - COMPLETE (Validated)
-- 45+ files refactored
-- All emojis replaced with lucide-react icons
-- 100% Design System compliance
+#### Phase 1 Caméras Status: IMPLEMENTED AND TESTED ✅
+
+**Module créé:** `/app/backend/modules/camera_engine/`
+
+**Fonctionnalités implémentées:**
+- Création et gestion des caméras (CRUD)
+- Génération automatique d'email_alias unique par caméra
+- Ingestion de photos par email via POST `/api/v1/camera/email-ingest`
+- Extraction EXIF minimale (timestamp, GPS si disponible)
+- Stockage chiffré des images (Fernet encryption)
+- Création automatique d'événements `camera_events`
+- Logs d'ingestion complets (succès, échecs, quarantaine)
+
+**Validations obligatoires (RÈGLES FONDAMENTALES):**
+- ✅ Interdiction ABSOLUE de créer une caméra sans waypoint
+- ✅ Interdiction ABSOLUE d'ingérer une photo si la caméra n'a pas de waypoint
+- ✅ Isolation stricte par utilisateur
+
+**Endpoints API:**
+- `POST /api/v1/camera/cameras` - Créer une caméra (waypoint_id OBLIGATOIRE)
+- `GET /api/v1/camera/cameras` - Lister les caméras de l'utilisateur
+- `GET /api/v1/camera/cameras/{id}` - Détails d'une caméra
+- `PATCH /api/v1/camera/cameras/{id}` - Modifier une caméra
+- `DELETE /api/v1/camera/cameras/{id}` - Supprimer une caméra
+- `POST /api/v1/camera/email-ingest` - Ingestion de photo par email
+- `GET /api/v1/camera/events` - Lister les événements
+- `GET /api/v1/camera/events/{id}` - Détails d'un événement
+- `GET /api/v1/camera/ingestion-logs` - Logs d'ingestion
+
+**Tests validés:**
+| Test | Description | Résultat |
+|------|-------------|----------|
+| 1 | Caméra sans waypoint → REJET | ✅ |
+| 2 | Caméra waypoint inexistant → REJET | ✅ |
+| 3 | Caméra waypoint valide → SUCCÈS | ✅ |
+| 4 | Ingestion sans caméra → REJET | ✅ |
+| 5 | Ingestion caméra valide → événement créé | ✅ |
+
+**Fichiers créés:**
+- `/app/backend/modules/camera_engine/__init__.py`
+- `/app/backend/modules/camera_engine/dependencies.py`
+- `/app/backend/modules/camera_engine/v1/__init__.py`
+- `/app/backend/modules/camera_engine/v1/models.py`
+- `/app/backend/modules/camera_engine/v1/services.py`
+- `/app/backend/modules/camera_engine/v1/router.py`
+- `/app/backend/tests/test_camera_engine_phase1.py`
+
+### Previous Phases Completed
+- Phase 6 (Session Heatmap): VALIDATED
+- Phase 7 (QA & Stabilization): VALIDATED  
+- Phase 8 (Permissions Audit): VALIDATED
+- BIONIC Design System Audit: VALIDATED
 
 ## Architecture
 
@@ -47,62 +90,90 @@ HUNTIQ V3 is a professional hunting intelligence platform following the "BIONIC 
 ├── backend/
 │   ├── server.py
 │   └── modules/
-│       └── groupe/          # Backend (Phase 7+)
+│       ├── camera_engine/     # Phase 1 Cameras - NEW
+│       │   ├── v1/
+│       │   │   ├── models.py
+│       │   │   ├── services.py
+│       │   │   └── router.py
+│       │   └── dependencies.py
+│       ├── roles_engine/      # Phase 9 - CORRECTED
+│       │   └── v1/
+│       │       ├── models.py (emojis removed)
+│       │       └── dependencies.py (fail-fast)
+│       └── groupe/
 ├── frontend/
-│   ├── src/
-│   │   ├── modules/
-│   │   │   └── groupe/
-│   │   │       ├── components/
-│   │   │       │   ├── GroupeTab.jsx
-│   │   │       │   ├── GroupePanel.jsx
-│   │   │       │   ├── MembersTracker.jsx
-│   │   │       │   ├── GroupChat.jsx
-│   │   │       │   ├── SafetyStatus.jsx
-│   │   │       │   ├── ShootingZones.jsx
-│   │   │       │   ├── SmartAlerts.jsx
-│   │   │       │   └── SessionHeatmap.jsx  # Phase 6 NEW
-│   │   │       ├── hooks/
-│   │   │       └── index.js
-│   │   ├── components/
-│   │   │   └── HeatmapLayer.jsx  # Used by SessionHeatmap
-│   │   └── pages/
-│   │       └── MonTerritoireBionicPage.jsx
+│   └── src/
+│       ├── modules/
+│       │   └── groupe/
+│       └── pages/
+│           └── MonTerritoireBionicPage.jsx
 └── memory/
     └── PRD.md
 ```
 
-## GROUPE Module Phases
+## Data Models
 
-| Phase | Component | Status |
-|-------|-----------|--------|
-| 1 | GroupeTab, GroupePanel | VALIDATED |
-| 2 | - | VALIDATED |
-| 3 | MembersTracker | VALIDATED |
-| 3.5 | GroupChat | VALIDATED |
-| 4 | SafetyStatus, ShootingZones | VALIDATED |
-| 5 | SmartAlerts | VALIDATED |
-| 6 | SessionHeatmap | COMPLETE - Awaiting validation |
-| 7 | Final integration, QA | PENDING |
+### Camera
+```
+{
+  id: string,
+  user_id: string,
+  email_alias: string (unique),
+  waypoint_id: string (REQUIRED),
+  manufacturer: enum,
+  model: string,
+  serial: string,
+  name: string,
+  gps_lat: float,
+  gps_lon: float,
+  status: enum (active/inactive/maintenance/offline),
+  photo_count: int,
+  last_photo_at: datetime,
+  created_at: datetime,
+  updated_at: datetime
+}
+```
+
+### CameraEvent
+```
+{
+  id: string,
+  user_id: string,
+  camera_id: string,
+  waypoint_id: string,
+  timestamp: datetime,
+  species: string,
+  direction: enum,
+  activity: enum,
+  individual_id: string,
+  raw_image_url: string (encrypted path),
+  thumbnail_url: string,
+  exif_data: object,
+  is_quarantined: bool,
+  created_at: datetime
+}
+```
 
 ## Pending Tasks
 
-### Awaiting Validation
-- [ ] Phase 6 (Session Heatmap) - Implementation complete
+### P0 - Validation Required
+- [ ] Phase 9 (Roles Corrections) - User validation pending
+- [ ] Phase 1 Cameras - User validation pending
 
-### P0 - Next (After Phase 6 validation)
-- [ ] Phase 7: Final integration, testing, QA
+### P0 - Next (After validation)
+- [ ] Phase 10: Activation contrôlée des correctifs + QA
+- [ ] Phase 2 Caméras: Corridors, prédictions, IA
 
 ### P1 - Future
-- [ ] BIONIC Refactoring - Lot E: AIInsights.jsx
-- [ ] Real Estate Module (Phases 11-15)
-- [ ] Integrate real mature game images
-- [ ] Offline mode & live navigation
-- [ ] Full CRUD for private user paths
+- [ ] Phase 11: Stabilisation module Analytics
+- [ ] Phase 12: Nettoyage UX final
+- [ ] Phase 13: QA finale + préparation déploiement
 
-### P2 - Production
-- [ ] Deploy Quebec proxy for MFFP WMS access
-- [ ] Implement bathymetry data
-- [ ] WebSocket sync & advanced scoring
+### P2 - Backlog
+- [ ] Module Immobilier (Phases 11-15)
+- [ ] Mode Offline & Navigation Live
+- [ ] Bathymétrie
+- [ ] WebSocket Sync & Advanced Scoring
 
 ## Credentials
 - **Admin:** steeve.ross@gmail.com / Saturn5858*
@@ -113,3 +184,5 @@ HUNTIQ V3 is a professional hunting intelligence platform following the "BIONIC 
 - Resend (User API Key)
 - MongoDB
 - OpenWeatherMap (User API Key)
+- Cryptography (Fernet) - Image encryption
+- Pillow - EXIF extraction
