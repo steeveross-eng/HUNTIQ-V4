@@ -212,6 +212,9 @@ class ExifReaderService:
             "camera_model": None
         }
         
+        if len(image_data) == 0:
+            return exif_data
+        
         try:
             # Try to import PIL for EXIF extraction
             from PIL import Image
@@ -219,6 +222,13 @@ class ExifReaderService:
             import io
             
             img = Image.open(io.BytesIO(image_data))
+            
+            # Check if image format supports EXIF (JPEG, TIFF)
+            if not hasattr(img, '_getexif') or img._getexif is None:
+                # Image format doesn't support EXIF (GIF, PNG, etc.)
+                logger.debug(f"Image format {img.format} does not support EXIF extraction")
+                return exif_data
+            
             exif_raw = img._getexif()
             
             if exif_raw:
@@ -261,7 +271,7 @@ class ExifReaderService:
         except ImportError:
             logger.warning("PIL not available for EXIF extraction")
         except Exception as e:
-            logger.error(f"EXIF extraction error: {e}")
+            logger.debug(f"EXIF extraction skipped: {e}")
         
         return exif_data
     
