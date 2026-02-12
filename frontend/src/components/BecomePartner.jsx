@@ -33,25 +33,35 @@ import {
   Star,
   Users,
   TrendingUp,
-  Calendar
+  Calendar,
+  Tag,
+  Tent,
+  TreePine,
+  Crosshair,
+  Store,
+  Wrench,
+  Factory,
+  Fish,
+  ClipboardList
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { SpeciesIcon } from '@/components/bionic/SpeciesIcon';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-// Partner type icons
+// Partner type icons - BIONIC Design System Compliant (no emojis)
 const PARTNER_TYPE_ICONS = {
-  marques: '🏷️',
-  pourvoiries: '🏕️',
-  proprietaires: '🌲',
-  guides: '🎯',
-  boutiques: '🏪',
-  services: '🔧',
-  fabricants: '🏭',
-  zec: '🦌',
-  clubs: '🎣',
-  particuliers: '👤',
-  autres: '📋'
+  marques: 'tag',
+  pourvoiries: 'tent',
+  proprietaires: 'tree-pine',
+  guides: 'crosshair',
+  boutiques: 'store',
+  services: 'wrench',
+  fabricants: 'factory',
+  zec: 'deer',
+  clubs: 'fish',
+  particuliers: 'user',
+  autres: 'clipboard-list'
 };
 
 const BecomePartner = () => {

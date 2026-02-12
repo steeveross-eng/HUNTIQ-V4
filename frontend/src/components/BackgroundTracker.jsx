@@ -69,7 +69,7 @@ const BackgroundTracker = ({ onProximityAlert }) => {
   const handleProximityAlert = (alert) => {
     // Show toast notification
     const isHotspot = alert.classification === 'hotspot';
-    toast(isHotspot ? '🔥 Hotspot Détecté!' : '📍 Waypoint Proche', {
+    toast(isHotspot ? 'Hotspot Détecté!' : 'Waypoint Proche', {
       description: alert.message,
       duration: 10000,
       action: {
