@@ -166,7 +166,6 @@ export const useGroupeAlerts = (userId, groupId, options = {}) => {
     };
 
     setAlerts(prev => [newAlert, ...prev]);
-    setUnreadCount(prev => prev + 1);
 
     // Jouer le son si activé
     const alertConfig = ALERT_TYPES[newAlert.type];
