@@ -1260,6 +1260,7 @@ export const TRANSLATIONS = {
     groupe_tab_members: "Membres",
     groupe_tab_activity: "Activité",
     groupe_tab_alerts: "Alertes",
+    groupe_tab_chat: "Chat",
     groupe_status_hunting: "En chasse",
     groupe_status_moving: "En déplacement",
     groupe_status_observing: "En observation",
