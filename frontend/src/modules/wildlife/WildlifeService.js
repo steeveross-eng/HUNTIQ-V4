@@ -113,16 +113,16 @@ export class WildlifeService {
     }
   }
 
-  // Placeholder data
+  // Placeholder data - Using speciesImages config for BIONIC compliance
   static getPlaceholderSpecies() {
     return [
-      { id: 'deer', name: 'Cerf de Virginie', species: 'deer', common_name: 'Cerf de Virginie', icon: '🦌', category: 'big_game' },
-      { id: 'moose', name: 'Orignal', species: 'moose', common_name: 'Orignal', icon: '🫎', category: 'big_game' },
-      { id: 'bear', name: 'Ours noir', species: 'bear', common_name: 'Ours noir', icon: '🐻', category: 'big_game' },
-      { id: 'wild_boar', name: 'Sanglier', species: 'wild_boar', common_name: 'Sanglier', icon: '🐗', category: 'big_game' },
-      { id: 'turkey', name: 'Dindon sauvage', species: 'turkey', common_name: 'Dindon sauvage', icon: '🦃', category: 'small_game' },
-      { id: 'duck', name: 'Canard', species: 'duck', common_name: 'Canard', icon: '🦆', category: 'waterfowl' },
-      { id: 'goose', name: 'Oie', species: 'goose', common_name: 'Oie', icon: '🪿', category: 'waterfowl' }
+      { id: 'deer', name: 'Cerf de Virginie', species: 'deer', common_name: 'Cerf de Virginie', category: 'big_game' },
+      { id: 'moose', name: 'Orignal', species: 'moose', common_name: 'Orignal', category: 'big_game' },
+      { id: 'bear', name: 'Ours noir', species: 'bear', common_name: 'Ours noir', category: 'big_game' },
+      { id: 'wild_boar', name: 'Sanglier', species: 'wild_boar', common_name: 'Sanglier', category: 'big_game' },
+      { id: 'turkey', name: 'Dindon sauvage', species: 'turkey', common_name: 'Dindon sauvage', category: 'small_game' },
+      { id: 'duck', name: 'Canard', species: 'duck', common_name: 'Canard', category: 'waterfowl' },
+      { id: 'goose', name: 'Oie', species: 'goose', common_name: 'Oie', category: 'waterfowl' }
     ];
   }
 
