@@ -291,7 +291,7 @@ const MaintenanceControl = () => {
               id="message"
               value={formData.message}
               onChange={(e) => setFormData(f => ({ ...f, message: e.target.value }))}
-              placeholder="🚧 Site en maintenance. Nous revenons bientôt!"
+              placeholder="Site en maintenance. Nous revenons bientôt!"
               className="bg-background"
               rows={3}
             />

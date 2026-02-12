@@ -3,7 +3,7 @@
  * Phase P6.5 - Admin Dashboard
  * Version: 1.1.0 - BIONIC Design System Compliance
  * 
- * ⚠️ ADMIN ONLY - Cette page n'est jamais visible par les utilisateurs réguliers
+ * ADMIN ONLY - Cette page n'est jamais visible par les utilisateurs réguliers
  * 
  * Features:
  * - Global view of all geo entities (system only)
@@ -11,7 +11,7 @@
  * - Advanced filtering by category
  * - "View on map" links for each hotspot
  * 
- * ⚠️ CONFIDENTIALITÉ: Les hotspots personnels des utilisateurs sont EXCLUS
+ * CONFIDENTIALITÉ: Les hotspots personnels des utilisateurs sont EXCLUS
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';

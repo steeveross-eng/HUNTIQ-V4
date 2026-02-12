@@ -328,7 +328,7 @@ const HuntMarketplace = () => {
     }
     try {
       const response = await axios.post(`${API}/marketplace/listings/${listingId}/favorite?token=${auth.token}`);
-      toast.success(response.data.favorited ? '❤️ Ajouté aux favoris' : 'Retiré des favoris');
+      toast.success(response.data.favorited ? 'Ajouté aux favoris' : 'Retiré des favoris');
     } catch (error) {
       toast.error('Erreur');
     }
@@ -354,7 +354,7 @@ const HuntMarketplace = () => {
 
   const getCategoryIcon = (categoryId) => {
     const cat = categories.find(c => c.id === categoryId);
-    return cat?.icon || '📦';
+    return cat?.icon || '';
   };
 
   const getCategoryName = (categoryId) => {

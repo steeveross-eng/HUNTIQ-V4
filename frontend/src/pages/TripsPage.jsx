@@ -74,7 +74,7 @@ const TripsPage = () => {
     setActiveTrip(trip);
     setActiveTab('active');
     loadData();
-    toast.success('Sortie démarrée! Bonne chasse! 🦌');
+    toast.success('Sortie démarrée! Bonne chasse!');
   };
 
   const handleTripEnded = () => {
