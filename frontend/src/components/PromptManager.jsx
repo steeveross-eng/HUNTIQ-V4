@@ -29,6 +29,7 @@ import {
 import { Plus, Edit, Trash2, Save, RefreshCw, Eye, Copy, Sparkles, ChevronDown, ChevronUp, Loader2, FolderOpen, Download, FileText, BookOpen, CheckCircle, Target, Link as LinkIcon, Package } from "lucide-react";
 import { toast } from "sonner";
 import { useLanguage } from '@/contexts/LanguageContext';
+import { SpeciesIcon } from '@/components/bionic/SpeciesIcon';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
