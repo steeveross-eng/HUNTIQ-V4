@@ -2471,6 +2471,12 @@ export const TRANSLATIONS = {
     weather_temperature: "Temperature",
     weather_current_conditions: "Current weather conditions",
     
+    // WeatherWidget - Lot A
+    weather_unavailable: "Weather unavailable",
+    weather_humidity_label: "Humidity",
+    weather_wind_label: "Wind",
+    weather_pressure_label: "Pressure",
+    
     // Networking - Extended Lot 5
     feed_liked: "Liked!",
     feed_removed: "Removed",
