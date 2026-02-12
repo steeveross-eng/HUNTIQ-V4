@@ -1,9 +1,11 @@
 /**
  * OrdersList - Orders list component
  * Phase 9 - Business Modules
+ * BIONIC Design System compliant - No emojis
  */
 import React from 'react';
 import { OrderCard } from './OrderCard';
+import { ClipboardList } from 'lucide-react';
 
 export const OrdersList = ({ 
   orders = [], 
@@ -35,7 +37,7 @@ export const OrdersList = ({
   if (!orders.length) {
     return (
       <div className="text-center py-12 bg-slate-800/50 rounded-lg border border-slate-700">
-        <span className="text-5xl">📋</span>
+        <ClipboardList className="w-16 h-16 text-slate-500 mx-auto" />
         <p className="text-slate-400 mt-4">{emptyMessage}</p>
       </div>
     );

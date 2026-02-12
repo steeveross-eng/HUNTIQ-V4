@@ -80,7 +80,7 @@ export class ScoringService {
       product_id: productId,
       score: 7.2,
       pastille: 'yellow',
-      pastille_label: '🟡 Attraction modérée',
+      pastille_label: 'Attraction modérée',
       breakdown: {
         attraction_days: 7.5,
         natural_palatability: 7.0,

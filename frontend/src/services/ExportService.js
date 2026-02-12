@@ -296,7 +296,7 @@ export const ExportService = {
       trip.date ? new Date(trip.date).toLocaleDateString('fr-CA') : '-',
       SPECIES_LABELS[trip.species] || trip.species,
       `${trip.duration_hours}h`,
-      trip.success ? '✓ Oui' : '✗ Non',
+      trip.success ? 'Oui' : 'Non',
       trip.observations.toString(),
       trip.weather_conditions || '-',
       trip.temperature ? `${trip.temperature}°C` : '-'

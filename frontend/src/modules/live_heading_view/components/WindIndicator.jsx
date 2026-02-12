@@ -1,7 +1,9 @@
 /**
  * WindIndicator - Wind direction and favorability display
+ * BIONIC Design System compliant - No emojis
  */
 import React from 'react';
+import { Check, AlertTriangle } from 'lucide-react';
 
 export const WindIndicator = ({ wind, userHeading = 0 }) => {
   if (!wind) return null;

@@ -39,7 +39,7 @@ export class WeatherService {
         wind_direction_text: 'SW',
         pressure: 1015,
         condition: 'Partiellement nuageux',
-        icon: '⛅',
+        icon: 'cloud-sun',
         hunting_index: 72,
         moon_phase: moon?.moon?.phase_name || 'Dernier quartier',
         moon_illumination: moon?.moon?.illumination || 65,
