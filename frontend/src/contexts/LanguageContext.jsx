@@ -2529,6 +2529,28 @@ export const TRANSLATIONS = {
     hunting_factor_wind: "Wind",
     hunting_factor_pressure: "Pressure",
     
+    // Module GROUPE - Phase 1
+    groupe_tab_title: "Group",
+    groupe_members_active: "Active members",
+    groupe_share_position: "Share my position",
+    groupe_status_live: "Live",
+    groupe_settings: "Group settings",
+    groupe_tab_members: "Members",
+    groupe_tab_activity: "Activity",
+    groupe_tab_alerts: "Alerts",
+    groupe_status_hunting: "Hunting",
+    groupe_status_moving: "Moving",
+    groupe_status_observing: "Observing",
+    groupe_status_break: "On break",
+    groupe_status_emergency: "Emergency",
+    groupe_no_activity: "No recent activity",
+    groupe_no_alerts: "No alerts",
+    groupe_all_safe: "All members are safe",
+    groupe_safety_footer: "Safety status • Phase 2",
+    groupe_activity_waypoint_added: "added a waypoint",
+    groupe_activity_entered_sector: "entered the North sector",
+    groupe_activity_observation: "reported an observation",
+    
     // Networking - Extended Lot 5
     feed_liked: "Liked!",
     feed_removed: "Removed",
