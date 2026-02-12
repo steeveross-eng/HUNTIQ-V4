@@ -261,12 +261,13 @@ export const GroupePanel = ({
           <TabsTrigger 
             value="alerts"
             className="data-[state=active]:text-[var(--bionic-gold-primary)] data-[state=active]:border-b-2 data-[state=active]:border-[var(--bionic-gold-primary)] rounded-none relative"
+            data-testid="groupe-tab-alerts"
           >
             <Bell className="h-4 w-4 mr-2" />
             {t('groupe_tab_alerts')}
-            {alerts.length > 0 && (
+            {alertUnreadCount > 0 && (
               <Badge className="absolute -top-1 -right-1 h-4 w-4 p-0 flex items-center justify-center bg-[var(--bionic-red-primary)] text-white text-xs">
-                {alerts.length}
+                {alertUnreadCount}
               </Badge>
             )}
           </TabsTrigger>
