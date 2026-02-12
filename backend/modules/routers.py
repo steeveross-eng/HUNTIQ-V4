@@ -107,6 +107,11 @@ from modules.hunting_trip_logger import router as hunting_trip_logger_router
 # ==============================================
 from modules.roles_engine.v1 import router as roles_router
 
+# ==============================================
+# PHASE 1 CAMERAS - CAMERA ENGINE (Photo Ingestion)
+# ==============================================
+from modules.camera_engine.v1 import camera_router
+
 
 # List of all available routers with their metadata
 CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
@@ -436,6 +441,16 @@ CORE_ROUTERS: List[Tuple[APIRouter, dict]] = [
         "version": "1.0.0",
         "phase": "P5",
         "description": "Role-based access control (hunter, guide, admin) and permissions management"
+    }),
+    
+    # ==========================================
+    # Phase 1 Cameras - Camera Engine (Photo Ingestion)
+    # ==========================================
+    (camera_router, {
+        "name": "camera_engine",
+        "version": "1.0.0",
+        "phase": "P1-CAM",
+        "description": "Camera management, email ingestion, and photo processing with mandatory waypoint"
     }),
 ]
 
