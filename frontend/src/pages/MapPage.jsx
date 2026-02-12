@@ -179,6 +179,14 @@ const MapPage = () => {
               </div>
             </div>
           </TabsContent>
+
+          <TabsContent value="groupe" className="mt-0">
+            <GroupeTab
+              groupId="default_group"
+              userId={getUserId()}
+              compact={false}
+            />
+          </TabsContent>
         </Tabs>
       </div>
     </div>
