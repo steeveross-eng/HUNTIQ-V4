@@ -1,5 +1,6 @@
 /**
  * SightingsMap - Collaborative sightings display
+ * BIONIC Design System compliant - No emojis
  * Phase 10 - Plan Maître Modules
  */
 import React, { useState, useEffect, useCallback } from 'react';
@@ -7,6 +8,8 @@ import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui
 import { Badge } from '../../../components/ui/badge';
 import { Button } from '../../../components/ui/button';
 import { CollaborativeService } from '../CollaborativeService';
+import { SpeciesIcon } from '../../../components/bionic/SpeciesIcon';
+import { Users, Eye, FileText, CheckCircle, Loader2 } from 'lucide-react';
 
 export const SightingsFeed = ({ 
   coordinates = null,
