@@ -212,7 +212,11 @@ const MaintenanceControl = () => {
                     ? 'bg-red-500/20 text-red-400 border-red-500/50' 
                     : 'bg-green-500/20 text-green-400 border-green-500/50'
                   }`}>
-                    {isActive ? '🔒 ACTIVÉ' : '🔓 DÉSACTIVÉ'}
+                    {isActive ? (
+                      <><Lock className="h-3 w-3 mr-1" /> ACTIVÉ</>
+                    ) : (
+                      <><Unlock className="h-3 w-3 mr-1" /> DÉSACTIVÉ</>
+                    )}
                   </Badge>
                 </h2>
                 <p className="text-gray-400 mt-1">

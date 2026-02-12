@@ -824,7 +824,7 @@ const ListingCard = ({ listing, viewMode, onView, onFavorite, getCategoryIcon, g
                 <h3 className="text-white font-semibold truncate">{listing.title}</h3>
                 <div className="flex items-center gap-2 mt-1">
                   <Badge className={`text-[10px] ${typeBadge.color}`}>{typeBadge.name}</Badge>
-                  {listing.is_featured && <Badge className="bg-yellow-500/20 text-yellow-400 text-[10px]">⭐ Vedette</Badge>}
+                  {listing.is_featured && <Badge className="bg-yellow-500/20 text-yellow-400 text-[10px]"><Star className="h-2 w-2 mr-0.5" /> Vedette</Badge>}
                   {listing.seller_is_pro && <Badge className="bg-purple-500/20 text-purple-400 text-[10px]">PRO</Badge>}
                 </div>
               </div>
@@ -858,7 +858,7 @@ const ListingCard = ({ listing, viewMode, onView, onFavorite, getCategoryIcon, g
         {/* Badges */}
         <div className="absolute top-2 left-2 flex flex-wrap gap-1">
           <Badge className={`text-[10px] ${typeBadge.color}`}>{typeBadge.name}</Badge>
-          {listing.is_featured && <Badge className="bg-yellow-500/20 text-yellow-400 text-[10px]">⭐</Badge>}
+          {listing.is_featured && <Badge className="bg-yellow-500/20 text-yellow-400 text-[10px]"><Star className="h-2 w-2" /></Badge>}
         </div>
         {/* Favorite Button */}
         <Button
@@ -1240,7 +1240,7 @@ const ListingDetailModal = ({ isOpen, onClose, listing, onFavorite, auth, getCat
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <Badge className={typeBadge.color}>{typeBadge.name}</Badge>
-                {listing.is_featured && <Badge className="bg-yellow-500/20 text-yellow-400">⭐ En vedette</Badge>}
+                {listing.is_featured && <Badge className="bg-yellow-500/20 text-yellow-400"><Star className="h-3 w-3 mr-1" /> En vedette</Badge>}
                 {listing.seller_is_pro && <Badge className="bg-purple-500/20 text-purple-400">PRO</Badge>}
               </div>
               <h2 className="text-2xl font-bold text-white">{listing.title}</h2>
