@@ -170,7 +170,7 @@ export class WeatherService {
       wind_direction_text: 'SW',
       pressure: 1015,
       condition: 'Partiellement nuageux',
-      icon: '⛅',
+      icon: 'cloud-sun',
       hunting_index: 72,
       last_updated: new Date().toISOString()
     };
