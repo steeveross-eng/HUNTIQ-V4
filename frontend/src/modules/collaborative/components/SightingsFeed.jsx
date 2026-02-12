@@ -77,7 +77,7 @@ export const SightingsFeed = ({
       <CardHeader className="pb-3">
         <CardTitle className="text-lg text-white flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <span className="text-2xl">👥</span>
+            <Users className="w-6 h-6 text-purple-400" />
             Communauté
           </span>
           <Badge className="bg-purple-900/50 text-purple-400">
@@ -94,7 +94,7 @@ export const SightingsFeed = ({
             className={activeTab === 'sightings' ? 'bg-purple-600' : 'border-slate-600'}
             onClick={() => setActiveTab('sightings')}
           >
-            👁️ Observations
+            <Eye className="w-4 h-4 mr-1" /> Observations
           </Button>
           <Button
             size="sm"
@@ -102,13 +102,13 @@ export const SightingsFeed = ({
             className={activeTab === 'reports' ? 'bg-purple-600' : 'border-slate-600'}
             onClick={() => setActiveTab('reports')}
           >
-            📝 Rapports
+            <FileText className="w-4 h-4 mr-1" /> Rapports
           </Button>
         </div>
 
         {loading ? (
           <div className="text-center py-6">
-            <div className="animate-spin text-3xl">👥</div>
+            <Loader2 className="w-8 h-8 animate-spin text-purple-400 mx-auto" />
             <p className="text-slate-400 text-sm mt-2">Chargement...</p>
           </div>
         ) : activeTab === 'sightings' ? (
@@ -118,14 +118,16 @@ export const SightingsFeed = ({
                 key={sighting.id || index}
                 className="flex items-center gap-3 bg-slate-800/50 rounded-lg p-3"
               >
-                <span className="text-2xl">{getSpeciesIcon(sighting.species)}</span>
+                <SpeciesIcon species={sighting.species} size="md" rounded />
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
                     <span className="text-white font-medium">
                       {sighting.count} {sighting.species}
                     </span>
                     {sighting.verified && (
-                      <Badge className="bg-emerald-900/50 text-emerald-400 text-xs">✓</Badge>
+                      <Badge className="bg-emerald-900/50 text-emerald-400 text-xs">
+                        <CheckCircle className="w-3 h-3" />
+                      </Badge>
                     )}
                   </div>
                   <p className="text-slate-400 text-xs">
