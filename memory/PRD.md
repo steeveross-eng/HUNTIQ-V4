@@ -32,6 +32,34 @@ HUNTIQ V3 is a professional hunting intelligence platform following the "BIONIC 
 
 #### Phase 1 Caméras Status: ✅ VALIDÉ ET CLOS (2026-02-12)
 
+#### Phase 2 Caméras Status: IMPLÉMENTÉ - En attente validation
+
+**Services implémentés:**
+1. **AdvancedExifService** - Extraction EXIF complète
+   - Timestamps (original, digitized, modified)
+   - GPS complet (lat, lon, altitude, direction)
+   - Orientation et rotation nécessaire
+   - Device info (make, model, software)
+   - Paramètres de capture (ISO, aperture, shutter, focal)
+
+2. **ImageValidationService** - Détection images invalides
+   - Classification: VALID / INVALID
+   - Critères: empty, too_small, too_large, corrupted, unreadable, non_photographic, no_exif
+
+3. **MetadataNormalizationService** - Normalisation métadonnées
+   - Timestamps ISO 8601
+   - GPS en decimal degrees (6 décimales)
+   - Device info nettoyé
+   - Score de qualité (0-100)
+
+**Tests automatisés:** 24/24 passent
+**Documentation:** `/app/backend/docs/camera_phase2_technical.md`
+
+**Fichiers créés:**
+- `/app/backend/modules/camera_engine/v1/phase2_services.py`
+- `/app/backend/tests/test_camera_engine_phase2.py`
+- `/app/backend/docs/camera_phase2_technical.md`
+
 **Module créé:** `/app/backend/modules/camera_engine/`
 
 **Fonctionnalités implémentées:**
