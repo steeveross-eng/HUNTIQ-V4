@@ -42,7 +42,8 @@ import {
   Percent,
   Facebook,
   Instagram,
-  Send
+  Send,
+  Medal
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -54,19 +55,20 @@ const API = `${BACKEND_URL}/api`;
 // ============================================
 const TierBadge = ({ tier, size = "normal" }) => {
   const tierConfig = {
-    bronze: { color: "bg-amber-700", icon: "🥉", label: "Bronze" },
-    silver: { color: "bg-gray-400", icon: "🥈", label: "Argent" },
-    gold: { color: "bg-yellow-500", icon: "🥇", label: "Or" },
-    platinum: { color: "bg-cyan-400", icon: "💎", label: "Platine" },
-    diamond: { color: "bg-purple-500", icon: "👑", label: "Diamant" },
-    partner: { color: "bg-gradient-to-r from-[#f5a623] to-purple-600", icon: "⭐", label: "Partenaire" }
+    bronze: { color: "bg-amber-700", Icon: Medal, label: "Bronze" },
+    silver: { color: "bg-gray-400", Icon: Medal, label: "Argent" },
+    gold: { color: "bg-yellow-500", Icon: Trophy, label: "Or" },
+    platinum: { color: "bg-cyan-400", Icon: Award, label: "Platine" },
+    diamond: { color: "bg-purple-500", Icon: Crown, label: "Diamant" },
+    partner: { color: "bg-gradient-to-r from-[#f5a623] to-purple-600", Icon: Star, label: "Partenaire" }
   };
   
   const config = tierConfig[tier] || tierConfig.bronze;
+  const IconComponent = config.Icon;
   
   return (
     <Badge className={`${config.color} text-white ${size === "large" ? "text-lg px-4 py-2" : "px-2 py-1"}`}>
-      <span className="mr-1">{config.icon}</span>
+      <IconComponent className="h-3 w-3 mr-1" />
       {config.label}
     </Badge>
   );
@@ -341,7 +343,7 @@ const UserDashboard = ({ userId }) => {
               </div>
               <Progress value={next_tier_info.progress_percent} className="h-3" />
               <p className="text-center text-[#f5a623] text-sm">
-                🎁 Prochain niveau: {next_tier_info.next_discount}% de rabais!
+                <Gift className="h-4 w-4 inline mr-1" /> Prochain niveau: {next_tier_info.next_discount}% de rabais!
               </p>
             </div>
           )}
