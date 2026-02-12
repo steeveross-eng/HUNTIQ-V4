@@ -460,22 +460,22 @@ const generateSummary = (standScore, gameMovement, risks, liveFlags) => {
   
   // État actuel
   if (liveFlags.isOptimalNow) {
-    parts.push('🎯 CONDITIONS OPTIMALES - Fenêtre de chasse active');
+    parts.push('CONDITIONS OPTIMALES - Fenêtre de chasse active');
   } else if (liveFlags.isRiskyNow) {
-    parts.push('⚠️ RISQUES ÉLEVÉS - Prudence recommandée');
+    parts.push('RISQUES ÉLEVÉS - Prudence recommandée');
   } else {
-    parts.push(`📊 Score actuel: ${standScore.current}/100`);
+    parts.push(`Score actuel: ${standScore.current}/100`);
   }
   
   // Tendance
   if (standScore.trend === 'improving') {
-    parts.push(`📈 Amélioration attendue (${standScore.in3h}/100 dans 3h)`);
+    parts.push(`Amélioration attendue (${standScore.in3h}/100 dans 3h)`);
   } else if (standScore.trend === 'degrading') {
-    parts.push(`📉 Dégradation prévue (${standScore.in3h}/100 dans 3h)`);
+    parts.push(`Dégradation prévue (${standScore.in3h}/100 dans 3h)`);
   }
   
   // Activité gibier
-  parts.push(`🦌 Activité ${
+  parts.push(`Activité ${
     gameMovement.activityLevel === 'very_high' ? 'très forte' :
     gameMovement.activityLevel === 'high' ? 'forte' :
     gameMovement.activityLevel === 'moderate' ? 'modérée' :
@@ -485,7 +485,7 @@ const generateSummary = (standScore, gameMovement, risks, liveFlags) => {
   // Risques principaux
   if (risks.list.length > 0) {
     const mainRisk = risks.list[0];
-    parts.push(`⚡ ${mainRisk.description}`);
+    parts.push(`${mainRisk.description}`);
   }
   
   return parts.join(' • ');
