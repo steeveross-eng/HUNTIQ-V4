@@ -1,11 +1,13 @@
 /**
  * SimilarProducts - Display similar/complementary products
  * Phase 10 - Plan Maître Modules
+ * BIONIC Design System compliant - No emojis
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui/card';
 import { Badge } from '../../../components/ui/badge';
 import { RecommendationService } from '../RecommendationService';
+import { RefreshCw, ShoppingCart } from 'lucide-react';
 
 export const SimilarProducts = ({ 
   productId,
@@ -48,13 +50,13 @@ export const SimilarProducts = ({
   }, [loadProducts]);
 
   const title = type === 'similar' ? 'Produits similaires' : 'Souvent achetés ensemble';
-  const icon = type === 'similar' ? '🔄' : '🛒';
+  const IconComponent = type === 'similar' ? RefreshCw : ShoppingCart;
 
   return (
     <Card className="bg-slate-800 border-slate-700">
       <CardHeader className="pb-3">
         <CardTitle className="text-sm text-white flex items-center gap-2">
-          <span>{icon}</span>
+          <IconComponent className="w-4 h-4 text-slate-400" />
           {title}
         </CardTitle>
       </CardHeader>

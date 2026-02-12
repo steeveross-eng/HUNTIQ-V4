@@ -1,11 +1,13 @@
 /**
  * CartWidget - Shopping cart widget component
  * Phase 9 - Business Modules
+ * BIONIC Design System compliant - No emojis
  */
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
+import { ShoppingCart, Trash2 } from 'lucide-react';
 
 export const CartWidget = ({ 
   items = [], 
@@ -25,7 +27,7 @@ export const CartWidget = ({
   if (compact) {
     return (
       <div className="flex items-center gap-3 bg-slate-800/80 rounded-lg px-4 py-2">
-        <span className="text-xl">🛒</span>
+        <ShoppingCart className="w-5 h-5 text-slate-300" />
         <div>
           <span className="text-white font-medium">{itemCount} article{itemCount > 1 ? 's' : ''}</span>
           <span className="text-[#f5a623] font-bold ml-2">{total.toFixed(2)}$</span>
@@ -39,7 +41,7 @@ export const CartWidget = ({
       <CardHeader className="pb-3">
         <CardTitle className="text-lg text-white flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <span className="text-2xl">🛒</span>
+            <ShoppingCart className="w-6 h-6 text-slate-300" />
             Panier
           </span>
           <Badge className="bg-[#f5a623] text-black">
@@ -50,7 +52,7 @@ export const CartWidget = ({
       <CardContent>
         {items.length === 0 ? (
           <div className="text-center py-8">
-            <span className="text-4xl">🛒</span>
+            <ShoppingCart className="w-12 h-12 text-slate-500 mx-auto" />
             <p className="text-slate-400 mt-2">Votre panier est vide</p>
           </div>
         ) : (
@@ -97,7 +99,7 @@ export const CartWidget = ({
                         onClick={() => onRemoveItem(item.id)}
                         className="ml-2 text-red-400 hover:text-red-300"
                       >
-                        🗑️
+                        <Trash2 className="w-4 h-4" />
                       </button>
                     )}
                   </div>

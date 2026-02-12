@@ -1,8 +1,10 @@
 /**
  * SessionControls - Bottom control bar for session management
+ * BIONIC Design System compliant - No emojis
  */
 import React from 'react';
 import { Button } from '../../../components/ui/button';
+import { Pause, Play, Square, Flag } from 'lucide-react';
 
 export const SessionControls = ({ 
   sessionState, 
@@ -40,11 +42,11 @@ export const SessionControls = ({
             `}
           >
             {sessionState === 'active' ? (
-              <>⏸️ Pause</>
+              <><Pause className="w-4 h-4 mr-1" /> Pause</>
             ) : sessionState === 'paused' ? (
-              <>▶️ Reprendre</>
+              <><Play className="w-4 h-4 mr-1" /> Reprendre</>
             ) : (
-              <>⏹️ Terminé</>
+              <><Square className="w-4 h-4 mr-1" /> Terminé</>
             )}
           </Button>
           
@@ -56,7 +58,7 @@ export const SessionControls = ({
             disabled={sessionState === 'ended'}
             className="bg-red-600 hover:bg-red-500 min-w-24"
           >
-            🏁 Fin
+            <Flag className="w-4 h-4 mr-1" /> Fin
           </Button>
         </div>
         

@@ -1,10 +1,12 @@
 /**
  * AIChat - Simple AI chat interface
+ * BIONIC Design System compliant - No emojis
  */
 import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 import { AIService } from '../AIService';
+import { Bot, Send } from 'lucide-react';
 
 export const AIChat = ({ context = {}, onResponse }) => {
   const [messages, setMessages] = useState([
@@ -57,7 +59,7 @@ export const AIChat = ({ context = {}, onResponse }) => {
     <Card className="bg-slate-800 border-slate-700 h-96 flex flex-col">
       <CardHeader className="pb-2 flex-shrink-0">
         <CardTitle className="text-lg text-white flex items-center gap-2">
-          <span className="text-2xl">🤖</span>
+          <Bot className="w-6 h-6 text-purple-400" />
           Assistant IA
         </CardTitle>
       </CardHeader>
@@ -108,7 +110,7 @@ export const AIChat = ({ context = {}, onResponse }) => {
             disabled={loading || !input.trim()}
             className="bg-purple-600 hover:bg-purple-500 px-4"
           >
-            ➤
+            <Send className="w-4 h-4" />
           </Button>
         </div>
       </CardContent>
