@@ -7,7 +7,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { Layers, Map, Trees, Droplets, Mountain, Route } from 'lucide-react';
+import { Layers, Map, Trees, Droplets, Mountain, Route, Flame, MapPin, Camera, Footprints } from 'lucide-react';
 
 // Base layer configurations
 export const BASE_LAYERS = {
@@ -98,7 +98,7 @@ const LayersPanel = ({
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-sm text-white flex items-center gap-2">
-                🔥 Carte de chaleur
+                <Flame className="h-4 w-4 text-red-500" /> Carte de chaleur
               </span>
               <Switch
                 checked={showHeatmap}
@@ -108,7 +108,7 @@ const LayersPanel = ({
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-white flex items-center gap-2">
-                📍 Événements
+                <MapPin className="h-4 w-4 text-[#f5a623]" /> Événements
               </span>
               <Switch
                 checked={showEvents}
@@ -118,7 +118,7 @@ const LayersPanel = ({
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-white flex items-center gap-2">
-                📷 Caméras
+                <Camera className="h-4 w-4 text-pink-500" /> Caméras
               </span>
               <Switch
                 checked={showCameras}
@@ -128,7 +128,7 @@ const LayersPanel = ({
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-white flex items-center gap-2">
-                🛤️ Sentiers forestiers
+                <Footprints className="h-4 w-4 text-emerald-500" /> Sentiers forestiers
               </span>
               <Switch
                 checked={showForestTrails}
