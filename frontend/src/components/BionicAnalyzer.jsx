@@ -112,11 +112,11 @@ const getScoreColor = (score) => {
  */
 const getNdviLabel = (ndvi) => {
   if (ndvi === null || ndvi === undefined) return "N/A";
-  if (ndvi < 0) return "🪨 Sol nu ou eau";
-  if (ndvi < 0.20) return "🌾 Végétation faible";
-  if (ndvi < 0.40) return "🌿 Végétation moyenne";
-  if (ndvi < 0.60) return "🌳 Bonne végétation";
-  return "🌲 Végétation dense";
+  if (ndvi < 0) return "Sol nu ou eau";
+  if (ndvi < 0.20) return "Végétation faible";
+  if (ndvi < 0.40) return "Végétation moyenne";
+  if (ndvi < 0.60) return "Bonne végétation";
+  return "Végétation dense";
 };
 
 /**
