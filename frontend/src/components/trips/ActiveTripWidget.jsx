@@ -91,7 +91,7 @@ const ActiveTripWidget = () => {
 
           {/* Trip Info */}
           <div className="flex items-center gap-3 mb-3">
-            <span className="text-2xl">{SPECIES_EMOJIS[activeTrip.target_species] || '🎯'}</span>
+            <SpeciesIcon species={activeTrip.target_species || 'other'} size="lg" rounded />
             <div className="flex-1 min-w-0">
               <p className="text-white font-medium truncate">{activeTrip.title}</p>
               <p className="text-xs text-slate-400 capitalize">{activeTrip.target_species}</p>
