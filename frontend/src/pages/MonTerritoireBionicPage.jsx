@@ -1618,6 +1618,13 @@ const MonTerritoireBionicPage = () => {
                   showDangerIndicators={true}
                 />
                 
+                {/* Session Heatmap - Phase 6 GROUPE Module */}
+                {/* Densité GPS des membres du groupe pendant session active */}
+                <SessionHeatmap
+                  membersWithPositions={groupMembersPositions}
+                  isActive={isGroupeTrackingActive}
+                />
+                
                 {/* Position utilisateur */}
                 {userPosition && (
                   <Marker position={[userPosition.lat, userPosition.lng]} icon={createCustomIcon('#3b82f6', 'user')}>
