@@ -351,7 +351,7 @@ const DynamicReferralWidget = () => {
       setShowRegistration(false);
       setAnimateReward(true);
       setTimeout(() => setAnimateReward(false), 3000);
-      toast.success("🎉 Bienvenue dans le programme de parrainage!");
+      toast.success("Bienvenue dans le programme de parrainage!");
     } catch (error) {
       toast.error(error.response?.data?.detail || "Erreur lors de l'inscription");
     }
@@ -369,7 +369,7 @@ const DynamicReferralWidget = () => {
   const handleShare = (platformId) => {
     if (!user?.referral_link) return;
     
-    const message = `🦌 Découvrez SCENT SCIENCE™ - L'analyse scientifique des attractants de chasse! Utilisez mon lien pour ${user.current_discount_percent}% de rabais!`;
+    const message = `Découvrez SCENT SCIENCE - L'analyse scientifique des attractants de chasse! Utilisez mon lien pour ${user.current_discount_percent}% de rabais!`;
     const link = user.referral_link;
     
     const shareUrls = {
@@ -421,7 +421,7 @@ const DynamicReferralWidget = () => {
         {/* Reward gain notification */}
         {recentRewardGain && (
           <div className="animate-bounce bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
-            +{recentRewardGain}% 🎉
+            +{recentRewardGain}%
           </div>
         )}
         
@@ -685,7 +685,7 @@ const DynamicReferralWidget = () => {
               disabled={registering}
             >
               {registering ? (
-                <span className="animate-spin">⏳</span>
+                <Loader2 className="h-5 w-5 animate-spin" />
               ) : (
                 <>
                   <UserPlus className="h-5 w-5 mr-2" />
