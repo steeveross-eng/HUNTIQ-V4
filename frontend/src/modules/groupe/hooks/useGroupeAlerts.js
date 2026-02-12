@@ -234,13 +234,11 @@ export const useGroupeAlerts = (userId, groupId, options = {}) => {
     setAlerts(prev => prev.map(alert => 
       alert.id === alertId ? { ...alert, read: true } : alert
     ));
-    setUnreadCount(prev => Math.max(0, prev - 1));
   }, []);
 
   // Marquer toutes les alertes comme lues
   const markAllAsRead = useCallback(() => {
     setAlerts(prev => prev.map(alert => ({ ...alert, read: true })));
-    setUnreadCount(0);
   }, []);
 
   // Rejeter une alerte
@@ -252,19 +250,12 @@ export const useGroupeAlerts = (userId, groupId, options = {}) => {
 
   // Supprimer une alerte
   const removeAlert = useCallback((alertId) => {
-    setAlerts(prev => {
-      const alert = prev.find(a => a.id === alertId);
-      if (alert && !alert.read) {
-        setUnreadCount(c => Math.max(0, c - 1));
-      }
-      return prev.filter(a => a.id !== alertId);
-    });
+    setAlerts(prev => prev.filter(a => a.id !== alertId));
   }, []);
 
   // Effacer toutes les alertes
   const clearAllAlerts = useCallback(() => {
     setAlerts([]);
-    setUnreadCount(0);
   }, []);
 
   // Basculer le mode muet
