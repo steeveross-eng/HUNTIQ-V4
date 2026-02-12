@@ -2,6 +2,7 @@
  * StrategyTimeline - Hunting day timeline
  */
 import React from 'react';
+import { Calendar, MapPin } from 'lucide-react';
 
 export const StrategyTimeline = ({ schedule = [] }) => {
   if (!schedule.length) {
@@ -23,7 +24,7 @@ export const StrategyTimeline = ({ schedule = [] }) => {
   return (
     <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
       <h3 className="text-white font-medium mb-4 flex items-center gap-2">
-        <span>📅</span>
+        <Calendar className="h-5 w-5 text-[#f5a623]" />
         Planning de la Journée
       </h3>
       
@@ -64,8 +65,8 @@ export const StrategyTimeline = ({ schedule = [] }) => {
                     </p>
                   )}
                   {event.location && (
-                    <span className="text-xs text-blue-400">
-                      📍 {event.location}
+                    <span className="text-xs text-blue-400 flex items-center gap-1">
+                      <MapPin className="h-3 w-3" /> {event.location}
                     </span>
                   )}
                 </div>
