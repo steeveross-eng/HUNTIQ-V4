@@ -75,7 +75,7 @@ export const RecommendationPanel = ({
       <CardHeader className="pb-3">
         <CardTitle className="text-lg text-white flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <span className="text-2xl">🎯</span>
+            <Target className="w-6 h-6 text-amber-400" />
             Recommandations IA
           </span>
           <Badge className="bg-amber-900/50 text-amber-400">
@@ -92,7 +92,7 @@ export const RecommendationPanel = ({
             className={activeTab === 'products' ? 'bg-[#f5a623] text-black' : 'border-slate-600'}
             onClick={() => setActiveTab('products')}
           >
-            📦 Produits
+            <Package className="w-4 h-4 mr-1" /> Produits
           </Button>
           <Button
             size="sm"
@@ -100,13 +100,13 @@ export const RecommendationPanel = ({
             className={activeTab === 'strategies' ? 'bg-[#f5a623] text-black' : 'border-slate-600'}
             onClick={() => setActiveTab('strategies')}
           >
-            🎯 Stratégies
+            <Target className="w-4 h-4 mr-1" /> Stratégies
           </Button>
         </div>
 
         {loading ? (
           <div className="text-center py-8">
-            <div className="animate-spin text-3xl">🎯</div>
+            <Loader2 className="w-8 h-8 animate-spin text-amber-400 mx-auto" />
             <p className="text-slate-400 text-sm mt-2">Analyse en cours...</p>
           </div>
         ) : activeTab === 'products' ? (
