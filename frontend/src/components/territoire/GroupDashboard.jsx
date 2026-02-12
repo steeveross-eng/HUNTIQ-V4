@@ -27,16 +27,16 @@ const MEMBER_COLORS = [
   '#ec4899', '#14b8a6', '#f97316', '#06b6d4', '#84cc16'
 ];
 
-// Icônes d'alerte
+// Icônes d'alerte - BIONIC Design System Compliant (uses lucide-react)
 const ALERT_ICONS = {
-  animal_spotted: '🦌',
-  position_marked: '📍',
-  need_help: '🆘',
-  shot_fired: '🎯',
-  returning: '🏠',
-  break_time: '☕',
-  silence: '🤫',
-  meeting_point: '🤝'
+  animal_spotted: 'target',
+  position_marked: 'map-pin',
+  need_help: 'alert-triangle',
+  shot_fired: 'crosshair',
+  returning: 'home',
+  break_time: 'coffee',
+  silence: 'volume-x',
+  meeting_point: 'users'
 };
 
 // Créer une icône personnalisée pour un membre
@@ -317,8 +317,8 @@ export const GroupDashboard = ({
                         )}
                       </div>
                       {member.distance_km && (
-                        <div className="text-sm mt-1">
-                          📍 {member.distance_km < 1 
+                        <div className="text-sm mt-1 flex items-center gap-1">
+                          <MapPin className="h-3 w-3" /> {member.distance_km < 1 
                             ? `${Math.round(member.distance_km * 1000)} m` 
                             : `${member.distance_km.toFixed(1)} km`
                           }
