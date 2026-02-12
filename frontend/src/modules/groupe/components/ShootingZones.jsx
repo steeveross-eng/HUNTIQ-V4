@@ -113,13 +113,14 @@ const ShootingZone = ({
     ];
   }, [zone.center, zone.direction, zone.range]);
   
-  if (conePoints.length === 0) return null;
-  
+  // Handle click on zone
   const handleClick = useCallback(() => {
     if (onZoneClick) {
       onZoneClick(zone);
     }
   }, [zone, onZoneClick]);
+  
+  if (conePoints.length === 0) return null;
   
   return (
     <>
