@@ -213,10 +213,12 @@ async def seed_products(db):
             "subcategory": "urine",
             "price": 34.99,
             "score": 92,
+            "rank": 1,
+            "image_url": "/images/products/urine_cerf.png",
             "description": "Urine de cerf 100% naturelle, haute concentration",
             "ingredients": ["urine de cerf", "conservateurs naturels"],
             "target_species": ["deer"],
-            "season": ["fall", "winter"],
+            "season": "fall",
             "in_stock": True
         },
         {
@@ -227,10 +229,12 @@ async def seed_products(db):
             "subcategory": "mineral",
             "price": 24.99,
             "score": 88,
+            "rank": 2,
+            "image_url": "/images/products/mineral_block.png",
             "description": "Bloc minéral enrichi pour cervidés",
             "ingredients": ["sel", "minéraux essentiels", "mélasse"],
             "target_species": ["deer", "moose"],
-            "season": ["spring", "summer", "fall"],
+            "season": "spring",
             "in_stock": True
         },
         {
@@ -241,10 +245,12 @@ async def seed_products(db):
             "subcategory": "food",
             "price": 19.99,
             "score": 85,
+            "rank": 3,
+            "image_url": "/images/products/gel_pomme.png",
             "description": "Gel attractif saveur pomme longue durée",
             "ingredients": ["arôme pomme naturel", "gel végétal"],
             "target_species": ["deer", "bear"],
-            "season": ["fall"],
+            "season": "fall",
             "in_stock": True
         },
         {
@@ -255,10 +261,12 @@ async def seed_products(db):
             "subcategory": "gland",
             "price": 29.99,
             "score": 90,
+            "rank": 4,
+            "image_url": "/images/products/spray_tarsal.png",
             "description": "Spray imitation glande tarsale pour le rut",
             "ingredients": ["phéromones synthétiques", "base alcool"],
             "target_species": ["deer"],
-            "season": ["fall"],
+            "season": "fall",
             "in_stock": True
         },
         {
@@ -269,10 +277,12 @@ async def seed_products(db):
             "subcategory": "urine",
             "price": 39.99,
             "score": 89,
+            "rank": 5,
+            "image_url": "/images/products/urine_estrus.png",
             "description": "Urine de femelle en chaleur",
             "ingredients": ["urine de biche estrus"],
             "target_species": ["deer"],
-            "season": ["fall"],
+            "season": "fall",
             "in_stock": True
         }
     ]
