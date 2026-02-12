@@ -1,5 +1,6 @@
 /**
  * GPS Hotspots Component
+ * BIONIC Design System compliant - No emojis
  * Displays a directory of the best GPS coordinates with high hunting probability
  */
 
@@ -39,14 +40,15 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { SpeciesIcon } from '@/components/bionic/SpeciesIcon';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const SPECIES_CONFIG = {
-  orignal: { emoji: '🫎', label: 'Orignal', color: 'text-amber-600 bg-amber-500/20' },
-  chevreuil: { emoji: '🦌', label: 'Chevreuil', color: 'text-orange-500 bg-orange-500/20' },
-  ours: { emoji: '🐻', label: 'Ours', color: 'text-gray-400 bg-gray-500/20' },
-  caribou: { emoji: '🦌', label: 'Caribou', color: 'text-blue-400 bg-blue-500/20' }
+  orignal: { speciesId: 'moose', label: 'Orignal', color: 'text-amber-600 bg-amber-500/20' },
+  chevreuil: { speciesId: 'deer', label: 'Chevreuil', color: 'text-orange-500 bg-orange-500/20' },
+  ours: { speciesId: 'bear', label: 'Ours', color: 'text-gray-400 bg-gray-500/20' },
+  caribou: { speciesId: 'caribou', label: 'Caribou', color: 'text-blue-400 bg-blue-500/20' }
 };
 
 const GpsHotspots = ({ onNavigateToMap }) => {
