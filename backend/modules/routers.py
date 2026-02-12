@@ -3,11 +3,19 @@
 Central router integration for all HUNTIQ modules.
 This file is the single point of import for server.py
 
-Version: 1.6.0 - Phase 7 (Decoupling server.py)
+Version: 2.0.0 - Phase 6 Complete (Pure Orchestrator)
+
+Architecture:
+- All routers centralized here
+- No manual router registration in server.py
+- Legacy monolith isolated
 """
 
 from fastapi import APIRouter
 from typing import List, Tuple
+import logging
+
+logger = logging.getLogger(__name__)
 
 # ==============================================
 # CORE ENGINE ROUTERS (Phase 2)
