@@ -285,29 +285,37 @@ export const useGroupeAlerts = (userId, groupId, options = {}) => {
       
       if (distance < settings.proximityThreshold) {
         // Vérifier si une alerte similaire existe déjà récemment
-        const recentSimilar = alerts.find(a => 
-          a.type === 'proximity' && 
-          a.memberId === member.id &&
-          (Date.now() - new Date(a.timestamp).getTime()) < 60000
-        );
+        setAlerts(prevAlerts => {
+          const recentSimilar = prevAlerts.find(a => 
+            a.type === 'proximity' && 
+            a.memberId === member.id &&
+            (Date.now() - new Date(a.timestamp).getTime()) < 60000
+          );
 
-        if (!recentSimilar) {
-          addAlert({
-            type: 'proximity',
-            severity: distance < 50 ? 'critical' : 'warning',
-            title: 'alert_proximity_title',
-            message: 'alert_proximity_message',
-            memberId: member.id,
-            memberName: member.name,
-            data: { distance: Math.round(distance) },
-            location: member.position,
-            actionable: true,
-            actions: ['view_on_map', 'send_message']
-          });
-        }
+          if (!recentSimilar) {
+            const newAlert = {
+              id: generateAlertId(),
+              type: 'proximity',
+              severity: distance < 50 ? 'critical' : 'warning',
+              title: 'alert_proximity_title',
+              message: 'alert_proximity_message',
+              memberId: member.id,
+              memberName: member.name,
+              data: { distance: Math.round(distance) },
+              location: member.position,
+              timestamp: new Date().toISOString(),
+              read: false,
+              dismissed: false,
+              actionable: true,
+              actions: ['view_on_map', 'send_message']
+            };
+            return [newAlert, ...prevAlerts];
+          }
+          return prevAlerts;
+        });
       }
     });
-  }, [myPosition, members, userId, settings, alerts, addAlert]);
+  }, [myPosition, members, userId, settings.safetyAlertsEnabled, settings.proximityThreshold]);
 
   // Vérifier les alertes de zones de tir
   const checkShootingZoneAlerts = useCallback(() => {
@@ -320,28 +328,36 @@ export const useGroupeAlerts = (userId, groupId, options = {}) => {
       const isInZone = isPointInShootingZone(myPosition, zone);
       
       if (isInZone) {
-        const recentSimilar = alerts.find(a => 
-          a.type === 'safety' && 
-          a.data?.zoneId === zone.id &&
-          (Date.now() - new Date(a.timestamp).getTime()) < 30000
-        );
+        setAlerts(prevAlerts => {
+          const recentSimilar = prevAlerts.find(a => 
+            a.type === 'safety' && 
+            a.data?.zoneId === zone.id &&
+            (Date.now() - new Date(a.timestamp).getTime()) < 30000
+          );
 
-        if (!recentSimilar) {
-          addAlert({
-            type: 'safety',
-            severity: zone.type === 'active' ? 'critical' : 'warning',
-            title: 'alert_shooting_zone_title',
-            message: 'alert_shooting_zone_message',
-            memberId: zone.memberId,
-            data: { zoneId: zone.id, zoneType: zone.type },
-            location: zone.center,
-            actionable: true,
-            actions: ['view_on_map', 'contact_member']
-          });
-        }
+          if (!recentSimilar) {
+            const newAlert = {
+              id: generateAlertId(),
+              type: 'safety',
+              severity: zone.type === 'active' ? 'critical' : 'warning',
+              title: 'alert_shooting_zone_title',
+              message: 'alert_shooting_zone_message',
+              memberId: zone.memberId,
+              data: { zoneId: zone.id, zoneType: zone.type },
+              location: zone.center,
+              timestamp: new Date().toISOString(),
+              read: false,
+              dismissed: false,
+              actionable: true,
+              actions: ['view_on_map', 'contact_member']
+            };
+            return [newAlert, ...prevAlerts];
+          }
+          return prevAlerts;
+        });
       }
     });
-  }, [myPosition, shootingZones, userId, settings, alerts, addAlert]);
+  }, [myPosition, shootingZones, userId, settings.safetyAlertsEnabled]);
 
   // Vérifier les alertes météo
   const checkWeatherAlerts = useCallback(() => {
@@ -349,48 +365,68 @@ export const useGroupeAlerts = (userId, groupId, options = {}) => {
 
     // Alerte pluie imminente
     if (weatherData.precipitationProbability > 70) {
-      const recentSimilar = alerts.find(a => 
-        a.type === 'weather' && 
-        a.data?.condition === 'rain' &&
-        (Date.now() - new Date(a.timestamp).getTime()) < 1800000 // 30 min
-      );
+      setAlerts(prevAlerts => {
+        const recentSimilar = prevAlerts.find(a => 
+          a.type === 'weather' && 
+          a.data?.condition === 'rain' &&
+          (Date.now() - new Date(a.timestamp).getTime()) < 1800000 // 30 min
+        );
 
-      if (!recentSimilar) {
-        addAlert({
-          type: 'weather',
-          severity: 'info',
-          title: 'alert_weather_rain_title',
-          message: 'alert_weather_rain_message',
-          data: { 
-            condition: 'rain',
-            probability: weatherData.precipitationProbability 
-          }
-        });
-      }
+        if (!recentSimilar) {
+          const newAlert = {
+            id: generateAlertId(),
+            type: 'weather',
+            severity: 'info',
+            title: 'alert_weather_rain_title',
+            message: 'alert_weather_rain_message',
+            data: { 
+              condition: 'rain',
+              probability: weatherData.precipitationProbability 
+            },
+            timestamp: new Date().toISOString(),
+            read: false,
+            dismissed: false,
+            actionable: false,
+            actions: []
+          };
+          return [newAlert, ...prevAlerts];
+        }
+        return prevAlerts;
+      });
     }
 
     // Alerte vent fort
     if (weatherData.windSpeed > 30) {
-      const recentSimilar = alerts.find(a => 
-        a.type === 'weather' && 
-        a.data?.condition === 'wind' &&
-        (Date.now() - new Date(a.timestamp).getTime()) < 1800000
-      );
+      setAlerts(prevAlerts => {
+        const recentSimilar = prevAlerts.find(a => 
+          a.type === 'weather' && 
+          a.data?.condition === 'wind' &&
+          (Date.now() - new Date(a.timestamp).getTime()) < 1800000
+        );
 
-      if (!recentSimilar) {
-        addAlert({
-          type: 'weather',
-          severity: 'warning',
-          title: 'alert_weather_wind_title',
-          message: 'alert_weather_wind_message',
-          data: { 
-            condition: 'wind',
-            windSpeed: weatherData.windSpeed 
-          }
-        });
-      }
+        if (!recentSimilar) {
+          const newAlert = {
+            id: generateAlertId(),
+            type: 'weather',
+            severity: 'warning',
+            title: 'alert_weather_wind_title',
+            message: 'alert_weather_wind_message',
+            data: { 
+              condition: 'wind',
+              windSpeed: weatherData.windSpeed 
+            },
+            timestamp: new Date().toISOString(),
+            read: false,
+            dismissed: false,
+            actionable: false,
+            actions: []
+          };
+          return [newAlert, ...prevAlerts];
+        }
+        return prevAlerts;
+      });
     }
-  }, [weatherData, settings, alerts, addAlert]);
+  }, [weatherData, settings.weatherAlertsEnabled]);
 
   // Créer une alerte de gibier repéré
   const createGameAlert = useCallback((gameData) => {
