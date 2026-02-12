@@ -20,7 +20,7 @@ from ...roles_engine.v1.models import UserWithRole
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/camera", tags=["Camera Engine"])
+router = APIRouter(prefix="/v1/camera", tags=["Camera Engine"])
 
 
 # ============================================
