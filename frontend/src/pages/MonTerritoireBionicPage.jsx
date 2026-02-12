@@ -566,6 +566,16 @@ const MonTerritoireBionicPage = () => {
   const [showGroupDashboard, setShowGroupDashboard] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
   
+  // Session Heatmap - Phase 6 GROUPE Module
+  // Hook pour obtenir les positions GPS des membres du groupe
+  const {
+    membersWithPositions: groupMembersPositions,
+    isTracking: isGroupeTrackingActive
+  } = useGroupeTracking(userId, 'territory_group', {
+    autoStart: false,
+    updateInterval: 30000
+  });
+  
   // Dialog pour ajouter un lieu
   const [showAddPlaceDialog, setShowAddPlaceDialog] = useState(false);
   const [newPlace, setNewPlace] = useState({ name: '', type: 'autre', lat: '', lng: '', notes: '' });
