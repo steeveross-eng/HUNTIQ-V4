@@ -7,8 +7,21 @@ import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui
 import { Badge } from '../../../components/ui/badge';
 import { Button } from '../../../components/ui/button';
 import { EcoforestryService } from '../EcoforestryService';
+import { TreePine, Loader2, Leaf, Trees, Droplets, Mountain } from 'lucide-react';
 
-export const HabitatAnalysis = ({ 
+const HABITAT_ICONS = {
+  food: Leaf,
+  cover: Trees,
+  water: Droplets,
+  terrain: Mountain
+};
+
+const HABITAT_LABELS = {
+  food: 'Nourriture',
+  cover: 'Couvert',
+  water: 'Eau',
+  terrain: 'Terrain'
+}; 
   coordinates = null,
   species = 'deer'
 }) => {
@@ -71,7 +84,7 @@ export const HabitatAnalysis = ({
       <CardHeader className="pb-3">
         <CardTitle className="text-lg text-white flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <span className="text-2xl">🌲</span>
+            <TreePine className="h-6 w-6 text-green-400" />
             Analyse Habitat
           </span>
           <Badge className="bg-green-900/50 text-green-400">
@@ -82,7 +95,7 @@ export const HabitatAnalysis = ({
       <CardContent>
         {loading ? (
           <div className="text-center py-6">
-            <div className="animate-spin text-3xl">🌲</div>
+            <Loader2 className="h-8 w-8 animate-spin text-green-400 mx-auto" />
             <p className="text-slate-400 text-sm mt-2">Analyse en cours...</p>
           </div>
         ) : (
