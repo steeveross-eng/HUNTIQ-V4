@@ -285,7 +285,7 @@ export const CoreDashboard = ({
               <Card className="bg-slate-800 border-slate-700">
                 <CardHeader>
                   <CardTitle className="text-white flex items-center gap-2">
-                    <span>💨</span>
+                    <Cloud className="w-5 h-5 text-slate-400" />
                     Direction du Vent
                   </CardTitle>
                 </CardHeader>
