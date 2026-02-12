@@ -504,23 +504,13 @@ export const useGroupeAlerts = (userId, groupId, options = {}) => {
       });
   }, [alerts]);
 
-  // Vérification périodique des alertes
-  useEffect(() => {
-    const checkAlerts = () => {
-      checkProximityAlerts();
-      checkShootingZoneAlerts();
-      checkWeatherAlerts();
-      setLastCheck(new Date().toISOString());
-    };
-
-    // Vérification initiale
-    checkAlerts();
-
-    // Vérification périodique
-    const interval = setInterval(checkAlerts, checkInterval);
-
-    return () => clearInterval(interval);
-  }, [checkProximityAlerts, checkShootingZoneAlerts, checkWeatherAlerts, checkInterval]);
+  // Manual check function for alerts (to be called by parent when needed)
+  const runAlertChecks = useCallback(() => {
+    checkProximityAlerts();
+    checkShootingZoneAlerts();
+    checkWeatherAlerts();
+    setLastCheck(new Date().toISOString());
+  }, [checkProximityAlerts, checkShootingZoneAlerts, checkWeatherAlerts]);
 
   return {
     // State
