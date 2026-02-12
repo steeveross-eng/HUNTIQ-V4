@@ -1740,8 +1740,8 @@ const MonTerritoireBionicPage = () => {
               )}
             </div>
             
-            {/* Panneau Analyse */}
-            <div className={`${showAnalysisPanel ? 'w-72' : 'w-10'} bg-gray-900/95 border-l border-gray-800 transition-all flex flex-col`}>
+            {/* Panneau Analyse - Compact */}
+            <div className={`${showAnalysisPanel ? 'w-56' : 'w-10'} bg-gray-900/95 border-l border-gray-800 transition-all flex flex-col`}>
               <button onClick={() => setShowAnalysisPanel(!showAnalysisPanel)} className="p-2 border-b border-gray-800 flex items-center justify-end hover:bg-gray-800/50">
                 <BarChart3 className="h-4 w-4 text-[#f5a623]" />
               </button>
