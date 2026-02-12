@@ -16,16 +16,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Filter, Target, X, Loader2 } from 'lucide-react';
+import { Filter, Target, X, Loader2, Tent, Circle } from 'lucide-react';
+import { SpeciesIcon } from '@/components/bionic/SpeciesIcon';
 
-// Territory Types Configuration
+// Territory Types Configuration - BIONIC Design System Compliant
 export const TERRITORY_TYPES = {
-  zec: { name: 'ZEC', color: '#22c55e', icon: '🏕️' },
-  sepaq: { name: 'Réserve faunique', color: '#3b82f6', icon: '🦌' },
-  clic: { name: 'Zone Clic', color: '#f59e0b', icon: '🟠' },
-  pourvoirie: { name: 'Pourvoirie', color: '#8b5cf6', icon: '🟣' },
-  prive: { name: 'Territoire privé', color: '#ef4444', icon: '🔴' },
-  refuge: { name: 'Refuge faunique', color: '#06b6d4', icon: '🔷' }
+  zec: { name: 'ZEC', color: '#22c55e', icon: Tent },
+  sepaq: { name: 'Réserve faunique', color: '#3b82f6', iconType: 'species' },
+  clic: { name: 'Zone Clic', color: '#f59e0b', icon: Circle },
+  pourvoirie: { name: 'Pourvoirie', color: '#8b5cf6', icon: Circle },
+  prive: { name: 'Territoire privé', color: '#ef4444', icon: Circle },
+  refuge: { name: 'Refuge faunique', color: '#06b6d4', icon: Circle }
 };
 
 const TerritoryFilter = ({
@@ -69,11 +70,27 @@ const TerritoryFilter = ({
               <SelectValue placeholder="Sélectionnez un type..." />
             </SelectTrigger>
             <SelectContent>
-              {Object.entries(TERRITORY_TYPES).map(([key, val]) => (
-                <SelectItem key={key} value={key}>
-                  {val.icon} {val.name}
-                </SelectItem>
-              ))}
+              {Object.entries(TERRITORY_TYPES).map(([key, val]) => {
+                if (val.iconType === 'species') {
+                  return (
+                    <SelectItem key={key} value={key}>
+                      <span className="flex items-center gap-2">
+                        <SpeciesIcon species="deer" size="xs" />
+                        <span>{val.name}</span>
+                      </span>
+                    </SelectItem>
+                  );
+                }
+                const IconComponent = val.icon;
+                return (
+                  <SelectItem key={key} value={key}>
+                    <span className="flex items-center gap-2">
+                      <IconComponent className="h-4 w-4" style={{ color: val.color }} />
+                      <span>{val.name}</span>
+                    </span>
+                  </SelectItem>
+                );
+              })}
             </SelectContent>
           </Select>
         </div>
