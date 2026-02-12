@@ -1,5 +1,6 @@
 /**
  * TripStatsDashboard - Statistics dashboard for hunting trips
+ * BIONIC Design System compliant - No emojis
  */
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,21 +13,9 @@ import {
   Calendar, Clock, Target, Eye, TrendingUp, Award, MapPin,
   Sunrise, Sunset, Cloud, ThumbsUp
 } from 'lucide-react';
+import { getSpeciesName } from '@/config/speciesImages';
 
 const COLORS = ['#f5a623', '#22c55e', '#3b82f6', '#8b5cf6', '#ef4444', '#06b6d4'];
-
-const SPECIES_EMOJIS = {
-  deer: '🦌',
-  moose: '🫎',
-  bear: '🐻',
-  turkey: '🦃',
-  duck: '🦆',
-  goose: '🪿',
-  grouse: '🐔',
-  rabbit: '🐰',
-  coyote: '🐺',
-  other: '🎯'
-};
 
 const TripStatsDashboard = ({ statistics }) => {
   if (!statistics) {
@@ -46,7 +35,7 @@ const TripStatsDashboard = ({ statistics }) => {
   // Prepare data for charts
   const speciesData = statistics.species_breakdown ? 
     Object.entries(statistics.species_breakdown).map(([species, count]) => ({
-      name: `${SPECIES_EMOJIS[species] || '🎯'} ${species}`,
+      name: getSpeciesName(species),
       value: count,
       species
     })) : [];
