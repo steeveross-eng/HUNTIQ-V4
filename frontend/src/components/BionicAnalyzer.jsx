@@ -585,8 +585,8 @@ const BionicAnalyzer = ({ territory, onClose, onAnalysisComplete }) => {
                               {analysis.real_conditions.weather.description}
                             </p>
                             <div className="flex items-center gap-3 mt-2 text-[10px] text-gray-500">
-                              <span>💧 {analysis.real_conditions.weather.humidity}%</span>
-                              <span>💨 {analysis.real_conditions.weather.wind_speed} km/h</span>
+                              <span><Droplets className="h-3 w-3 inline mr-1" />{analysis.real_conditions.weather.humidity}%</span>
+                              <span><Wind className="h-3 w-3 inline mr-1" />{analysis.real_conditions.weather.wind_speed} km/h</span>
                             </div>
                           </div>
                         )}
@@ -822,12 +822,12 @@ const BionicAnalyzer = ({ territory, onClose, onAnalysisComplete }) => {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="dawn">🌅 Aube</SelectItem>
-                        <SelectItem value="morning">☀️ Matin</SelectItem>
-                        <SelectItem value="midday">🌞 Midi</SelectItem>
-                        <SelectItem value="afternoon">🌤 Après-midi</SelectItem>
-                        <SelectItem value="dusk">🌇 Crépuscule</SelectItem>
-                        <SelectItem value="night">🌙 Nuit</SelectItem>
+                        <SelectItem value="dawn">Aube</SelectItem>
+                        <SelectItem value="morning">Matin</SelectItem>
+                        <SelectItem value="midday">Midi</SelectItem>
+                        <SelectItem value="afternoon">Après-midi</SelectItem>
+                        <SelectItem value="dusk">Crépuscule</SelectItem>
+                        <SelectItem value="night">Nuit</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
