@@ -1649,37 +1649,7 @@ const MonTerritoireBionicPage = () => {
                 <Button size="sm" className={`${userPosition ? 'bg-blue-600' : 'bg-black/80'} text-white border border-gray-700 h-8 w-8 p-0`} onClick={centerOnUser}>
                   <LocateFixed className="h-4 w-4" />
                 </Button>
-                <div className="h-px bg-gray-700 my-1" />
-                {/* Toggle panneau écoforestier */}
-                <Button 
-                  size="sm" 
-                  className={`${showEcoforestryPanel ? 'bg-green-600' : 'bg-black/80'} text-white border border-gray-700 h-8 w-8 p-0`}
-                  onClick={() => setShowEcoforestryPanel(!showEcoforestryPanel)}
-                  title="Carte écoforestière"
-                >
-                  <Leaf className="h-4 w-4" />
-                </Button>
               </div>
-              
-              {/* PANNEAU DE CONTRÔLE ÉCOFORESTIER */}
-              {showEcoforestryPanel && (
-                <div className="absolute top-4 left-14 z-[1000] w-72">
-                  <EcoforestryLayerControl
-                    activeLayers={activeEcoLayers}
-                    onToggleLayer={handleEcoLayerToggle}
-                    layerOpacities={ecoLayerOpacities}
-                    onOpacityChange={handleEcoOpacityChange}
-                    expanded={showEcoforestryPanel}
-                    onToggleExpand={() => setShowEcoforestryPanel(!showEcoforestryPanel)}
-                    // Props du système de fallback
-                    fallbackStatus={ecoMapStatus}
-                    activeFallback={activeFallback}
-                    retryCount={retryCount}
-                    onForceCheck={forceEcoMapCheck}
-                    onChangeFallback={setFallbackMap}
-                  />
-                </div>
-              )}
               
               {/* NOTIFICATION DE FALLBACK (non intrusive) */}
               {isEcoMapSelected && (
