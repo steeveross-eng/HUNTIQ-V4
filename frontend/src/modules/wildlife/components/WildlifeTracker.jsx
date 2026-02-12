@@ -84,7 +84,7 @@ export const WildlifeTracker = ({
       <CardHeader className="pb-3">
         <CardTitle className="text-lg text-white flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <span className="text-2xl">{speciesInfo?.icon || '🦌'}</span>
+            <SpeciesIcon species={species} size="lg" rounded />
             Suivi {speciesInfo?.name || species}
           </span>
           <Badge className="bg-green-900/50 text-green-400">
@@ -95,7 +95,7 @@ export const WildlifeTracker = ({
       <CardContent>
         {loading ? (
           <div className="text-center py-6">
-            <div className="animate-spin text-3xl">🦌</div>
+            <Loader2 className="w-8 h-8 animate-spin text-green-400 mx-auto" />
             <p className="text-slate-400 text-sm mt-2">Chargement...</p>
           </div>
         ) : (
