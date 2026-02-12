@@ -1,7 +1,9 @@
 /**
  * StrategyCard - Individual strategy display card
+ * BIONIC Design System compliant - No emojis
  */
 import React from 'react';
+import { Sunrise, Sun, Sunset, Moon, Clock, Trophy } from 'lucide-react';
 
 export const StrategyCard = ({ 
   strategy, 
@@ -31,11 +33,11 @@ export const StrategyCard = ({
 
   const getTimeIcon = (time) => {
     const icons = {
-      morning: '🌅',
-      afternoon: '☀️',
-      evening: '🌆',
-      night: '🌙',
-      all: '🕐'
+      morning: <Sunrise className="w-4 h-4 text-orange-400" />,
+      afternoon: <Sun className="w-4 h-4 text-yellow-400" />,
+      evening: <Sunset className="w-4 h-4 text-orange-500" />,
+      night: <Moon className="w-4 h-4 text-blue-400" />,
+      all: <Clock className="w-4 h-4 text-slate-400" />
     };
     return icons[time] || icons.all;
   };
@@ -53,7 +55,7 @@ export const StrategyCard = ({
     >
       <div className="flex items-start justify-between mb-2">
         <h4 className="text-white font-medium flex items-center gap-2">
-          {recommended && <span>🏆</span>}
+          {recommended && <Trophy className="w-4 h-4 text-yellow-400" />}
           {name}
         </h4>
         <span className={`text-xs px-2 py-1 rounded-full ${getDifficultyColor(difficulty)}`}>
