@@ -137,6 +137,10 @@ const MapPage = () => {
               <Satellite className="h-4 w-4 mr-2" />
               GPS Tracking
             </TabsTrigger>
+            <TabsTrigger value="groupe" className="data-[state=active]:bg-[var(--bionic-gold-primary)]" data-testid="tab-groupe">
+              <Users className="h-4 w-4 mr-2" />
+              {t('groupe_tab_title')}
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="map" className="mt-0">
