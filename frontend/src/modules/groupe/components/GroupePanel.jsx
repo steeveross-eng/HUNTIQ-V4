@@ -153,7 +153,13 @@ export const GroupePanel = ({
               {t('groupe_tab_title')}
             </h3>
             <p className="text-xs text-[var(--bionic-text-secondary)]">
-              {members.filter(m => m.isOnline).length}/{members.length} {t('groupe_members_active').toLowerCase()}
+              {onlineMembersCount}/{totalMembersCount || members.length} {t('groupe_members_active').toLowerCase()}
+              {isTracking && (
+                <Badge className="ml-2 bg-[var(--bionic-green-muted)] text-[var(--bionic-green-primary)] text-[10px] border-0">
+                  <Radio className="h-2 w-2 mr-1 animate-pulse" />
+                  LIVE
+                </Badge>
+              )}
             </p>
           </div>
         </div>
