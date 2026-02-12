@@ -184,7 +184,7 @@ const GeoSyncToggle = ({
       return false;
     }
     
-    // 🔒 VÉRIFICATION DE CONFIDENTIALITÉ: Bloquer les types privés
+    // VÉRIFICATION DE CONFIDENTIALITÉ: Bloquer les types privés
     if (entity && PRIVATE_ENTITY_TYPES.has(entity.entity_type)) {
       console.warn('CONFIDENTIALITÉ: Les hotspots/corridors ne peuvent pas être synchronisés');
       toast.error('Cette entité est privée et ne peut pas être partagée');
