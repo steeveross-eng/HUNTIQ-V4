@@ -15,7 +15,8 @@ import { ExportService } from '../../../services/ExportService';
 import { WaypointScoringService } from '../../../services/WaypointScoringService';
 import { HeatmapLayer } from '../../../components/HeatmapLayer';
 import { 
-  Target, Camera, Eye, MapPin, Leaf, Tent, ParkingCircle, CircleDot
+  Target, Camera, Eye, MapPin, Leaf, Tent, ParkingCircle, CircleDot,
+  Map, Flame, FileDown, FileText, Trash2
 } from 'lucide-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -348,7 +349,7 @@ export const WaypointMap = ({
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <CardTitle className="text-lg text-white flex items-center gap-2">
-                <span>🗺️</span>
+                <Map className="h-5 w-5 text-[#f5a623]" />
                 Carte des Waypoints
               </CardTitle>
               <div className="flex items-center gap-2">
@@ -361,7 +362,7 @@ export const WaypointMap = ({
                   onClick={() => setShowHeatmap(!showHeatmap)}
                   data-testid="toggle-heatmap"
                 >
-                  🔥 {showHeatmap ? 'Masquer' : 'Heatmap'}
+                  <Flame className="h-4 w-4 mr-1" /> {showHeatmap ? 'Masquer' : 'Heatmap'}
                 </Button>
                 <Button
                   size="sm"
@@ -382,7 +383,7 @@ export const WaypointMap = ({
                   className="border-green-600 text-green-400 hover:bg-green-600/20"
                   onClick={handleExportCSV}
                 >
-                  📥 CSV
+                  <FileDown className="h-4 w-4 mr-1" /> CSV
                 </Button>
                 <Button
                   size="sm"
@@ -390,13 +391,13 @@ export const WaypointMap = ({
                   className="border-red-600 text-red-400 hover:bg-red-600/20"
                   onClick={handleExportPDF}
                 >
-                  📄 PDF
+                  <FileText className="h-4 w-4 mr-1" /> PDF
                 </Button>
               </div>
             </div>
             {isAddingMode && (
-              <p className="text-amber-400 text-sm mt-2">
-                📍 Mode ajout actif - Cliquez sur la carte pour placer un waypoint
+              <p className="text-amber-400 text-sm mt-2 flex items-center gap-2">
+                <MapPin className="h-4 w-4" /> Mode ajout actif - Cliquez sur la carte pour placer un waypoint
               </p>
             )}
           </CardHeader>
@@ -467,9 +468,9 @@ export const WaypointMap = ({
                                   wqs.classification === 'good' ? 'bg-blue-500' :
                                   wqs.classification === 'standard' ? 'bg-yellow-500' : 'bg-red-500'
                                 }`}>
-                                  {wqs.classification === 'hotspot' ? '🔥 Hotspot' :
-                                   wqs.classification === 'good' ? '👍 Bon' :
-                                   wqs.classification === 'standard' ? '📍 Standard' : '⚠️ Faible'}
+                                  {wqs.classification === 'hotspot' ? 'Hotspot' :
+                                   wqs.classification === 'good' ? 'Bon' :
+                                   wqs.classification === 'standard' ? 'Standard' : 'Faible'}
                                 </span>
                               </div>
                             </div>
@@ -486,10 +487,10 @@ export const WaypointMap = ({
                               {getTypeInfo(waypoint.type).label}
                             </span>
                             <button
-                              className="px-2 py-1 rounded text-xs bg-red-500 text-white hover:bg-red-600"
+                              className="px-2 py-1 rounded text-xs bg-red-500 text-white hover:bg-red-600 flex items-center gap-1"
                               onClick={() => handleDeleteWaypoint(waypoint.id)}
                             >
-                              🗑️
+                              <Trash2 className="h-3 w-3" />
                             </button>
                           </div>
                         </div>
@@ -565,7 +566,7 @@ export const WaypointMap = ({
           <CardHeader className="pb-2">
             <CardTitle className="text-lg text-white flex items-center justify-between">
               <span className="flex items-center gap-2">
-                <span>📍</span>
+                <MapPin className="h-5 w-5 text-[#f5a623]" />
                 Mes Waypoints
               </span>
               <Badge className="bg-slate-700">{waypoints.length}</Badge>
