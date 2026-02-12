@@ -40,25 +40,34 @@ import {
   Bell,
   Edit,
   Save,
-  RefreshCw
+  RefreshCw,
+  Tent,
+  Trees,
+  Target,
+  Store,
+  Wrench,
+  Factory,
+  Fish,
+  Users,
+  LayoutList
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-// Partner type icons
+// Partner type icons - using lucide-react components
 const PARTNER_TYPE_ICONS = {
-  marques: '🏷️',
-  pourvoiries: '🏕️',
-  proprietaires: '🌲',
-  guides: '🎯',
-  boutiques: '🏪',
-  services: '🔧',
-  fabricants: '🏭',
-  zec: '🦌',
-  clubs: '🎣',
-  particuliers: '👤',
-  autres: '📋'
+  marques: Star,
+  pourvoiries: Tent,
+  proprietaires: Trees,
+  guides: Target,
+  boutiques: Store,
+  services: Wrench,
+  fabricants: Factory,
+  zec: Target,
+  clubs: Fish,
+  particuliers: User,
+  autres: LayoutList
 };
 
 const PartnerDashboard = () => {
@@ -172,7 +181,9 @@ const PartnerDashboard = () => {
                 )}
               </div>
               <p className="text-gray-400 flex items-center gap-2 mt-1">
-                <span>{PARTNER_TYPE_ICONS[partner.partner_type]}</span>
+                {PARTNER_TYPE_ICONS[partner.partner_type] && 
+                  React.createElement(PARTNER_TYPE_ICONS[partner.partner_type], { className: "h-4 w-4" })
+                }
                 <span>{partner.partner_type_label}</span>
               </p>
             </div>
