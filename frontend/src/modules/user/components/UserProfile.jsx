@@ -5,13 +5,24 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui/card';
 import { Badge } from '../../../components/ui/badge';
+import { User, Target, Star, Handshake, Wrench, Crown, MapPin } from 'lucide-react';
+import { SpeciesIcon } from '../../../components/bionic/SpeciesIcon';
 
 export const UserProfile = ({ user, profile = null, compact = false }) => {
+  const ROLE_ICONS = {
+    guest: User,
+    user: Target,
+    premium: Star,
+    partner: Handshake,
+    admin: Wrench,
+    super_admin: Crown
+  };
+
   if (!user) {
     return (
       <Card className="bg-slate-800 border-slate-700">
         <CardContent className="p-4 text-center text-slate-400">
-          <span className="text-3xl">👤</span>
+          <User className="h-8 w-8 mx-auto text-slate-500" />
           <p className="text-sm mt-2">Utilisateur non connecté</p>
         </CardContent>
       </Card>
@@ -31,15 +42,8 @@ export const UserProfile = ({ user, profile = null, compact = false }) => {
   };
 
   const getRoleIcon = (role) => {
-    const icons = {
-      guest: '👤',
-      user: '🎯',
-      premium: '⭐',
-      partner: '🤝',
-      admin: '🔧',
-      super_admin: '👑'
-    };
-    return icons[role] || '👤';
+    const IconComponent = ROLE_ICONS[role] || User;
+    return <IconComponent className="h-5 w-5" />;
   };
 
   if (compact) {
@@ -61,7 +65,7 @@ export const UserProfile = ({ user, profile = null, compact = false }) => {
       <CardHeader className="pb-3">
         <CardTitle className="text-lg text-white flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <span className="text-2xl">{getRoleIcon(user.role)}</span>
+            {getRoleIcon(user.role)}
             Profil Utilisateur
           </span>
           <Badge className={`bg-${getRoleColor(user.role)}-900/50 text-${getRoleColor(user.role)}-400`}>
@@ -94,7 +98,7 @@ export const UserProfile = ({ user, profile = null, compact = false }) => {
         {profile && (
           <div className="mt-4 pt-4 border-t border-slate-700">
             <h4 className="text-white font-medium text-sm mb-3 flex items-center gap-2">
-              <span>🦌</span>
+              <SpeciesIcon species="deer" size="sm" />
               Profil de Chasse
             </h4>
             <div className="grid grid-cols-2 gap-3">
@@ -108,7 +112,7 @@ export const UserProfile = ({ user, profile = null, compact = false }) => {
               )}
               {profile.preferred_species && (
                 <div className="bg-slate-700/50 rounded-lg p-2 text-center">
-                  <div className="text-lg">🎯</div>
+                  <Target className="h-5 w-5 text-[#f5a623] mx-auto" />
                   <div className="text-xs text-slate-300">
                     {profile.preferred_species.join(', ')}
                   </div>
@@ -124,7 +128,7 @@ export const UserProfile = ({ user, profile = null, compact = false }) => {
               )}
               {profile.region && (
                 <div className="bg-slate-700/50 rounded-lg p-2 text-center">
-                  <div className="text-lg">📍</div>
+                  <MapPin className="h-5 w-5 text-[#f5a623] mx-auto" />
                   <div className="text-xs text-slate-300">{profile.region}</div>
                 </div>
               )}
