@@ -1284,6 +1284,10 @@ const MonTerritoireBionicPage = () => {
                       <Badge className="ml-2 bg-blue-500 text-white text-[10px]">{savedPlaces.length}</Badge>
                     )}
                   </TabsTrigger>
+                  <TabsTrigger value="groupe" className="data-[state=active]:bg-[var(--bionic-gold-primary)]/20 data-[state=active]:text-[var(--bionic-gold-primary)]" data-testid="tab-groupe">
+                    <Users className="h-4 w-4 mr-2" />
+                    {t('groupe_tab_title')}
+                  </TabsTrigger>
                 </TabsList>
                 
                 {/* Bouton Enregistrer un Waypoint avec menu déroulant */}
