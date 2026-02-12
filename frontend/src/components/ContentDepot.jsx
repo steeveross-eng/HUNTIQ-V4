@@ -107,7 +107,7 @@ const ContentDepot = () => {
     setOptimizing(true);
     try {
       const response = await axios.post(`${API}/seo/content/depot/${itemId}/optimize`);
-      toast.success('✨ Contenu optimisé par l\'IA!');
+      toast.success('Contenu optimisé par l\'IA!');
       loadItems();
       if (selectedItem?.id === itemId) {
         setSelectedItem({ ...selectedItem, ...response.data });
@@ -122,7 +122,7 @@ const ContentDepot = () => {
   const handleSuggest = async (itemId) => {
     try {
       const response = await axios.post(`${API}/seo/content/depot/${itemId}/suggest`);
-      toast.success('💡 Suggestions générées!');
+      toast.success('Suggestions générées!');
       loadItems();
     } catch (error) {
       toast.error('Erreur lors de la génération des suggestions');
@@ -132,7 +132,7 @@ const ContentDepot = () => {
   const handleAccept = async (itemId) => {
     try {
       await axios.post(`${API}/seo/content/depot/${itemId}/accept`);
-      toast.success('✅ Contenu accepté!');
+      toast.success('Contenu accepté!');
       loadItems();
     } catch (error) {
       toast.error('Erreur');
@@ -142,7 +142,7 @@ const ContentDepot = () => {
   const handlePublish = async (itemId, platforms = ['internal']) => {
     try {
       await axios.post(`${API}/seo/content/depot/${itemId}/publish`, platforms);
-      toast.success('🚀 Contenu publié!');
+      toast.success('Contenu publié!');
       loadItems();
     } catch (error) {
       toast.error('Erreur lors de la publication');
@@ -171,7 +171,7 @@ const ContentDepot = () => {
         platform: 'all',
         language: 'fr'
       });
-      toast.success('📝 Texte généré!');
+      toast.success('Texte généré!');
       return response.data;
     } catch (error) {
       toast.error('Erreur lors de la génération');
@@ -189,7 +189,7 @@ const ContentDepot = () => {
         style,
         format: 'square'
       });
-      toast.success('🖼️ Image générée!');
+      toast.success('Image générée!');
       return response.data;
     } catch (error) {
       toast.error('Erreur lors de la génération d\'image');
