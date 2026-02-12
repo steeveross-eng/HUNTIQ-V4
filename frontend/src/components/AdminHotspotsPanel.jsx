@@ -227,7 +227,7 @@ const AdminHotspotsPanel = () => {
                       <p className="text-slate-400 text-xs">{label}</p>
                       <p className="text-xl font-bold text-white">{hotspotStats[key] || 0}</p>
                     </div>
-                    <span className="text-2xl">{CATEGORY_ICONS[key]}</span>
+                    <CategoryIconComponent category={key} className="h-6 w-6 text-slate-400" />
                   </div>
                 </CardContent>
               </Card>
