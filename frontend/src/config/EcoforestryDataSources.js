@@ -503,19 +503,19 @@ export const LAYER_CATEGORIES = {
   inventory: {
     id: 'inventory',
     name: 'Inventaires forestiers',
-    icon: '📊',
+    iconName: 'bar-chart-3',
     description: 'Données d\'inventaire forestier'
   },
   classification: {
     id: 'classification',
     name: 'Classifications de peuplements',
-    icon: '🌲',
+    iconName: 'tree-pine',
     description: 'Types de peuplements et essences'
   },
   disturbances: {
     id: 'disturbances',
     name: 'Perturbations récentes',
-    icon: '🔥',
+    iconName: 'flame',
     description: 'Feux, coupes, épidémies, chablis'
   },
   dendrometric: {
