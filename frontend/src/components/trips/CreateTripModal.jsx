@@ -1,5 +1,6 @@
 /**
  * CreateTripModal - Modal for creating a new hunting trip
+ * BIONIC Design System compliant - No emojis
  */
 import React, { useState } from 'react';
 import {
@@ -19,18 +20,19 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { CalendarIcon, Loader2, Target } from 'lucide-react';
 import TripService from '@/services/TripService';
+import { SpeciesIcon } from '@/components/bionic/SpeciesIcon';
+import { getSpeciesName } from '@/config/speciesImages';
 
 const SPECIES_OPTIONS = [
-  { value: 'deer', label: '🦌 Chevreuil', emoji: '🦌' },
-  { value: 'moose', label: '🫎 Orignal', emoji: '🫎' },
-  { value: 'bear', label: '🐻 Ours noir', emoji: '🐻' },
-  { value: 'turkey', label: '🦃 Dindon sauvage', emoji: '🦃' },
-  { value: 'duck', label: '🦆 Canard', emoji: '🦆' },
-  { value: 'goose', label: '🪿 Oie', emoji: '🪿' },
-  { value: 'grouse', label: '🐔 Gélinotte/Perdrix', emoji: '🐔' },
-  { value: 'rabbit', label: '🐰 Lièvre', emoji: '🐰' },
-  { value: 'coyote', label: '🐺 Coyote', emoji: '🐺' },
-  { value: 'other', label: '🎯 Autre', emoji: '🎯' }
+  { value: 'deer', label: 'Chevreuil' },
+  { value: 'moose', label: 'Orignal' },
+  { value: 'bear', label: 'Ours noir' },
+  { value: 'turkey', label: 'Dindon sauvage' },
+  { value: 'duck', label: 'Canard' },
+  { value: 'goose', label: 'Oie' },
+  { value: 'hare', label: 'Lièvre' },
+  { value: 'coyote', label: 'Coyote' },
+  { value: 'other', label: 'Autre' }
 ];
 
 const CreateTripModal = ({ open, onClose, onTripCreated }) => {
