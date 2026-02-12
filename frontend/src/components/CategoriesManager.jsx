@@ -18,7 +18,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Plus, Edit, Trash2, Save, RefreshCw, ChevronRight } from "lucide-react";
+import { Plus, Edit, Trash2, Save, RefreshCw, ChevronRight, FlaskConical, X } from "lucide-react";
 import { toast } from "sonner";
 import { useLanguage } from '@/contexts/LanguageContext';
 
