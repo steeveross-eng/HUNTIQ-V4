@@ -1,5 +1,6 @@
 /**
  * ActiveTripWidget - Compact widget showing active hunting trip status
+ * BIONIC Design System compliant - No emojis
  * Displays in Dashboard overview for quick access to trip logging
  */
 import React, { useState, useEffect } from 'react';
@@ -11,19 +12,7 @@ import {
   Target, Clock, Eye, Play, ChevronRight, Plus, MapPin
 } from 'lucide-react';
 import TripService from '../../services/TripService';
-
-const SPECIES_EMOJIS = {
-  deer: '🦌',
-  moose: '🫎',
-  bear: '🐻',
-  turkey: '🦃',
-  duck: '🦆',
-  goose: '🪿',
-  grouse: '🐔',
-  rabbit: '🐰',
-  coyote: '🐺',
-  other: '🎯'
-};
+import { SpeciesIcon } from '../bionic/SpeciesIcon';
 
 const ActiveTripWidget = () => {
   const navigate = useNavigate();
