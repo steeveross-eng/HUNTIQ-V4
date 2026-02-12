@@ -224,33 +224,34 @@ export const WaypointManager = ({ coordinates = { lat: 46.8139, lng: -71.2080 } 
           <div className="space-y-2 max-h-80 overflow-y-auto">
             {waypoints.map(waypoint => {
               const typeInfo = getTypeInfo(waypoint.type);
+              const WaypointIcon = typeInfo.icon;
               return (
                 <div 
                   key={waypoint.id}
-                  className="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg hover:bg-slate-700 transition-colors"
+                  className="flex items-center justify-between p-3 bg-[var(--bionic-bg-secondary)] rounded-lg hover:bg-[var(--bionic-bg-tertiary)] transition-colors"
                   data-testid={`waypoint-${waypoint.id}`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-2xl">{typeInfo.icon}</span>
+                    <WaypointIcon className="h-6 w-6 text-[var(--bionic-gold-primary)]" />
                     <div>
-                      <p className="text-white font-medium">{waypoint.name}</p>
-                      <p className="text-slate-400 text-xs">
+                      <p className="text-[var(--bionic-text-primary)] font-medium">{waypoint.name}</p>
+                      <p className="text-[var(--bionic-text-muted)] text-xs">
                         {waypoint.lat?.toFixed(4)}, {waypoint.lng?.toFixed(4)}
                         {waypoint.notes && ` • ${waypoint.notes}`}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Badge className="bg-slate-600 text-slate-300 text-xs">
+                    <Badge className="bg-[var(--bionic-bg-tertiary)] text-[var(--bionic-text-secondary)] text-xs">
                       {typeInfo.label}
                     </Badge>
                     <Button
                       size="icon"
                       variant="ghost"
-                      className="h-8 w-8 text-red-400 hover:text-red-300 hover:bg-red-900/20"
+                      className="h-8 w-8 text-[var(--bionic-red-primary)] hover:text-[var(--bionic-red-light)] hover:bg-[var(--bionic-red-muted)]"
                       onClick={() => handleDeleteWaypoint(waypoint.id)}
                     >
-                      🗑️
+                      <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
@@ -259,9 +260,9 @@ export const WaypointManager = ({ coordinates = { lat: 46.8139, lng: -71.2080 } 
           </div>
         ) : (
           <div className="text-center py-8">
-            <span className="text-4xl">📍</span>
-            <p className="text-slate-400 mt-2">Aucun waypoint enregistré</p>
-            <p className="text-slate-500 text-sm">Cliquez sur "+ Nouveau" pour ajouter votre premier spot</p>
+            <MapPin className="h-10 w-10 text-[var(--bionic-gray-500)] mx-auto mb-2" />
+            <p className="text-[var(--bionic-text-secondary)] mt-2">{t('waypoints_none') || 'Aucun waypoint enregistré'}</p>
+            <p className="text-[var(--bionic-text-muted)] text-sm">{t('waypoints_add_first') || 'Cliquez sur "+ Nouveau" pour ajouter votre premier spot'}</p>
           </div>
         )}
       </CardContent>
