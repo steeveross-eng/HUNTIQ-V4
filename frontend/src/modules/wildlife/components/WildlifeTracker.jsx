@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Sunrise, Sunset } from 'lucide-react';
 import { WildlifeService } from '../WildlifeService';
 import { SpeciesIcon } from '../../../components/bionic/SpeciesIcon';
 import { getSpeciesInfo } from '../../../config/speciesImages';
@@ -151,12 +151,12 @@ export const WildlifeTracker = ({
             {/* Species Quick Info */}
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-slate-800/50 rounded-lg p-3 text-center">
-                <div className="text-2xl mb-1">🌅</div>
+                <Sunrise className="h-6 w-6 text-amber-400 mx-auto mb-1" />
                 <div className="text-xs text-slate-400">Aube</div>
                 <div className="text-emerald-400 font-medium">Actif</div>
               </div>
               <div className="bg-slate-800/50 rounded-lg p-3 text-center">
-                <div className="text-2xl mb-1">🌆</div>
+                <Sunset className="h-6 w-6 text-orange-400 mx-auto mb-1" />
                 <div className="text-xs text-slate-400">Crépuscule</div>
                 <div className="text-emerald-400 font-medium">Très actif</div>
               </div>
