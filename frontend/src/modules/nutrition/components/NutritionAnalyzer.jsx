@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui
 import { Button } from '../../../components/ui/button';
 import { NutritionService } from '../NutritionService';
 import { NutritionScore } from './NutritionScore';
+import { FlaskConical, Microscope, Lightbulb, Loader2 } from 'lucide-react';
 
 export const NutritionAnalyzer = ({ productId, productName, onAnalysisComplete }) => {
   const [analysis, setAnalysis] = useState(null);
@@ -33,7 +34,7 @@ export const NutritionAnalyzer = ({ productId, productName, onAnalysisComplete }
     <Card className="bg-slate-800 border-slate-700">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg text-white flex items-center gap-2">
-          <span className="text-2xl">🧪</span>
+          <FlaskConical className="h-6 w-6 text-emerald-400" />
           Analyse Nutritionnelle
         </CardTitle>
       </CardHeader>
@@ -52,12 +53,12 @@ export const NutritionAnalyzer = ({ productId, productName, onAnalysisComplete }
           >
             {loading ? (
               <>
-                <span className="animate-spin mr-2">⏳</span>
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                 Analyse en cours...
               </>
             ) : (
               <>
-                <span className="mr-2">🔬</span>
+                <Microscope className="h-4 w-4 mr-2" />
                 Analyser la composition
               </>
             )}
@@ -86,8 +87,8 @@ export const NutritionAnalyzer = ({ productId, productName, onAnalysisComplete }
 
             {analysis.recommendations && (
               <div className="mt-4 p-3 bg-blue-900/30 rounded-lg border border-blue-700">
-                <h4 className="text-blue-400 font-medium text-sm mb-2">
-                  💡 Recommandations
+                <h4 className="text-blue-400 font-medium text-sm mb-2 flex items-center gap-2">
+                  <Lightbulb className="h-4 w-4" /> Recommandations
                 </h4>
                 <p className="text-slate-300 text-sm">
                   {analysis.recommendations}
