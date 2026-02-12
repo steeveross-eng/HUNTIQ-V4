@@ -1,30 +1,32 @@
 /**
  * WeatherWidget - Compact weather display
  * BIONIC Design System compliant
+ * Version: 1.2.0 - Full BIONIC compliance (colors + i18n)
  */
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '../../../components/ui/card';
 import { WeatherService } from '../WeatherService';
+import { useLanguage } from '../../../contexts/LanguageContext';
 import { Sun, Cloud, CloudRain, Snowflake, CloudLightning, CloudFog, Wind, CloudSun } from 'lucide-react';
 
-// Weather icons - BIONIC Design System (Lucide components)
+// Weather icons - BIONIC Design System (Lucide components + CSS variables)
 const WeatherIcon = ({ condition, className = "h-8 w-8" }) => {
   const conditionLower = condition?.toLowerCase() || '';
   
   const iconMap = {
-    clear: { Icon: Sun, color: '#f5a623' },
-    sunny: { Icon: Sun, color: '#f5a623' },
-    cloudy: { Icon: Cloud, color: '#9ca3af' },
-    partly_cloudy: { Icon: CloudSun, color: '#f59e0b' },
-    rain: { Icon: CloudRain, color: '#3b82f6' },
-    snow: { Icon: Snowflake, color: '#06b6d4' },
-    storm: { Icon: CloudLightning, color: '#8b5cf6' },
-    fog: { Icon: CloudFog, color: '#6b7280' },
-    wind: { Icon: Wind, color: '#64748b' }
+    clear: { Icon: Sun, colorClass: 'text-[var(--bionic-gold-primary)]' },
+    sunny: { Icon: Sun, colorClass: 'text-[var(--bionic-gold-primary)]' },
+    cloudy: { Icon: Cloud, colorClass: 'text-[var(--bionic-gray-400)]' },
+    partly_cloudy: { Icon: CloudSun, colorClass: 'text-[var(--bionic-gold-light)]' },
+    rain: { Icon: CloudRain, colorClass: 'text-[var(--bionic-blue-light)]' },
+    snow: { Icon: Snowflake, colorClass: 'text-[var(--bionic-cyan-primary)]' },
+    storm: { Icon: CloudLightning, colorClass: 'text-[var(--bionic-purple-primary)]' },
+    fog: { Icon: CloudFog, colorClass: 'text-[var(--bionic-gray-500)]' },
+    wind: { Icon: Wind, colorClass: 'text-[var(--bionic-gray-400)]' }
   };
   
-  const { Icon, color } = iconMap[conditionLower] || { Icon: CloudSun, color: '#f59e0b' };
-  return <Icon className={className} style={{ color }} />;
+  const { Icon, colorClass } = iconMap[conditionLower] || { Icon: CloudSun, colorClass: 'text-[var(--bionic-gold-light)]' };
+  return <Icon className={`${className} ${colorClass}`} />;
 };
 
 export const WeatherWidget = ({ 
