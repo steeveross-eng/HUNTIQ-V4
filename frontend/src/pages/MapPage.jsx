@@ -21,6 +21,7 @@ const MapPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState('map');
   const [refreshKey, setRefreshKey] = useState(0);
+  const { t } = useLanguage();
   
   // Get URL parameters for map centering (from Admin "Voir sur la carte")
   const urlParams = useMemo(() => {
