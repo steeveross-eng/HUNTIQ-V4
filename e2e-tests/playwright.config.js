@@ -16,7 +16,7 @@ module.exports = defineConfig({
     ['json', { outputFile: 'test-results.json' }]
   ],
   use: {
-    baseURL: process.env.BASE_URL || 'https://huntiq-system.preview.emergentagent.com',
+    baseURL: process.env.BASE_URL || 'https://bionic-tactical.preview.emergentagent.com',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
