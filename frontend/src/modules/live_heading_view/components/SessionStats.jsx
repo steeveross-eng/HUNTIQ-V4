@@ -2,6 +2,7 @@
  * SessionStats - Top stats bar showing session metrics
  */
 import React from 'react';
+import { Target } from 'lucide-react';
 
 export const SessionStats = ({ 
   distance = 0, 
@@ -34,7 +35,7 @@ export const SessionStats = ({
       <div className="flex items-center justify-between">
         {/* Logo/Title */}
         <div className="flex items-center gap-2">
-          <span className="text-2xl">🎯</span>
+          <Target className="h-6 w-6 text-[#f5a623]" />
           <div>
             <div className="text-white font-bold text-sm">Live Heading</div>
             <div className="text-emerald-400 text-xs">HUNTIQ V3</div>
