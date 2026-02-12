@@ -105,7 +105,7 @@ const MaintenancePage = ({ siteStatus, onAdminAccess }) => {
                 ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/50' 
                 : 'bg-red-500/20 text-red-400 border-red-500/50'
             }`}>
-              {isDevelopment ? '🚧 En Développement' : '🔧 Maintenance'}
+              {isDevelopment ? 'En Développement' : 'Maintenance'}
             </Badge>
             
             <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
