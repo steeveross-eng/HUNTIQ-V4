@@ -1,55 +1,65 @@
 <analysis>**original_problem_statement:**
-The user, Steeve Ross, is overseeing the development of HUNTIQ V3. The project's overriding focus is a complete UI/UX overhaul to enforce a strict, professional, and scientific BIONIC TACTICAL design standard. All UI elements must conform to a centralized design system (tactical color palette, Lucide icons, Inter font). The work follows a systematic, audit-driven refactoring process where all user-facing strings are internationalized (FR/EN). The user demands an accelerated (+20%) development cadence and has instituted a supra-sécuritaire (ultra-secure) workflow, requiring explicit validation for every individual file modification before proceeding to the next.
+The user, Steeve Ross, is overseeing the development of HUNTIQ V3. The project's overriding focus is a complete UI/UX overhaul to enforce a strict, professional, and scientific BIONIC TACTICAL design standard. All UI elements must conform to a centralized design system. The project follows a systematic, audit-driven process under a supra-sécuritaire (ultra-secure) workflow, requiring explicit validation for every individual file modification or task phase before proceeding.
+
+After completing a series of UI refactoring tasks, the user has shifted focus to a major new feature: the GROUPE (Group) module. This module is designed to provide collaborative features for hunting teams, including real-time position sharing, a group chat, activity feeds, and advanced safety features like shooting zone visualization. The implementation is broken down into sequential phases, each requiring explicit user approval.
 
 **User's preferred language**: French
 
 **what currently exists?**
 *   A full-stack application with a React frontend, FastAPI backend, and MongoDB database.
-*   A centralized BIONIC Design System is defined in , , and other config files.
-*   A comprehensive FR/EN internationalization system exists in .
-*   The initial TOP 20 list of files from the UI audit () has been fully refactored across multiple Lots of work.
-*   The project now operates under a strict, user-mandated supra-sécuritaire protocol where the agent is only authorized to work on one pre-approved file at a time and must await explicit validation before continuing.
+*   A well-defined BIONIC Design System and a comprehensive FR/EN internationalization system.
+*   The project operates under a strict, user-mandated supra-sécuritaire protocol, where the agent works on one pre-approved task at a time and awaits explicit validation before continuing.
+*   A new  module has been created at .
+*   Several phases of the GROUPE module have been completed:
+    *   **Phase 1:** Basic file structure and component scaffolding.
+    *   **Phase 2:** Integration of the GROUPE tab into the main  and .
+    *   **Phase 3:** Real-time member position tracking on the map via WebSockets ().
+    *   **Phase 3.5:** A real-time group chat feature ().
+*   The agent also completed several BIONIC refactoring tasks (Lots A-D) and a UX refactor of the map type selector.
 
 **Last working item**:
-*   **Last item agent was working:** The agent was executing Lot A of a new, user-approved work plan, which involves the complete refactoring of . The agent analyzed the file, identifying hardcoded styles and text that need to be replaced with the BIONIC Design System variables and i18n keys.
+*   **Last item agent was working:** The agent was implementing **Phase 4 (Security)** of the GROUPE module. This involves creating components and logic for users to manage their safety status (e.g., hunting, moving) and to define and visualize shooting zones on the map. The agent has created the necessary files (, , ) and was in the process of integrating them into .
 *   **Status:** IN PROGRESS
 *   **Agent Testing Done:** N
-*   **Which testing method agent to use?** Frontend testing agent (after the file is refactored, to ensure full compliance).
+*   **Which testing method agent to use?** Frontend testing agent (to verify the new security UI and its integration with the map).
 *   **User Testing Done:** N
 
 **All Pending/In progress Issue list**:
 *   None.
 
 **In progress Task List**:
-*   **Task 1: Refactor  (Lot A) (P0)**
-    *   **Where to resume:** The agent has analyzed . The next step is to execute the  operations to replace hardcoded colors (e.g., , ) with  CSS variables and replace hardcoded French text (Météo indisponible, Humidité, etc.) with i18n keys. New keys must be added to  for both English and French.
-    *   **What will be achieved with this?** The  component will become fully compliant with the BIONIC Design System and i18n standards.
+*   **Task 1: Complete Phase 4 of the GROUPE Module (P0)**
+    *   **Where to resume:** The agent has created the files , ,  and added i18n keys. It has also imported these into . The immediate next step is to add the Sécurité tab to the  and the corresponding  inside  to render the  component. Following that,  needs to be integrated into the map view to display the defined zones.
+    *   **What will be achieved with this?** The GROUPE module will be enhanced with critical safety features, allowing users to broadcast their status and visualize potentially dangerous shooting zones, a core requirement of the feature.
     *   **Status:** IN PROGRESS
     *   **Should Test frontend/backend/both after fix?** Frontend
     *   **Blocked on something:** No.
 
 **Upcoming and Future Tasks**
-*   **Upcoming Tasks (User-Validated Sequence):**
-    *   **(P0) Lot B:** Refactor .
-    *   **(P0) Lot C:** Refactor .
-    *   **(P0) Lot D:** Refactor .
-    *   **(P0) Lot E:** Refactor .
-    *   **(P0.5)** Integrate Real Mature Game Images (high-quality, scientific-style photos).
-    *   **(P1)** Implement Offline Mode & Live Navigation.
-    *   **(P1)** Implement full CRUD for private user paths.
+*   **Upcoming Tasks (GROUPE Module - Sequential):**
+    *   **(P0) Phase 5:** Implement Smart Alerts (, ).
+    *   **(P0) Phase 6:** Implement Session Heatmap ( and real-time history).
+    *   **(P0) Phase 7:** Final integration, testing, and QA.
+*   **Upcoming Tasks (BIONIC Refactoring):**
+    *   **(P1) Lot E:** Refactor .
 *   **Future Tasks:**
+    *   (P1) Integrate Real Mature Game Images.
+    *   (P1) Implement Offline Mode & Live Navigation.
+    *   (P1) Implement full CRUD for private user paths.
     *   (PROD) Deploy Quebec Proxy for MFFP WMS access.
     *   (P2) Implement Bathymetry Data.
     *   (P3) Implement WebSocket Sync & Advanced Scoring.
 
 **Completed work in this session**
-- **BIONIC Refactoring - Lot 4:** Completed a full design system and i18n refactor for , , , , and .
-- **BIONIC Refactoring - Lot 5:** Completed a full design system and i18n refactor for , , , , and .
-- **i18n Enrichment:** Added dozens of new FR/EN translation keys to  to support the refactored components.
-- **Compliance Fixes:** Corrected remaining non-compliant UI elements in several previously edited files (, , etc.) after a  search revealed them.
+- **BIONIC Refactoring - Lots A-D:** Completed full design system and i18n refactor for , , , and .
+- **GROUPE Module - Phase 1 (Structure):** Created the basic module structure, including  and .
+- **GROUPE Module - Phase 2 (Integration):** Added the GROUPE tab to  and .
+- **GROUPE Module - Phase 3 (Tracking):** Implemented real-time member position markers on the map using  and .
+- **GROUPE Module - Phase 3.5 (Chat):** Implemented a real-time group chat feature with quick actions and alerts using  and .
+- **UX Refactoring:** Redesigned the map type selector () into a more readable vertical list and removed a redundant ecoforestry icon from the map controls in .
 
 **Earlier issues found/mentioned but not fixed**
-*   The agent's  search revealed several other files with non-compliant emojis and styles (e.g., , , ). The agent attempted to create a Lot 6 étendu to address these, but the user strictly forbade this initiative. These files remain non-compliant and are not on an approved work plan.
+*   Several files (, , ) contain non-compliant UI elements (emojis, styles). The user explicitly forbade working on them out of the approved sequence. They remain non-compliant.
 
 **Known issue recurrence from previous fork**
 *   None.
@@ -58,10 +68,9 @@ The user, Steeve Ross, is overseeing the development of HUNTIQ V3. The project's
 
 
 **Key Technical Concepts**
-*   **Supra-Sécuritaire Workflow:** A strict, user-imposed project management protocol. The agent cannot take any initiative. Every single file modification must be proposed and then explicitly validated by the user before work can begin. Work is done one file at a time.
-*   **Centralized Design System:** Enforcing UI consistency through a single source of truth for colors, icons, fonts, and styles.
-*   **Audit-Driven Refactoring:** A systematic process of cleaning up the frontend based on pre-defined lists.
-*   **Comprehensive i18n:** All user-facing text must be translated via .
+*   **Supra-Sécuritaire Workflow:** A strict, user-imposed project management protocol. The agent cannot take any initiative. Every task must be pre-approved, and every completed task must be reported on and explicitly validated by the user before work can continue.
+*   **Modular Feature Development:** The new GROUPE feature is being built within its own dedicated module () with its own components and hooks, ensuring clean separation of concerns.
+*   **Real-Time Communication:** The application leverages WebSockets for live features like position tracking () and group chat (), reusing and abstracting logic from the existing  hook.
 
 **key DB schema**
 *   No changes were made to the database schema.
@@ -70,43 +79,42 @@ The user, Steeve Ross, is overseeing the development of HUNTIQ V3. The project's
 *   None.
 
 **All files of reference**
-*   **/app/memory/AUDIT_UI_BIONIC.md**: The source document for refactoring tasks. The initial TOP 20 list is complete. A new list (A-E) has been approved by the user from Section 6.1 of this file.
-*   **/app/frontend/src/styles/bionic-design-system.css**: Source of truth for all colors and styles.
-*   **/app/frontend/src/config/bionic-icons.js**: The mapping of legacy emojis to professional Lucide icons.
-*   **/app/frontend/src/contexts/LanguageContext.jsx**: The file containing all FR/EN translations, which will need to be updated for Lot A.
+*   **/app/frontend/src/modules/groupe/**: The directory for the new, in-progress GROUPE feature.
+*   **/app/frontend/src/pages/MapPage.jsx**: One of the two main pages where the GROUPE module is being integrated.
+*   **/app/frontend/src/pages/MonTerritoireBionicPage.jsx**: The second main page for GROUPE module integration.
+*   **/app/frontend/src/contexts/LanguageContext.jsx**: Continuously updated with new FR/EN translation keys for each new feature and refactoring task.
 
 **Areas that need refactoring**:
-*   The explicitly approved list of upcoming files is: , , , and . They must be worked on in that exact order, one by one, with user validation at each step.
+*   None outside of the user's explicit upcoming tasks.
 
 **key api endpoints**
-*   No new API endpoints were created or modified.
+*   The agent is building the frontend against existing backend endpoints provided by the  for group management, tracking, and chat.
 
 **Critical Info for New Agent**
 *   **Vous devez communiquer avec l'utilisateur en français.**
-*   **SUPRA-SÉCURITAIRE WORKFLOW IS NON-NEGOTIABLE.** Your authorization is strictly limited to completing the refactor of ****. Do not touch any other file.
-*   After finishing , you **must** deliver a full report (files modified, i18n keys added, compliance check) and **WAIT FOR EXPLICIT AUTHORIZATION** from the user before starting the next file ().
-*   **DO NOT TAKE INITIATIVE.** Do not create, extend, or reorganize lots. Do not work on files that are not on the approved A->E list. Any deviation will be considered a major violation by the user.
+*   **THE SUPRA-SÉCURITAIRE WORKFLOW IS NON-NEGOTIABLE.** Your authorization is strictly limited to the task explicitly approved by the user. Do not take any initiative.
+*   The currently authorized task is **Phase 4 (Security)** of the **GROUPE module**.
+*   After completing Phase 4, you **must** deliver a full report (files modified, i18n keys added, compliance check) and **WAIT FOR EXPLICIT AUTHORIZATION** from the user before starting the next phase (Phase 5) or any other task. Any deviation will be considered a major violation.
 
 **documents and test reports created in this job**
-*   
-*    (updated)
+*    was likely updated as per the system prompt, but this was not explicitly shown.
 
 **Last 10 User Messages and any pending HUMAN messages**
-1.  **User (Latest):** Authorized the agent to proceed **only** with refactoring  (Lot A), validating the agent's proposed plan.
-2.  **Agent:** Confirmed understanding of the supra-sécuritaire framework and proposed a new plan (Lots A-E) for validation, starting with .
-3.  **User:** Imposed the supra-sécuritaire framework, forbidding any unauthorized modifications or initiative. Demanded explicit plans and validation for every step.
-4.  **Agent:** Clarified that the official audit's TOP 20 list was complete and asked for new directives.
-5.  **User:** Rejected the agent's Lot 6 étendu and demanded a return to the official audit sequence.
-6.  **Agent:** Reported progress on the self-created Lot 6 étendu and asked to proceed.
-7.  **User:** Acknowledged delivery of Lots 4 & 5 and requested a plan for Lot 6.
-8.  **Agent:** Finished Lot 5 and reported completion.
-9.  **User:** Instructed the agent to begin Lot 6 immediately.
-10. **Agent:** Started Lot 6 étendu after finding more non-compliant files, a move later rejected by the user.
+1.  **User (Latest):** Authorized the agent to proceed with **Phase 4 (Security)** of the GROUPE module.
+2.  **Agent:** Notified the user that Phase 3.5 was already complete and asked for the next task.
+3.  **User:** Validated the Phase 3.5 delivery and authorized the agent to proceed with Phase 3.5 (Chat). (User was mistaken, agent corrected).
+4.  **Agent:** Delivered the UX refactoring for the map selector.
+5.  **User:** Validated the UX refactoring and authorized Phase 3.5 (Chat).
+6.  **Agent:** Confirmed understanding and began work on the UX refactoring.
+7.  **User:** Requested a UX refactoring of the map type selector and the removal of a redundant icon.
+8.  **Agent:** Delivered Phase 3.5 (Chat).
+9.  **User:** Validated Phase 3 and authorized Phase 3.5 (Chat).
+10. **Agent:** Delivered Phase 3 (Tracking).
 
 **Project Health Check:**
 *   **Running:** Yes
 *   **Broken:** No
-*   **Mocked:** Backend APIs for Bathymetry.
+*   **Mocked:** The UI for the GROUPE module uses placeholder/empty-state data when a live tracking session is not active. The underlying backend services are functional.
 
 **3rd Party Integrations**
 *   OpenAI GPT-5.2 (via Emergent LLM Key)
@@ -118,7 +126,7 @@ The user, Steeve Ross, is overseeing the development of HUNTIQ V3. The project's
 *   OpenWeatherMap (User API Key)
 
 **Testing status**
-*   **Testing agent used after significant changes:** YES
+*   **Testing agent used after significant changes:** NO (Agent used self-testing with screenshots, , and linting).
 *   **Troubleshoot agent used after agent stuck in loop:** NO
 *   **Test files created:** None.
 *   **Known regressions:** None.
@@ -127,4 +135,4 @@ The user, Steeve Ross, is overseeing the development of HUNTIQ V3. The project's
 *   **Admin Login:**  / 
 
 **What agent forgot to execute**
-*   The previous agent took the initiative to create an extended work lot to fix additional issues they found. This was a direct violation of the user's increasingly strict instructions. The user has since forbidden any and all agent initiative, formalizing it as the supra-sécuritaire protocol. The next agent must not repeat this mistake.</analysis>
+*   The agent has adhered strictly to the user's supra-sécuritaire protocol and has not forgotten any requested tasks. It is currently in the middle of the last authorized task.</analysis>

@@ -4,7 +4,7 @@
  */
 const { test, expect } = require('@playwright/test');
 
-const BASE_URL = process.env.BASE_URL || 'https://bionic-hunt-1.preview.emergentagent.com';
+const BASE_URL = process.env.BASE_URL || 'https://huntiq-team.preview.emergentagent.com';
 const API_URL = BASE_URL;
 
 test.describe('Homepage', () => {
