@@ -41,21 +41,21 @@ const SCORING_CRITERIA = [
   { id: "chemical_stability", name: "Stabilité chimique", icon: Scale, weight: 1, description: "Conservation" }
 ];
 
-// Espèces cibles
+// Espèces cibles - Using SpeciesIcon component
 const SPECIES = [
-  { id: "cerf", name: "Cerf de Virginie", icon: "🦌" },
-  { id: "orignal", name: "Orignal", icon: "🫎" },
-  { id: "ours", name: "Ours noir", icon: "🐻" },
-  { id: "sanglier", name: "Sanglier", icon: "🐗" },
-  { id: "dindon", name: "Dindon sauvage", icon: "🦃" }
+  { id: "deer", name: "Cerf de Virginie", speciesId: "deer" },
+  { id: "moose", name: "Orignal", speciesId: "moose" },
+  { id: "bear", name: "Ours noir", speciesId: "bear" },
+  { id: "boar", name: "Sanglier", speciesId: "boar" },
+  { id: "turkey", name: "Dindon sauvage", speciesId: "turkey" }
 ];
 
-// Saisons
+// Saisons - Using Lucide icons
 const SEASONS = [
-  { id: "printemps", name: "Printemps", icon: "🌸" },
-  { id: "été", name: "Été", icon: "☀️" },
-  { id: "automne", name: "Automne (Rut)", icon: "🍂" },
-  { id: "hiver", name: "Hiver", icon: "❄️" }
+  { id: "printemps", name: "Printemps", Icon: Flower2, color: "text-pink-400" },
+  { id: "été", name: "Été", Icon: Sun, color: "text-yellow-400" },
+  { id: "automne", name: "Automne (Rut)", Icon: Leaf, color: "text-orange-400" },
+  { id: "hiver", name: "Hiver", Icon: Snowflake, color: "text-blue-400" }
 ];
 
 // Conditions météo
