@@ -77,63 +77,65 @@ export const GroupePanel = ({
   isShareEnabled = false,
   onShareToggle,
   onClose,
-  embedded = false
+  embedded = false,
+  onCenterOnMember = null
 }) => {
   const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('members');
   const [isExpanded, setIsExpanded] = useState(!embedded);
-  const [members, setMembers] = useState([]);
   const [activities, setActivities] = useState([]);
   const [alerts, setAlerts] = useState([]);
-  const [loading, setLoading] = useState(false);
 
-  // Mock data for Phase 1 demonstration
+  // Use the tracking hook for real data
+  const {
+    members,
+    membersWithPositions,
+    onlineMembersCount,
+    totalMembersCount,
+    isTracking,
+    loading,
+    startTracking,
+    stopTracking,
+    refreshPositions,
+    getMemberCenter
+  } = useGroupeTracking(userId, groupId, {
+    autoStart: isShareEnabled,
+    updateInterval: 30000
+  });
+
+  // Simulated activities (will be replaced by real data in Phase 4)
   useEffect(() => {
-    // Simulated members data
-    setMembers([
-      { 
-        id: '1', 
-        name: 'Jean D.', 
-        status: 'hunting', 
-        isOnline: true, 
-        lastUpdate: new Date().toISOString(),
-        position: { lat: 46.8139, lng: -71.2080 }
-      },
-      { 
-        id: '2', 
-        name: 'Pierre M.', 
-        status: 'moving', 
-        isOnline: true, 
-        lastUpdate: new Date(Date.now() - 120000).toISOString(),
-        position: { lat: 46.8150, lng: -71.2100 }
-      },
-      { 
-        id: '3', 
-        name: 'Marc L.', 
-        status: 'observing', 
-        isOnline: false, 
-        lastUpdate: new Date(Date.now() - 1800000).toISOString(),
-        position: { lat: 46.8120, lng: -71.2050 }
-      }
-    ]);
-
-    // Simulated activities
     setActivities([
       { id: '1', type: 'waypoint', user: 'Jean D.', message: 'groupe_activity_waypoint_added', time: new Date() },
       { id: '2', type: 'movement', user: 'Pierre M.', message: 'groupe_activity_entered_sector', time: new Date(Date.now() - 180000) },
       { id: '3', type: 'observation', user: 'Marc L.', message: 'groupe_activity_observation', time: new Date(Date.now() - 420000) }
     ]);
-
-    // Simulated alerts (empty for Phase 1)
     setAlerts([]);
   }, [groupId]);
 
+  // Handle tracking toggle
+  useEffect(() => {
+    if (isShareEnabled && !isTracking) {
+      startTracking();
+    } else if (!isShareEnabled && isTracking) {
+      stopTracking();
+    }
+  }, [isShareEnabled, isTracking, startTracking, stopTracking]);
+
   // Refresh data
   const handleRefresh = useCallback(async () => {
-    setLoading(true);
-    // Future: API call to refresh data
-    setTimeout(() => setLoading(false), 500);
-  }, []);
+    await refreshPositions();
+  }, [refreshPositions]);
+
+  // Center map on member
+  const handleCenterOnMember = useCallback((memberId) => {
+    if (onCenterOnMember) {
+      const center = getMemberCenter(memberId);
+      if (center) {
+        onCenterOnMember(memberId, center);
+      }
+    }
+  }, [onCenterOnMember, getMemberCenter]);
 
   // Container styles based on mode
   const containerClasses = embedded
