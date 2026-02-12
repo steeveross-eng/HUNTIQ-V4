@@ -383,36 +383,30 @@ export const GroupePanel = ({
           </ScrollArea>
         </TabsContent>
 
-        {/* Alerts Tab */}
-        <TabsContent value="alerts" className="p-4 m-0">
-          <ScrollArea className="h-[400px]">
-            {alerts.length > 0 ? (
-              <div className="space-y-3">
-                {alerts.map(alert => (
-                  <Card 
-                    key={alert.id}
-                    className="bg-[var(--bionic-red-muted)] border-[var(--bionic-red-primary)]"
-                  >
-                    <CardContent className="p-3">
-                      <div className="flex items-start gap-3">
-                        <AlertTriangle className="h-5 w-5 text-[var(--bionic-red-primary)] flex-shrink-0" />
-                        <div>
-                          <p className="text-sm text-[var(--bionic-text-primary)]">{alert.message}</p>
-                          <p className="text-xs text-[var(--bionic-text-secondary)] mt-1">{alert.time}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-[var(--bionic-text-secondary)]">
-                <Shield className="h-8 w-8 mx-auto mb-2 text-[var(--bionic-green-primary)]" />
-                <p className="text-sm">{t('groupe_no_alerts')}</p>
-                <p className="text-xs text-[var(--bionic-text-muted)] mt-1">{t('groupe_all_safe')}</p>
-              </div>
-            )}
-          </ScrollArea>
+        {/* Alerts Tab - Phase 5 Smart Alerts */}
+        <TabsContent value="alerts" className="p-4 m-0" data-testid="groupe-alerts-content">
+          <SmartAlerts
+            alerts={visibleAlerts}
+            unreadCount={alertUnreadCount}
+            settings={alertSettings}
+            isMuted={isMuted}
+            onMarkAsRead={markAlertAsRead}
+            onMarkAllAsRead={markAllAlertsAsRead}
+            onDismiss={dismissAlert}
+            onClearAll={clearAllAlerts}
+            onToggleMute={toggleMute}
+            onUpdateSettings={updateAlertSettings}
+            onAction={(action, alert) => {
+              // Handle alert actions
+              if (action === 'view_on_map' && alert.location && onCenterOnMember) {
+                onCenterOnMember(alert.memberId, alert.location);
+              }
+            }}
+            compact={false}
+            showSettings={true}
+            showFilters={true}
+            maxHeight="400px"
+          />
         </TabsContent>
 
         {/* Security Tab - Phase 4 */}
