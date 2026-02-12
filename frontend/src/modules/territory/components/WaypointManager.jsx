@@ -166,48 +166,49 @@ export const WaypointManager = ({ coordinates = { lat: 46.8139, lng: -71.2080 } 
                   onClick={() => setNewWaypoint(prev => ({ ...prev, type: type.id }))}
                   className={`px-3 py-1.5 rounded-lg text-sm flex items-center gap-1 transition-all ${
                     newWaypoint.type === type.id 
-                      ? 'bg-[#f5a623] text-black' 
-                      : 'bg-slate-600 text-slate-300 hover:bg-slate-500'
+                      ? 'bg-[var(--bionic-gold-primary)] text-black' 
+                      : 'bg-[var(--bionic-bg-tertiary)] text-[var(--bionic-text-secondary)] hover:bg-[var(--bionic-bg-primary)]'
                   }`}
                 >
-                  <span>{type.icon}</span>
+                  <TypeIcon className="h-4 w-4" />
                   {type.label}
                 </button>
-              ))}
+              );
+              })}
             </div>
             
             <Input
-              placeholder="Notes (optionnel)"
+              placeholder={t('common_notes_optional') || 'Notes (optionnel)'}
               value={newWaypoint.notes}
               onChange={(e) => setNewWaypoint(prev => ({ ...prev, notes: e.target.value }))}
-              className="bg-slate-700 border-slate-600"
+              className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)]"
             />
             
             <div className="grid grid-cols-2 gap-2">
               <Input
                 type="number"
                 step="0.0001"
-                placeholder="Latitude"
+                placeholder={t('common_latitude') || 'Latitude'}
                 value={newWaypoint.lat}
                 onChange={(e) => setNewWaypoint(prev => ({ ...prev, lat: parseFloat(e.target.value) }))}
-                className="bg-slate-700 border-slate-600"
+                className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)]"
               />
               <Input
                 type="number"
                 step="0.0001"
-                placeholder="Longitude"
+                placeholder={t('common_longitude') || 'Longitude'}
                 value={newWaypoint.lng}
                 onChange={(e) => setNewWaypoint(prev => ({ ...prev, lng: parseFloat(e.target.value) }))}
-                className="bg-slate-700 border-slate-600"
+                className="bg-[var(--bionic-bg-primary)] border-[var(--bionic-border-secondary)]"
               />
             </div>
             
             <Button 
-              className="w-full bg-green-600 hover:bg-green-700"
+              className="w-full bg-[var(--bionic-green-primary)] hover:bg-[var(--bionic-green-light)]"
               onClick={handleSaveWaypoint}
               data-testid="save-waypoint-btn"
             >
-              💾 Enregistrer le waypoint
+              <Save className="h-4 w-4 mr-2" /> {t('waypoint_save') || 'Enregistrer le waypoint'}
             </Button>
           </div>
         )}
@@ -216,7 +217,7 @@ export const WaypointManager = ({ coordinates = { lat: 46.8139, lng: -71.2080 } 
         {loading ? (
           <div className="space-y-2">
             {[1, 2, 3].map(i => (
-              <div key={i} className="animate-pulse bg-slate-700 rounded-lg h-16" />
+              <div key={i} className="animate-pulse bg-[var(--bionic-bg-secondary)] rounded-lg h-16" />
             ))}
           </div>
         ) : waypoints.length > 0 ? (
