@@ -2656,6 +2656,14 @@ export const TRANSLATIONS = {
     chat_quick_quiet: "Quiet",
     chat_quick_game_seen: "Game seen",
     
+    // Map Selector - UX Refacto
+    map_selector_title: "Map Type",
+    map_selector_basemap_note: "One basemap active at a time. Layers are stackable.",
+    map_selector_options: "Options",
+    map_option_labels: "Terrain labels",
+    map_option_coordinates: "GPS coordinates",
+    map_option_auto_opacity: "Auto zone opacity",
+    
     // LegalTimeWidget - Lot D
     legaltime_loading: "Calculating legal hours...",
     legaltime_title: "Legal Hunting Hours",
