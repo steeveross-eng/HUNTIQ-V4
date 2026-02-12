@@ -5,7 +5,7 @@
 import React, { useState, useCallback } from 'react';
 import { 
   Share2, Link2, Mail, Users, Copy, Check, X, 
-  Send, Plus, UserPlus, Globe, Lock
+  Send, Plus, UserPlus, Globe, Lock, Lightbulb
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -167,7 +167,7 @@ export const ShareWaypointDialog = ({
             </div>
             
             <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-3 text-xs text-blue-300">
-              <p>💡 Les destinataires recevront une notification et pourront modifier ce waypoint (collaboration complète)</p>
+              <p className="flex items-center gap-1"><Lightbulb className="h-3 w-3" /> Les destinataires recevront une notification et pourront modifier ce waypoint (collaboration complète)</p>
             </div>
             
             <Button 
@@ -229,7 +229,7 @@ export const ShareWaypointDialog = ({
             </div>
             
             <div className="bg-amber-900/30 border border-amber-700/50 rounded-lg p-3 text-xs text-amber-300">
-              <p>🔒 Seuls les membres BIONIC connectés peuvent accéder au waypoint via ce lien</p>
+              <p className="flex items-center gap-1"><Lock className="h-3 w-3" /> Seuls les membres BIONIC connectés peuvent accéder au waypoint via ce lien</p>
             </div>
           </TabsContent>
 
@@ -264,7 +264,7 @@ export const ShareWaypointDialog = ({
                 </div>
                 
                 <div className="bg-green-900/30 border border-green-700/50 rounded-lg p-3 text-xs text-green-300">
-                  <p>👥 Tous les membres du groupe recevront une notification et pourront voir ce waypoint</p>
+                  <p className="flex items-center gap-1"><Users className="h-3 w-3" /> Tous les membres du groupe recevront une notification et pourront voir ce waypoint</p>
                 </div>
                 
                 <Button 

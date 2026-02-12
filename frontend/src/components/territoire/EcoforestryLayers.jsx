@@ -30,7 +30,7 @@ import {
   Layers, TreePine, Mountain, Droplets, Eye, EyeOff, 
   MapPin, Info, Settings, ChevronDown, ChevronUp,
   Leaf, Trees, Thermometer, Ruler, AlertTriangle, 
-  RefreshCw, Wifi, WifiOff, CheckCircle2
+  RefreshCw, Wifi, WifiOff, CheckCircle2, SatelliteDish
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
@@ -869,19 +869,19 @@ export const EcoforestryLayerControl = ({
               className={`flex-1 px-3 py-2 text-xs font-medium transition-colors ${activeSection === 'base' ? 'text-[#f5a623] border-b-2 border-[#f5a623]' : 'text-gray-400 hover:text-white'}`}
               onClick={() => setActiveSection('base')}
             >
-              🗺️ Fonds
+              Fonds
             </button>
             <button
               className={`flex-1 px-3 py-2 text-xs font-medium transition-colors ${activeSection === 'ecoforestry' ? 'text-[#f5a623] border-b-2 border-[#f5a623]' : 'text-gray-400 hover:text-white'}`}
               onClick={() => setActiveSection('ecoforestry')}
             >
-              🌲 Écoforestier
+              Écoforestier
             </button>
             <button
               className={`flex-1 px-3 py-2 text-xs font-medium transition-colors ${activeSection === 'lidar' ? 'text-[#f5a623] border-b-2 border-[#f5a623]' : 'text-gray-400 hover:text-white'}`}
               onClick={() => setActiveSection('lidar')}
             >
-              🛰️ LiDAR
+              LiDAR
             </button>
           </div>
           
@@ -933,8 +933,8 @@ export const EcoforestryLayerControl = ({
                 <Badge className="bg-purple-600/20 text-purple-400 text-[9px]">Haute résolution</Badge>
               </div>
               <div className="bg-purple-900/20 border border-purple-700/30 rounded p-2 mb-3">
-                <p className="text-[10px] text-purple-300">
-                  📡 Données LiDAR aéroporté - Résolution 0,8 ha - Précision ±5-10m
+                <p className="text-[10px] text-purple-300 flex items-center gap-1">
+                  <SatelliteDish className="h-3 w-3" /> Données LiDAR aéroporté - Résolution 0,8 ha - Précision ±5-10m
                 </p>
               </div>
               {lidarLayers.map(layer => (

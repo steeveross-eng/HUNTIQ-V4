@@ -20,6 +20,7 @@
 import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import { Circle, CircleMarker, Polyline, Tooltip, useMap, Polygon } from 'react-leaflet';
 import { Badge } from '@/components/ui/badge';
+import { Star } from 'lucide-react';
 
 // Configuration des modules thématiques - Style "Dany Lavoie"
 // Couleurs vives et saturées pour contraste optimal sur carte topo
@@ -575,7 +576,7 @@ const MicroZone = ({ zone, isHovered, onHover, onLeave, showConcentric, isFavori
                       : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                   }`}
                 >
-                  {isFavorite ? '⭐ Retirer des favoris' : '☆ Ajouter aux favoris'}
+                  {isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}
                 </button>
               </div>
             )}

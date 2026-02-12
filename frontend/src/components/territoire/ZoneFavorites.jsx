@@ -520,8 +520,8 @@ export const FavoritesList = ({
       {favorites.length === 0 ? (
         <div className="text-center py-4 text-gray-500 text-xs">
           Aucune zone favorite
-          <div className="text-[10px] mt-1">
-            Cliquez sur ⭐ pour ajouter une zone
+          <div className="text-[10px] mt-1 flex items-center justify-center gap-1">
+            Cliquez sur <Star className="h-3 w-3 text-yellow-400" /> pour ajouter une zone
           </div>
         </div>
       ) : (
