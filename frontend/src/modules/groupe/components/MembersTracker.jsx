@@ -129,12 +129,20 @@ const getAccuracyCircleStyle = (member) => {
 const MemberMarker = ({ member, onCenterMap, showAccuracy = true, showTrail = false, trail = [] }) => {
   const { t } = useLanguage();
   
+  // Memoize icon before any conditional returns
+  const icon = useMemo(() => {
+    if (!member.position || !member.position.lat || !member.position.lng) {
+      return null;
+    }
+    return createMemberIcon(member);
+  }, [member]);
+  
+  // Early return if no valid position
   if (!member.position || !member.position.lat || !member.position.lng) {
     return null;
   }
   
   const position = [member.position.lat, member.position.lng];
-  const icon = useMemo(() => createMemberIcon(member), [member]);
   const StatusIcon = STATUS_ICONS[member.status] || Navigation;
   
   return (
