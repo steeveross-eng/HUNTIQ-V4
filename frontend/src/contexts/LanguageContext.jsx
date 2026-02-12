@@ -2482,6 +2482,11 @@ export const TRANSLATIONS = {
     weather_wind_label: "Wind",
     weather_pressure_label: "Pressure",
     
+    // WeatherForecast - Lot B
+    forecast_unavailable: "Forecast unavailable",
+    forecast_days_title: "{days}-day forecast",
+    forecast_day_prefix: "D+",
+    
     // Networking - Extended Lot 5
     feed_liked: "Liked!",
     feed_removed: "Removed",
