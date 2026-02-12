@@ -38,6 +38,7 @@ export const WeatherWidget = ({
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -62,13 +63,13 @@ export const WeatherWidget = ({
 
   if (loading) {
     return (
-      <Card className="bg-slate-800 border-slate-700">
+      <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-primary)]" data-testid="weather-widget-loading">
         <CardContent className="p-4">
           <div className="animate-pulse flex items-center gap-3">
-            <div className="w-12 h-12 bg-slate-700 rounded-full" />
+            <div className="w-12 h-12 bg-[var(--bionic-gray-700)] rounded-full" />
             <div className="flex-1 space-y-2">
-              <div className="h-4 bg-slate-700 rounded w-24" />
-              <div className="h-3 bg-slate-700 rounded w-16" />
+              <div className="h-4 bg-[var(--bionic-gray-700)] rounded w-24" />
+              <div className="h-3 bg-[var(--bionic-gray-700)] rounded w-16" />
             </div>
           </div>
         </CardContent>
@@ -78,10 +79,10 @@ export const WeatherWidget = ({
 
   if (error || !weather) {
     return (
-      <Card className="bg-slate-800 border-slate-700">
-        <CardContent className="p-4 text-center text-slate-400">
-          <CloudSun className="h-8 w-8 text-[#f5a623] mx-auto" />
-          <p className="text-sm mt-2">Météo indisponible</p>
+      <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-primary)]" data-testid="weather-widget-error">
+        <CardContent className="p-4 text-center text-[var(--bionic-text-secondary)]">
+          <CloudSun className="h-8 w-8 text-[var(--bionic-gold-primary)] mx-auto" />
+          <p className="text-sm mt-2">{t('weather_unavailable')}</p>
         </CardContent>
       </Card>
     );
@@ -89,27 +90,27 @@ export const WeatherWidget = ({
 
   if (compact) {
     return (
-      <div className="flex items-center gap-2 bg-slate-800/80 rounded-lg px-3 py-2">
+      <div className="flex items-center gap-2 bg-[var(--bionic-bg-card)]/80 rounded-lg px-3 py-2" data-testid="weather-widget-compact">
         <WeatherIcon condition={weather.condition} className="h-6 w-6" />
         <div>
-          <span className="text-white font-bold">{weather.temperature || '--'}°C</span>
-          <span className="text-slate-400 text-xs ml-2">{weather.condition}</span>
+          <span className="text-[var(--bionic-text-primary)] font-bold">{weather.temperature || '--'}°C</span>
+          <span className="text-[var(--bionic-text-secondary)] text-xs ml-2">{weather.condition}</span>
         </div>
       </div>
     );
   }
 
   return (
-    <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700">
+    <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-primary)]" data-testid="weather-widget">
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <WeatherIcon condition={weather.condition} className="h-10 w-10" />
             <div>
-              <div className="text-3xl font-bold text-white">
+              <div className="text-3xl font-bold text-[var(--bionic-text-primary)]">
                 {weather.temperature || '--'}°C
               </div>
-              <div className="text-slate-400 text-sm capitalize">
+              <div className="text-[var(--bionic-text-secondary)] text-sm capitalize">
                 {weather.condition || 'N/A'}
               </div>
             </div>
@@ -118,20 +119,20 @@ export const WeatherWidget = ({
           <div className="text-right space-y-1">
             {weather.humidity !== undefined && (
               <div className="text-sm">
-                <span className="text-slate-400">Humidité:</span>
-                <span className="text-blue-400 ml-2">{weather.humidity}%</span>
+                <span className="text-[var(--bionic-text-secondary)]">{t('weather_humidity_label')}:</span>
+                <span className="text-[var(--bionic-blue-light)] ml-2">{weather.humidity}%</span>
               </div>
             )}
             {weather.wind_speed !== undefined && (
               <div className="text-sm">
-                <span className="text-slate-400">Vent:</span>
-                <span className="text-cyan-400 ml-2">{weather.wind_speed} km/h</span>
+                <span className="text-[var(--bionic-text-secondary)]">{t('weather_wind_label')}:</span>
+                <span className="text-[var(--bionic-cyan-primary)] ml-2">{weather.wind_speed} km/h</span>
               </div>
             )}
             {weather.pressure !== undefined && (
               <div className="text-sm">
-                <span className="text-slate-400">Pression:</span>
-                <span className="text-purple-400 ml-2">{weather.pressure} hPa</span>
+                <span className="text-[var(--bionic-text-secondary)]">{t('weather_pressure_label')}:</span>
+                <span className="text-[var(--bionic-purple-primary)] ml-2">{weather.pressure} hPa</span>
               </div>
             )}
           </div>
