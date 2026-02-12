@@ -69,14 +69,18 @@ export const StrategyPanel = ({
           disabled={loading}
           className="w-full mb-4 bg-emerald-600 hover:bg-emerald-500"
         >
-          {loading ? '⏳ Analyse...' : '✨ Obtenir la recommandation IA'}
+          {loading ? (
+            <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Analyse...</>
+          ) : (
+            <><Target className="w-4 h-4 mr-2" /> Obtenir la recommandation IA</>
+          )}
         </Button>
 
         {/* Recommended strategy */}
         {recommended && (
           <div className="mb-4 p-3 bg-emerald-900/30 rounded-lg border border-emerald-700">
             <h4 className="text-emerald-400 font-medium text-sm mb-2 flex items-center gap-2">
-              <span>🏆</span>
+              <Target className="w-4 h-4" />
               Stratégie Recommandée
             </h4>
             <StrategyCard 
