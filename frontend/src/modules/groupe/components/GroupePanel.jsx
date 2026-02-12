@@ -102,7 +102,6 @@ export const GroupePanel = ({
   const [activeTab, setActiveTab] = useState('members');
   const [isExpanded, setIsExpanded] = useState(!embedded);
   const [activities, setActivities] = useState([]);
-  const [alerts, setAlerts] = useState([]);
 
   // Use the tracking hook for real data
   const {
@@ -121,14 +120,32 @@ export const GroupePanel = ({
     updateInterval: 30000
   });
 
-  // Simulated activities (will be replaced by real data in Phase 4)
+  // Use the alerts hook for smart alerts
+  const {
+    alerts,
+    unreadCount: alertUnreadCount,
+    settings: alertSettings,
+    isMuted,
+    visibleAlerts,
+    markAsRead: markAlertAsRead,
+    markAllAsRead: markAllAlertsAsRead,
+    dismissAlert,
+    clearAllAlerts,
+    toggleMute,
+    updateSettings: updateAlertSettings
+  } = useGroupeAlerts(userId, groupId, {
+    members,
+    myPosition: null, // Will be connected to user position later
+    checkInterval: 15000
+  });
+
+  // Simulated activities
   useEffect(() => {
     setActivities([
       { id: '1', type: 'waypoint', user: 'Jean D.', message: 'groupe_activity_waypoint_added', time: new Date() },
       { id: '2', type: 'movement', user: 'Pierre M.', message: 'groupe_activity_entered_sector', time: new Date(Date.now() - 180000) },
       { id: '3', type: 'observation', user: 'Marc L.', message: 'groupe_activity_observation', time: new Date(Date.now() - 420000) }
     ]);
-    setAlerts([]);
   }, [groupId]);
 
   // Handle tracking toggle
