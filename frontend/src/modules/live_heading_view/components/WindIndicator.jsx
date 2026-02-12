@@ -45,8 +45,8 @@ export const WindIndicator = ({ wind, userHeading = 0 }) => {
           <div className="text-white font-medium">
             {wind.speed_kmh.toFixed(0)} km/h
           </div>
-          <div className={`text-xs ${wind.favorable ? 'text-emerald-400' : 'text-amber-400'}`}>
-            {wind.favorable ? '✓ Favorable' : '⚠ Attention'}
+          <div className={`text-xs flex items-center gap-1 ${wind.favorable ? 'text-emerald-400' : 'text-amber-400'}`}>
+            {wind.favorable ? <><Check className="w-3 h-3" /> Favorable</> : <><AlertTriangle className="w-3 h-3" /> Attention</>}
           </div>
         </div>
       </div>
