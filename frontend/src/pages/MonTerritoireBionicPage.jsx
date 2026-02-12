@@ -606,7 +606,6 @@ const MonTerritoireBionicPage = () => {
   // ============================================
   // CARTE ÉCOFORESTIÈRE - État des couches
   // ============================================
-  const [showEcoforestryPanel, setShowEcoforestryPanel] = useState(false);
   const [activeEcoLayers, setActiveEcoLayers] = useState({
     baseMap: 'bionicPremium', // Fond de carte BIONIC Premium par défaut
     peuplements: false,
