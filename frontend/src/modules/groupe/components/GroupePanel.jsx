@@ -1,13 +1,14 @@
 /**
  * GroupePanel - Panneau principal des fonctionnalités GROUPE
  * BIONIC Design System compliant
- * Version: 1.4.0 - Phase 5
+ * Version: 1.5.0 - Phase 6
  * 
  * Panneau regroupant les fonctionnalités collaboratives.
  * Intégré avec useGroupeTracking pour le tracking temps réel.
  * Intégré avec GroupChat pour la messagerie temps réel.
  * Intégré avec SafetyStatus pour la gestion de sécurité.
  * Intégré avec SmartAlerts pour les alertes intelligentes.
+ * SessionHeatmap (Phase 6) intégré via carte principale.
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '../../../contexts/LanguageContext';
