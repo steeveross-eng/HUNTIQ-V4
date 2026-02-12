@@ -24,7 +24,7 @@ import { toast } from 'sonner';
 import { useLanguage } from '../contexts/LanguageContext';
 import { 
   MapPin, ExternalLink, Filter, RefreshCw, Loader2, Star, 
-  Home, Trees, EyeOff, BarChart3 
+  Home, Trees, EyeOff, BarChart3, Flame, Lock, AlertTriangle, PauseCircle
 } from 'lucide-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -156,8 +156,8 @@ const AdminGeoPage = () => {
     return classes[category] || 'bg-gray-500';
   };
 
-  // Render stats card
-  const StatsCard = ({ title, value, icon, color = 'blue' }) => (
+  // Render stats card with icon component
+  const StatsCard = ({ title, value, Icon, color = 'blue' }) => (
     <Card className="bg-slate-800/50 border-slate-700">
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
@@ -165,7 +165,7 @@ const AdminGeoPage = () => {
             <p className="text-slate-400 text-sm">{title}</p>
             <p className={`text-2xl font-bold text-${color}-400`}>{value}</p>
           </div>
-          <span className="text-3xl">{icon}</span>
+          <Icon className={`h-8 w-8 text-${color}-400`} />
         </div>
       </CardContent>
     </Card>
@@ -183,14 +183,14 @@ const AdminGeoPage = () => {
     <div className="min-h-screen bg-slate-900 p-6" data-testid="admin-geo-page">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-white mb-2">
-          🔒 Espace Admin Géospatial
+        <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-2">
+          <Lock className="h-8 w-8 text-[#f5a623]" /> Espace Admin Géospatial
         </h1>
         <p className="text-slate-400">
           Administration des hotspots système • Phase P6.5
         </p>
-        <p className="text-amber-400 text-sm mt-1">
-          ⚠️ Les hotspots personnels des utilisateurs sont exclus (confidentialité)
+        <p className="text-amber-400 text-sm mt-1 flex items-center gap-1">
+          <AlertTriangle className="h-4 w-4" /> Les hotspots personnels des utilisateurs sont exclus (confidentialité)
         </p>
       </div>
 
@@ -199,31 +199,31 @@ const AdminGeoPage = () => {
         <StatsCard 
           title="Total Hotspots" 
           value={hotspots.length} 
-          icon="🔥"
+          Icon={Flame}
           color="red"
         />
         <StatsCard 
           title="Premium" 
           value={hotspotStats.premium || 0} 
-          icon="⭐"
+          Icon={Star}
           color="amber"
         />
         <StatsCard 
           title="Terre à louer" 
           value={hotspotStats.land_rental || 0} 
-          icon="🏠"
+          Icon={Home}
           color="emerald"
         />
         <StatsCard 
           title="Environnemental" 
           value={hotspotStats.environmental || 0} 
-          icon="🌲"
+          Icon={Trees}
           color="blue"
         />
         <StatsCard 
           title="Inactifs" 
           value={hotspotStats.inactive || 0} 
-          icon="⏸️"
+          Icon={PauseCircle}
           color="gray"
         />
       </div>
@@ -234,8 +234,8 @@ const AdminGeoPage = () => {
           <TabsTrigger value="overview" className="data-[state=active]:bg-blue-600">
             Vue d'ensemble
           </TabsTrigger>
-          <TabsTrigger value="hotspots" className="data-[state=active]:bg-red-600">
-            🔥 Hotspots
+          <TabsTrigger value="hotspots" className="data-[state=active]:bg-red-600 flex items-center gap-1">
+            <Flame className="h-4 w-4" /> Hotspots
           </TabsTrigger>
           <TabsTrigger value="map" className="data-[state=active]:bg-emerald-600">
             Carte
@@ -252,15 +252,18 @@ const AdminGeoPage = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {Object.entries(hotspotStats).map(([category, count]) => (
-                    <div key={category} className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xl">{CATEGORY_ICONS[category] || '📍'}</span>
-                        <span className="text-slate-300">{CATEGORY_LABELS[category] || category}</span>
+                  {Object.entries(hotspotStats).map(([category, count]) => {
+                    const IconComponent = CATEGORY_ICONS[category] || MapPin;
+                    return (
+                      <div key={category} className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <IconComponent className="h-5 w-5 text-slate-400" />
+                          <span className="text-slate-300">{CATEGORY_LABELS[category] || category}</span>
+                        </div>
+                        <Badge className={getCategoryBadgeClass(category)}>{count}</Badge>
                       </div>
-                      <Badge className={getCategoryBadgeClass(category)}>{count}</Badge>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
@@ -301,7 +304,9 @@ const AdminGeoPage = () => {
           <Card className="bg-slate-800/50 border-slate-700">
             <CardHeader>
               <CardTitle className="text-white flex items-center justify-between">
-                <span>🔥 Hotspots Administratifs ({hotspots.length})</span>
+                <span className="flex items-center gap-2">
+                  <Flame className="h-5 w-5 text-red-400" /> Hotspots Administratifs ({hotspots.length})
+                </span>
                 <div className="flex items-center gap-2">
                   <Filter className="h-4 w-4 text-slate-400" />
                   <select
@@ -340,14 +345,16 @@ const AdminGeoPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {hotspots.map((hotspot) => (
-                      <tr key={hotspot.id} className="border-b border-slate-700/50 hover:bg-slate-700/30">
-                        <td className="py-4">
-                          <div className="flex items-center gap-2">
-                            <span className="text-xl">{CATEGORY_ICONS[hotspot.category] || '📍'}</span>
-                            <span className="text-white font-medium">{hotspot.name}</span>
-                          </div>
-                        </td>
+                    {hotspots.map((hotspot) => {
+                      const IconComponent = CATEGORY_ICONS[hotspot.category] || MapPin;
+                      return (
+                        <tr key={hotspot.id} className="border-b border-slate-700/50 hover:bg-slate-700/30">
+                          <td className="py-4">
+                            <div className="flex items-center gap-2">
+                              <IconComponent className="h-5 w-5 text-slate-400" />
+                              <span className="text-white font-medium">{hotspot.name}</span>
+                            </div>
+                          </td>
                         <td className="py-4">
                           <Badge className={getCategoryBadgeClass(hotspot.category)}>
                             {hotspot.category_label}
@@ -386,7 +393,8 @@ const AdminGeoPage = () => {
                           </Button>
                         </td>
                       </tr>
-                    ))}
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
