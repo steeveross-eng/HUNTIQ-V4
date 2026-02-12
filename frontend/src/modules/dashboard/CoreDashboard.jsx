@@ -8,7 +8,7 @@ import { Button } from '../../components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
 import { Badge } from '../../components/ui/badge';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { BarChart3, Cloud, FlaskConical, Target, Bot, Loader2, Beef, Gem, CircleDot, Timer } from 'lucide-react';
+import { BarChart3, Cloud, FlaskConical, Target, Bot, Loader2, Beef, Gem, CircleDot, Timer, Lightbulb } from 'lucide-react';
 
 // Core Module Imports
 import { NutritionAnalyzer, NutritionScore, NutritionCard } from '../nutrition';
@@ -331,7 +331,7 @@ export const CoreDashboard = ({
               <Card className="bg-slate-800 border-slate-700">
                 <CardHeader>
                   <CardTitle className="text-white flex items-center gap-2">
-                    <span>🎯</span>
+                    <Target className="h-5 w-5 text-[#f5a623]" />
                     Score Nutritionnel
                   </CardTitle>
                 </CardHeader>
@@ -387,7 +387,7 @@ export const CoreDashboard = ({
               <Card className="bg-gradient-to-br from-emerald-900/30 to-slate-900 border-emerald-700/50">
                 <CardContent className="p-4">
                   <h4 className="text-emerald-400 font-medium mb-2 flex items-center gap-2">
-                    <span>💡</span>
+                    <Lightbulb className="h-4 w-4" />
                     Conseil du jour
                   </h4>
                   <p className="text-slate-300 text-sm">
