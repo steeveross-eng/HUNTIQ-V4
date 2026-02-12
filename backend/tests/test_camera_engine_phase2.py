@@ -11,8 +11,18 @@ Tests automatisés obligatoires:
 """
 import pytest
 import base64
+import sys
+import os
+
+# Set environment variables for testing
+os.environ.setdefault('JWT_SECRET_KEY', 'test_secret_key_for_testing')
+os.environ.setdefault('MONGO_URL', 'mongodb://localhost:27017')
+os.environ.setdefault('DB_NAME', 'huntiq_test')
+
 from datetime import datetime
 
+# Import directly from phase2_services module to avoid router imports
+sys.path.insert(0, '/app/backend')
 from modules.camera_engine.v1.phase2_services import (
     AdvancedExifService,
     ImageValidationService,
