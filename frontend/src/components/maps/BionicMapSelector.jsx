@@ -1,92 +1,106 @@
 /**
  * BionicMapSelector - Sélecteur de cartes premium BIONIC TACTICAL
+ * BIONIC Design System compliant
+ * Version: 2.0.0 - Refactoring UX liste verticale
+ * 
  * Permet de choisir parmi les 7 types de cartes disponibles
+ * RÈGLE: Un seul basemap actif à la fois, couches superposables au-dessus
  */
 
 import React, { useState } from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { 
-  Map, Layers, ChevronDown, ChevronUp, Check, 
-  Satellite, Mountain, Droplets, TreePine, Route, Grid3X3,
-  Eye, EyeOff, Settings, Compass
+  Map, ChevronDown, ChevronUp, Check, 
+  Satellite, Mountain, Droplets, TreePine, Route,
+  Settings
 } from 'lucide-react';
 import { 
   MAP_TYPES, 
   MAP_CONFIGS, 
-  MAP_DISPLAY_ORDER, 
-  MAP_CATEGORIES 
+  MAP_DISPLAY_ORDER
 } from '@/config/mapSources';
 
 // Icônes personnalisées pour chaque type de carte
 const MAP_ICONS = {
   [MAP_TYPES.BIONIC_PREMIUM]: () => (
-    <div className="w-5 h-5 rounded bg-gradient-to-br from-[#F5A623] to-[#FF8F00] flex items-center justify-center">
-      <span className="text-black text-[10px] font-black">B</span>
+    <div className="w-5 h-5 rounded bg-gradient-to-br from-[var(--bionic-gold-primary)] to-[var(--bionic-gold-dark)] flex items-center justify-center flex-shrink-0">
+      <span className="text-[var(--bionic-bg-primary)] text-[10px] font-black">B</span>
     </div>
   ),
-  [MAP_TYPES.ECOFORESTRY]: () => <TreePine className="w-5 h-5 text-green-500" />,
-  [MAP_TYPES.SATELLITE]: () => <Satellite className="w-5 h-5 text-blue-400" />,
-  [MAP_TYPES.IQHO]: () => <Droplets className="w-5 h-5 text-cyan-400" />,
+  [MAP_TYPES.ECOFORESTRY]: () => <TreePine className="w-5 h-5 text-[var(--bionic-green-primary)] flex-shrink-0" />,
+  [MAP_TYPES.SATELLITE]: () => <Satellite className="w-5 h-5 text-[var(--bionic-blue-light)] flex-shrink-0" />,
+  [MAP_TYPES.IQHO]: () => <Droplets className="w-5 h-5 text-[var(--bionic-cyan-primary)] flex-shrink-0" />,
   [MAP_TYPES.BATHYMETRY]: () => (
-    <div className="w-5 h-5 rounded bg-gradient-to-b from-cyan-400 to-blue-700 flex items-center justify-center">
+    <div className="w-5 h-5 rounded bg-gradient-to-b from-[var(--bionic-cyan-primary)] to-[var(--bionic-blue-primary)] flex items-center justify-center flex-shrink-0">
       <span className="text-white text-[10px] font-bold">~</span>
     </div>
   ),
-  [MAP_TYPES.FOREST_ROADS]: () => <Route className="w-5 h-5 text-orange-400" />,
-  [MAP_TYPES.TOPO_ADVANCED]: () => <Mountain className="w-5 h-5 text-purple-400" />
+  [MAP_TYPES.FOREST_ROADS]: () => <Route className="w-5 h-5 text-[var(--bionic-gold-primary)] flex-shrink-0" />,
+  [MAP_TYPES.TOPO_ADVANCED]: () => <Mountain className="w-5 h-5 text-[var(--bionic-purple-primary)] flex-shrink-0" />
 };
 
 /**
- * Carte individuelle dans le sélecteur
+ * Item de liste pour un type de carte
  */
-const MapTypeCard = ({ 
+const MapTypeListItem = ({ 
   mapType, 
   config, 
   isSelected, 
-  onClick,
-  compact = false 
+  onClick
 }) => {
+  const { t } = useLanguage();
   const IconComponent = MAP_ICONS[mapType];
   
   return (
     <button
       onClick={() => onClick(mapType)}
       className={`
-        relative flex ${compact ? 'flex-row items-center gap-2 p-2' : 'flex-col items-center p-3'}
-        rounded-lg border transition-all duration-200
+        w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200
         ${isSelected 
-          ? 'border-[#F5A623] bg-[#F5A623]/10 shadow-[0_0_15px_rgba(245,166,35,0.2)]' 
-          : 'border-white/10 bg-black/40 hover:border-white/30 hover:bg-white/5'
+          ? 'bg-[var(--bionic-gold-muted)] border border-[var(--bionic-gold-primary)]/50' 
+          : 'bg-[var(--bionic-bg-hover)] border border-transparent hover:border-[var(--bionic-border-secondary)] hover:bg-[var(--bionic-bg-card)]'
         }
       `}
       data-testid={`map-type-${mapType}`}
     >
-      {/* Badge Premium */}
-      {config.isPremium && !compact && (
-        <span className="absolute -top-1 -right-1 bg-gradient-to-r from-[#F5A623] to-[#FF8F00] text-black text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">
-          Pro
-        </span>
-      )}
-      
       {/* Icône */}
-      <div className={`${compact ? '' : 'mb-2'}`}>
+      <div className="flex-shrink-0">
         {IconComponent && <IconComponent />}
       </div>
       
-      {/* Nom */}
-      <span className={`
-        text-center font-medium uppercase tracking-wider
-        ${compact ? 'text-[11px]' : 'text-[10px]'}
-        ${isSelected ? 'text-[#F5A623]' : 'text-gray-300'}
-      `}>
-        {compact ? config.shortName : config.name}
-      </span>
+      {/* Contenu */}
+      <div className="flex-1 min-w-0 text-left">
+        <div className="flex items-center gap-2">
+          <span className={`
+            text-sm font-medium truncate
+            ${isSelected ? 'text-[var(--bionic-gold-primary)]' : 'text-[var(--bionic-text-primary)]'}
+          `}>
+            {config.name}
+          </span>
+          
+          {/* Badge PRO */}
+          {config.isPremium && (
+            <span className="flex-shrink-0 bg-gradient-to-r from-[var(--bionic-gold-primary)] to-[var(--bionic-gold-dark)] text-[var(--bionic-bg-primary)] text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">
+              Pro
+            </span>
+          )}
+        </div>
+        
+        {/* Description courte */}
+        {config.description && (
+          <p className={`
+            text-[11px] truncate mt-0.5
+            ${isSelected ? 'text-[var(--bionic-gold-light)]' : 'text-[var(--bionic-text-muted)]'}
+          `}>
+            {config.description}
+          </p>
+        )}
+      </div>
       
-      {/* Indicateur de sélection */}
+      {/* Checkmark pour sélection */}
       {isSelected && (
-        <div className={`
-          ${compact ? 'ml-auto' : 'absolute bottom-1 right-1'}
-        `}>
-          <Check className="w-3 h-3 text-[#F5A623]" />
+        <div className="flex-shrink-0">
+          <Check className="w-4 h-4 text-[var(--bionic-gold-primary)]" />
         </div>
       )}
     </button>
@@ -105,52 +119,50 @@ const BionicMapSelector = ({
   showOptions = true,
   className = ''
 }) => {
+  const { t } = useLanguage();
   const [isExpanded, setIsExpanded] = useState(variant === 'panel');
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
 
   const currentConfig = MAP_CONFIGS[currentMapType];
 
-  // Rendu en mode dropdown
+  // Rendu en mode dropdown (liste déroulante)
   if (variant === 'dropdown') {
     return (
       <div className={`relative ${className}`}>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center gap-2 px-3 py-2 bg-black/80 backdrop-blur-xl border border-white/10 rounded-lg hover:border-[#F5A623]/30 transition-colors"
+          className="flex items-center gap-2 px-3 py-2 bg-[var(--bionic-bg-card)] border border-[var(--bionic-border-primary)] rounded-lg hover:border-[var(--bionic-gold-primary)]/50 transition-colors"
           data-testid="map-selector-dropdown"
         >
           {MAP_ICONS[currentMapType] && React.createElement(MAP_ICONS[currentMapType])}
-          <span className="text-white text-sm font-medium">{currentConfig?.shortName}</span>
-          <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+          <span className="text-[var(--bionic-text-primary)] text-sm font-medium">{currentConfig?.shortName}</span>
+          <ChevronDown className={`w-4 h-4 text-[var(--bionic-text-secondary)] transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
         </button>
         
         {isExpanded && (
-          <div className="absolute top-full left-0 mt-2 w-64 bg-black/95 backdrop-blur-xl border border-white/10 rounded-lg shadow-xl z-50 p-2">
-            <div className="grid grid-cols-2 gap-2">
-              {MAP_DISPLAY_ORDER.map(mapType => (
-                <MapTypeCard
-                  key={mapType}
-                  mapType={mapType}
-                  config={MAP_CONFIGS[mapType]}
-                  isSelected={currentMapType === mapType}
-                  onClick={(type) => {
-                    onMapTypeChange(type);
-                    setIsExpanded(false);
-                  }}
-                  compact
-                />
-              ))}
-            </div>
+          <div className="absolute top-full left-0 mt-2 w-72 bg-[var(--bionic-bg-secondary)] border border-[var(--bionic-border-primary)] rounded-lg shadow-xl z-50 p-2 space-y-1">
+            {MAP_DISPLAY_ORDER.map(mapType => (
+              <MapTypeListItem
+                key={mapType}
+                mapType={mapType}
+                config={MAP_CONFIGS[mapType]}
+                isSelected={currentMapType === mapType}
+                onClick={(type) => {
+                  onMapTypeChange(type);
+                  setIsExpanded(false);
+                }}
+              />
+            ))}
           </div>
         )}
       </div>
     );
   }
 
-  // Rendu en mode compact (barre horizontale)
+  // Rendu en mode compact (barre horizontale avec icônes)
   if (variant === 'compact') {
     return (
-      <div className={`flex items-center gap-1 p-1 bg-black/60 backdrop-blur-xl border border-white/10 rounded-lg ${className}`}>
+      <div className={`flex items-center gap-1 p-1 bg-[var(--bionic-bg-card)] border border-[var(--bionic-border-primary)] rounded-lg ${className}`}>
         {MAP_DISPLAY_ORDER.map(mapType => {
           const IconComponent = MAP_ICONS[mapType];
           return (
@@ -160,8 +172,8 @@ const BionicMapSelector = ({
               className={`
                 p-2 rounded transition-all
                 ${currentMapType === mapType 
-                  ? 'bg-[#F5A623]/20 border border-[#F5A623]/50' 
-                  : 'hover:bg-white/10'
+                  ? 'bg-[var(--bionic-gold-muted)] border border-[var(--bionic-gold-primary)]/50' 
+                  : 'hover:bg-[var(--bionic-bg-hover)]'
                 }
               `}
               title={MAP_CONFIGS[mapType].name}
@@ -175,50 +187,39 @@ const BionicMapSelector = ({
     );
   }
 
-  // Rendu en mode panel (complet)
+  // Rendu en mode panel (liste verticale complète)
   return (
-    <div className={`bg-black/80 backdrop-blur-xl border border-white/10 rounded-lg shadow-xl ${className}`}>
+    <div className={`bg-[var(--bionic-bg-card)] border border-[var(--bionic-border-primary)] rounded-lg ${className}`}>
       {/* Header */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between p-3 border-b border-white/10 hover:bg-white/5 transition-colors"
+        className="w-full flex items-center justify-between p-3 border-b border-[var(--bionic-border-secondary)] hover:bg-[var(--bionic-bg-hover)] transition-colors rounded-t-lg"
       >
         <div className="flex items-center gap-2">
-          <Map className="w-4 h-4 text-[#F5A623]" />
-          <span className="text-white text-sm font-semibold uppercase tracking-wider">
-            Type de Carte
+          <Map className="w-4 h-4 text-[var(--bionic-gold-primary)]" />
+          <span className="text-[var(--bionic-text-primary)] text-sm font-semibold uppercase tracking-wider">
+            {t('map_selector_title')}
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-[#F5A623] text-xs font-medium">
+          <span className="text-[var(--bionic-gold-primary)] text-xs font-medium">
             {currentConfig?.shortName}
           </span>
           {isExpanded ? (
-            <ChevronUp className="w-4 h-4 text-gray-400" />
+            <ChevronUp className="w-4 h-4 text-[var(--bionic-text-secondary)]" />
           ) : (
-            <ChevronDown className="w-4 h-4 text-gray-400" />
+            <ChevronDown className="w-4 h-4 text-[var(--bionic-text-secondary)]" />
           )}
         </div>
       </button>
 
-      {/* Contenu expandable */}
+      {/* Contenu expandable - Liste verticale */}
       {isExpanded && (
         <div className="p-3 space-y-3">
-          {/* Grille des cartes */}
-          <div className="grid grid-cols-4 gap-2">
-            {MAP_DISPLAY_ORDER.slice(0, 4).map(mapType => (
-              <MapTypeCard
-                key={mapType}
-                mapType={mapType}
-                config={MAP_CONFIGS[mapType]}
-                isSelected={currentMapType === mapType}
-                onClick={onMapTypeChange}
-              />
-            ))}
-          </div>
-          <div className="grid grid-cols-3 gap-2">
-            {MAP_DISPLAY_ORDER.slice(4).map(mapType => (
-              <MapTypeCard
+          {/* Liste des types de cartes */}
+          <div className="space-y-1">
+            {MAP_DISPLAY_ORDER.map(mapType => (
+              <MapTypeListItem
                 key={mapType}
                 mapType={mapType}
                 config={MAP_CONFIGS[mapType]}
@@ -228,27 +229,23 @@ const BionicMapSelector = ({
             ))}
           </div>
 
-          {/* Description de la carte sélectionnée */}
-          <div className="flex items-center gap-2 px-2 py-1.5 bg-[#F5A623]/10 rounded border border-[#F5A623]/20">
-            <div className="flex-shrink-0">
-              {MAP_ICONS[currentMapType] && React.createElement(MAP_ICONS[currentMapType])}
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-white text-xs font-medium">{currentConfig?.name}</div>
-              <div className="text-gray-400 text-[10px] truncate">{currentConfig?.description}</div>
-            </div>
+          {/* Note architecture */}
+          <div className="px-2 py-1.5 bg-[var(--bionic-blue-muted)] rounded border border-[var(--bionic-blue-primary)]/30">
+            <p className="text-[var(--bionic-blue-light)] text-[10px]">
+              {t('map_selector_basemap_note')}
+            </p>
           </div>
 
           {/* Options */}
           {showOptions && (
             <>
-              <div className="border-t border-white/10 pt-3">
+              <div className="border-t border-[var(--bionic-border-secondary)] pt-3">
                 <button
                   onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}
-                  className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+                  className="flex items-center gap-2 text-[var(--bionic-text-secondary)] hover:text-[var(--bionic-text-primary)] transition-colors"
                 >
                   <Settings className="w-3 h-3" />
-                  <span className="text-[10px] uppercase tracking-wider">Options</span>
+                  <span className="text-[10px] uppercase tracking-wider">{t('map_selector_options')}</span>
                   <ChevronDown className={`w-3 h-3 transition-transform ${showAdvancedOptions ? 'rotate-180' : ''}`} />
                 </button>
               </div>
@@ -257,13 +254,13 @@ const BionicMapSelector = ({
                 <div className="space-y-2 pt-2">
                   {/* Labels */}
                   <label className="flex items-center justify-between cursor-pointer group">
-                    <span className="text-gray-400 text-[11px] group-hover:text-white transition-colors">
-                      Labels de terrain
+                    <span className="text-[var(--bionic-text-secondary)] text-[11px] group-hover:text-[var(--bionic-text-primary)] transition-colors">
+                      {t('map_option_labels')}
                     </span>
                     <button
                       onClick={() => onOptionsChange?.({ showLabels: !mapOptions.showLabels })}
                       className={`w-8 h-4 rounded-full transition-colors ${
-                        mapOptions.showLabels ? 'bg-[#F5A623]' : 'bg-gray-600'
+                        mapOptions.showLabels ? 'bg-[var(--bionic-gold-primary)]' : 'bg-[var(--bionic-gray-600)]'
                       }`}
                     >
                       <div className={`w-3 h-3 rounded-full bg-white shadow transition-transform ${
@@ -274,13 +271,13 @@ const BionicMapSelector = ({
 
                   {/* Coordonnées */}
                   <label className="flex items-center justify-between cursor-pointer group">
-                    <span className="text-gray-400 text-[11px] group-hover:text-white transition-colors">
-                      Coordonnées GPS
+                    <span className="text-[var(--bionic-text-secondary)] text-[11px] group-hover:text-[var(--bionic-text-primary)] transition-colors">
+                      {t('map_option_coordinates')}
                     </span>
                     <button
                       onClick={() => onOptionsChange?.({ showCoordinates: !mapOptions.showCoordinates })}
                       className={`w-8 h-4 rounded-full transition-colors ${
-                        mapOptions.showCoordinates ? 'bg-[#F5A623]' : 'bg-gray-600'
+                        mapOptions.showCoordinates ? 'bg-[var(--bionic-gold-primary)]' : 'bg-[var(--bionic-gray-600)]'
                       }`}
                     >
                       <div className={`w-3 h-3 rounded-full bg-white shadow transition-transform ${
@@ -291,13 +288,13 @@ const BionicMapSelector = ({
 
                   {/* Auto-opacité zones */}
                   <label className="flex items-center justify-between cursor-pointer group">
-                    <span className="text-gray-400 text-[11px] group-hover:text-white transition-colors">
-                      Opacité zones auto
+                    <span className="text-[var(--bionic-text-secondary)] text-[11px] group-hover:text-[var(--bionic-text-primary)] transition-colors">
+                      {t('map_option_auto_opacity')}
                     </span>
                     <button
                       onClick={() => onOptionsChange?.({ autoZoneOpacity: !mapOptions.autoZoneOpacity })}
                       className={`w-8 h-4 rounded-full transition-colors ${
-                        mapOptions.autoZoneOpacity ? 'bg-[#F5A623]' : 'bg-gray-600'
+                        mapOptions.autoZoneOpacity ? 'bg-[var(--bionic-gold-primary)]' : 'bg-[var(--bionic-gray-600)]'
                       }`}
                     >
                       <div className={`w-3 h-3 rounded-full bg-white shadow transition-transform ${
@@ -316,4 +313,4 @@ const BionicMapSelector = ({
 };
 
 export default BionicMapSelector;
-export { MapTypeCard, MAP_ICONS };
+export { MapTypeListItem, MAP_ICONS };
