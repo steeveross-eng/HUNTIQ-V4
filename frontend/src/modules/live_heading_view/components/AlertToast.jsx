@@ -2,6 +2,7 @@
  * AlertToast - Alert notification toast
  */
 import React, { useEffect, useState } from 'react';
+import { Zap, MapPin, X } from 'lucide-react';
 
 export const AlertToast = ({ alert, onDismiss }) => {
   const [visible, setVisible] = useState(true);
@@ -43,7 +44,7 @@ export const AlertToast = ({ alert, onDismiss }) => {
     >
       <div className="flex items-start gap-3">
         {/* Icon */}
-        <span className="text-xl">{alert.icon || '⚡'}</span>
+        <Zap className="h-5 w-5 text-amber-400" />
         
         {/* Content */}
         <div className="flex-1 min-w-0">
@@ -56,8 +57,8 @@ export const AlertToast = ({ alert, onDismiss }) => {
           
           {/* Distance info */}
           {alert.distance_m && (
-            <div className="text-xs text-slate-400 mt-1">
-              📍 {Math.round(alert.distance_m)}m - Cap {Math.round(alert.bearing)}°
+            <div className="text-xs text-slate-400 mt-1 flex items-center gap-1">
+              <MapPin className="h-3 w-3" /> {Math.round(alert.distance_m)}m - Cap {Math.round(alert.bearing)}°
             </div>
           )}
         </div>
@@ -67,7 +68,7 @@ export const AlertToast = ({ alert, onDismiss }) => {
           className="text-slate-400 hover:text-white transition-colors"
           onClick={(e) => { e.stopPropagation(); onDismiss(); }}
         >
-          ✕
+          <X className="h-4 w-4" />
         </button>
       </div>
     </div>
