@@ -2582,6 +2582,9 @@ export const TRANSLATIONS = {
     groupe_member_online: "Online",
     groupe_member_offline: "Offline",
     groupe_member_recent: "Recently active",
+    groupe_no_members: "No members in this group",
+    groupe_view_on_map: "View on map",
+    groupe_no_position: "Position not available",
     
     // LegalTimeWidget - Lot D
     legaltime_loading: "Calculating legal hours...",
