@@ -495,6 +495,7 @@ const MapClickHandler = ({ onMapClick }) => {
 
 const MonTerritoireBionicPage = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   
   // Onglet actif
   const [activeTab, setActiveTab] = useState('carte');
