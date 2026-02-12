@@ -1,9 +1,11 @@
 /**
  * StrategyPanel - Main strategy recommendation panel
+ * BIONIC Design System compliant - No emojis
  */
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
+import { Target, Loader2 } from 'lucide-react';
 import { StrategyService } from '../StrategyService';
 import { StrategyCard } from './StrategyCard';
 
@@ -54,7 +56,7 @@ export const StrategyPanel = ({
       <CardHeader className="pb-3">
         <CardTitle className="text-lg text-white flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <span className="text-2xl">🎯</span>
+            <Target className="w-6 h-6 text-[var(--bionic-gold-primary)]" />
             Stratégies de Chasse
           </span>
           <span className="text-xs text-slate-400 capitalize">{species} • {season}</span>
