@@ -1,7 +1,7 @@
 /**
  * MODULE GROUPE - Exports centralisés
  * BIONIC Design System compliant
- * Version: 1.1.0 - Phase 3
+ * Version: 1.2.0 - Phase 3.5
  * 
  * Fonctionnalités collaboratives pour les sorties de chasse en équipe.
  */
@@ -13,11 +13,16 @@ export { GroupePanel } from './components/GroupePanel';
 // Components - Phase 3
 export { MembersTracker } from './components/MembersTracker';
 
+// Components - Phase 3.5
+export { GroupChat } from './components/GroupChat';
+
 // Hooks - Phase 3
 export { useGroupeTracking, TRACKING_STATUS } from './hooks/useGroupeTracking';
 
+// Hooks - Phase 3.5
+export { useGroupeChat, MESSAGE_TYPES, ALERT_TYPES, QUICK_MESSAGES } from './hooks/useGroupeChat';
+
 // Future exports (Phase 4+)
-// export { ActivityFeed } from './components/ActivityFeed';
 // export { SafetyStatus } from './components/SafetyStatus';
 // export { ShootingZones } from './components/ShootingZones';
 // export { SmartAlerts } from './components/SmartAlerts';
