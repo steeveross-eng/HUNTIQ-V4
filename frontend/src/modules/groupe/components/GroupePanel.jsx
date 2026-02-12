@@ -234,44 +234,54 @@ export const GroupePanel = ({
         <TabsContent value="members" className="p-4 m-0">
           <ScrollArea className="h-[400px]">
             <div className="space-y-3">
-              {members.map(member => (
-                <Card 
-                  key={member.id}
-                  className="bg-[var(--bionic-bg-hover)] border-[var(--bionic-border-secondary)] hover:border-[var(--bionic-gold-primary)] transition-colors cursor-pointer"
-                  data-testid={`member-${member.id}`}
-                >
-                  <CardContent className="p-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="relative">
-                          <div className="w-10 h-10 rounded-full bg-[var(--bionic-gray-700)] flex items-center justify-center text-[var(--bionic-text-primary)] font-medium">
-                            {member.name.charAt(0)}
+              {members.length === 0 ? (
+                <div className="text-center py-8 text-[var(--bionic-text-secondary)]">
+                  <Users className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                  <p className="text-sm">{t('groupe_no_members')}</p>
+                </div>
+              ) : (
+                members.map(member => (
+                  <Card 
+                    key={member.id}
+                    className="bg-[var(--bionic-bg-hover)] border-[var(--bionic-border-secondary)] hover:border-[var(--bionic-gold-primary)] transition-colors cursor-pointer"
+                    data-testid={`member-${member.id}`}
+                  >
+                    <CardContent className="p-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="relative">
+                            <div className="w-10 h-10 rounded-full bg-[var(--bionic-gray-700)] flex items-center justify-center text-[var(--bionic-text-primary)] font-medium">
+                              {member.name?.charAt(0) || '?'}
+                            </div>
+                            <span className="absolute bottom-0 right-0">
+                              <OnlineIndicator 
+                                isOnline={member.isOnline} 
+                                isRecent={member.isRecent}
+                              />
+                            </span>
                           </div>
-                          <span className="absolute bottom-0 right-0">
-                            <OnlineIndicator 
-                              isOnline={member.isOnline} 
-                              isRecent={!member.isOnline && member.lastUpdate && (Date.now() - new Date(member.lastUpdate).getTime()) < 300000}
-                            />
-                          </span>
+                          <div>
+                            <p className="text-sm text-[var(--bionic-text-primary)] font-medium">
+                              {member.name}
+                            </p>
+                            <MemberStatusBadge status={member.status} lastUpdate={member.lastUpdate} />
+                          </div>
                         </div>
-                        <div>
-                          <p className="text-sm text-[var(--bionic-text-primary)] font-medium">
-                            {member.name}
-                          </p>
-                          <MemberStatusBadge status={member.status} lastUpdate={member.lastUpdate} />
-                        </div>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleCenterOnMember(member.id)}
+                          disabled={!member.position}
+                          className="h-8 w-8 text-[var(--bionic-text-secondary)] hover:text-[var(--bionic-gold-primary)] disabled:opacity-30"
+                          title={member.position ? t('groupe_view_on_map') : t('groupe_no_position')}
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
                       </div>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 text-[var(--bionic-text-secondary)] hover:text-[var(--bionic-gold-primary)]"
-                      >
-                        <MapPin className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                ))
+              )}
             </div>
           </ScrollArea>
         </TabsContent>
