@@ -1,17 +1,18 @@
 /**
  * GroupePanel - Panneau principal des fonctionnalités GROUPE
  * BIONIC Design System compliant
- * Version: 1.1.0 - Phase 3
+ * Version: 1.2.0 - Phase 3.5
  * 
  * Panneau regroupant les fonctionnalités collaboratives.
  * Intégré avec useGroupeTracking pour le tracking temps réel.
+ * Intégré avec GroupChat pour la messagerie temps réel.
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { 
   Users, MapPin, Radio, Target, Navigation, Binoculars, Coffee,
   AlertTriangle, Activity, Bell, Shield, Clock, X, Maximize2,
-  Minimize2, RefreshCw, Settings, ChevronRight, Eye
+  Minimize2, RefreshCw, Settings, ChevronRight, Eye, MessageSquare
 } from 'lucide-react';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
@@ -19,15 +20,25 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui
 import { ScrollArea } from '../../../components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs';
 import { useGroupeTracking, TRACKING_STATUS } from '../hooks/useGroupeTracking';
+import { GroupChat } from './GroupChat';
 
 // Status configuration with BIONIC colors (using imported TRACKING_STATUS)
 const STATUS_CONFIG = TRACKING_STATUS;
+
+// Status icons mapping
+const STATUS_ICONS = {
+  hunting: Target,
+  moving: Navigation,
+  observing: Binoculars,
+  break: Coffee,
+  emergency: AlertTriangle
+};
 
 // Member status indicator
 const MemberStatusBadge = ({ status, lastUpdate }) => {
   const { t } = useLanguage();
   const config = STATUS_CONFIG[status] || STATUS_CONFIG.moving;
-  const StatusIcon = config.icon;
+  const StatusIcon = STATUS_ICONS[status] || Navigation;
   
   // Calculate time since last update
   const getTimeSince = (timestamp) => {
