@@ -1,7 +1,7 @@
 /**
  * WeatherWidget - Compact weather display
  * BIONIC Design System compliant
- * Version: 1.2.0 - Full BIONIC compliance (colors + i18n)
+ * Version: 2.0.0 - Full BIONIC compliance (colors + i18n) - Lot A Refactor
  */
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '../../../components/ui/card';
