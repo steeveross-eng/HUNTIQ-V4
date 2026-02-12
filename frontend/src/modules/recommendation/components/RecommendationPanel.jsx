@@ -1,11 +1,13 @@
 /**
  * RecommendationPanel - Product/Strategy recommendation display
+ * BIONIC Design System compliant - No emojis
  * Phase 10 - Plan Maître Modules
  */
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
+import { Target, Package, Loader2 } from 'lucide-react';
 import { RecommendationService } from '../RecommendationService';
 
 export const RecommendationPanel = ({ 
