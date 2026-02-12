@@ -1,12 +1,15 @@
 /**
  * TerritoryCard - Territory display card
  * Phase 10 - Plan Maître Modules
+ * Version: 1.1.0 - BIONIC Design System Compliance
  */
 import React from 'react';
 import { Card, CardContent } from '../../../components/ui/card';
 import { Badge } from '../../../components/ui/badge';
 import { Button } from '../../../components/ui/button';
 import { TerritoryService } from '../TerritoryService';
+import { useLanguage } from '../../../contexts/LanguageContext';
+import { Target, CircleDot, MapPin } from 'lucide-react';
 
 export const TerritoryCard = ({ 
   territory,
@@ -14,30 +17,27 @@ export const TerritoryCard = ({
   onViewDetails,
   compact = false
 }) => {
+  const { t } = useLanguage();
   if (!territory) return null;
 
   const typeInfo = TerritoryService.getTerritoryTypeInfo(territory.type);
 
-  const getSpeciesIcons = (species = []) => {
-    const icons = {
-      deer: '🦌', moose: '🫎', bear: '🐻', wild_boar: '🐗',
-      turkey: '🦃', duck: '🦆', goose: '🪿'
-    };
-    return species.slice(0, 4).map(s => icons[s] || '🎯').join(' ');
+  const getSpeciesCount = (species = []) => {
+    return species.slice(0, 4).length;
   };
 
   if (compact) {
     return (
       <div 
-        className="flex items-center gap-3 bg-slate-800 rounded-lg p-3 border border-slate-700 cursor-pointer hover:border-slate-500"
+        className="flex items-center gap-3 bg-[var(--bionic-bg-card)] rounded-lg p-3 border border-[var(--bionic-border-secondary)] cursor-pointer hover:border-[var(--bionic-gold-primary)]/50"
         onClick={() => onSelect?.(territory)}
       >
-        <span className="text-xl">{typeInfo.icon}</span>
+        <Target className="h-5 w-5 text-[var(--bionic-gold-primary)]" />
         <div className="flex-1 min-w-0">
-          <p className="text-white text-sm font-medium truncate">{territory.name}</p>
-          <p className="text-slate-400 text-xs">{territory.region}</p>
+          <p className="text-[var(--bionic-text-primary)] text-sm font-medium truncate">{territory.name}</p>
+          <p className="text-[var(--bionic-text-secondary)] text-xs">{territory.region}</p>
         </div>
-        <Badge className={`bg-${typeInfo.color}-900/50 text-${typeInfo.color}-400`}>
+        <Badge className="bg-[var(--bionic-gold-muted)] text-[var(--bionic-gold-primary)]">
           {typeInfo.label}
         </Badge>
       </div>
@@ -45,18 +45,18 @@ export const TerritoryCard = ({
   }
 
   return (
-    <Card className="bg-slate-800 border-slate-700 overflow-hidden hover:border-slate-500 transition-colors">
+    <Card className="bg-[var(--bionic-bg-card)] border-[var(--bionic-border-secondary)] overflow-hidden hover:border-[var(--bionic-gold-primary)]/50 transition-colors">
       <CardContent className="p-4">
         {/* Header */}
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-3">
-            <span className="text-2xl">{typeInfo.icon}</span>
+            <Target className="h-6 w-6 text-[var(--bionic-gold-primary)]" />
             <div>
-              <h3 className="text-white font-semibold">{territory.name}</h3>
-              <p className="text-slate-400 text-sm">{territory.region}</p>
+              <h3 className="text-[var(--bionic-text-primary)] font-semibold">{territory.name}</h3>
+              <p className="text-[var(--bionic-text-secondary)] text-sm">{territory.region}</p>
             </div>
           </div>
-          <Badge className={`bg-${typeInfo.color}-900/50 text-${typeInfo.color}-400`}>
+          <Badge className="bg-[var(--bionic-gold-muted)] text-[var(--bionic-gold-primary)]">
             {typeInfo.label}
           </Badge>
         </div>
