@@ -242,7 +242,9 @@ const PartnerOffers = ({ partnerId, onOffersChange }) => {
               <CardContent className="p-4">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-2xl">{OFFER_TYPES[offer.offer_type]?.icon || '📦'}</span>
+                    <span className="text-2xl">
+                      {OFFER_TYPES[offer.offer_type]?.Icon && <OFFER_TYPES[offer.offer_type].Icon className="h-6 w-6 text-[#f5a623]" />}
+                    </span>
                     <div>
                       <h4 className="font-semibold text-white">{offer.title}</h4>
                       <p className="text-xs text-gray-400">
