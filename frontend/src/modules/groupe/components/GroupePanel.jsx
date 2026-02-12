@@ -304,6 +304,16 @@ export const GroupePanel = ({
           </ScrollArea>
         </TabsContent>
 
+        {/* Chat Tab */}
+        <TabsContent value="chat" className="p-0 m-0">
+          <GroupChat
+            userId={userId}
+            groupId={groupId}
+            compact={true}
+            maxHeight="400px"
+          />
+        </TabsContent>
+
         {/* Activity Tab */}
         <TabsContent value="activity" className="p-4 m-0">
           <ScrollArea className="h-[400px]">
