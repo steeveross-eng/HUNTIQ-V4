@@ -12,7 +12,7 @@ import BackgroundTracker from '../components/BackgroundTracker';
 import GeoSyncToggle from '../components/GeoSyncToggle';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Map, Satellite, RefreshCw, X, Users } from 'lucide-react';
+import { Map, Satellite, RefreshCw, X, Users, MapPin, Bell, BarChart3, Smartphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { GroupeTab } from '../modules/groupe';
@@ -86,7 +86,7 @@ const MapPage = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-            <span className="text-3xl">🗺️</span>
+            <Map className="h-8 w-8 text-[#f5a623]" />
             Carte Interactive
           </h1>
           <p className="text-slate-400 text-sm mt-1">
@@ -98,7 +98,7 @@ const MapPage = () => {
         {urlParams.hasParams && (
           <div className="mb-4 p-3 bg-blue-900/30 border border-blue-500/50 rounded-lg flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-blue-400">📍</span>
+              <MapPin className="h-5 w-5 text-blue-400" />
               <span className="text-blue-300">
                 Vue centrée sur: <strong>{urlParams.lat.toFixed(6)}, {urlParams.lng.toFixed(6)}</strong>
                 <span className="text-blue-400 ml-2">(Zoom: {urlParams.zoom})</span>
@@ -156,23 +156,31 @@ const MapPage = () => {
               <BackgroundTracker onProximityAlert={handleProximityAlert} />
               <div className="bg-slate-800/30 rounded-lg p-6 border border-slate-700">
                 <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                  <span className="text-xl">📍</span> Guide de Tracking
+                  <MapPin className="h-5 w-5 text-[#f5a623]" /> Guide de Tracking
                 </h3>
                 <div className="space-y-4 text-sm text-slate-400">
                   <div className="bg-slate-700/30 rounded-lg p-4">
-                    <h4 className="text-cyan-400 font-medium mb-2">🛰️ Tracking Arrière-plan</h4>
+                    <h4 className="text-cyan-400 font-medium mb-2 flex items-center gap-2">
+                      <Satellite className="h-4 w-4" /> Tracking Arrière-plan
+                    </h4>
                     <p>Activez le tracking pour enregistrer automatiquement votre position toutes les 5 minutes pendant votre sortie de chasse.</p>
                   </div>
                   <div className="bg-slate-700/30 rounded-lg p-4">
-                    <h4 className="text-amber-400 font-medium mb-2">🔔 Alertes de Proximité</h4>
+                    <h4 className="text-amber-400 font-medium mb-2 flex items-center gap-2">
+                      <Bell className="h-4 w-4" /> Alertes de Proximité
+                    </h4>
                     <p>Recevez une notification lorsque vous approchez à 500m d'un waypoint (700m pour les hotspots).</p>
                   </div>
                   <div className="bg-slate-700/30 rounded-lg p-4">
-                    <h4 className="text-emerald-400 font-medium mb-2">📊 Sessions de Chasse</h4>
+                    <h4 className="text-emerald-400 font-medium mb-2 flex items-center gap-2">
+                      <BarChart3 className="h-4 w-4" /> Sessions de Chasse
+                    </h4>
                     <p>Le tracking calcule automatiquement la distance parcourue et le nombre de positions enregistrées.</p>
                   </div>
                   <div className="bg-slate-700/30 rounded-lg p-4">
-                    <h4 className="text-purple-400 font-medium mb-2">📱 Mode PWA</h4>
+                    <h4 className="text-purple-400 font-medium mb-2 flex items-center gap-2">
+                      <Smartphone className="h-4 w-4" /> Mode PWA
+                    </h4>
                     <p>Pour une meilleure expérience, installez HUNTIQ sur votre téléphone via "Ajouter à l'écran d'accueil".</p>
                   </div>
                 </div>
