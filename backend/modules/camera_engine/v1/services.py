@@ -52,10 +52,32 @@ class CameraRegistryService:
     
     async def _validate_waypoint_exists(self, waypoint_id: str, user_id: str) -> bool:
         """Validate that waypoint exists and belongs to user."""
+        # Check in territory_waypoints collection (primary)
+        waypoint = await self.db['territory_waypoints'].find_one({
+            "$or": [
+                {"_id": waypoint_id, "user_id": user_id},
+                {"id": waypoint_id, "user_id": user_id},
+                {"waypoint_id": waypoint_id, "user_id": user_id}
+            ]
+        })
+        if waypoint:
+            return True
+        
+        # Fallback to waypoints collection
         waypoint = await self.waypoints_collection.find_one({
             "$or": [
                 {"id": waypoint_id, "user_id": user_id},
                 {"waypoint_id": waypoint_id, "user_id": user_id}
+            ]
+        })
+        if waypoint:
+            return True
+        
+        # Check geo_entities collection
+        waypoint = await self.db['geo_entities'].find_one({
+            "$or": [
+                {"id": waypoint_id, "user_id": user_id},
+                {"entity_id": waypoint_id, "user_id": user_id}
             ]
         })
         return waypoint is not None
