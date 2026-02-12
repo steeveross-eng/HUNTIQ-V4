@@ -325,7 +325,8 @@ const PartnerOffers = ({ partnerId, onOffersChange }) => {
                 </div>
               </CardContent>
             </Card>
-          ))}
+          );
+          })}
         </div>
       )}
 
