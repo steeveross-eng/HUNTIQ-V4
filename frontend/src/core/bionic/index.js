@@ -70,30 +70,30 @@ export {
   adaptLayerData
 } from './bionicDataAdapter';
 
-// Types et constantes
+// Types et constantes - BIONIC Design System compliant (iconName for Lucide icons)
 export const BIONIC_LAYERS = [
-  { id: 'habitats', name: 'Habitats optimaux', icon: '🏠', color: '#22c55e' },
-  { id: 'rut', name: 'Rut potentiel', icon: '💕', color: '#e91e63' },
-  { id: 'salines', name: 'Salines potentielles', icon: '🧂', color: '#00bcd4' },
-  { id: 'affuts', name: 'Affûts potentiels', icon: '🎯', color: '#9c27b0' },
-  { id: 'trajets', name: 'Trajets de chasse', icon: '🛤️', color: '#ff9800' },
-  { id: 'peuplements', name: 'Peuplements forestiers', icon: '🌲', color: '#4caf50' },
-  { id: 'ensoleillement', name: 'Ensoleillement', icon: '☀️', color: '#ffeb3b' },
-  { id: 'orientation', name: 'Orientation', icon: '🧭', color: '#2196f3' },
-  { id: 'hydro', name: 'Hydrographie avancée', icon: '💧', color: '#1976d2' },
-  { id: 'alimentation', name: 'Zones d\'alimentation', icon: '🍃', color: '#8bc34a' },
-  { id: 'repos', name: 'Zones de repos', icon: '🌙', color: '#795548' },
-  { id: 'ndvi', name: 'NDVI / Densité végétale', icon: '🌿', color: '#66bb6a' },
-  { id: 'pentes', name: 'Pentes', icon: '⛰️', color: '#ff7043' },
-  { id: 'altitude', name: 'Altitude relative', icon: '📊', color: '#78909c' },
-  { id: 'corridors', name: 'Corridors fauniques', icon: '🦌', color: '#ff5722' }
+  { id: 'habitats', name: 'Habitats optimaux', iconName: 'Home', color: '#22c55e' },
+  { id: 'rut', name: 'Rut potentiel', iconName: 'Heart', color: '#e91e63' },
+  { id: 'salines', name: 'Salines potentielles', iconName: 'Droplets', color: '#00bcd4' },
+  { id: 'affuts', name: 'Affûts potentiels', iconName: 'Target', color: '#9c27b0' },
+  { id: 'trajets', name: 'Trajets de chasse', iconName: 'Route', color: '#ff9800' },
+  { id: 'peuplements', name: 'Peuplements forestiers', iconName: 'TreePine', color: '#4caf50' },
+  { id: 'ensoleillement', name: 'Ensoleillement', iconName: 'Sun', color: '#ffeb3b' },
+  { id: 'orientation', name: 'Orientation', iconName: 'Compass', color: '#2196f3' },
+  { id: 'hydro', name: 'Hydrographie avancée', iconName: 'Waves', color: '#1976d2' },
+  { id: 'alimentation', name: 'Zones d\'alimentation', iconName: 'Leaf', color: '#8bc34a' },
+  { id: 'repos', name: 'Zones de repos', iconName: 'Moon', color: '#795548' },
+  { id: 'ndvi', name: 'NDVI / Densité végétale', iconName: 'Sprout', color: '#66bb6a' },
+  { id: 'pentes', name: 'Pentes', iconName: 'Mountain', color: '#ff7043' },
+  { id: 'altitude', name: 'Altitude relative', iconName: 'BarChart3', color: '#78909c' },
+  { id: 'corridors', name: 'Corridors fauniques', iconName: 'Footprints', color: '#ff5722' }
 ];
 
 export const SCORE_CATEGORIES = [
-  { id: 'habitat', key: 'score_H', name: 'Habitat', icon: '🏠', weight: 0.25 },
-  { id: 'rut', key: 'score_R', name: 'Rut', icon: '💕', weight: 0.20 },
-  { id: 'salines', key: 'score_S', name: 'Salines', icon: '🧂', weight: 0.10 },
-  { id: 'affuts', key: 'score_A', name: 'Affûts', icon: '🎯', weight: 0.20 },
-  { id: 'trajets', key: 'score_T', name: 'Trajets', icon: '🛤️', weight: 0.15 },
-  { id: 'peuplements', key: 'score_P', name: 'Peuplements', icon: '🌲', weight: 0.10 }
+  { id: 'habitat', key: 'score_H', name: 'Habitat', iconName: 'Home', weight: 0.25 },
+  { id: 'rut', key: 'score_R', name: 'Rut', iconName: 'Heart', weight: 0.20 },
+  { id: 'salines', key: 'score_S', name: 'Salines', iconName: 'Droplets', weight: 0.10 },
+  { id: 'affuts', key: 'score_A', name: 'Affûts', iconName: 'Target', weight: 0.20 },
+  { id: 'trajets', key: 'score_T', name: 'Trajets', iconName: 'Route', weight: 0.15 },
+  { id: 'peuplements', key: 'score_P', name: 'Peuplements', iconName: 'TreePine', weight: 0.10 }
 ];
