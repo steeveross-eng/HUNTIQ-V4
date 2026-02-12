@@ -11,7 +11,7 @@ import { Progress } from '../components/ui/progress';
 import { WaypointScoringService } from '../services/WaypointScoringService';
 import { 
   CircleDot, Sun, Cloud, CloudRain, CloudFog, Snowflake, 
-  Flame, ThumbsUp, MapPin, AlertTriangle, Target, Clock, Trophy, BarChart3, Eye
+  Flame, ThumbsUp, MapPin, AlertTriangle, Target, Clock, Trophy, BarChart3, Eye, Bot, Lightbulb
 } from 'lucide-react';
 
 // BIONIC Design System - Species config with Lucide icons
@@ -346,20 +346,20 @@ export const SuccessForecast = () => {
                   <p className="text-slate-400 text-sm mb-3">{rec.reasoning}</p>
                   
                   <div className="flex flex-wrap gap-2 mb-3">
-                    <Badge variant="outline" className="border-blue-500 text-blue-400">
-                      🌤️ Météo: {rec.weather_match}%
+                    <Badge variant="outline" className="border-blue-500 text-blue-400 flex items-center gap-1">
+                      <Cloud className="h-3 w-3" /> Météo: {rec.weather_match}%
                     </Badge>
-                    <Badge variant="outline" className="border-purple-500 text-purple-400">
-                      ⏰ Horaire: {rec.time_match}%
+                    <Badge variant="outline" className="border-purple-500 text-purple-400 flex items-center gap-1">
+                      <Clock className="h-3 w-3" /> Horaire: {rec.time_match}%
                     </Badge>
-                    <Badge variant="outline" className="border-green-500 text-green-400">
-                      🦌 Espèce: {rec.species_match}%
+                    <Badge variant="outline" className="border-green-500 text-green-400 flex items-center gap-1">
+                      <CircleDot className="h-3 w-3" /> Espèce: {rec.species_match}%
                     </Badge>
                   </div>
                   
                   {rec.tips.length > 0 && (
                     <div className="bg-slate-800/50 rounded p-2">
-                      <p className="text-xs text-slate-500 mb-1">💡 Tips:</p>
+                      <p className="text-xs text-slate-500 mb-1 flex items-center gap-1"><Lightbulb className="h-3 w-3" /> Tips:</p>
                       <ul className="text-sm text-slate-300">
                         {rec.tips.map((tip, i) => (
                           <li key={i}>• {tip}</li>
