@@ -19,7 +19,10 @@ import {
   Menu,
   Globe,
   Settings,
-  LogIn
+  LogIn,
+  Map,
+  Users,
+  GraduationCap
 } from 'lucide-react';
 
 const MainLayout = ({ children, cart = [], onLanguageChange }) => {
@@ -34,10 +37,10 @@ const MainLayout = ({ children, cart = [], onLanguageChange }) => {
     { path: "/analyze", label: "Analysez" },
     { path: "/compare", label: "Comparez" },
     { path: "/shop", label: "Magasin" },
-    { path: "/territory", label: "Territoire", icon: "🗺️" },
-    { path: "/marketplace", label: "Marketplace", icon: "🛒" },
-    { path: "/network", label: "Réseau", icon: "👥" },
-    { path: "/formations", label: "Formations", icon: "🎓" },
+    { path: "/territory", label: "Territoire", Icon: Map },
+    { path: "/marketplace", label: "Marketplace", Icon: ShoppingCart },
+    { path: "/network", label: "Réseau", Icon: Users },
+    { path: "/formations", label: "Formations", Icon: GraduationCap },
   ];
 
   const cartItemCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
@@ -69,11 +72,11 @@ const MainLayout = ({ children, cart = [], onLanguageChange }) => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-sm font-medium transition-colors hover:text-[#f5a623] ${
+                  className={`text-sm font-medium transition-colors hover:text-[#f5a623] flex items-center gap-1 ${
                     location.pathname === link.path ? 'text-[#f5a623]' : 'text-gray-300'
                   }`}
                 >
-                  {link.icon && <span className="mr-1">{link.icon}</span>}
+                  {link.Icon && <link.Icon className="h-4 w-4" />}
                   {link.label}
                 </Link>
               ))}
@@ -107,10 +110,10 @@ const MainLayout = ({ children, cart = [], onLanguageChange }) => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem onClick={() => handleLanguageChange('FR')}>
-                    🇫🇷 Français
+                    FR - Français
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => handleLanguageChange('EN')}>
-                    🇬🇧 English
+                    EN - English
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -163,13 +166,13 @@ const MainLayout = ({ children, cart = [], onLanguageChange }) => {
                   key={link.path}
                   to={link.path}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`block py-2 px-4 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-2 py-2 px-4 rounded-lg text-sm font-medium transition-colors ${
                     location.pathname === link.path 
                       ? 'bg-[#f5a623]/20 text-[#f5a623]' 
                       : 'text-gray-300 hover:bg-gray-800'
                   }`}
                 >
-                  {link.icon && <span className="mr-2">{link.icon}</span>}
+                  {link.Icon && <link.Icon className="h-4 w-4" />}
                   {link.label}
                 </Link>
               ))}

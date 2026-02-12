@@ -25,7 +25,8 @@ import {
   Award,
   Mountain,
   Trees,
-  Loader2
+  Loader2,
+  Medal
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -86,9 +87,9 @@ const TerritoryRankings = () => {
   };
 
   const getRankBadge = (rank) => {
-    if (rank === 1) return { icon: '🥇', color: 'bg-yellow-500/30 text-yellow-300 border-yellow-500' };
-    if (rank === 2) return { icon: '🥈', color: 'bg-gray-400/30 text-gray-300 border-gray-400' };
-    if (rank === 3) return { icon: '🥉', color: 'bg-amber-600/30 text-amber-400 border-amber-600' };
+    if (rank === 1) return { icon: <Trophy className="h-4 w-4 text-yellow-500" />, color: 'bg-yellow-500/30 text-yellow-300 border-yellow-500' };
+    if (rank === 2) return { icon: <Medal className="h-4 w-4 text-gray-300" />, color: 'bg-gray-400/30 text-gray-300 border-gray-400' };
+    if (rank === 3) return { icon: <Medal className="h-4 w-4 text-amber-400" />, color: 'bg-amber-600/30 text-amber-400 border-amber-600' };
     return { icon: `#${rank}`, color: 'bg-gray-700/50 text-gray-400 border-gray-600' };
   };
 
@@ -267,7 +268,7 @@ const TerritoryRankings = () => {
                   <div className="flex items-center gap-4">
                     {/* Rank Badge */}
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center border ${rankBadge.color} font-bold text-lg`}>
-                      {rankBadge.icon}
+                      {typeof rankBadge.icon === 'string' ? rankBadge.icon : rankBadge.icon}
                     </div>
 
                     {/* Main Info */}

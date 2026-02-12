@@ -168,7 +168,7 @@ export const AIRecommendations = () => {
                 <div>
                   <h4 className="text-white font-semibold">{speciesConfig?.label}</h4>
                   <p className="text-green-400 text-sm">
-                    {seasonInfo.is_best_month ? '✨ Mois optimal!' : 'Saison disponible'}
+                    {seasonInfo.is_best_month ? 'Mois optimal!' : 'Saison disponible'}
                   </p>
                 </div>
               </div>
