@@ -81,16 +81,16 @@ export const LegalTimeAlert = ({
   };
 
   const getIcon = () => {
-    if (minutes_remaining <= 5) return '🚨';
-    if (minutes_remaining <= 10) return '⚠️';
-    return '⏰';
+    if (minutes_remaining <= 5) return <AlertOctagon className="w-8 h-8 text-red-400" />;
+    if (minutes_remaining <= 10) return <AlertTriangle className="w-8 h-8 text-orange-400" />;
+    return <Clock className="w-8 h-8 text-amber-400" />;
   };
 
   return (
     <div className="fixed bottom-4 right-4 z-50 max-w-md" data-testid="legal-time-alert">
       <Alert className={`${getAlertStyle()} border-2 shadow-2xl`}>
         <div className="flex items-start gap-3">
-          <span className="text-3xl">{getIcon()}</span>
+          {getIcon()}
           <div className="flex-1">
             <AlertTitle className="text-white text-lg font-bold mb-1">
               {alert?.title || `${minutes_remaining} minutes restantes`}
