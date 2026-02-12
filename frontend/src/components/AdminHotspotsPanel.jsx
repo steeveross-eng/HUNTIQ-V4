@@ -39,15 +39,15 @@ const CATEGORY_LABELS = {
   inactive: 'Inactif'
 };
 
-// Category icons
+// Category icons - Using Lucide icon names
 const CATEGORY_ICONS = {
-  standard: '📍',
-  premium: '⭐',
-  land_rental: '🏠',
-  chalet: '🏡',
-  environmental: '🌲',
-  user_personal: '👤',
-  inactive: '⏸️'
+  standard: 'mapPin',
+  premium: 'star',
+  land_rental: 'home',
+  chalet: 'building',
+  environmental: 'treeDeciduous',
+  user_personal: 'user',
+  inactive: 'pauseCircle'
 };
 
 const AdminHotspotsPanel = () => {
