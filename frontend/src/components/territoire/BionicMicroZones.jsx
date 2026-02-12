@@ -502,7 +502,7 @@ const MicroZone = ({ zone, isHovered, onHover, onLeave, showConcentric, isFavori
               <span className="text-lg">{module.icon}</span>
               <span className="font-bold text-white flex-1">{module.label}</span>
               {isFavorite && (
-                <span className="text-yellow-400" title="Zone favorite">⭐</span>
+                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
               )}
             </div>
             
