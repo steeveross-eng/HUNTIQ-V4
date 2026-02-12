@@ -2,7 +2,7 @@
  * AdminHotspotsPanel - Hotspots Administration Panel
  * Phase P6.5 - Integrated in Admin "Hotspots" tab
  * 
- * 🔒 ADMIN SEULEMENT - Cette section affiche TOUS les hotspots de TOUS les membres
+ * ADMIN SEULEMENT - Cette section affiche TOUS les hotspots de TOUS les membres
  * pour la gestion, modération et supervision globale.
  * Ces données ne sont jamais partagées ni accessibles aux utilisateurs.
  */
@@ -12,7 +12,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card'
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { toast } from 'sonner';
-import { MapPin, ExternalLink, Filter, RefreshCw, ChevronDown, ChevronUp, Shield } from 'lucide-react';
+import { MapPin, ExternalLink, Filter, RefreshCw, ChevronDown, ChevronUp, Shield, Star, Home, Building, TreeDeciduous, User, PauseCircle, Flame } from 'lucide-react';
 import { useAuth } from './GlobalAuth';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
