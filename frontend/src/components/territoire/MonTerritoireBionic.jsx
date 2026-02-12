@@ -1,5 +1,6 @@
 /**
  * MonTerritoireBionic - Section principale pour la page d'accueil
+ * BIONIC Design System compliant - No emojis
  * Affiche une carte BIONIC interactive avec aperçu des scores
  */
 
@@ -7,7 +8,7 @@ import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Polygon } from 'react-leaflet';
 import { Brain, Map, Crosshair, Wind, Thermometer, Droplets, TrendingUp, 
          ChevronRight, Layers, Activity, Target, Navigation, 
-         Sun, Moon, ArrowRight, Zap, Eye, EyeOff } from 'lucide-react';
+         Sun, Moon, ArrowRight, Zap, Eye, EyeOff, Home, Heart, Leaf, Footprints } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import useBionicLayers from '@/hooks/useBionicLayers';
