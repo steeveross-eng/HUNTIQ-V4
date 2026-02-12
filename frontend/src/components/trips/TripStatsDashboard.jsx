@@ -285,7 +285,7 @@ const TripStatsDashboard = ({ statistics }) => {
               <div className="space-y-3">
                 {speciesData.slice(0, 4).map((species, idx) => (
                   <div key={species.species} className="flex items-center gap-3">
-                    <span className="text-2xl">{SPECIES_EMOJIS[species.species] || '🎯'}</span>
+                    <Target className="h-6 w-6" style={{ color: COLORS[idx % COLORS.length] }} />
                     <div className="flex-1">
                       <div className="flex justify-between text-sm mb-1">
                         <span className="text-gray-300 capitalize">{species.species}</span>
