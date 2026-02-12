@@ -3,7 +3,7 @@
  * BIONIC Design System compliant - No emojis
  */
 import React from 'react';
-import { Sunrise, Sun, Sunset, Moon, Clock, Trophy } from 'lucide-react';
+import { Sunrise, Sun, Sunset, Moon, Clock, Trophy, Backpack, Lightbulb } from 'lucide-react';
 
 export const StrategyCard = ({ 
   strategy, 
@@ -82,16 +82,16 @@ export const StrategyCard = ({
         </div>
         
         {equipment.length > 0 && (
-          <span className="text-slate-500">
-            🎒 {equipment.length} équipements
+          <span className="text-slate-500 flex items-center gap-1">
+            <Backpack className="h-3 w-3" /> {equipment.length} équipements
           </span>
         )}
       </div>
 
       {tips.length > 0 && (
         <div className="mt-2 pt-2 border-t border-slate-600">
-          <p className="text-xs text-blue-400">
-            💡 {tips[0]}
+          <p className="text-xs text-blue-400 flex items-center gap-1">
+            <Lightbulb className="h-3 w-3" /> {tips[0]}
           </p>
         </div>
       )}
