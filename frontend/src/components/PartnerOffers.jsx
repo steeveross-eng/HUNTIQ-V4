@@ -1,5 +1,6 @@
 /**
  * PartnerOffers - Manage partner offers/services
+ * BIONIC Design System compliant - No emojis
  */
 
 import React, { useState, useEffect } from 'react';
@@ -35,28 +36,35 @@ import {
   ToggleLeft,
   ToggleRight,
   RefreshCw,
-  Save
+  Save,
+  Target,
+  TreePine,
+  Home,
+  Compass,
+  Backpack,
+  Ticket
 } from 'lucide-react';
+import { SpeciesIcon } from '@/components/bionic/SpeciesIcon';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-// Offer types
+// Offer types - Using Lucide icons
 const OFFER_TYPES = {
-  forfait: { fr: 'Forfait chasse', en: 'Hunting Package', icon: '🎯' },
-  territoire: { fr: 'Territoire', en: 'Territory', icon: '🌲' },
-  hebergement: { fr: 'Hébergement', en: 'Accommodation', icon: '🏠' },
-  service: { fr: 'Service guidé', en: 'Guided Service', icon: '🧭' },
-  equipement: { fr: 'Équipement', en: 'Equipment', icon: '🎒' },
-  acces: { fr: 'Accès journalier', en: 'Day Access', icon: '🎫' }
+  forfait: { fr: 'Forfait chasse', en: 'Hunting Package', Icon: Target },
+  territoire: { fr: 'Territoire', en: 'Territory', Icon: TreePine },
+  hebergement: { fr: 'Hébergement', en: 'Accommodation', Icon: Home },
+  service: { fr: 'Service guidé', en: 'Guided Service', Icon: Compass },
+  equipement: { fr: 'Équipement', en: 'Equipment', Icon: Backpack },
+  acces: { fr: 'Accès journalier', en: 'Day Access', Icon: Ticket }
 };
 
 const SPECIES_OPTIONS = [
-  { value: 'orignal', label: { fr: 'Orignal', en: 'Moose' }, icon: '🫎' },
-  { value: 'chevreuil', label: { fr: 'Chevreuil', en: 'Deer' }, icon: '🦌' },
-  { value: 'ours', label: { fr: 'Ours', en: 'Bear' }, icon: '🐻' },
-  { value: 'dindon', label: { fr: 'Dindon', en: 'Turkey' }, icon: '🦃' },
-  { value: 'petit_gibier', label: { fr: 'Petit gibier', en: 'Small Game' }, icon: '🐰' },
-  { value: 'sauvagine', label: { fr: 'Sauvagine', en: 'Waterfowl' }, icon: '🦆' }
+  { value: 'orignal', label: { fr: 'Orignal', en: 'Moose' }, speciesId: 'moose' },
+  { value: 'chevreuil', label: { fr: 'Chevreuil', en: 'Deer' }, speciesId: 'deer' },
+  { value: 'ours', label: { fr: 'Ours', en: 'Bear' }, speciesId: 'bear' },
+  { value: 'dindon', label: { fr: 'Dindon', en: 'Turkey' }, speciesId: 'turkey' },
+  { value: 'petit_gibier', label: { fr: 'Petit gibier', en: 'Small Game' }, speciesId: 'hare' },
+  { value: 'sauvagine', label: { fr: 'Sauvagine', en: 'Waterfowl' }, speciesId: 'duck' }
 ];
 
 const PartnerOffers = ({ partnerId, onOffersChange }) => {
