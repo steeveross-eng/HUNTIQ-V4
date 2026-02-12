@@ -1,9 +1,11 @@
 /**
  * ProductGrid - Grid display for products
  * Phase 9 - Business Modules
+ * BIONIC Design System compliant - No emojis
  */
 import React from 'react';
 import { ProductCard } from './ProductCard';
+import { Package } from 'lucide-react';
 
 export const ProductGrid = ({ 
   products = [], 
@@ -34,7 +36,7 @@ export const ProductGrid = ({
   if (!products.length) {
     return (
       <div className="text-center py-12">
-        <span className="text-5xl">📦</span>
+        <Package className="w-16 h-16 text-slate-500 mx-auto" />
         <p className="text-slate-400 mt-4">{emptyMessage}</p>
       </div>
     );

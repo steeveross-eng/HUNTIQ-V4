@@ -1,10 +1,12 @@
 /**
  * ProductCard - Product display card component
  * Phase 9 - Business Modules
+ * BIONIC Design System compliant - No emojis
  */
 import React from 'react';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
+import { Package, ShoppingCart, Microscope, Scale } from 'lucide-react';
 
 export const ProductCard = ({ 
   product, 
@@ -62,7 +64,7 @@ export const ProductCard = ({
           />
         ) : (
           <div className="w-full aspect-square bg-slate-700 flex items-center justify-center">
-            <span className="text-4xl">📦</span>
+            <Package className="w-12 h-12 text-slate-500" />
           </div>
         )}
       </div>
@@ -102,7 +104,7 @@ export const ProductCard = ({
               className="flex-1 bg-[#f5a623] hover:bg-[#d4890e] text-black font-semibold"
               onClick={() => onAddToCart(product)}
             >
-              🛒 Ajouter
+              <ShoppingCart className="w-4 h-4 mr-1" /> Ajouter
             </Button>
           )}
           {onAnalyze && (
@@ -112,7 +114,7 @@ export const ProductCard = ({
               className="border-slate-600"
               onClick={() => onAnalyze(product)}
             >
-              🔬
+              <Microscope className="w-4 h-4" />
             </Button>
           )}
           {onCompare && (
@@ -122,7 +124,7 @@ export const ProductCard = ({
               className="border-slate-600"
               onClick={() => onCompare(product)}
             >
-              ⚖️
+              <Scale className="w-4 h-4" />
             </Button>
           )}
         </div>

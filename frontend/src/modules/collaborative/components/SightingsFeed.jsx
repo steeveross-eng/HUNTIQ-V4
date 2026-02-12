@@ -152,12 +152,12 @@ export const SightingsFeed = ({
                     <span className="text-white font-medium">{report.hunter}</span>
                   </div>
                   <Badge className={report.success ? 'bg-emerald-900/50 text-emerald-400' : 'bg-slate-700 text-slate-400'}>
-                    {report.success ? '✓ Succès' : 'Bredouille'}
+                    {report.success ? 'Succès' : 'Bredouille'}
                   </Badge>
                 </div>
                 <p className="text-slate-300 text-sm">{report.comment}</p>
                 <div className="flex items-center gap-2 mt-2">
-                  <span className="text-amber-400">{'★'.repeat(report.rating)}</span>
+                  <span className="text-amber-400">{Array(report.rating).fill(null).map((_, i) => <span key={i}>★</span>)}</span>
                   <span className="text-slate-500 text-xs">{report.date}</span>
                 </div>
               </div>

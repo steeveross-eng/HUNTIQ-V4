@@ -80,8 +80,8 @@ export class NotificationService {
    */
   static sendLegalTimeWarning(minutesRemaining, legalEndTime) {
     const title = minutesRemaining <= 5 
-      ? `🚨 URGENT: ${minutesRemaining} min restantes!`
-      : `⏰ ${minutesRemaining} min avant fin de chasse`;
+      ? `URGENT: ${minutesRemaining} min restantes!`
+      : `${minutesRemaining} min avant fin de chasse`;
     
     const body = `La période légale se termine à ${legalEndTime}. Préparez-vous à terminer votre chasse.`;
     
