@@ -541,6 +541,9 @@ export const useGroupeAlerts = (userId, groupId, options = {}) => {
     createActivityAlert,
     createZoneAlert,
 
+    // Manual alert checks
+    runAlertChecks,
+
     // Config
     ALERT_TYPES,
     ALERT_SEVERITY
