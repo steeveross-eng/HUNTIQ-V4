@@ -27,7 +27,7 @@ def get_base_url():
                 if line.startswith('REACT_APP_BACKEND_URL='):
                     return line.split('=', 1)[1].strip().rstrip('/')
     
-    return 'https://huntiq-team.preview.emergentagent.com'
+    return 'https://huntiq-system.preview.emergentagent.com'
 
 BASE_URL = get_base_url()
 
