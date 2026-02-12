@@ -409,9 +409,7 @@ const PromptManager = () => {
             {Object.entries(promptData?.species_rules || {}).map(([species, rules]) => (
               <div key={species} className="bg-background rounded-lg p-4 border border-border">
                 <h4 className="text-white font-bold capitalize mb-2 flex items-center gap-2">
-                  {species === 'orignal' && '🫎'}
-                  {species === 'chevreuil' && '🦌'}
-                  {species === 'ours' && '🐻'}
+                  <SpeciesIcon speciesId={species === 'orignal' ? 'moose' : species === 'chevreuil' ? 'deer' : 'bear'} size="sm" />
                   {species}
                 </h4>
                 <div className="space-y-1 text-sm">
