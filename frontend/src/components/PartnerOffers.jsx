@@ -237,14 +237,14 @@ const PartnerOffers = ({ partnerId, onOffersChange }) => {
         </Card>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {offers.map((offer) => (
+          {offers.map((offer) => {
+            const OfferIcon = OFFER_TYPES[offer.offer_type]?.Icon || Package;
+            return (
             <Card key={offer.id} className={`bg-card border-border ${!offer.is_active ? 'opacity-60' : ''}`}>
               <CardContent className="p-4">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-2xl">
-                      {OFFER_TYPES[offer.offer_type]?.Icon && <OFFER_TYPES[offer.offer_type].Icon className="h-6 w-6 text-[#f5a623]" />}
-                    </span>
+                    <OfferIcon className="h-6 w-6 text-[#f5a623]" />
                     <div>
                       <h4 className="font-semibold text-white">{offer.title}</h4>
                       <p className="text-xs text-gray-400">
