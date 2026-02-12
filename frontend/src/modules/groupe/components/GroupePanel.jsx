@@ -221,6 +221,13 @@ export const GroupePanel = ({
             {t('groupe_tab_members')}
           </TabsTrigger>
           <TabsTrigger 
+            value="chat"
+            className="data-[state=active]:text-[var(--bionic-gold-primary)] data-[state=active]:border-b-2 data-[state=active]:border-[var(--bionic-gold-primary)] rounded-none"
+          >
+            <MessageSquare className="h-4 w-4 mr-2" />
+            {t('groupe_tab_chat')}
+          </TabsTrigger>
+          <TabsTrigger 
             value="activity"
             className="data-[state=active]:text-[var(--bionic-gold-primary)] data-[state=active]:border-b-2 data-[state=active]:border-[var(--bionic-gold-primary)] rounded-none"
           >
