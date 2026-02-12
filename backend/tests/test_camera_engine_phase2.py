@@ -45,8 +45,8 @@ GIF_1X1_BASE64 = "R0lGODlhAQABAIAAAP8AAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
 # PNG 1x1 pixel (non photographique)
 PNG_1X1_BASE64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
 
-# Données corrompues (pas une image valide)
-CORRUPTED_DATA = b"This is not a valid image file at all, just random text data"
+# Données corrompues (pas une image valide, mais > 1KB pour passer le check de taille)
+CORRUPTED_DATA = b"This is not a valid image file at all, just random text data " * 50  # ~3KB
 
 # Données vides
 EMPTY_DATA = b""
