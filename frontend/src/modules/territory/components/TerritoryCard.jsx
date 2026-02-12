@@ -63,23 +63,30 @@ export const TerritoryCard = ({
 
         {/* Species */}
         <div className="flex items-center gap-2 mb-3">
-          <span className="text-slate-400 text-sm">Espèces:</span>
-          <span className="text-lg">{getSpeciesIcons(territory.species)}</span>
+          <span className="text-[var(--bionic-text-secondary)] text-sm">{t('common_species') || 'Espèces'}:</span>
+          <div className="flex items-center gap-1">
+            {territory.species?.slice(0, 4).map((s, i) => (
+              <CircleDot key={i} className="h-4 w-4 text-[var(--bionic-gold-primary)]" />
+            ))}
+            {territory.species?.length > 4 && (
+              <span className="text-[var(--bionic-text-muted)] text-xs ml-1">+{territory.species.length - 4}</span>
+            )}
+          </div>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 gap-3 mb-4">
           {territory.area_km2 && (
-            <div className="bg-slate-700/50 rounded-lg p-2 text-center">
-              <div className="text-white font-bold">{territory.area_km2}</div>
-              <div className="text-xs text-slate-400">km²</div>
+            <div className="bg-[var(--bionic-bg-secondary)] rounded-lg p-2 text-center">
+              <div className="text-[var(--bionic-text-primary)] font-bold">{territory.area_km2}</div>
+              <div className="text-xs text-[var(--bionic-text-muted)]">km²</div>
             </div>
           )}
-          <div className="bg-slate-700/50 rounded-lg p-2 text-center">
-            <div className={`font-bold ${territory.available ? 'text-emerald-400' : 'text-red-400'}`}>
-              {territory.available ? 'Disponible' : 'Indisponible'}
+          <div className="bg-[var(--bionic-bg-secondary)] rounded-lg p-2 text-center">
+            <div className={`font-bold ${territory.available ? 'text-[var(--bionic-green-primary)]' : 'text-[var(--bionic-red-primary)]'}`}>
+              {territory.available ? t('common_available') || 'Disponible' : t('common_unavailable') || 'Indisponible'}
             </div>
-            <div className="text-xs text-slate-400">Statut</div>
+            <div className="text-xs text-[var(--bionic-text-muted)]">{t('common_status') || 'Statut'}</div>
           </div>
         </div>
 
@@ -87,19 +94,19 @@ export const TerritoryCard = ({
         <div className="flex gap-2">
           {onViewDetails && (
             <Button 
-              className="flex-1 bg-[#f5a623] hover:bg-[#d4890e] text-black"
+              className="flex-1 bg-[var(--bionic-gold-primary)] hover:bg-[var(--bionic-gold-light)] text-black"
               onClick={() => onViewDetails(territory)}
             >
-              Voir détails
+              {t('common_view_details') || 'Voir détails'}
             </Button>
           )}
           {onSelect && (
             <Button 
               variant="outline"
-              className="border-slate-600"
+              className="border-[var(--bionic-border-secondary)]"
               onClick={() => onSelect(territory)}
             >
-              Sélectionner
+              {t('common_select') || 'Sélectionner'}
             </Button>
           )}
         </div>
