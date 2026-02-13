@@ -938,6 +938,7 @@ function App() {
             />
             <Routes>
               <Route path="/" element={<HomePage products={products} onAddToCart={handleAddToCart} />} />
+              <Route path="/onboarding" element={<OnboardingPage />} />
               <Route path="/analyze" element={<AnalyzerModule />} />
               <Route path="/compare" element={<ComparePage products={products} />} />
               <Route path="/shop" element={<ShopPage products={products} onAddToCart={handleAddToCart} />} />
