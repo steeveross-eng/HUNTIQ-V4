@@ -267,7 +267,57 @@ server.py (orchestrateur pur)
 ```
 
 ### P0 - Next (En attente directive utilisateur)
-- [ ] Phase 3 Caméras: Analyse comportementale (SUSPENDU - Plan MAÎTRE)
+- [ ] Phase 10 Onboarding - EN COURS
+
+### Phase 10 Onboarding Engine - EN COURS
+
+**Objectifs atteints:**
+1. ✅ UI Onboarding modulaire créée
+2. ✅ Flux de profilage utilisateur (4 étapes)
+3. ✅ Stockage préférences localStorage
+4. ✅ Intégration route `/onboarding`
+5. ✅ Build validé
+6. ✅ Tests visuels validés
+
+**Composants créés:**
+- `OnboardingFlow.jsx` - Orchestrateur principal
+- `OnboardingStep.jsx` - Composant étape de base
+- `ProfileSelector.jsx` - Sélecteur générique
+- `TerritorySelector.jsx` - Sélection territoire
+- `ExperienceSelector.jsx` - Sélection expérience
+- `ObjectivesSelector.jsx` - Sélection objectifs (multi)
+
+**Hooks créés:**
+- `useOnboarding.js` - Gestion navigation flux
+- `useUserProfile.js` - Gestion préférences utilisateur
+
+**Flux Onboarding:**
+1. Welcome → Introduction BIONIC
+2. Territory → Type de territoire (5 options)
+3. Experience → Niveau d'expérience (4 options)
+4. Objectives → Objectifs de chasse (5 options, multi-select)
+5. Complete → Résumé et redirection
+
+**Fichiers créés:**
+- `/app/frontend/src/modules/onboarding/` (module complet)
+- `/app/frontend/src/pages/OnboardingPage.jsx`
+
+**Architecture Phase 10:**
+```
+/app/frontend/src/modules/onboarding/
+├── index.js
+├── constants.js
+├── components/
+│   ├── OnboardingFlow.jsx
+│   ├── OnboardingStep.jsx
+│   ├── ProfileSelector.jsx
+│   ├── TerritorySelector.jsx
+│   ├── ExperienceSelector.jsx
+│   └── ObjectivesSelector.jsx
+└── hooks/
+    ├── useOnboarding.js
+    └── useUserProfile.js
+```
 
 ### P1 - Future
 - [ ] Phase 11: Stabilisation module Analytics
