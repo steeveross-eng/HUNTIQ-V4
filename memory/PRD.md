@@ -222,41 +222,52 @@ server.py (orchestrateur pur)
 └── custom_openapi()
 ```
 
-### P0 - Next (En attente directive utilisateur)
-- [ ] Phases 7-8 Frontend Modulaire - EN COURS
+### Phase 7-8 Frontend Modulaire - COMPLÉTÉ
 
-### Phase 7-8 Frontend Modulaire - EN COURS
-
-**Objectifs Phase 7 (Core):**
+**Phase 7 (Core) - VALIDÉ:**
 1. ✅ Configuration centrale des routes (`/src/config/routes.js`)
 2. ✅ Navigation modulaire (`ModularNavigation.jsx`)
 3. ✅ Registre des modules (`/src/config/modules.js`)
 4. ✅ Fix hook React (SessionHeatmap.jsx)
+
+**Phase 8 (Métier) - VALIDÉ:**
+1. ✅ BionicHeader modulaire extrait (`/src/components/layout/BionicHeader.jsx`)
+2. ✅ Système de popups centralisé (`/src/contexts/PopupContext.jsx`)
+3. ✅ Composants MapPopup standardisés (`/src/components/map/MapPopup.jsx`)
+4. ✅ Styles popups BIONIC (`/src/components/map/MapPopup.css`)
 5. ✅ Build validé
+6. ✅ Tests de non-régression passés
 
-**Livrables créés:**
-- `/app/frontend/src/config/routes.js` - Configuration routes centralisée
-- `/app/frontend/src/config/modules.js` - Registre des modules
-- `/app/frontend/src/components/navigation/ModularNavigation.jsx` - Navigation modulaire
-- `/app/frontend/src/components/navigation/index.js` - Index exports
+**Livrables Phase 7-8:**
+- `/app/frontend/src/config/routes.js` - 16 routes, 6 catégories
+- `/app/frontend/src/config/modules.js` - 23 modules enregistrés
+- `/app/frontend/src/components/navigation/ModularNavigation.jsx`
+- `/app/frontend/src/components/layout/BionicHeader.jsx`
+- `/app/frontend/src/contexts/PopupContext.jsx`
+- `/app/frontend/src/components/map/MapPopup.jsx`
+- `/app/frontend/src/components/map/MapPopup.css`
 
-**Architecture Navigation:**
-- Route categories: CORE, INTELLIGENCE, TERRITORY, COMMERCE, ADMIN, USER
-- Dropdown groups: Intelligence (Analytics, Forecast, Plan Maître), Territory (Map, Mon Territoire)
-- Role-based visibility
-- i18n support
+**Architecture Frontend Phase 8:**
+```
+/app/frontend/src/
+├── config/
+│   ├── routes.js      # Configuration routes centralisée
+│   └── modules.js     # Registre modules
+├── components/
+│   ├── navigation/
+│   │   └── ModularNavigation.jsx
+│   ├── layout/
+│   │   └── BionicHeader.jsx
+│   └── map/
+│       ├── MapPopup.jsx
+│       └── MapPopup.css
+├── contexts/
+│   └── PopupContext.jsx
+└── modules/           # 40 modules métier
+```
 
-**Modules Frontend enregistrés:** 23 modules actifs
-- Core: 8 (weather, scoring, strategy, geospatial, ai, wms, marketplace, tracking)
-- Advanced: 9 (ecoforestry, advanced_geospatial, engine_3d, wildlife_behavior, simulation, adaptive_strategy, recommendation, progression, collaborative)
-- Business: 4 (products, orders, cart, affiliate)
-- Special: 3 (live_heading_view, analytics, predictive)
-- Admin: 1
-
-**Reste à faire Phase 8 (Métier):**
-- [ ] Intégrer ModularNavigation dans App.js
-- [ ] Stabiliser popups et data layers
-- [ ] Tests de non-régression frontend
+### P0 - Next (En attente directive utilisateur)
+- [ ] Phase 3 Caméras: Analyse comportementale (SUSPENDU - Plan MAÎTRE)
 
 ### P1 - Future
 - [ ] Phase 11: Stabilisation module Analytics
