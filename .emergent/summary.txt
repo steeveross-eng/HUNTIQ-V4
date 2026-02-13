@@ -1,83 +1,81 @@
 <analysis>**original_problem_statement:**
-The user, Steeve Ross, is overseeing the development of HUNTIQ V3. The project's primary focus is a complete UI/UX overhaul to enforce a strict, professional, and scientific BIONIC TACTICAL design standard. All UI elements must conform to a centralized design system. The project follows a supra-sécuritaire (ultra-secure) workflow, requiring explicit user validation for every task and phase before proceeding. No initiative is permitted.
+The user, Steeve Ross, is overseeing the development of HUNTIQ V3, a BIONIC Hunting Platform. The project's primary focus is a complete UI/UX overhaul to enforce a strict, professional, and scientific BIONIC TACTICAL design standard. The project follows a supra-sécuritaire (ultra-secure) workflow, requiring explicit user validation for every task and phase before proceeding. No initiative is permitted.
 
-The initial task was a mandatory, project-wide audit and refactor to replace all cartoonish emojis and non-compliant icons with professional images and standardized  icons. After completing that, the project has proceeded through several validated phases, including implementing a session heatmap, fixing UI layouts, correcting a login flow, and auditing the permissions system. The current task is to begin Phase 9: the unification and correction of the roles and permissions system based on the findings of the previous phase's audit.
+The agent has completed a series of validated phases according to a Plan MAÎTRE (Master Plan), including:
+- **Phase 9:** Preparing fixes for the Roles & Permissions engine.
+- **Phases 1 & 2 (Camera Module):** Implementing camera creation, email-based photo ingestion, and advanced EXIF processing.
+- **Phase 6:** Decoupling the backend into a pure orchestrator.
+- **Phases 7 & 8:** Refactoring the frontend into a modular architecture.
+- **Phase 10:** Implementing a multi-step user onboarding flow.
+
+The user has now validated Phase 10 and given the directive to start Phase 11: implementing a Tutorial Engine.
 
 **User's preferred language**: French
 
 **what currently exists?**
-*   A full-stack application with a React frontend, FastAPI backend, and MongoDB database.
-*   The supra-sécuritaire protocol is strictly enforced, with development proceeding in discrete, user-validated phases.
-*   **Phase 5 (Smart Alerts):** Functionality is complete and validated by the user.
-*   **Phase 6 (Session Heatmap):** Implemented and validated. A new component  was created and integrated into the main map view on , conditionally rendered based on group tracking status.
-*   **Phase 7 (QA & Stabilization):** Completed and validated. This phase included fixing a backend Pydantic validation error for the  endpoint by updating the mock data seeding script () and the data in the MongoDB  collection.
-*   **Phase 8 (Permissions Audit):** Completed and validated. This phase involved a thorough documentation of the existing roles, permissions, and authentication dependencies in the backend  module. Several points for correction were identified.
-*   The admin login flow has been fixed. An admin user with the correct schema (, ) was created in the database, allowing successful authentication.
-*   The main map UI in  has been adjusted to maximize the map's screen real estate by reducing the width of side panels, as per user directive.
+- A full-stack application with a modular React frontend and a modular FastAPI backend connected to a MongoDB database.
+- The supra-sécuritaire phased development workflow is strictly enforced.
+- **Backend:** Refactored into a pure orchestrator () that loads 47+ independent modules via a central router configuration (). A legacy monolith file still exists but is marked as deprecated.
+- **Frontend:** Refactored to use a modular architecture, with modules defined under  and centrally configured in . Key UI components like the header and map popups have been standardized.
+- **Completed Modules:**
+    - **Roles Engine (Phase 9):** Patches for security and consistency have been applied.
+    - **Camera & Ingestion (Phases 1-2):** A complete backend module () for creating cameras (linked to waypoints), ingesting photos via email, creating events, and processing image metadata (EXIF).
+    - **Onboarding Engine (Phase 10):** A complete frontend module for a multi-step user profiling experience, accessible at the  route.
 
 **Last working item**:
-*   Last item agent was working: The agent just received the directive to begin **Phase 9: Unification, Correction, and Securing of Roles & Permissions**. The agent has acknowledged the strict perimeter for this phase, which involves preparing correctifs for issues found in the Phase 8 audit (e.g., removing emojis from role labels, fixing insecure default values) without activating them. No code has been modified for this phase yet.
-*   Status: NOT STARTED
+*   Last item agent was working: The agent began implementing **Phase 11 — Tutorial Engine**. This involves creating a new frontend module to provide interactive, contextual guides for the user. The agent started by creating the foundational file structure for this new module.
+*   Status: IN PROGRESS
 *   Agent Testing Done: N
-*   Which testing method agent to use? backend testing agent. The agent should also use  to manually test permission-gated endpoints after changes are prepared/applied.
+*   Which testing method agent to use? frontend testing agent and screenshot tool.
 *   User Testing Done: N
 
 **All Pending/In progress Issue list**:
-*   There are no outstanding bugs or user-reported issues. The current task is to address the technical debt and inconsistencies identified during the Phase 8 audit, which is the explicit goal of Phase 9.
+*   There are no outstanding bugs or user-reported issues. All work is progressing according to the user's explicit, phased plan.
 
 **In progress Task List**:
-*   **Task 1: Phase 9 - Unify, Correct, and Secure Roles & Permissions (P0)**
-    *   **Where to resume:** Begin by preparing the correctifs for the issues identified in the Phase 8 report.
-        1.  Remove emojis from role labels in .
-        2.  Address the insecure default  in .
-        3.  Address the inconsistent default  in .
-    *   **What will be achieved with this?** A cleaner, more secure, and consistent roles and permissions backend, aligned with project standards and ready for future feature development.
-    *   **Status:** NOT STARTED
-    *   **Should Test frontend/backend/both after fix?** Backend.
+*   **Task 1: Phase 11 - Tutorial Engine Implementation (P0)**
+    *   **Where to resume:** The initial files and directories for the  module have been created under . The next step is to build out the core logic and components.
+        1.  Create a  and  hook to manage the state and flow of tutorials.
+        2.  Develop the UI components, such as  and , to display the tutorial content.
+        3.  Populate  with the content for the initial tutorials (e.g., for the Dashboard and Map).
+        4.  Integrate the  into  to make the tutorial system available globally.
+        5.  Implement the logic to trigger specific tutorials based on user actions or the current page.
+    *   **What will be achieved with this?** A modular, extensible system for providing in-app interactive guides, improving user retention and feature discovery.
+    *   **Status:** IN PROGRESS
+    *   **Should Test frontend/backend/both after fix?** Frontend.
     *   **Blocked on something:** No.
 
 **Upcoming and Future Tasks**
-*   **Upcoming Tasks (as per user roadmap):**
-    *   **(P0) Phase 10:** Controlled activation of Phase 9 correctifs + QA.
-    *   **(P1) Phase 11:** Stabilisation and correction of the Analytics module (fixing the ).
-    *   **(P1) Phase 12:** Final UX cleanup and global consistency check.
-    *   **(P1) Phase 13:** Final QA and deployment preparation.
+*   **Upcoming Tasks (as per Plan MAÎTRE):**
+    *   **(P0) Phase 12:** Freemium Engine implementation.
+    *   **(P0) Phase 13:** Payment Engine integration.
+    *   **(P1) Phase 3 (Camera Module):** Behavioral Analysis (species classification, direction, activity). This is currently suspended.
+    *   **(P1) Phase 4 (Camera Module):** Corridors, Heatmaps, and Predictive AI. This is currently suspended.
 
 *   **Future Tasks (Backlog):**
-    *   Implement Real Estate Module (Phases 11-15 from original plan, now deferred).
-    *   Integrate real mature game images.
-    *   Implement Offline Mode & Live Navigation.
-    *   Implement full CRUD for private user paths.
-    *   (PROD) Deploy Quebec Proxy for MFFP WMS access.
-    *   Implement Bathymetry Data.
-    *   Implement WebSocket Sync & Advanced Scoring.
+    *   Analytics Module stabilization (fixing ).
+    *   Real Estate Module.
+    *   Integration of mature game images.
+    *   Offline Mode & Live Navigation.
+    *   Full CRUD for private user paths.
+    -   (PROD) Deploy Quebec Proxy for MFFP WMS access.
+    -   Bathymetry Data.
+    -   WebSocket Sync & Advanced Scoring.
 
 **Completed work in this session**
-- **BIONIC Design System Audit:** Completed the massive, project-wide replacement of all emojis with  icons and standardized components.
-- **Login Flow Fix:** Diagnosed and fixed the user login failure by creating a proper local admin user in the database with the correct schema (, ).
-- **Routing Fix:** Identified and fixed a frontend routing issue where the app was navigating to  instead of the correct .
-- **UX Layout Adjustment:** Modified  to reduce the width of side panels, maximizing the map's viewable area as per user directive.
-- **Phase 6 (Session Heatmap):** Implemented the heatmap feature by creating  and integrating it into the main territory map.
-- **Phase 7 (QA & Stabilization):** Fixed a recurring 520 error on  by correcting Pydantic model mismatches and updating the MongoDB seed data.
-- **Phase 8 (Permissions Audit):** Conducted a full audit of the backend , documenting all roles, permissions, and dependencies.
+- **Phase 9 (Roles Engine Refactor):** Prepared and applied patches to remove emojis and insecure default values in the  module.
+- **Phase 1 (Camera & Ingestion):** Created the  backend module from scratch, with data models, services, and 9 endpoints for camera management and email-based photo ingestion. Implemented and tested all core validation rules.
+- **Phase 2 (Advanced Image Processing):** Added services for advanced EXIF extraction, invalid image detection, and metadata normalization within the . Created automated tests and technical documentation.
+- **Phase 6 (Backend Decoupling):** Refactored  into a pure orchestrator, centralizing all module and router loading into . Performed non-regression testing.
+- **Phases 7-8 (Frontend Modularization):** Overhauled the frontend architecture by creating a central module/route configuration, extracting a modular , and implementing a standardized  and . Fixed a bug in .
+- **Phase 10 (Onboarding Engine):** Implemented a complete, multi-step user onboarding flow as a new, self-contained frontend module at .
 
 **Earlier issues found/mentioned but not fixed**
-*   These are now the target for the current Phase 9 task. They are not missed but identified for correction.
-    *   **Issue 1: Emojis in role labels.**
-        *   **Debug checklist:** Edit  and remove emojis from the  field in .
-        *   **Why to solve this issue:** To ensure 100% compliance with the BIONIC design system which forbids emojis.
-        *   **Should Test frontend/backend/both after fix:** Backend (API endpoints that return role info).
-        *   **Is recurring issue?** N
-    *   **Issue 2: Insecure default JWT_SECRET_KEY.**
-        *   **Debug checklist:** In , remove the hardcoded default secret. The application should rely solely on the environment variable and fail fast if it's not set.
-        *   **Why to solve this issue:** Critical security enhancement to prevent using a default secret in any environment.
-        *   **Should Test frontend/backend/both after fix:** Backend (authentication flow).
-        *   **Is recurring issue?** N
-    *   **Issue 3: Inconsistent default DB_NAME.**
-        *   **Debug checklist:** In , remove the hardcoded default . The application should use the  environment variable which is set to .
-        *   **Why to solve this issue:** Ensures database connection consistency and prevents accidentally connecting to the wrong database.
-        *   **Should Test frontend/backend/both after fix:** Backend.
-        *   **Is recurring issue?** N
+*   **Issue 1: Analytics Module Error**
+    *   **Debug checklist:** Investigate . The error  is likely caused by an issue with how data is passed to the  library or an incorrect hook dependency.
+    *   **Why to solve this issue and what will be achieved with this?** To restore functionality to the analytics dashboard. This task has been explicitly deferred by the user in favor of the Plan MAÎTRE priorities.
+    *   **Should Test frontend/backend/both after fix:** Frontend.
+    *   **Is recurring issue?** N
 
 **Known issue recurrence from previous fork**
 *   None.
@@ -86,59 +84,65 @@ The initial task was a mandatory, project-wide audit and refactor to replace all
 
 
 **Key Technical Concepts**
-*   **Supra-Sécuritaire Workflow:** A non-negotiable, strict, phased development process where the user provides explicit validation for every single step and phase. No agent initiative is allowed.
-*   **Phased Development:** The project progresses through numbered phases (Phase 5, 6, 7, 8, 9...), each with a strict, pre-defined scope.
-*   **Roles-Based Access Control (RBAC):** The backend uses a  module with defined roles (Hunter, Guide, Business, Admin) and granular permissions, enforced by FastAPI dependencies.
-*   **Component-Based UI:** The frontend is built with React, using reusable components. The BIONIC Design System mandates  for icons.
+*   **Supra-Sécuritaire Workflow:** A strict, phased development process where the user provides explicit validation for every single step and phase. No agent initiative is allowed.
+*   **Phased Development (Plan MAÎTRE):** The project progresses through a master plan of numbered phases (e.g., Phase 6, Phase 7-8, Phase 10, Phase 11), each with a strict, pre-defined scope.
+*   **Modular Architecture:** Both backend (FastAPI) and frontend (React) are being built with a highly modular structure. The backend is a pure orchestrator loading independent modules, and the frontend has central registries for modules and routes.
 
 **key DB schema**
-*   **users:** 
-*   **products:**  (schema corrected during Phase 7)
+*   **cameras:** 
+*   **camera_events:** 
+*   **territory_waypoints:** 
 
 **changes in tech stack**
-*   None.
+*    library was added to the backend for data encryption.
 
 **All files of reference**
-*   : The main page for the territory map, where the UX layout was adjusted and the Session Heatmap was integrated.
-*   : The entire module containing the logic for roles and permissions, which is the focus of the current Phase 9.
-*   : Contains the DB seeding logic that was corrected to fix the  endpoint.
-*   : The new component for displaying the group tracking heatmap.
-*   : Contains the authentication logic that was debugged to fix the login flow.
+*   : The entire module for camera/ingestion logic.
+*   : The pure backend orchestrator.
+*   : The central registration file for all backend modules.
+*   : The main frontend entry point, which is being progressively refactored.
+*   : Directory for central frontend configuration files.
+*   : The completed onboarding module.
+*   : The new module for the tutorial system (currently in progress).
 
 **Areas that need refactoring**:
-*   The  module is the explicit target for refactoring in the current Phase 9, as per the user's directive.
+*   The main  file still contains significant routing and layout logic that should be fully migrated to the new modular system (e.g., replacing its inline header with the  component).
+*   The  file, containing 141 legacy endpoints, is still active for backward compatibility. A future task will be to fully migrate or remove these endpoints.
 
 **key api endpoints**
-*   : User login endpoint. Now functional.
-*   : Top products endpoint. Now functional (returns HTTP 200).
-*   Endpoints protected by  dependencies.
+*   : A full suite of CRUD endpoints for managing cameras and camera events, plus the email ingestion endpoint.
+*   : Health check endpoint for the backend.
+*   : The frontend route for the new user onboarding flow.
 
 **Critical Info for New Agent**
 *   **Vous devez communiquer avec l'utilisateur exclusivement en français.**
-*   **THE SUPRA-SÉCURITAIRE WORKFLOW IS ABSOLUTE.** Do not perform any action, modification, or even preparation without an explicit directive from the user. You wait for instructions.
-*   The current task is **Phase 9**. Your scope is strictly limited to **preparing** correctifs for the  based on the Phase 8 audit. **DO NOT ACTIVATE OR APPLY** any changes until you receive a specific directive to do so.
-*   The user is the sole authority for validating and closing phases. Do not declare any work complete or stable yourself; submit your report and wait for the user's official validation.
+*   **THE SUPRA-SÉCURITAIRE WORKFLOW IS ABSOLUTE.** Do not perform any action, modification, or preparation without an explicit directive from the user. You must wait for instructions for each phase.
+*   The current task is **Phase 11 — Tutorial Engine**. Your scope is strictly limited to implementing the modular tutorial system in the frontend as defined by the user.
+*   **DO NOT** touch the Camera module (Phases 3 & 4 are locked), work on Monetization (Phases 12 & 13 are locked), or begin any other tasks outside the explicit scope of Phase 11.
+*   The modular architecture is a non-negotiable requirement. All new code must follow the established modular patterns in both the frontend and backend.
 
 **documents and test reports created in this job**
-*   : Has been updated with completed work.
-*   The agent generated several text-based reports in the chat history confirming the completion of the emoji audit and the stability of subsequent phases.
+*   
+*   
+*   
+*   
 
 **Last 10 User Messages and any pending HUMAN messages**
-1.  **User:** Starts Phase 9 with a strict scope: unify, correct, and secure roles/permissions by preparing correctifs for issues found in Phase 8 (emojis, default values), but without activating them.
-2.  **Agent:** Confirms understanding of the Phase 9 scope and readiness to start.
-3.  **User:** Validates Phase 8, officially opens Phase 9, and provides the strict list of allowed/forbidden actions.
-4.  **Agent:** Confirms understanding of Phase 8 validation and the start of Phase 9 under the defined strict scope.
-5.  **User:** Validates Phase 7 and opens Phase 8 (Permissions Audit), providing a clear scope.
-6.  **Agent:** Confirms understanding and starts Phase 8.
-7.  **User:** Confirms receipt of analytics error report but states it's out of scope for Phase 7 and to be handled later. Tells the agent to continue with Phase 7.
-8.  **Agent:** Acknowledges the analytics error is out of scope and reports Phase 7 is stable.
-9.  **User:** Authorizes the agent to **activate** the Pydantic fix for .
-10. **Agent:** Confirms readiness to activate the fix.
+1.  **User (LATEST):** Validates Phase 10 (Onboarding) and officially opens Phase 11 (Tutorial Engine), providing a strict perimeter and list of deliverables.
+2.  **Agent:** Confirms receipt of the Phase 11 directive and starts work.
+3.  **User:** Validates Phase 8 (Frontend Métier) and confirms the next step is Phase 10.
+4.  **Agent:** Acknowledges the validation and waits for the next directive.
+5.  **User:** Validates Phase 7 (Frontend Core) and opens Phase 8 (Frontend Métier).
+6.  **Agent:** Confirms receipt and starts work on Phase 8.
+7.  **User:** Validates Phase 6 (Backend Decoupling) and opens Phases 7-8 (Frontend Modularization).
+8.  **Agent:** Confirms receipt and starts work on Phases 7-8.
+9.  **User:** Suspends further work on the Camera module, reintegrates it into the Master Plan, and directs the agent to start Phase 6 (Backend Decoupling).
+10. **Agent:** Acknowledges the change in priority and pivots to Phase 6.
 
 **Project Health Check:**
-*   **Running:** Yes. Backend and frontend services are running.
-*   **Broken:** The login flow and  endpoint, which were previously broken, have been fixed. There is a known, non-blocking JavaScript error () on the out-of-scope Analytics tab. There are also several 404 errors for unimplemented API endpoints, which are expected at this stage.
-*   **Mocked:** Product data is mocked via a seeding script. Group tracking data has been mocked for testing purposes.
+*   **Running:** Yes
+*   **Broken:** The Analytics tab has a known, non-blocking JavaScript error (). This has been deferred by the user.
+*   **Mocked:** Product data is from a seeding script. Test data for cameras, waypoints, and email ingestion has been used via .
 
 **3rd Party Integrations**
 *   OpenAI GPT-5.2 (via Emergent LLM Key)
@@ -152,11 +156,13 @@ The initial task was a mandatory, project-wide audit and refactor to replace all
 **Testing status**
 *   **Testing agent used after significant changes:** NO
 *   **Troubleshoot agent used after agent stuck in loop:** NO
-*   **Test files created:** No formal test files. Testing was conducted via  for the backend,  for code analysis, and the  tool for the frontend.
-*   **Known regressions:** None. The fixes implemented have been validated and have not appeared to break other functionalities.
+*   **Test files created:**
+    *   
+    *   
+*   **Known regressions:** None.
 
 **Credentials to test flow:**
-*   **Admin Login:**  /  (This is now functional).
+*   **Admin Login:**  / 
 
 **What agent forgot to execute**
 *   Nothing. The agent has been adhering strictly to the user's supra-sécuritaire workflow and has not deviated from the explicit, sequential directives.</analysis>

@@ -266,7 +266,7 @@ Les endpoints admin utilisent l'authentification existante.
         },
         "servers": [
             {
-                "url": "https://huntiq-v3.preview.emergentagent.com",
+                "url": "https://bionic-tutorial.preview.emergentagent.com",
                 "description": "Preview Server"
             }
         ],
