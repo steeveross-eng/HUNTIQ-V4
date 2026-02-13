@@ -9,7 +9,7 @@ import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Crosshair, Sparkles, Check, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Logo } from '@/components/Logo';
+import BionicLogo from '@/components/BionicLogo';
 import { useOnboarding } from '../hooks/useOnboarding';
 import { useUserProfile } from '../hooks/useUserProfile';
 import { OnboardingStep } from './OnboardingStep';
@@ -30,7 +30,7 @@ const WelcomeStep = ({ onNext, onSkip }) => (
     <div className="relative z-10 text-center max-w-lg">
       {/* Logo */}
       <div className="mb-8">
-        <Logo size="lg" />
+        <BionicLogo size="lg" />
       </div>
       
       {/* Icon */}
