@@ -12,9 +12,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/components/GlobalAuth';
 import { Button } from '@/components/ui/button';
-import { Logo } from '@/components/Logo';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
-import { UserMenu } from '@/components/UserMenu';
+import BionicLogo from '@/components/BionicLogo';
+import { LanguageSwitcher } from '@/contexts/LanguageContext';
+import { UserMenu } from '@/components/GlobalAuth';
 import {
   Home, BarChart3, Brain, TrendingUp, Target, Radar, Map, Globe,
   Crosshair, FlaskConical, Store, Briefcase, Lock, ShoppingCart,
@@ -184,7 +184,7 @@ const BionicHeader = ({ cartCount = 0, onCartOpen }) => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <Logo />
+            <BionicLogo />
           </Link>
           
           {/* Desktop Navigation - BIONIC TACTICAL Style */}
